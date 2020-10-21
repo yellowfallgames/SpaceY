@@ -234,21 +234,22 @@ Son los siguientes:
     distinta) Ajustar la frecuencia. (Con la cámara desorientada el Supervisor no puede ver
     qué está pasando)
 - **Botón:**
-    Confirmar acción importante (como un lanzamiento de cohete, o enviar recursos).
-       ● Enviar Oxígeno(recurso):
-       ● Enviar Comida(recurso):
-       ● Enviar Materiales(recurso):
-**- Pilotos:**
+    Confirmar acción importante (como un lanzamiento de cohete, o enviar recursos).    
+       ● Enviar Oxígeno(recurso).    
+       ● Enviar Comida(recurso).    
+       ● Enviar Materiales(recurso).    
+       
+- **Pilotos:**
     Son unos marcadores que el stelonauta activa desde Marte en función de sus
-    necesidades para que el Supervisor provea de recursos:
-       ● TERRAFORMADOR (gota agua): solución reparar en Marte
-       ● COMUNICACIONES (señal) : solución teclear en Marte
-       ● PLACAS ENERGÍA : solución limpiar en Marte
-       ● BASE/ESCUDOS : solución reparar en Marte
-       ● ESTACIÓN DE TRANSPORTE : solución clickar en Marte
-       ● OXÍGENO : solución enviar O
-       ● HAMBRE: solución enviar comida (Pan de molde y mayonesa)
-       ● MATERIALES: solución enviar materiales
+    necesidades para que el Supervisor provea de recursos:    
+       ● TERRAFORMADOR (gota agua): solución reparar en Marte    
+       ● COMUNICACIONES (señal) : solución teclear en Marte    
+       ● PLACAS ENERGÍA : solución limpiar en Marte    
+       ● BASE/ESCUDOS : solución reparar en Marte    
+       ● ESTACIÓN DE TRANSPORTE : solución clickar en Marte    
+       ● OXÍGENO : solución enviar O    
+       ● HAMBRE: solución enviar comida (Pan de molde y mayonesa)    
+       ● MATERIALES: solución enviar materiales    
 
 
 **Mapa meteorológico:**
