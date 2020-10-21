@@ -235,9 +235,9 @@ Son los siguientes:
     qué está pasando)
 - **Botón:**
     Confirmar acción importante (como un lanzamiento de cohete, o enviar recursos).    
-            ● Enviar Oxígeno(recurso).    
-            ● Enviar Comida(recurso).    
-            ● Enviar Materiales(recurso).    
+       ● Enviar Oxígeno(recurso).    
+       ● Enviar Comida(recurso).    
+       ● Enviar Materiales(recurso).    
        
 - **Pilotos:**
     Son unos marcadores que el stelonauta activa desde Marte en función de sus
@@ -252,26 +252,27 @@ Son los siguientes:
        ● MATERIALES: solución enviar materiales    
 
 
-**Mapa meteorológico:**
+**Mapa meteorológico:**    
+
 Solo te informa de algo inminente que va a ocurrir en Marte con un periodo de antelación. Estos
 son eventos que ocurren sí o sí y el stelonauta no tiene manera de predecirlo hasta que lo tiene
-encima. Son los siguientes:
-● Tormenta de arena:
+encima. Son los siguientes:    
+● Tormenta de arena:    
+- Baja el oxígeno más rápido si estás fuera, pero te puedes mover.    
+- Disminuye la barra del hambre.    
+- Llena de polvo algunas zonas.    
+- Vas más lento.    
+- La antena se puede desorientar 45%    
+● Lluvia de meteoritos:    
+- Los paquetes no llegan.    
+- Si estás fuera y no tienes escudo, te mueres    
+- Puede destrozar algunas zonas. Será necesario repararlas.    
+- La antena se puede desorientar 80%    
 
-- Baja el oxígeno más rápido si estás fuera, pero te puedes mover.
-- Disminuye la barra del hambre.
-- Llena de polvo algunas zonas.
-- Vas más lento.
-- La antena se puede desorientar 45%
-● Lluvia de meteoritos:
-- Los paquetes no llegan.
-- Si estás fuera y no tienes escudo, te mueres
-- Puede destrozar algunas zonas. Será necesario repararlas.
-- La antena se puede desorientar 80%
 **Eventos aleatorios:**
-Se notifica al jugador de alguna manera, por mensaje o con feedback visual (polvo, sonidos, etc)
-● Teclear rápido: rellenar formularios, programar.
-● Clickar rápido: poner sellos, botón atascado.
+Se notifica al jugador de alguna manera, por mensaje o con feedback visual (polvo, sonidos, etc)    
+● Teclear rápido: rellenar formularios, programar.    
+● Clickar rápido: poner sellos, botón atascado.    
 
 
 **MARTE
