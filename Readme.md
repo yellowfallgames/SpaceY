@@ -190,25 +190,29 @@ _-Conquistando Marte (Disney, 2006)
 
 El jugador de tierra tiene acceso desde un terminal a varias aplicaciones desde las que podrá
 realizar una serie de acciones.    
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaRecom.png?raw=true)
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/supervisor_interfaz.png?raw=true)
 (posible interfaz del jugador de Tierra)    
 
 **Aplicaciones:**    
 **Envío de paquetes:**
-(RECURSOS: oxígeno, comida, materiales para construir/reparar)
-PANEL IZQUIERDA
+(RECURSOS: oxígeno, comida, materiales para construir/reparar)    
+PANEL IZQUIERDA    
+
 **Cámara de control:**
-Panel con minimapa del cráter de Marte.
-(se ve el cráter, con mini-iconos para las zonas y el pj)
-PANEL ABAJO IZQUIERDA
+Panel con minimapa del cráter de Marte.    
+(se ve el cráter, con mini-iconos para las zonas y el pj)    
+PANEL ABAJO IZQUIERDA    
+
 **Estado de máquinas:**
-Son Pilotos que se activan y desactivan en función de las necesidades del stelonauta.
-(INVERNADERO, COMUNICACIONES, PLACAS SOLARES, BASE/ESCUDOS, ESTACIÓN DE TRANSPORTE)
-Extras (PILOTO OXÍGENO, PILOTO HAMBRE, MATERIALES, ENERGÍA EN MARTE)
-ABAJO DERECHA
+Son Pilotos que se activan y desactivan en función de las necesidades del stelonauta.    
+(INVERNADERO, COMUNICACIONES, PLACAS SOLARES, BASE/ESCUDOS, ESTACIÓN DE TRANSPORTE)    
+Extras (PILOTO OXÍGENO, PILOTO HAMBRE, MATERIALES, ENERGÍA EN MARTE)     
+ABAJO DERECHA     
+
 **Mapa meteorológico:**
-Mensajes de alerta con iconos
-(TORMENTAS DE ARENA, LLUVIA ASTEROIDES)ARRIBA DERECHA
+Mensajes de alerta con iconos.    
+(TORMENTAS DE ARENA, LLUVIA ASTEROIDES)     
+ARRIBA DERECHA     
 
 
 **Recursos:**
