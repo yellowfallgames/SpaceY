@@ -159,13 +159,13 @@ posición.
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/xp_jugador.png?raw=true)
 
 
-**Supervisor**    
+**Supervisor:**
 Si controlas al supervisor, tendrás que supervisar tareas de central, una sensación de estrés por
 querer tomar la decisión correcta para la misión pero satisfacción en los momentos que hayas
 ayudado a tu compañero en Marte. Tu objetivo es mantener la situación bajo control y liarla lo
 menos posible. Papeleo, control del tiempo, supervisión de los registros de la misión.    
 
-**Stelonauta**    
+**Stelonauta:**
 Si eres el stelonauta, tu objetivo principal es sobrevivir y completar las tareas de
 terraformación. Dependerás de la comunicación con el supervisor puesto que éste te comunica
 qué debes hacer en todo momento. Cuidado con las tormentas de arena, vigila tus recursos...    
@@ -173,7 +173,7 @@ qué debes hacer en todo momento. Cuidado con las tormentas de arena, vigila tus
 **Directrices del gameplay**    
 El juego está destinado a un público joven (13-35 años), su estética futurista se utilizará para
 contentar al público más adulto. Se procura un acercamiento realista pero sin comprometer el
-gameplay del juego, por lo que se tomarán ciertas libertades creativas.
+gameplay del juego, por lo que se tomarán ciertas libertades creativas.    
 En pos del realismo se ha realizado una documentación teniendo los siguientes documentales
 como referencia:  
 _-Conquistando Marte (Disney, 2006)  
