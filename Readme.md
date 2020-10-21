@@ -135,7 +135,7 @@ El juego requerirá un mínimo de dos jugadores y se jugará en los siguientes m
     stelonauta en Marte.  
 **- Cooperativo - competitivo por equipos (más de 2 jugadores):**
     Por cada equipo habrá un supervisor de la centralita y el resto serán los
-    stelonautas en Marte.    
+    stelonautas en Marte.      
 **Dinámicas clave:**
 - **Socialización** ​ mediante la comunicación y la cooperación
 - **Terraformar** ​ el planeta y ver cómo evoluciona
@@ -163,12 +163,12 @@ El juego está destinado a un público joven (13-35 años), su estética futuris
 contentar al público más adulto. Se procura un acercamiento realista pero sin comprometer el
 gameplay del juego, por lo que se tomarán ciertas libertades creativas.
 En pos del realismo se ha realizado una documentación teniendo los siguientes documentales
-como referencia:
-_-Conquistando Marte (Disney, 2006)
+como referencia:  
+_-Conquistando Marte (Disney, 2006)  
 -Marte, dentro del Falcon Heavy (National Geographic, 2018)_
 
 
-**Objetivos del juego y recompensas**
+**Objetivos del juego y recompensas**  
 **Recompensas**
 Completar tarea de
 terraformación :
@@ -215,8 +215,8 @@ dañan (POLVO, METEORITOS,
 ENERGÍA BAJA)
 
 
-**Mecánicas
-TIERRA**
+**Mecánicas**  
+**TIERRA**
 El jugador de tierra tiene acceso desde un terminal a varias aplicaciones desde las que podrá
 realizar una serie de acciones.
 (posible interfaz del jugador de Tierra)
