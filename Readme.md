@@ -177,6 +177,7 @@ terraformación :
     de porcentaje de
     terraformación.
 - Efecto visual  
+
 Superar las distintas
 adversidades que ocurren en
 Marte (tormentas de arena,
