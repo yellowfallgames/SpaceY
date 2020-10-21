@@ -113,8 +113,8 @@ brillante futuro para la supervivencia de Kospolita. Pero si fallan, se perderá
 más difícil conseguirlo. Dios no lo quiera, pero si todo va mal nos quedaremos sin inversores ni
 futuro.
 De todas formas confiamos en que se trabaje codo con codo construyendo,
-literalmente, nuestro futuro en una moderna base marciana.  
-**Stelonauta:** ​Es callado, aventurero y obediente. Le gusta la soledad y la mayonesa.  
+literalmente, nuestro futuro en una moderna base marciana.    
+**Stelonauta:** ​Es callado, aventurero y obediente. Le gusta la soledad y la mayonesa.    
 **Supervisor:** ​Le gusta controlar las cosas y pulsar botones. Ha llegado muy alto siguiendo estos
 principios.
 
@@ -155,11 +155,11 @@ posición.
 Si controlas al supervisor, tendrás que supervisar tareas de central, una sensación de estrés por
 querer tomar la decisión correcta para la misión pero satisfacción en los momentos que hayas
 ayudado a tu compañero en Marte. Tu objetivo es mantener la situación bajo control y liarla lo
-menos posible. Papeleo, control del tiempo, supervisión de los registros de la misión
+menos posible. Papeleo, control del tiempo, supervisión de los registros de la misión.    
 **Stelonauta**
 Si eres el stelonauta, tu objetivo principal es sobrevivir y completar las tareas de
 terraformación. Dependerás de la comunicación con el supervisor puesto que éste te comunica
-qué debes hacer en todo momento. Cuidado con las tormentas de arena, vigila tus recursos...
+qué debes hacer en todo momento. Cuidado con las tormentas de arena, vigila tus recursos...    
 **Directrices del gameplay**
 El juego está destinado a un público joven (13-35 años), su estética futurista se utilizará para
 contentar al público más adulto. Se procura un acercamiento realista pero sin comprometer el
@@ -171,7 +171,7 @@ _-Conquistando Marte (Disney, 2006)
 
 
 **Objetivos del juego y recompensas**
-Recompensas Penalizaciones Dificultades
+**Recompensas**
 Completar tarea de
 terraformación :
 
@@ -191,6 +191,8 @@ Completar al 100% la
 terraformación de marte:
 - Es la condición de
 victoria
+
+**Penalizaciones**
 Tiempo límite (26 meses)
 Acumulación de tareas(limpiar
 polvo, arreglar artefacto, tarea
@@ -205,6 +207,8 @@ Mala gestión de los recursos (en
 Tierra y Marte)
 Se dañan los artefactos
 tecnológicos.
+
+**Dificultades**
 - Tareas de terraformación +
 tiempo límite
 - Tareas de terraformación +
