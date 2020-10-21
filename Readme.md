@@ -119,7 +119,7 @@ literalmente, nuestro futuro en una moderna base marciana.
 **Stelonauta:** ​Es callado, aventurero y obediente. Le gusta la soledad y la mayonesa.    
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/stelonauta_concept.png?raw=true)
 
-**Supervisor:** ​Le gusta controlar las cosas y pulsar botones. Ha llegado muy alto siguiendo estos principios.
+**Supervisor:** ​Le gusta controlar las cosas y pulsar botones. Ha llegado muy alto siguiendo estos principios.    
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/supervisor_concept.png?raw=true)
 
 
