@@ -113,8 +113,8 @@ brillante futuro para la supervivencia de Kospolita. Pero si fallan, se perderá
 más difícil conseguirlo. Dios no lo quiera, pero si todo va mal nos quedaremos sin inversores ni
 futuro.
 De todas formas confiamos en que se trabaje codo con codo construyendo,
-literalmente, nuestro futuro en una moderna base marciana.
-**Stelonauta:** ​Es callado, aventurero y obediente. Le gusta la soledad y la mayonesa.
+literalmente, nuestro futuro en una moderna base marciana.  
+**Stelonauta:** ​Es callado, aventurero y obediente. Le gusta la soledad y la mayonesa.  
 **Supervisor:** ​Le gusta controlar las cosas y pulsar botones. Ha llegado muy alto siguiendo estos
 principios.
 
