@@ -271,7 +271,7 @@ encima. Son los siguientes:
 - Puede destrozar algunas zonas. Será necesario repararlas.    
 - La antena se puede desorientar 80%    
 
-**Eventos aleatorios:**
+**Eventos aleatorios:**    
 Se notifica al jugador de alguna manera, por mensaje o con feedback visual (polvo, sonidos, etc)    
 ● Teclear rápido: rellenar formularios, programar.    
 ● Clickar rápido: poner sellos, botón atascado.    
@@ -314,7 +314,11 @@ desconfigurada)
 - Clickar rápido: limpiar maquinaria de polvo (tras tormenta).    
 
 
-**Atributos de los personajes**^
+**Atributos de los personajes**    
+
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaAtribPers.png?raw=true)
+
+
 **Personaje Habilidades
 Controlador (Tierra)**
 
