@@ -129,8 +129,9 @@ literalmente, nuestro futuro en una moderna base marciana.
 
 Es una mezcla entre “Keep talking and nobody Explodes”, “SpaceTeam”, “Papers Please”,
 “Among Us” y “Surviving Mars”. Se diferencia principalmente en que el jugador de marte tiene
-acción en tiempo real.
-El juego estará disponible para navegador. (A través de Itch.io)
+acción en tiempo real.    
+El juego estará disponible para navegador. (A través de Itch.io)    
+
 El juego requerirá un mínimo de dos jugadores y se jugará en los siguientes modos:
 
 **- Cooperativo LOCAL (2 jugadores):**
@@ -142,29 +143,34 @@ El juego requerirá un mínimo de dos jugadores y se jugará en los siguientes m
 **- Cooperativo - competitivo por equipos (más de 2 jugadores):**
     Por cada equipo habrá un supervisor de la centralita y el resto serán los
     stelonautas en Marte.      
+    
 **Dinámicas clave:**
 - **Socialización** ​ mediante la comunicación y la cooperación
 - **Terraformar** ​ el planeta y ver cómo evoluciona
 - **Competición** ​ amistosa entre equipos
 
 
-**Experiencia de Jugador**
+**Experiencia de Jugador**    
+
 Ventana de título y pequeña introducción con el lanzamiento de un cohete atravesando la
-órbita de Marte.
+órbita de Marte.    
 Primero seleccionarás el avatar y el puesto que ocupas. Tu experiencia será diferente según tu
-posición.
+posición.    
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/xp_jugador.png?raw=true)
 
 
-**Supervisor**
+**Supervisor**    
 Si controlas al supervisor, tendrás que supervisar tareas de central, una sensación de estrés por
 querer tomar la decisión correcta para la misión pero satisfacción en los momentos que hayas
 ayudado a tu compañero en Marte. Tu objetivo es mantener la situación bajo control y liarla lo
 menos posible. Papeleo, control del tiempo, supervisión de los registros de la misión.    
-**Stelonauta**
+
+**Stelonauta**    
 Si eres el stelonauta, tu objetivo principal es sobrevivir y completar las tareas de
 terraformación. Dependerás de la comunicación con el supervisor puesto que éste te comunica
 qué debes hacer en todo momento. Cuidado con las tormentas de arena, vigila tus recursos...    
-**Directrices del gameplay**
+
+**Directrices del gameplay**    
 El juego está destinado a un público joven (13-35 años), su estética futurista se utilizará para
 contentar al público más adulto. Se procura un acercamiento realista pero sin comprometer el
 gameplay del juego, por lo que se tomarán ciertas libertades creativas.
