@@ -18,21 +18,21 @@ Integrantes del desarrollo
 --------------------------
 
 Nombre y Apellidos: Manuel Mantecón Polo  
-Correo: m.mantecon.2018@alumnos.urjc.es
-Github: manutoarts
-
-Nombre y Apellidos: Sofía de Vega Giménez
-Correo: s.devegag.2018@alumnos.urjc.es
-Github: sofiadevega
-
+Correo: m.mantecon.2018@alumnos.urjc.es  
+Github: manutoarts  
+  
+Nombre y Apellidos: Sofía de Vega Giménez  
+Correo: s.devegag.2018@alumnos.urjc.es  
+Github: sofiadevega  
+  
 Nombre y Apellidos: José Ignacio Pintado Murillo  
-Correo: ji.pintado.2018@alumnos.urjc.es
-Github: PepePm
-
-Nombre y Apellidos: Jacques David Meyns Villaldea
-Correo: jd.meyns.2018@alumnos.urjc.es
-Github: Jacquesmeyns
-
+Correo: ji.pintado.2018@alumnos.urjc.es  
+Github: PepePm  
+  
+Nombre y Apellidos: Jacques David Meyns Villaldea  
+Correo: jd.meyns.2018@alumnos.urjc.es  
+Github: Jacquesmeyns  
+  
 Trello
 ------
 
