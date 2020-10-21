@@ -257,12 +257,14 @@ Son los siguientes:
 Solo te informa de algo inminente que va a ocurrir en Marte con un periodo de antelación. Estos
 son eventos que ocurren sí o sí y el stelonauta no tiene manera de predecirlo hasta que lo tiene
 encima. Son los siguientes:    
-● Tormenta de arena:    
+
+● Tormenta de arena:  
 - Baja el oxígeno más rápido si estás fuera, pero te puedes mover.    
 - Disminuye la barra del hambre.    
 - Llena de polvo algunas zonas.    
 - Vas más lento.    
 - La antena se puede desorientar 45%    
+
 ● Lluvia de meteoritos:    
 - Los paquetes no llegan.    
 - Si estás fuera y no tienes escudo, te mueres    
@@ -275,38 +277,41 @@ Se notifica al jugador de alguna manera, por mensaje o con feedback visual (polv
 ● Clickar rápido: poner sellos, botón atascado.    
 
 
-**MARTE
-Mecánicas:**
+**MARTE**    
+**Mecánicas:**    
 
-- Moverse.
-- Recolectar recursos.
-- Interactuar (reparar, limpiar, teclear, clicar).
-- Comunicar : estado propio estado de las zonas.
-- Activar/desactivar. (apagar o encender una máquina)
-- Reparar/Limpiar (interactuar con botón).
-**Zonas:**
-Tienen 2 estados básicos (rota/funcionando).
-● Si está rota hay que repararla usando materiales.
-● Si está funcionando, hace su tarea correctamente.
+- Moverse.    
+- Recolectar recursos.    
+- Interactuar (reparar, limpiar, teclear, clicar).    
+- Comunicar : estado propio estado de las zonas.    
+- Activar/desactivar. (apagar o encender una máquina)    
+- Reparar/Limpiar (interactuar con botón).    
+
+**Zonas:**    
+Tienen 2 estados básicos (rota/funcionando).    
+● Si está rota hay que repararla usando materiales.    
+● Si está funcionando, hace su tarea correctamente.    
+
 1. TERRAFORMADOR: Minijuego activo (teclear y/o clickar, drag(palanca). Da puntos
-automáticamente para ganar la partida.
+automáticamente para ganar la partida.    
 2. COMUNICACIONES: permite que los pilotos de necesidad se enciendan y el estado de marte. Si
-coge polvo o se jode por los meteoritos hay que reparar. Cuesta materiales.
-3. PLACAS ENERGÍA SOLAR: Suministran energía a la base.
-- Estados: funcionando-sucio-roto
+coge polvo o se jode por los meteoritos hay que reparar. Cuesta materiales.    
+3. PLACAS ENERGÍA SOLAR: Suministran energía a la base.    
+- Estados: funcionando-sucio-roto    
 - Si cogen polvo, hay que limpiarlas antes de que la energía se agote (barra que
-baja)(Estado: sucio).
-- Si se rompen, no funciona nada, hay que repararlas. Esto tiene un coste en materiales.
+baja)(Estado: sucio).    
+- Si se rompen, no funciona nada, hay que repararlas. Esto tiene un coste en materiales.    
 4. BASE/ESCUDOS: Protegen de amenazas exteriores (tormenta de arena, meteoritos, etc) y
-cuestan energía.
+cuestan energía.    
 5. ESTACIÓN DE TRANSPORTE: : Enviar y recoger recursos de la Tierra. Recoges O2, comida,
-materiales de construcción y puedes enviar materiales de Marte.
+materiales de construcción y puedes enviar materiales de Marte.    
 6. MINA: Proporciona recursos a Marte. Estos recursos se pueden mandar a la Tierra, donde se
-transforman en nuevos recursos que enviar al stelonauta.
+transforman en nuevos recursos que enviar al stelonauta.    
+
 **Eventos aleatorios:**
 - Teclear rápido: re-orientar antena (después de lluvia de meteoritos está
-desconfigurada)
-- Clickar rápido: limpiar maquinaria de polvo (tras tormenta).
+desconfigurada)    
+- Clickar rápido: limpiar maquinaria de polvo (tras tormenta).    
 
 
 **Atributos de los personajes**^
