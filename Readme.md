@@ -235,9 +235,9 @@ Son los siguientes:
     qué está pasando)
 - **Botón:**
     Confirmar acción importante (como un lanzamiento de cohete, o enviar recursos).    
-       ● Enviar Oxígeno(recurso).    
-       ● Enviar Comida(recurso).    
-       ● Enviar Materiales(recurso).    
+            ● Enviar Oxígeno(recurso).    
+            ● Enviar Comida(recurso).    
+            ● Enviar Materiales(recurso).    
        
 - **Pilotos:**
     Son unos marcadores que el stelonauta activa desde Marte en función de sus
