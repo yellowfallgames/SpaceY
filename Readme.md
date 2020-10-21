@@ -169,14 +169,14 @@ _-Conquistando Marte (Disney, 2006)
 
 
 **Objetivos del juego y recompensas**  
-**Recompensas**
+**Recompensas**  
 Completar tarea de
 terraformación :
 
 - Llenado parcial de barra
     de porcentaje de
     terraformación.
-- Efecto visual
+- Efecto visual  
 Superar las distintas
 adversidades que ocurren en
 Marte (tormentas de arena,
@@ -184,7 +184,7 @@ meteoritos ...):
 - efecto visual de disipar
 tormenta. Vuelta a la
 calma.
-- Sonido.
+- Sonido.  
 Completar al 100% la
 terraformación de marte:
 - Es la condición de
