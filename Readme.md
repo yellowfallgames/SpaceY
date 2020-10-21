@@ -186,12 +186,15 @@ _-Conquistando Marte (Disney, 2006)
 
 
 **Mecánicas**  
-**TIERRA**
+**TIERRA**    
+
 El jugador de tierra tiene acceso desde un terminal a varias aplicaciones desde las que podrá
-realizar una serie de acciones.
-(posible interfaz del jugador de Tierra)
-**Aplicaciones:
-Envío de paquetes:**
+realizar una serie de acciones.    
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaRecom.png?raw=true)
+(posible interfaz del jugador de Tierra)    
+
+**Aplicaciones:**    
+**Envío de paquetes:**
 (RECURSOS: oxígeno, comida, materiales para construir/reparar)
 PANEL IZQUIERDA
 **Cámara de control:**
