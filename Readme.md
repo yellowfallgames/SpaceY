@@ -108,8 +108,6 @@ necesarios.
 El objetivo es llevar a cabo progresos en Marte para que los inversores se queden
 tranquilos. Con cada avance que se consigue, el stelonauta y su camarada en Tierra aseguran un
 brillante futuro para la supervivencia de Kospolita. Pero si fallan, se perderán inversores y será
-
-
 más difícil conseguirlo. Dios no lo quiera, pero si todo va mal nos quedaremos sin inversores ni
 futuro.
 De todas formas confiamos en que se trabaje codo con codo construyendo,
@@ -131,13 +129,13 @@ El juego requerirá un mínimo de dos jugadores y se jugará en los siguientes m
 
 **- Cooperativo LOCAL (2 jugadores):**
     Un jugador asumirá el rol de supervisor de la centralita y el otro será el
-    stelonauta en Marte.
+    stelonauta en Marte.  
 **- Cooperativo ONLINE (2 jugadores):**
     Un jugador asumirá el rol de supervisor de la centralita y el otro será el
-    stelonauta en Marte.
+    stelonauta en Marte.  
 **- Cooperativo - competitivo por equipos (más de 2 jugadores):**
     Por cada equipo habrá un supervisor de la centralita y el resto serán los
-    stelonautas en Marte.
+    stelonautas en Marte.    
 **Dinámicas clave:**
 - **Socialización** ​ mediante la comunicación y la cooperación
 - **Terraformar** ​ el planeta y ver cómo evoluciona
