@@ -217,22 +217,23 @@ ARRIBA DERECHA
 
 **Recursos:**
 Son finitos, se rellenan automáticamente con el tiempo y puedes ir enviando en función de si
-tienes suficientes para ello. Si desde marte te envían recursos, éstos se rellenan más rápido.
-**Actividades/minijuegos** ​:
+tienes suficientes para ello. Si desde marte te envían recursos, éstos se rellenan más rápido.    
+
+**Actividades/minijuegos**:
 Distintos minijuegos que se tienen que realizar para poder llevar a cabo determinadas acciones.
 Son los siguientes:
 
-**- Switches** ​ **:**
+- **Switches:**
     activar/desactivar escudos(CONSUME ENERGÍA, paneles limpios y arreglados)
     P.e: tormenta de asteroides- vete para base - activar escudo cuando llegue. Consume
     mucha energía.
-**- Sliders** ​ **:**
+- **Sliders:**
     Nivel de potencia, cantidad de datos, cantidad de suministros, ajustar la frecuencia de
     radio/meteorología.
-- **Cámara desorientada** ​ **:** La cámara a veces se desenfoca/ruido blanco (a una frecuencia
+- **Cámara desorientada:** La cámara a veces se desenfoca/ruido blanco (a una frecuencia
     distinta) Ajustar la frecuencia. (Con la cámara desorientada el Supervisor no puede ver
     qué está pasando)
-- **Botón** ​ **:**
+- **Botón:**
     Confirmar acción importante (como un lanzamiento de cohete, o enviar recursos).
        ● Enviar Oxígeno(recurso):
        ● Enviar Comida(recurso):
