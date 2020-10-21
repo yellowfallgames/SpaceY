@@ -184,52 +184,6 @@ _-Conquistando Marte (Disney, 2006)
 
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaRecom.png?raw=true)
 
-**Recompensas**  
-Completar tarea de
-terraformación :
-
-- Llenado parcial de barra
-    de porcentaje de
-    terraformación.
-- Efecto visual  
-
-Superar las distintas
-adversidades que ocurren en
-Marte (tormentas de arena,
-meteoritos ...):
-- efecto visual de disipar
-tormenta. Vuelta a la
-calma.
-- Sonido.  
-Completar al 100% la
-terraformación de marte:
-- Es la condición de
-victoria
-
-**Penalizaciones**
-Tiempo límite (26 meses)
-Acumulación de tareas(limpiar
-polvo, arreglar artefacto, tarea
-terraformación, enviar recursos a
-tierra)
-Durabilidad de los artefactos
-tecnológicos
-Fenómenos metereológicos
-Comunicación pobre entre
-supervisor - stelonauta
-Mala gestión de los recursos (en
-Tierra y Marte)
-Se dañan los artefactos
-tecnológicos.
-
-**Dificultades**
-- Tareas de terraformación +
-tiempo límite
-- Tareas de terraformación +
-tiempo límite + artefactos que se
-dañan (POLVO, METEORITOS,
-ENERGÍA BAJA)
-
 
 **Mecánicas**  
 **TIERRA**
