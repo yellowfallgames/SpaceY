@@ -319,76 +319,17 @@ desconfigurada)
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaAtribPers.png?raw=true)
 
 
-**Personaje Habilidades
-Controlador (Tierra)**
 
-- Envío de paquetes con recursos
-- Controlar qué hace el stelonauta
-    mediante los paneles de control.
-- Comprobar el estado de máquinas
-- Controlar la meteorología de Marte
-**Stelonauta (Marte)** - Moverse.
-- Recolectar recursos.
-- Interactuar (reparar, limpiar, teclear,
-clicar)
-- Comunicar el estado propio y el estado
-de las zonas.
-**Game Modes
-Fases de terraformación.**
-La terraformación de Marte se divide en 4 fases.
-Estas fases tienen una dificultad progresiva y
-ocurren conforme vas progresando en la
-terraformación.
-Estas fases son:
-● **Fase 0:** El juego no tiene apenas dificultad,
-esta fase acaba cuando el progreso de la
-barra de terraformación llega al 25%.
-● **Fase 1:** Aparecen los eventos
-metereológicos. Finaliza al llegar al 50%
-de terraformación.
+**Game Modes**    
 
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaFasesT.png?raw=true)
 
-● **Fase 2:** EL juego se complica más y los
-eventos ocurren con más periodicidad.
-Hasta el 75%.
-● **Fase 3** ​: Máxima dificultad de juego, finaliza
-tras llegar al 100% (es decir, ganar) o al
-perder.
 **Sistema de puntuación**^
-**Puntuación Descripción
-Puntos de terraformación.
-CONDICIÓN DE DERROTA:
-CONDICIÓN DE VICTORIA:**
-_Cada 26 meses es cuando nos alineamos con
-Marte y la distancia es más corta. De este
-modo tendremos el combustible necesario
-para que el viaje se haga en tan solo de 6
-meses hasta la Tierra._
-Son los puntos que necesitas para obtener la
-victoria. Están relacionados con la progresión de la
-terraformación en Marte y sus fases de dificultad.
-Muere en una tormenta de meteoritos.
-Pasados 26 meses no llegues al 100% de
-terraformación.
-_Ten el nivel de terraformación por encima del
-100% antes de 26 meses.
-El período de estancia de Marte dura 26 meses
-independientemente de si se ha completado o
-no al 100% su terraformación.
-Si el stelonauta completa la totalidad de las
-tareas terraformadoras tendrá que mantener
-el planeta hasta que terminen los 26 meses ,
-es decir, hacer tareas extra para mantener la
-barra de terraformación al 100%.
-Si el stelonauta descuida la base tras
-completar la terraformación , la barra
-disminuirá , por tanto, es necesario que se
-sigan realizando las tareas (p.e. arreglar la
-maquinaria que se vaya estropeando )_
+
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaPuntuacion.png?raw=true)
 
 
-# Diagrama de fuentes, recursos y conversores
-
+# Diagrama de fuentes, recursos y conversores    
 
 **Diseño de nivel
 Escenas**^
