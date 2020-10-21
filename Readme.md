@@ -181,6 +181,9 @@ _-Conquistando Marte (Disney, 2006)
 
 
 **Objetivos del juego y recompensas**  
+
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaRecom.png?raw=true)
+
 **Recompensas**  
 Completar tarea de
 terraformación :
