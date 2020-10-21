@@ -105,12 +105,14 @@ El mundo está en crisis después de varios desastres de origen humano. Las corp
 siguen en pie pero quieren invertir en algo que tenga futuro. Entre todas las ideas destaca el
 programa espacial de Kospolita desarrollado por la empresa Space-y , que tiene la vista puesta
 en Marte y promete llevarnos a todos al planeta rojo en un par de años si consiguen los fondos
-necesarios.  
+necesarios. 
+
 El objetivo es llevar a cabo progresos en Marte para que los inversores se queden
 tranquilos. Con cada avance que se consigue, el stelonauta y su camarada en Tierra aseguran un
 brillante futuro para la supervivencia de Kospolita. Pero si fallan, se perderán inversores y será
 más difícil conseguirlo. Dios no lo quiera, pero si todo va mal nos quedaremos sin inversores ni
 futuro.  
+
 De todas formas confiamos en que se trabaje codo con codo construyendo,
 literalmente, nuestro futuro en una moderna base marciana.    
 **Stelonauta:** ​Es callado, aventurero y obediente. Le gusta la soledad y la mayonesa.    
