@@ -1,6 +1,6 @@
 SPACE Y
 =======
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/resources/img/main.png?raw=true)
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/main.png?raw=true)
 
 Nombre del juego
 ----------------
