@@ -329,61 +329,29 @@ desconfigurada)
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaPuntuacion.png?raw=true)
 
 
-# Diagrama de fuentes, recursos y conversores    
+**Diagrama de fuentes, recursos y conversores**    
 
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/recursos.png?raw=true)
 
-**Diseño de nivel
-Escenas**^
-Marte - Cráter a Terraformar.
-Planeta Marte, la zona de la base es un
-desierto lleno de cráteres y montañas.
-En ocasiones se genera alguna tormenta de
-arena poderosa que puede dañar las
-comunicaciones y la estructura de la base.
-TERRAFORMADOR: Maquinaria necesaria para
-construir un hábitat en Marte.
-COMUNICACIONES: permite enviar y recibir
-información.
-PLACAS ENERGÍA SOLAR: Suministran energía a
-la base.
-BASE/ESCUDOS: Protegen de amenazas
-exteriores y cuestan energía.
-ESTACIÓN DE TRANSPORTE: : Se utiliza para
-enviar y recoger recursos
-MINA : Proporciona recursos de Marte para la
-Tierra.
-Tierra - Centro de Operaciones.
-Panel de control que maneja el supervisor para
-ayudar a su compañero en Marte.
-Cada elemento del panel está definido en la
-página 8.
+**Diseño de nivel**
+
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaDiseñoNivel.png?raw=true)
 
 
 # Controles
 
-**Supervisor
-Inputs Descripción**
-Ratón El supervisor utiliza el ratón para interaccionar con
-todas las opciones del panel de control.
-Teclado numérico y flechas de dirección Solo utiliza las teclas para el minijuego de
-comunicación. (Fase 2: local)
-shift Destinado a minijuegos (a partir de fase 3: juego
-en red)
-números Destinado a minijuegos (a partir de fase 3)
-espacio Destinado a minijuegos (a partir de fase 3)
-letras Destinado a minijuegos (a partir de fase 3).
-**Stelonauta
-Inputs Descripción**
-W Movimiento hacia arriba.
-A Movimiento hacia la izquierda.
-S Movimiento hacia abajo.
-D Movimiento hacia la derecha.
-Espacio Interactuar.
-Ratón Minijuegos (a partir de la Fase 3)
+**Supervisor**    
+
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/controlesSup.png?raw=true)--
+
+**Stelonauta**    
+
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/controlesStelo.png?raw=true)--
 
 
 ### FASE 2: MODO LOCAL
+
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaDiseñoNivel.png?raw=true)--
 
 Controles stelonaula :
 
@@ -395,7 +363,10 @@ Controles supervisor:
 - RATÓN : Interaccionar con todas las opciones del panel de control.
 
 
-**FASE 3 EN ADELANTE (ONLINE)**
+### FASE 3 EN ADELANTE (ONLINE)
+
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaDiseñoNivel.png?raw=true)--
+
 Ambos (supervisor y stelonauta) disponen de teclado y ratón propios
 Controles stelonaula :
 
