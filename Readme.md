@@ -433,16 +433,20 @@ Diseño preliminar de la interfaz de stelonauta
 ● Pantalla de visualización de Marte.    
 ● Botón de Emergencia.    
 
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/supervisor_interfaz.png?raw=true)
 
-**Referencias (paneles de control y juego space team):**
+**Referencias (paneles de control y juego space team):**    
+
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/visual2.png?raw=true)
 
 # Música
 
 Queremos un Tic Tac in crescendo a medida que avanza el gameplay, para ir confirmando la
-sensación de presión ante la tormenta que viene. (Interestellar)
+sensación de presión ante la tormenta que viene. (Interestellar)    
 Sonidos de oficina/panel de control/beep de radares para el supervisor, cuenta atrás...
-(Apollo 11)
+(Apollo 11)    
 Efectos de sonido de polvo, aparatos electrónicos, carga de energía eléctrica, lanzamiento de
-cohetes
-https://audiojungle.net/item/psychology-thriller-stellar-action/25229428
-https://audiojungle.net/item/endless-time/25285774
+cohetes    
+
+https://audiojungle.net/item/psychology-thriller-stellar-action/25229428    
+https://audiojungle.net/item/endless-time/25285774    
