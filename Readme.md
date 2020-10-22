@@ -406,24 +406,32 @@ Controles supervisor:
     Posteriormente una satisfacción por haber completado las tareas a tiempo.
 5. Una barra de progreso como en “Among Us” para sintetizar el progreso de
     terraformación y poder ver mejor las tareas realizadas.
+    
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/interfaz1.png?raw=true)
 
 
-**Diseño de interfaz:
-Pantalla Marte**
-● Barras de stats: tienen 5 niveles.
-● Teclas: para pedir comida, oxígeno o materiales.
-● Panel de alerta: Comunicaciones de tierra urgentes
-● Barra Terraformación (Verde): nivel de progreso
-● Barra de Energía solar : aparece al estar cubiertas de polvo los paneles solares.
-Diseño preliminar de la interfaz de stelonautal
+### Diseño de interfaz:
+**Pantalla Marte**    
+● Barras de stats: tienen 5 niveles.    
+● Teclas: para pedir comida, oxígeno o materiales.    
+● Panel de alerta: Comunicaciones de tierra urgentes    
+● Barra Terraformación (Verde): nivel de progreso    
+● Barra de Energía solar : aparece al estar cubiertas de polvo los paneles solares.    
+
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/pantallaMarte.png?raw=true)
+Diseño preliminar de la interfaz de stelonauta    
 
 
-**Referencias: (Among us, Green the Planet, The escapist, Surviving mars)
-Pantalla Tierra (Preliminar):**
-● Pantalla de información.
-● Panel de control.
-● Pantalla de visualización de Marte.
-● Botón de Emergencia.
+**Referencias: (Among us, Green the Planet, The escapist, Surviving mars)**    
+
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/visual1.png?raw=true)
+
+**Pantalla Tierra (Preliminar):**    
+
+● Pantalla de información.    
+● Panel de control.    
+● Pantalla de visualización de Marte.    
+● Botón de Emergencia.    
 
 
 **Referencias (paneles de control y juego space team):**
