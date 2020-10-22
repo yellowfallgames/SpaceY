@@ -342,16 +342,16 @@ desconfigurada)
 
 **Supervisor**    
 
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/controlesSup.png?raw=true)--
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/controlesSup.png?raw=true)
 
 **Stelonauta**    
 
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/controlesStelo.png?raw=true)--
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/controlesStelo.png?raw=true)
 
 
 ### FASE 2: MODO LOCAL
 
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaDiseñoNivel.png?raw=true)--
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tecladoF2.png?raw=true)
 
 Controles stelonaula :
 
@@ -365,26 +365,33 @@ Controles supervisor:
 
 ### FASE 3 EN ADELANTE (ONLINE)
 
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaDiseñoNivel.png?raw=true)--
+Ambos (supervisor y stelonauta) disponen de teclado y ratón propios.
 
-Ambos (supervisor y stelonauta) disponen de teclado y ratón propios
-Controles stelonaula :
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tecladoF3.png?raw=true)
 
-- WASD: movimiento
-- ESPACIO: interactuar
-- FLECHAS Y TECLADO NUMÉRICO: minijuegos
-- RATÓN: minijuegos
-Controles supervisor:
-- FLECHAS: minijuego de comunicación.
-- TECLADO NUMÉRICO: minijuego de comunicación.
-- NÚMEROS: minijuego de comunicación.
-- SHIFT:
-- LETRAS: minijuego de comunicación.
-- ESPACIO:
-- RATÓN : Interaccionar con todas las opciones del panel de control.
+
+Controles stelonaula:    
+
+- WASD: movimiento    
+- ESPACIO: interactuar    
+- FLECHAS Y TECLADO NUMÉRICO: minijuegos    
+- RATÓN: minijuegos    
+
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tecladoF3B.png?raw=true)
+
+Controles supervisor:    
+- FLECHAS: minijuego de comunicación.    
+- TECLADO NUMÉRICO: minijuego de comunicación.    
+- NÚMEROS: minijuego de comunicación.    
+- SHIFT:    
+- LETRAS: minijuego de comunicación.    
+- ESPACIO:    
+- RATÓN : Interaccionar con todas las opciones del panel de control.    
 
 
 # Pantalla compartida en Local
+
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/pantallaCompartida.png?raw=true)
 
 # Estética de juego y experiencia de usuario
 
