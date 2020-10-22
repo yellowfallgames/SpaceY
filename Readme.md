@@ -324,12 +324,14 @@ desconfigurada)
 
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaFasesT.png?raw=true)
 
-**Sistema de puntuación**^
+**Sistema de puntuación**
 
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaPuntuacion.png?raw=true)
 
 
 # Diagrama de fuentes, recursos y conversores    
+
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/recursos.png?raw=true)
 
 **Diseño de nivel
 Escenas**^
