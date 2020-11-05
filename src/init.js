@@ -31,15 +31,17 @@ var marte;
 var terraformador;
 
 //Recursos
-var materiales = 0;
+var materiales = 100;
 var objMateriales;
 var MAX_MATERIALES = 100;
+var materiales_color = Phaser.Display.Color.GetColor(57, 182, 188);
 
 //Inputs
 var key_left;
 var key_right;
 
 function preload() {
+    
     this.load.image("player", directory+"vulp_i1.png");
     this.load.image("marte", directory+"marte test.png");
     this.load.image("terraformador", directory+"componente test.png");
@@ -49,12 +51,12 @@ function preload() {
     this.load.spritesheet('vulpin_walk', directory+'vulpin_walk.png', { frameWidth: 36, frameHeight: 36 });
 }
 function create() {
-
+    
     marte = this.add.image(220, 650, "marte");
     terraformador = this.physics.add.sprite(220, 655, "terraformador");
-    player = this.physics.add.sprite(220, 335, 'playerAnim');
-
-    objMateriales = this.add.image(10, 50, "barra");
+    player = this.physics.add.sprite(220, 335, 'vulpin_idle');
+    console.log(player);
+    objMateriales = this.add.sprite(10, 50, "barra");
     objMateriales.setOrigin(0, 0.5);
     objMateriales.setScale(materiales/MAX_MATERIALES, 0.3);
 
@@ -64,8 +66,8 @@ function create() {
     terraformador.setRotation(0.5);
 
     //this.physics.add.overlap(player, terraformador, colliderInteract);
-    
-    //LETS GO PEPE
+    objMateriales.tint = materiales_color;//Math.random() * 0xffffff;
+    console.log(objMateriales.tint);
 
     //Animations
     this.anims.create({
