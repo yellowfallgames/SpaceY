@@ -54,13 +54,18 @@ var game = new Phaser.Game(config);
 
 
 //*/
-/*
+
 var config = {
     width: 1024,
     height: 720,
     parent: "container",
     type: Phaser.AUTO,
-    scene: [Escena1, Escena2],
+    scene: {
+
+        preload: preload,
+        create: create,
+        update: update     
+    },//[Escena1, Escena2],
     physics: {
         default: "arcade",
         arcade: {
