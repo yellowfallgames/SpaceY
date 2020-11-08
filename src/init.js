@@ -65,7 +65,7 @@ var config = {
         create: create,
         update: update     
     },//*/
-    scene:[SceneMenu, SceneGame],
+    scene:[SceneGame, SceneMenu],
     physics: {
         default: "arcade",
         arcade: {
@@ -82,6 +82,11 @@ var game = new Phaser.Game(config);
 //Variables
 //Directorio imágenes
 var directory = "./Resources/Game/";
+
+//Misceláneo
+var nCarga = 0;
+var barraCarga;
+var MAX_CARGA = 100;
 
 //Inputs
 var key_left;
@@ -117,6 +122,10 @@ var nMateriales_M = 20;
 var objMateriales_M;
 var MAX_MATERIALES = 200;
 var materiales_color = Phaser.Display.Color.GetColor(142, 203, 53);
+
+var txtComida_M;
+var txtO2_M;
+var txtMateriales_M;
 
 //Recursos Tierra
 

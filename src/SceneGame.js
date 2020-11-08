@@ -18,6 +18,7 @@ class SceneGame extends Phaser.Scene {
 
     create() {
 
+        //Inicialización planeta, máquinas y jugador
         marte = this.add.image(game.config.width/4, 900, "marte");
 
         terraformador = this.physics.add.sprite(marte.x, marte.y, "componentes", 1);
@@ -29,6 +30,10 @@ class SceneGame extends Phaser.Scene {
 
         this.add.image(3*game.config.width/4, game.config.height/2, "fondoTierra");
 
+        player.setScale(2);
+        marte.setScale(2);
+
+        //Inicialización barras de recursos y barra de terraformación
         objComida_M = this.add.sprite(0, 20, "barra");
         objComida_M.setOrigin(0, 0.5);
         objComida_M.setScale(nComida_M/MAX_COMIDA, 0.3);
@@ -44,14 +49,24 @@ class SceneGame extends Phaser.Scene {
         objMateriales_M.setScale(nMateriales_M/MAX_MATERIALES, 0.3);
         objMateriales_M.tint = materiales_color;
 
+        txtComida_M = this.add.text(2, objComida_M.y, 'COMIDA',{
+            fontsize:'40 px',
+            fill: '#ffffff'
+        }).setOrigin(0, 0.5);
+        txtO2_M = this.add.text(2, objO2_M.y, 'OXIGENO',{
+            fontsize:'40 px',
+            fill: '#ffffff'
+        }).setOrigin(0, 0.5);
+        txtMateriales_M = this.add.text(2, objMateriales_M.y, 'MATERIALES',{
+            fontsize:'40 px',
+            fill: '#ffffff'
+        }).setOrigin(0, 0.5);
+
         objTerraformación = this.add.sprite(game.config.width/2, 360, "barra");
         objTerraformación.setOrigin(0.5, 0.5);
         objTerraformación.setRotation(1.57);
         objTerraformación.setScale((nTerraformacion/MAX_TERRAFORMACION)*0.3, 0.3);
         objTerraformación.tint = terraformación_color;
-
-        player.setScale(2);
-        marte.setScale(2);
 
         //Colocar las máquinas en marte
         terraformador.setOrigin(0.5, 9.5);
@@ -66,7 +81,12 @@ class SceneGame extends Phaser.Scene {
 
         //this.physics.add.overlap(player, terraformador, colliderInteract);
 
-        //Animations
+        //Inicialización barra de carga
+        barraCarga = this.add.sprite(player.x-45, player.y-50, "barra"); //-45
+        barraCarga.setOrigin(0,0.5); //0, 0.5
+        barraCarga.setScale((nCarga/MAX_CARGA)*0.3, 0.1);
+
+        //Animaciones
         this.anims.create({
             key: 'vulpin_idle',
             frames: this.anims.generateFrameNumbers('vulpin_idle', { start: 0, end: 5 }),
@@ -80,29 +100,14 @@ class SceneGame extends Phaser.Scene {
             frameRate: 10,
         });
 
-        //Input Events
+        //Input events
         this.cursors = this.input.keyboard.createCursorKeys();
         key_left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         key_right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
 
-        console.log(Phaser.Input.Keyboard.KeyCodes);
-        console.log(marte);
-
-        //this.input.keyboard.on("keydown_RIGHT", () => {
-            //this.player.x++;
-        //});
-        //this.player.flipX = false;
-        //this.player.setRotation(0);
-        //this.player.setOrigin(0,1);
-
-        //Físicas
-        //this.player = this.physics.add.image(130, 100, "player");
-        //this.player.setBounce(1);
-        //this.player.setCollideWorldBounds(true);
-        //this.player.setVelocity(20, 0);
-
-        //console.log(this.player);
+        //console.log(Phaser.Input.Keyboard.KeyCodes);
+        //console.log(marte);
     }
     update(time, delta) {
         
@@ -131,17 +136,37 @@ class SceneGame extends Phaser.Scene {
             player.anims.play('vulpin_idle', true);
         }
 
-        //Interaccionar
+        //Interaccionar con máquinas
         if (key_interact.isDown) {
 
             if (mina.rotation > -0.15 && mina.rotation < 0.15) {
-                if (nMateriales_M < MAX_MATERIALES) {
 
-                    nMateriales_M++;
+                if (nCarga < MAX_CARGA) {
+
+                    nCarga++;
+                    barraCarga.scaleX = (nCarga/MAX_CARGA)*0.3;
+                }
+                else if (nCarga >= 1) {
+
+                    nMateriales_M += 5;
                     objMateriales_M.scaleX = nMateriales_M/MAX_MATERIALES;
-                } 
+
+                    nCarga = 0;
+                }
+
             }
         }
+
+        if (key_interact.isUp) {
+
+            if (mina.rotation > -0.15 && mina.rotation < 0.15) {
+
+                nCarga = 0;
+                barraCarga.scaleX = (nCarga/MAX_CARGA)*0.3;
+            }
+            
+        }
+
     }
 
 }
