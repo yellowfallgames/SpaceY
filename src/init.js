@@ -60,12 +60,12 @@ var config = {
     height: 720,
     parent: "container",
     type: Phaser.AUTO,
-    scene: {
-
+    /*scene: {
         preload: preload,
         create: create,
         update: update     
-    },//[Escena1, Escena2],
+    },//*/
+    scene:[SceneMenu, SceneGame],
     physics: {
         default: "arcade",
         arcade: {
@@ -78,8 +78,52 @@ var config = {
 }
 
 var game = new Phaser.Game(config);
-//*/
 
+//Variables
+//Directorio imágenes
+var directory = "./Resources/Game/";
+
+//Inputs
+var key_left;
+var key_right;
+var key_interact;
+
+//Objetos
+var player;
+var marte;
+var terraformador;
+var mina;
+var comunicaciones;
+var estacionTransporte;
+
+//Barra terraformación
+var nTerraformacion = 1000;
+var objTerraformación;
+var MAX_TERRAFORMACION = 1000;
+var terraformación_color = Phaser.Display.Color.GetColor(184, 250, 88);
+
+//Recursos Marte
+var nComida_M = 50;
+var objComida_M;
+var MAX_COMIDA = 100;
+var comida_color = Phaser.Display.Color.GetColor(44, 191, 238);
+
+var nO2_M = 220;
+var objO2_M;
+var MAX_O2 = 300;
+var O2_color = Phaser.Display.Color.GetColor(221, 38, 38);
+
+var nMateriales_M = 20;
+var objMateriales_M;
+var MAX_MATERIALES = 200;
+var materiales_color = Phaser.Display.Color.GetColor(142, 203, 53);
+
+//Recursos Tierra
+
+/////////////////////
+
+//*/
+/*
 var directory = "./Resources/Game/";
 //Objetos
 var player;
