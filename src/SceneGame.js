@@ -1,3 +1,56 @@
+//Variables
+//Directorio imágenes
+var directory = "./Resources/Game/";
+
+//Misceláneo
+var nCarga = 0;
+var barraCarga;
+var MAX_CARGA = 100;
+
+//Inputs
+var key_left;
+var key_right;
+var key_interact;
+
+//Objetos
+var player;
+var marte;
+var terraformador;
+var mina;
+var comunicaciones;
+var estacionTransporte;
+
+//Barra terraformación
+var nTerraformacion = 1000;
+var objTerraformación;
+var MAX_TERRAFORMACION = 1000;
+var terraformación_color = Phaser.Display.Color.GetColor(184, 250, 88);
+
+//Recursos Marte
+var nComida_M = 50;
+var objComida_M;
+var MAX_COMIDA = 100;
+var comida_color = Phaser.Display.Color.GetColor(44, 191, 238);
+
+var nO2_M = 220;
+var objO2_M;
+var MAX_O2 = 300;
+var O2_color = Phaser.Display.Color.GetColor(221, 38, 38);
+
+var nMateriales_M = 170;
+var objMateriales_M;
+var MAX_MATERIALES = 200;
+var materiales_color = Phaser.Display.Color.GetColor(142, 203, 53);
+
+var txtComida_M;
+var txtO2_M;
+var txtMateriales_M;
+
+//Recursos Tierra
+
+/////////////////////
+
+
 class SceneGame extends Phaser.Scene {
 
     constructor() {
@@ -29,24 +82,24 @@ class SceneGame extends Phaser.Scene {
         player = this.physics.add.sprite(marte.x,485, 'vulpin_idle');
 
         this.add.image(3*game.config.width/4, game.config.height/2, "fondoTierra");
-
+        
         player.setScale(2);
         marte.setScale(2);
 
         //Inicialización barras de recursos y barra de terraformación
         objComida_M = this.add.sprite(0, 20, "barra");
         objComida_M.setOrigin(0, 0.5);
-        objComida_M.setScale(nComida_M/MAX_COMIDA, 0.3);
+        objComida_M.setScale((nComida_M/MAX_COMIDA)*0.6, 0.3);
         objComida_M.tint = comida_color;
 
         objO2_M = this.add.sprite(0, 45, "barra");
         objO2_M.setOrigin(0, 0.5);
-        objO2_M.setScale(nO2_M/MAX_O2, 0.3);
+        objO2_M.setScale((nO2_M/MAX_O2)*0.6, 0.3);
         objO2_M.tint = O2_color;
 
         objMateriales_M = this.add.sprite(0, 70, "barra");
         objMateriales_M.setOrigin(0, 0.5);
-        objMateriales_M.setScale(nMateriales_M/MAX_MATERIALES, 0.3);
+        objMateriales_M.setScale((nMateriales_M/MAX_MATERIALES)*0.6, 0.3);
         objMateriales_M.tint = materiales_color;
 
         txtComida_M = this.add.text(2, objComida_M.y, 'COMIDA',{
@@ -74,7 +127,7 @@ class SceneGame extends Phaser.Scene {
         comunicaciones.setOrigin(0.5, 9.5);
         estacionTransporte.setOrigin(0.5, 9.5);
 
-        estacionTransporte.setRotation(0);
+        estacionTransporte.setRotation(0); //Rotación con radianes -/+
         terraformador.setRotation(-1.57);
         comunicaciones.setRotation(1.57);
         mina.setRotation(3.14);
@@ -82,8 +135,8 @@ class SceneGame extends Phaser.Scene {
         //this.physics.add.overlap(player, terraformador, colliderInteract);
 
         //Inicialización barra de carga
-        barraCarga = this.add.sprite(player.x-45, player.y-50, "barra"); //-45
-        barraCarga.setOrigin(0,0.5); //0, 0.5
+        barraCarga = this.add.sprite(player.x, player.y-50, "barra"); //-45
+        barraCarga.setOrigin(0.5); //0, 0.5
         barraCarga.setScale((nCarga/MAX_CARGA)*0.3, 0.1);
 
         //Animaciones
@@ -117,7 +170,7 @@ class SceneGame extends Phaser.Scene {
             marte.rotation+=0.02;
             terraformador.rotation+=0.007;
             mina.rotation+=0.007;
-            comunicaciones.rotation+=0.0071;
+            comunicaciones.rotation+=0.007;
             estacionTransporte.rotation+=0.007;
             player.flipX = true;
             player.anims.play('vulpin_walk', true);
@@ -141,7 +194,7 @@ class SceneGame extends Phaser.Scene {
 
             if (mina.rotation > -0.15 && mina.rotation < 0.15) {
 
-                if (nCarga < MAX_CARGA) {
+                if (nCarga < MAX_CARGA && nMateriales_M < MAX_MATERIALES) {
 
                     nCarga++;
                     barraCarga.scaleX = (nCarga/MAX_CARGA)*0.3;
@@ -149,9 +202,10 @@ class SceneGame extends Phaser.Scene {
                 else if (nCarga >= 1) {
 
                     nMateriales_M += 5;
-                    objMateriales_M.scaleX = nMateriales_M/MAX_MATERIALES;
+                    objMateriales_M.scaleX = (nMateriales_M/MAX_MATERIALES)*0.6;
 
                     nCarga = 0;
+                    barraCarga.scaleX = (nCarga/MAX_CARGA)*0.3;
                 }
 
             }
