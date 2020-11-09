@@ -26,29 +26,38 @@ var objTerraformación;
 var MAX_TERRAFORMACION = 1000;
 var terraformación_color = Phaser.Display.Color.GetColor(184, 250, 88);
 
+//Barra cargamento cohete
+var nCoheteMat = 0;
+var objCoheteMat;
+var MAX_COHETEMAT = 350;
+var coheteMat_color = Phaser.Display.Color.GetColor(150, 103, 34);
+var txtCoheteMat;
+var spdCargarCohete = 0.2;
+
 //Recursos Marte
-var nComida_M = 50;
+var nComida_M = 75;
 var objComida_M;
-var MAX_COMIDA = 100;
+var MAX_COMIDA = 150;
 var comida_color = Phaser.Display.Color.GetColor(44, 191, 238);
-
-var nO2_M = 220;
-var objO2_M;
-var MAX_O2 = 300;
-var O2_color = Phaser.Display.Color.GetColor(221, 38, 38);
-
-var nMateriales_M = 170;
-var objMateriales_M;
-var MAX_MATERIALES = 200;
-var materiales_color = Phaser.Display.Color.GetColor(142, 203, 53);
-
 var txtComida_M;
-var txtO2_M;
-var txtMateriales_M;
+
+var nMateriaP_M = 0;
+var objMateriaP_M;
+var MAX_MATERIAP = 200;
+var materiaP_color = Phaser.Display.Color.GetColor(142, 203, 53);
+var txtMateriaP_M;
+
+var nChips_M = 0;
+var objChips_M;
+var MAX_CHIPS = 100;
+var Chips_color = Phaser.Display.Color.GetColor(221, 38, 38);
+var txtChips_M;
+
 
 //Recursos Tierra
 
 /////////////////////
+
 
 
 class SceneGame extends Phaser.Scene {
@@ -88,38 +97,45 @@ class SceneGame extends Phaser.Scene {
 
         //Inicialización barras de recursos y barra de terraformación
         objComida_M = this.add.sprite(0, 20, "barra");
-        objComida_M.setOrigin(0, 0.5);
-        objComida_M.setScale((nComida_M/MAX_COMIDA)*0.6, 0.3);
-        objComida_M.tint = comida_color;
+        objMateriaP_M = this.add.sprite(0, 45, "barra");
+        objChips_M = this.add.sprite(0, 70, "barra");
+        configBarra(objComida_M, nComida_M, MAX_COMIDA, 0.6, 0.3, comida_color);
+        configBarra(objMateriaP_M, nMateriaP_M, MAX_MATERIAP, 0.6, 0.3, materiaP_color);
+        configBarra(objChips_M, nChips_M, MAX_CHIPS, 0.6, 0.3, Chips_color);
 
-        objO2_M = this.add.sprite(0, 45, "barra");
-        objO2_M.setOrigin(0, 0.5);
-        objO2_M.setScale((nO2_M/MAX_O2)*0.6, 0.3);
-        objO2_M.tint = O2_color;
-
-        objMateriales_M = this.add.sprite(0, 70, "barra");
-        objMateriales_M.setOrigin(0, 0.5);
-        objMateriales_M.setScale((nMateriales_M/MAX_MATERIALES)*0.6, 0.3);
-        objMateriales_M.tint = materiales_color;
-
-        txtComida_M = this.add.text(2, objComida_M.y, 'COMIDA',{
+        //Texto barras de recurso
+        txtComida_M = this.add.text(2, objComida_M.y-7, 'COMIDA '+Math.round((nComida_M/MAX_COMIDA)*100)+'%',{
             fontsize:'40 px',
             fill: '#ffffff'
-        }).setOrigin(0, 0.5);
-        txtO2_M = this.add.text(2, objO2_M.y, 'OXIGENO',{
+        });
+        txtMateriaP_M = this.add.text(2, objMateriaP_M.y-7, 'MATERIA PRIMA '+Math.round((nMateriaP_M/MAX_MATERIAP)*100)+'%',{
             fontsize:'40 px',
             fill: '#ffffff'
-        }).setOrigin(0, 0.5);
-        txtMateriales_M = this.add.text(2, objMateriales_M.y, 'MATERIALES',{
+        });
+        txtChips_M = this.add.text(2, objChips_M.y-7, 'CHIPS '+Math.round((nChips_M/MAX_CHIPS)*100)+'%',{
             fontsize:'40 px',
             fill: '#ffffff'
-        }).setOrigin(0, 0.5);
-
+        });
+        
+        //Barra de terraformación
         objTerraformación = this.add.sprite(game.config.width/2, 360, "barra");
-        objTerraformación.setOrigin(0.5, 0.5);
+        configBarra(objTerraformación, nTerraformacion, MAX_TERRAFORMACION, 0.3, 0.3, terraformación_color);
         objTerraformación.setRotation(1.57);
-        objTerraformación.setScale((nTerraformacion/MAX_TERRAFORMACION)*0.3, 0.3);
-        objTerraformación.tint = terraformación_color;
+
+        //Barra cargamento cohete
+        objCoheteMat = this.add.sprite(game.config.width/4 - 70, player.y + 10, "barra");
+        configBarra(objCoheteMat, nCoheteMat, MAX_COHETEMAT, 0.5, 0.3, coheteMat_color);
+        objCoheteMat.setRotation(-1.57);
+        objCoheteMat.setVisible(false);
+        txtCoheteMat = this.add.text(objCoheteMat.x-16, objCoheteMat.y-10, Math.round((nCoheteMat/MAX_COHETEMAT)*100)+'%',{
+            fontsize:'40 px',
+            fill: '#ffffff'
+        }).setVisible(false);
+
+        //Inicialización barra de carga
+        barraCarga = this.add.sprite(player.x, player.y-50, "barra");
+        barraCarga.setOrigin(0.5);
+        barraCarga.setScale((nCarga/MAX_CARGA)*0.3, 0.1);
 
         //Colocar las máquinas en marte
         terraformador.setOrigin(0.5, 9.5);
@@ -133,11 +149,6 @@ class SceneGame extends Phaser.Scene {
         mina.setRotation(3.14);
 
         //this.physics.add.overlap(player, terraformador, colliderInteract);
-
-        //Inicialización barra de carga
-        barraCarga = this.add.sprite(player.x, player.y-50, "barra"); //-45
-        barraCarga.setOrigin(0.5); //0, 0.5
-        barraCarga.setScale((nCarga/MAX_CARGA)*0.3, 0.1);
 
         //Animaciones
         this.anims.create({
@@ -190,24 +201,54 @@ class SceneGame extends Phaser.Scene {
         }
 
         //Interaccionar con máquinas
-        if (key_interact.isDown) {
+        //Visibilidad barra estación de transporte
+        if (estacionTransporte.rotation > -0.15 && estacionTransporte.rotation < 0.15) {
 
+            objCoheteMat.setVisible(true);
+            txtCoheteMat.setVisible(true);
+        }
+        else {
+
+            objCoheteMat.setVisible(false);
+            txtCoheteMat.setVisible(false);
+        }
+
+        if (key_interact.isDown) {
+            //Estación de transporte
+            if (estacionTransporte.rotation > -0.15 && estacionTransporte.rotation < 0.15) {
+
+                if (nMateriaP_M >= spdCargarCohete && nCoheteMat < MAX_COHETEMAT) {
+
+                    nCoheteMat+=spdCargarCohete;
+                    nMateriaP_M-=spdCargarCohete;
+
+                    updateCoheteMat();
+                    updateMateriales();
+                }
+            }
+
+            //Mina
             if (mina.rotation > -0.15 && mina.rotation < 0.15) {
 
-                if (nCarga < MAX_CARGA && nMateriales_M < MAX_MATERIALES) {
+                if (nCarga < MAX_CARGA && nMateriaP_M < MAX_MATERIAP) {
 
                     nCarga++;
                     barraCarga.scaleX = (nCarga/MAX_CARGA)*0.3;
                 }
                 else if (nCarga >= 1) {
 
-                    nMateriales_M += 5;
-                    objMateriales_M.scaleX = (nMateriales_M/MAX_MATERIALES)*0.6;
+                    nMateriaP_M += 5;
+                    updateMateriales();
 
                     nCarga = 0;
                     barraCarga.scaleX = (nCarga/MAX_CARGA)*0.3;
                 }
 
+            }
+            else{
+
+                nCarga = 0;
+                barraCarga.scaleX = (nCarga/MAX_CARGA)*0.3;
             }
         }
 
@@ -223,4 +264,25 @@ class SceneGame extends Phaser.Scene {
 
     }
 
+    //Desgaste máquinas
+
+}
+
+function configBarra(that, n, MAX, largo, ancho, color) {
+
+    that.setOrigin(0, 0.5);
+    that.setScale((n/MAX)*largo, ancho, 0.3);
+    if (color != -1)    that.tint = color;
+}
+
+function updateMateriales() {
+
+    objMateriaP_M.scaleX = (nMateriaP_M/MAX_MATERIAP)*0.6;
+    txtMateriaP_M.setText('MATERIA PRIMA '+Math.round((nMateriaP_M/MAX_MATERIAP)*100)+'%');
+}
+
+function updateCoheteMat() {
+
+    objCoheteMat.scaleX = (nCoheteMat/MAX_COHETEMAT)*0.5;
+    txtCoheteMat.setText(Math.round((nCoheteMat/MAX_COHETEMAT)*100)+'%');
 }
