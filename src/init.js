@@ -1,6 +1,6 @@
 var config = {
-    width: 1024,
-    height: 720,
+    width: 1600,
+    height: 900,
     parent: "container",
     type: Phaser.AUTO,
     /*scene: {
