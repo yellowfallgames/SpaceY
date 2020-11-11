@@ -10,6 +10,8 @@ var MAX_CARGA = 100;
 //Inputs
 var key_left;
 var key_right;
+var key_up;
+var key_down;
 var key_interact;
 
 //Objetos
@@ -23,6 +25,10 @@ var terraformador;
 var mina;
 var comunicaciones;
 var estacionTransporte;
+var desgaste_terraformador;
+var desgaste_mina
+var desgaste_comunicaciones;
+var desgaste_estacionTransporte;
 var alertaMeteorito;
 var alertaPeligro;
 var terraformLevel;
@@ -84,17 +90,17 @@ var MAX_COMIDA = 150;
 var comida_color = Phaser.Display.Color.GetColor(44, 191, 238);
 var txtComida_M;
 
-var nMateriaP_M = 0;
-var objMateriaP_M;
-var MAX_MATERIAP = 200;
-var materiaP_color = Phaser.Display.Color.GetColor(142, 203, 53);
-var txtMateriaP_M;
+var nRocas_M = 100;
+var objRocas_M;
+var MAX_ROCAS = 200;
+var rocas_color = Phaser.Display.Color.GetColor(142, 203, 53);
+var txtRocas_M;
 
-var nChips_M = 0;
-var objChips_M;
-var MAX_CHIPS = 100;
-var Chips_color = Phaser.Display.Color.GetColor(221, 38, 38);
-var txtChips_M;
+var nMaterial_M = 0;
+var objMaterial_M;
+var MAX_MATERIAL = 100;
+var material_color = Phaser.Display.Color.GetColor(221, 38, 38);
+var txtMaterial_M;
 
 
 //Recursos Tierra
@@ -169,7 +175,7 @@ class SceneGame extends Phaser.Scene {
     create() {
         //UI MARTE
         //************************************ */
-        fondoMarte = this.add.image(481.0, 540.0,"fondoMarte");   //Fondo marte
+        /*fondoMarte = this.add.image(481.0, 540.0,"fondoMarte");   //Fondo marte
         nube = this.add.image(481.0, 439.9,"nube"); //nubes
         teclaAccion = this.add.image(481.0, 620.4,"teclaAccion");
         alertaMeteorito = this.add.image(481.0, 181.0,"alertaMeteorito");
@@ -186,7 +192,7 @@ class SceneGame extends Phaser.Scene {
 
         //UI Tierra
         //************************************ */
-        fondoTierra = this.add.image(1441.7, 540.0,"fondoTierra");
+        /*fondoTierra = this.add.image(1441.7, 540.0,"fondoTierra");
         //Lanzadera
         lanzadera = this.add.image(1150.0, 439.9,"lanzadera");
         rocket = this.add.image(1150.0, 543.9,"rocket");
@@ -217,7 +223,7 @@ class SceneGame extends Phaser.Scene {
         //Pantalla
         pantalla = this.add.image(1599.8, 289.4,"pantalla");
         pantallaMapa = this.add.image(1589.4, 272.9,"pantallaMapa");
-        pantallaAux = this.add.image(1808.3, 108.4,"pantallaAux");
+        pantallaAux = this.add.image(1808.3, 108.4,"pantallaAux");*/
 
         //Inicialización planeta, máquinas y jugador
         marte = this.add.image(game.config.width/4, 900, "marte");
@@ -236,22 +242,22 @@ class SceneGame extends Phaser.Scene {
 
         //Inicialización barras de recursos y barra de terraformación
         objComida_M = this.add.sprite(0, 20, "barra");
-        objMateriaP_M = this.add.sprite(0, 45, "barra");
-        objChips_M = this.add.sprite(0, 70, "barra");
+        objRocas_M = this.add.sprite(0, 45, "barra");
+        objMaterial_M = this.add.sprite(0, 70, "barra");
         configBarra(objComida_M, nComida_M, MAX_COMIDA, 0.6, 0.3, comida_color);
-        configBarra(objMateriaP_M, nMateriaP_M, MAX_MATERIAP, 0.6, 0.3, materiaP_color);
-        configBarra(objChips_M, nChips_M, MAX_CHIPS, 0.6, 0.3, Chips_color);
+        configBarra(objRocas_M, nRocas_M, MAX_ROCAS, 0.6, 0.3, rocas_color);
+        configBarra(objMaterial_M, nMaterial_M, MAX_MATERIAL, 0.6, 0.3, material_color);
 
         //Texto barras de recurso
         txtComida_M = this.add.text(2, objComida_M.y-7, 'COMIDA '+Math.round((nComida_M/MAX_COMIDA)*100)+'%',{
             fontsize:'40 px',
             fill: '#ffffff'
         });
-        txtMateriaP_M = this.add.text(2, objMateriaP_M.y-7, 'MATERIA PRIMA '+Math.round((nMateriaP_M/MAX_MATERIAP)*100)+'%',{
+        txtRocas_M = this.add.text(2, objRocas_M.y-7, 'ROCAS '+Math.round((nRocas_M/MAX_ROCAS)*100)+'%',{
             fontsize:'40 px',
             fill: '#ffffff'
         });
-        txtChips_M = this.add.text(2, objChips_M.y-7, 'CHIPS '+Math.round((nChips_M/MAX_CHIPS)*100)+'%',{
+        txtMaterial_M = this.add.text(2, objMaterial_M.y-7, 'MATERIAL '+Math.round((nMaterial_M/MAX_MATERIAL)*100)+'%',{
             fontsize:'40 px',
             fill: '#ffffff'
         });
@@ -307,6 +313,8 @@ class SceneGame extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
         key_left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         key_right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        key_up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        key_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
 
         //console.log(Phaser.Input.Keyboard.KeyCodes);
@@ -315,7 +323,7 @@ class SceneGame extends Phaser.Scene {
     update(time, delta) {
         
         //Inputs
-        //Movimiento Marte
+        //Movimiento de Marte
         if (key_left.isDown) {
             marte.rotation+=0.02;
             terraformador.rotation+=0.007;
@@ -338,72 +346,95 @@ class SceneGame extends Phaser.Scene {
 
             player.anims.play('vulpin_idle', true);
         }
-
-        //Interaccionar con máquinas
-        //Visibilidad barra estación de transporte
-        if (estacionTransporte.rotation > -0.15 && estacionTransporte.rotation < 0.15) {
-
+        
+        //////////////////////////////
+        //Interaccionar con máquinas//
+        //////////////////////////////
+        //ESTACIÖN DE TRANSPORTE//
+        if (canInteract(estacionTransporte)) {
+            //Visibilidad on
             objCoheteMat.setVisible(true);
             txtCoheteMat.setVisible(true);
-        }
-        else {
 
-            objCoheteMat.setVisible(false);
-            txtCoheteMat.setVisible(false);
-        }
+            //Aumentar carga del cohete
+            if (key_up.isDown) {
 
-        if (key_interact.isDown) {
-            //Estación de transporte
-            if (estacionTransporte.rotation > -0.15 && estacionTransporte.rotation < 0.15) {
-
-                if (nMateriaP_M >= spdCargarCohete && nCoheteMat < MAX_COHETEMAT) {
+                if (nRocas_M >= spdCargarCohete && nCoheteMat < MAX_COHETEMAT) {
 
                     nCoheteMat+=spdCargarCohete;
-                    nMateriaP_M-=spdCargarCohete;
+                    nRocas_M-=spdCargarCohete;
 
                     updateCoheteMat();
                     updateMateriales();
                 }
             }
 
-            //Mina
-            if (mina.rotation > -0.15 && mina.rotation < 0.15) {
+            //Recoger/Enviar recursos del cohete
+            if (key_interact.isDown) {
 
-                if (nCarga < MAX_CARGA && nMateriaP_M < MAX_MATERIAP) {
+                //Enviar a la Tierra (...)
+            }
+
+        }
+        else {
+            //Visibilidad off
+            objCoheteMat.setVisible(false);
+            txtCoheteMat.setVisible(false);
+        }
+
+
+        //MINA//
+        if (canInteract(mina)) {
+
+            //Picar en la mina
+            //
+            if (key_interact.isDown) {
+
+                if (nCarga < MAX_CARGA && nRocas_M < MAX_ROCAS) {
 
                     nCarga++;
                     barraCarga.scaleX = (nCarga/MAX_CARGA)*0.3;
                 }
                 else if (nCarga >= 1) {
 
-                    nMateriaP_M += 5;
+                    nRocas_M += 5;
                     updateMateriales();
 
                     nCarga = 0;
                     barraCarga.scaleX = (nCarga/MAX_CARGA)*0.3;
                 }
-
             }
             else{
-
+                //Si deja de picar
                 nCarga = 0;
                 barraCarga.scaleX = (nCarga/MAX_CARGA)*0.3;
             }
+
+        }
+        else{
+
+            //La barra de carga se desactiva
+            nCarga = 0;
+            barraCarga.scaleX = (nCarga/MAX_CARGA)*0.3;
         }
 
-        if (key_interact.isUp) {
 
-            if (mina.rotation > -0.15 && mina.rotation < 0.15) {
+        //MÄQUINA DE TERRAFORMACIÖN//
 
-                nCarga = 0;
-                barraCarga.scaleX = (nCarga/MAX_CARGA)*0.3;
-            }
-            
-        }
 
+        //COMUNICACIONES//
+    
+
+
+        /////////////
+        //Desgastes//
+        /////////////
+
+        //Desgaste máquinas//
+        
+
+        //Desgaste hambre//
     }
-
-    //Desgaste máquinas
 
 }
 
@@ -416,12 +447,21 @@ function configBarra(that, n, MAX, largo, ancho, color) {
 
 function updateMateriales() {
 
-    objMateriaP_M.scaleX = (nMateriaP_M/MAX_MATERIAP)*0.6;
-    txtMateriaP_M.setText('MATERIA PRIMA '+Math.round((nMateriaP_M/MAX_MATERIAP)*100)+'%');
+    objRocas_M.scaleX = (nRocas_M/MAX_ROCAS)*0.6;
+    txtRocas_M.setText('ROCAS '+Math.round((nRocas_M/MAX_ROCAS)*100)+'%');
 }
 
 function updateCoheteMat() {
 
     objCoheteMat.scaleX = (nCoheteMat/MAX_COHETEMAT)*0.5;
     txtCoheteMat.setText(Math.round((nCoheteMat/MAX_COHETEMAT)*100)+'%');
+}
+
+function canInteract(maquina) {
+
+    if (maquina.rotation > -0.15 && maquina.rotation < 0.15) {
+        
+        return true;
+    }
+    return false;
 }
