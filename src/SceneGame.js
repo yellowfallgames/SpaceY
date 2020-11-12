@@ -7,6 +7,9 @@ var nCarga = 0;
 var barraCarga;
 var MAX_CARGA = 100;
 
+//Interfaz
+var movTxt = 2;    //Píxeles que se mueve el texto al hacer hovering
+
 //Inputs
 var key_left;
 var key_right;
@@ -203,7 +206,7 @@ class SceneGame extends Phaser.Scene {
         paqBase = this.add.image(1458.4, 784.9,"paqueteriaBase");
         paqBtnComida = this.add.image(1395.9, 670.9,"paqueteriaBotonComida");
         paqBtnO2 = this.add.image(1520.9, 670.9,"paqueteriaBotonO2");
-        paqBtnMat = aqthis.add.image(1459.4, 670.9,"paqueteriaBotonMat");
+        paqBtnMat = this.add.image(1459.4, 670.9,"paqueteriaBotonMat");
         paqBtnEnv = this.add.image(1458.4, 742.4,"paqueteriaBotonEnviar");
         paqPasarela = this.add.image(1278.0, 641.9,"paqueteriaPasarela");
         //DDR
