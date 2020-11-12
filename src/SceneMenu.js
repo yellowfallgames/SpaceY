@@ -7,7 +7,7 @@ class SceneMenu extends Phaser.Scene {
 
     preload() {
 
-        this.load.image("player", directory+"vulp_i1.png");
+        this.load.image("player", directory+"stelonauta.png");
         //this.load.spritesheet("button", "./Resources/Img/button.png", 185, 80);
         this.load.image('background',"./Resources/Img/starfield.jpg");
     }

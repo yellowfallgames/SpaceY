@@ -122,14 +122,14 @@ class SceneGame extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("player", directory+"vulp_i1.png");
+        this.load.image("player", directory+"stelonauta.png");
         this.load.image("marte", directory+"marte test.png");
         this.load.image("barra", directory+"barra.png");
         this.load.image("fondoTierra", directory+"Fondo_Tierra.png");
         
         this.load.spritesheet('componentes', directory+'componente test.png', { frameWidth: 93, frameHeight: 46 });
-        this.load.spritesheet('vulpin_idle', directory+'vulpin.png', { frameWidth: 36, frameHeight: 36 });
-        this.load.spritesheet('vulpin_walk', directory+'vulpin_walk.png', { frameWidth: 36, frameHeight: 36 });
+        this.load.spritesheet('stelonauta_idle', directory+'spritesheet_idle.png', { frameWidth: 722, frameHeight: 722 });
+        this.load.spritesheet('stelonauta_run', directory+'spritesheet_run.png', { frameWidth: 722, frameHeight: 722 });
         
         //UI MARTE
         this.load.image("fondoMarte", directory+"ui_M_bck.png" );
@@ -238,11 +238,11 @@ class SceneGame extends Phaser.Scene {
         comunicaciones = this.physics.add.sprite(marte.x, marte.y, "componentes", 2);
         estacionTransporte = this.physics.add.sprite(marte.x, marte.y, "componentes", 0);
 
-        player = this.physics.add.sprite(marte.x,485, 'vulpin_idle');
+        player = this.physics.add.sprite(marte.x,485, 'stelonauta_idle');
 
         this.add.image(3*game.config.width/4, game.config.height/2, "fondoTierra");
         
-        player.setScale(2);
+        player.setScale(0.1);
         marte.setScale(2);
 
         //Inicialización barras de recursos y barra de terraformación
@@ -302,22 +302,22 @@ class SceneGame extends Phaser.Scene {
 
         //Animaciones
         this.anims.create({
-            key: 'vulpin_idle',
-            frames: this.anims.generateFrameNumbers('vulpin_idle', { start: 0, end: 5 }),
+            key: 'stelonauta_idle',
+            frames: this.anims.generateFrameNumbers('stelonauta_idle', { start: 0, end: 29 }),
             frameRate: 10,
             repeat: 1,
         });
 
         this.anims.create({
-            key: 'vulpin_walk',
-            frames: this.anims.generateFrameNumbers('vulpin_walk', { start: 0, end: 10 }),
-            frameRate: 10,
+            key: 'stelonauta_run',
+            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 19 }),
+            frameRate: 18,
         });
 
         //Input events
         this.cursors = this.input.keyboard.createCursorKeys();
-        key_left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        key_right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        key_left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        key_right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         key_up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         key_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
@@ -332,26 +332,27 @@ class SceneGame extends Phaser.Scene {
         //Inputs
         //Movimiento de Marte
         if (key_left.isDown) {
-            marte.rotation+=0.02;
-            terraformador.rotation+=0.007;
-            mina.rotation+=0.007;
-            comunicaciones.rotation+=0.007;
-            estacionTransporte.rotation+=0.007;
-            player.flipX = true;
-            player.anims.play('vulpin_walk', true);
-        }
-        else if (key_right.isDown) {
             marte.rotation-=0.02;
             terraformador.rotation-=0.007;
             mina.rotation-=0.007;
             comunicaciones.rotation-=0.007;
             estacionTransporte.rotation-=0.007;
+            
+            player.flipX = true;
+            player.anims.play('stelonauta_run', true);
+        }
+        else if (key_right.isDown) {
+            marte.rotation+=0.02;
+            terraformador.rotation+=0.007;
+            mina.rotation+=0.007;
+            comunicaciones.rotation+=0.007;
+            estacionTransporte.rotation+=0.007;
             player.flipX = false;
-            player.anims.play('vulpin_walk', true);
+            player.anims.play('stelonauta_run', true);
         }
         else {
 
-            player.anims.play('vulpin_idle', true);
+            player.anims.play('stelonauta_idle', true);
         }
         
         //////////////////////////////
