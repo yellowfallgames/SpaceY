@@ -1,3 +1,5 @@
+//import meteorito from './meteorito.js';
+
 //Variables
 //Directorio imágenes
 var directory = "./Resources/Game/";
@@ -113,7 +115,7 @@ var txtMaterial_M;
 
 
 class SceneGame extends Phaser.Scene {
-
+    
     constructor() {
 
         super("SceneGame");
@@ -322,6 +324,8 @@ class SceneGame extends Phaser.Scene {
 
         //console.log(Phaser.Input.Keyboard.KeyCodes);
         //console.log(marte);
+
+        //var m = new meteorito(0, 0, this);
     }
     update(time, delta) {
         
