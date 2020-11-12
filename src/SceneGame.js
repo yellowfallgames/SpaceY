@@ -34,8 +34,10 @@ var desgaste_terraformador;
 var desgaste_mina
 var desgaste_comunicaciones;
 var desgaste_estacionTransporte;
+var flechasAmarillas;
 var alertaMeteorito;
-var alertaPeligro;
+var alertaPeligroIz;
+var alertaPeligroDc;
 var terraformLevel;
 var timerSegundos;
 var timerMinutos;
@@ -52,6 +54,9 @@ var rocket;
 var lanzPuerta;
 var lanzCtdn;
 var cargaMat;
+var cargaO2;
+var cargaRocas;
+var cargaComida;
 var paqBase;
 var paqBtnComida;
 var paqBtnO2;
@@ -59,20 +64,21 @@ var paqBtnMat;
 var paqBtnEnv;
 var paqPasarela;
 var ddrBase;
-var ddrFlechaDown;
+var ddrFlecha_0;
+var ddrFlecha_1;
+var ddrFlecha_2;
 var ddrBtnMat;
 var ddrBtnO2;
 var ddrBtnComida;
 var controlBase;
-var controlKey;
+var controlKey;	
 var controlPass;
 var controlTerr;
 var controlMina;
 var controlRocket;
 var controlCom;
 var pantalla;
-var pantallaMapa;
-var pantallaAux;
+var pantallaPlano;
 
 //Barra terraformación
 var nTerraformacion = 1000;
@@ -125,7 +131,6 @@ class SceneGame extends Phaser.Scene {
         this.load.image("player", directory+"vulp_i1.png");
         this.load.image("marte", directory+"marte test.png");
         this.load.image("barra", directory+"barra.png");
-        this.load.image("fondoTierra", directory+"Fondo_Tierra.png");
         
         this.load.spritesheet('componentes', directory+'componente test.png', { frameWidth: 93, frameHeight: 46 });
         this.load.spritesheet('vulpin_idle', directory+'vulpin.png', { frameWidth: 36, frameHeight: 36 });
@@ -141,18 +146,21 @@ class SceneGame extends Phaser.Scene {
         this.load.image("timerSegundos", directory+"ui_M_segundos.png" );
         this.load.image("timerMinutos", directory+"ui_M_minutos.png" );
         this.load.image("timeHoras", directory+"ui_M_horas.png" );
-        this.load.image("indicadorRocas", directory+"pngs/ui_M_rocas.png" );
-        this.load.image("indicadorO2", directory+"ui_M_o2.png" );
+        this.load.image("indicadorRocas", directory+"ui_M_rocas.png" );
+        //this.load.image("indicadorO2", directory+"ui_M_o2.png" );
         this.load.image("indicadorMateriales", directory+"ui_M_materiales.png" );
         this.load.image("indicadorHambre", directory+"ui_M_hambre.png" );
+        this.load.image("flechasAmarillas", directory+"FlechasAmarillas.png" );
         
         //UI TIERRA
         this.load.image("fondoTierra", directory+"ui_T_bck.png" );
         this.load.image("lanzadera", directory+"ui_T_Lanzadera.png" );
-        this.load.image("rocket", directory+"ui_T_rocket.png" );
         this.load.image("lanzaderaPuerta", directory+"ui_T_Lanzadera_door.png" );
         this.load.image("lanzaderaCountdown", directory+"ui_T_countdown.png" );
         this.load.image("cargaMateriales", directory+"ui_T_payload_materiales.png" );
+        this.load.image("cargaRocas", directory+"ui_T_payload_rocas.png" );
+        this.load.image("cargaO2", directory+"ui_T_payload_o2.png" );
+        this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );
         this.load.image("paqueteriaBase", directory+"ui_T_Paqueteria_contadores.png" );
         this.load.image("paqueteriaBotonComida", directory+"ui_T_Paqueteria_comida.png" );
         this.load.image("paqueteriaBotonO2", directory+"ui_T_Paqueteria_o2.png" );
@@ -160,75 +168,153 @@ class SceneGame extends Phaser.Scene {
         this.load.image("paqueteriaBotonEnviar", directory+"ui_T_Paqueteria_enviar.png" );
         this.load.image("paqueteriaPasarela", directory+"ui_T_Paqueteria_pasarela.png" );
         this.load.image("ddrBase", directory+"ui_T_DDR.png" );
-        this.load.image("ddrFlechaAbajo", directory+"ui_T_DDR_arrow.png" );
+        this.load.image("ddrFlecha_0", directory+"ui_T_DDR_arrow.png" );
+        this.load.image("ddrFlecha_1", directory+"ui_T_DDR_arrow.png" );
+        this.load.image("ddrFlecha_2", directory+"ui_T_DDR_arrow.png" );
         this.load.image("ddrBotonMat", directory+"ui_T_DDR_materiales.png" );
         this.load.image("ddrBotonO2", directory+"ui_T_DDR_o2.png" );
         this.load.image("ddrBotonComida", directory+"ui_T_DDR_comida.png" );
         this.load.image("controlBase", directory+"ui_T_control_pannel.png" );
         this.load.image("controlKey", directory+"ui_T_control_key.png" );
         this.load.image("controlPass", directory+"ui_T_control_pass.png" );
-        this.load.image("controlTerr", directory+"ui_T_control_boton4.png" );
-        this.load.image("controlMina", directory+"ui_T_control_boton3.png" );
-        this.load.image("controlRocket", directory+"ui_T_control_boton2.png" );
-        this.load.image("controlCom", directory+"ui_T_control_boton1.png" );
+        this.load.image("controlTerr", directory+"ui_T_control_TERR.png" );
+        this.load.image("controlMina", directory+"ui_T_control_MINA.png" );
+        this.load.image("controlRocket", directory+"ui_T_control_ROCKET.png" );
+        this.load.image("controlCom", directory+"ui_T_control_COM.png" );
         this.load.image("pantalla", directory+"ui_T_pantalla.png" );
         this.load.image("pantallaMapa", directory+"ui_T_pantalla_plano.png" );
-        this.load.image("pantallaAux", directory+"ui_T_pantalla_aux.png" );
+        this.load.image("rocket", directory+"ui_T_rocket.png" );
         
     }
 
     create() {
-        //UI MARTE
-        //************************************ */
-        /*fondoMarte = this.add.image(481.0, 540.0,"fondoMarte");   //Fondo marte
-        nube = this.add.image(481.0, 439.9,"nube"); //nubes
-        teclaAccion = this.add.image(481.0, 620.4,"teclaAccion");
-        alertaMeteorito = this.add.image(481.0, 181.0,"alertaMeteorito");
-        terraformLevel = this.add.image(481.0, 940.2,"terraformLevel");
-        alertaPeligro = this.add.image(798.2, 433.4,"alertaPeligro");
-        timerHoras = this.add.image(715.2, 100.5,"timerHoras");
-        timerMinutos = this.add.image(887.2, 100.5,"timerMinutos");
-        timerSegundos = this.add.image(801.2, 100.5,"timerSegundos");
-        //indicadores
-        indRocas = this.add.image(105.3, 414.4,"indicadorRocas");
-        indO2 = this.add.image(105.3, 197.5,"indicadorO2");
-        indMat = this.add.image(105.3, 306.0,"indicadorMat");
-        indHam = this.add.image(105.3, 89.0,"indicadorHambre");
-
-        //UI Tierra
-        //************************************ */
-        /*fondoTierra = this.add.image(1441.7, 540.0,"fondoTierra");
-        //Lanzadera
-        lanzadera = this.add.image(1150.0, 439.9,"lanzadera");
-        rocket = this.add.image(1150.0, 543.9,"rocket");
-        lanzPuerta = this.add.image(1150.0, 81.5,"lanzaderaPuerta");
-        lanzCtdn = this.add.image(1150.0, 214.1,"lanzaderaCountdown");
-        cargaMat = this.add.image(1150.0, 709.4,"cargaMateriales");
-        //Envio de Paquetes
-        paqBase = this.add.image(1458.4, 784.9,"paqueteriaBase");
-        paqBtnComida = this.add.image(1395.9, 670.9,"paqueteriaBotonComida");
-        paqBtnO2 = this.add.image(1520.9, 670.9,"paqueteriaBotonO2");
-        paqBtnMat = this.add.image(1459.4, 670.9,"paqueteriaBotonMat");
-        paqBtnEnv = this.add.image(1458.4, 742.4,"paqueteriaBotonEnviar");
-        paqPasarela = this.add.image(1278.0, 641.9,"paqueteriaPasarela");
-        //DDR
-        ddrBase = this.add.image(1260.9, 940.2,"ddrBase");
-        ddrFlechaDown = this.add.image(1281.9, 919.2,"ddrFlechaAbajo");
-        ddrBtnMat = this.add.image(1284.9, 997.5,"ddrBotonMat");
-        ddrBtnO2 = this.add.image(1332.9, 997.5,"ddrBotonO2");
-        ddrBtnComida = this.add.image(1380.9, 997.5,"ddrBotonComida");
-        //Panel Control Zonas
-        controlBase = this.add.image(1730.8, 802.4,"controlBase");
-        controlPass = this.add.image(1730.8, 928.7,"controlPass");
-        controlKey = this.add.image(1730.8, 978.7,"controlKey");
-        controlTerr = this.add.image(1801.7, 781.5,"controlTerr");
-        controlMina = this.add.image(1659.9, 781.5,"controlMina");
-        controlRocket = this.add.image(1801.7, 647.3,"controlRocket");
-        controlCom = this.add.image(1659.9, 647.3,"controlCom");
-        //Pantalla
-        pantalla = this.add.image(1599.8, 289.4,"pantalla");
-        pantallaMapa = this.add.image(1589.4, 272.9,"pantallaMapa");
-        pantallaAux = this.add.image(1808.3, 108.4,"pantallaAux");*/
+		// ui_M_bck
+        fondoMarte = this.add.image(407, 450, "fondoMarte");
+		
+		// ui_T_bck
+        fondoTierra = this.add.image(1202, 450, "fondoTierra");
+		
+		// ui_T_pantalla
+		pantalla = this.add.image(1337, 250, "pantalla");
+		
+		// ui_T_Lanzadera
+		lanzadera = this.add.image(963, 365, "lanzadera");
+		
+		// ui_M_hambre
+		indHam = this.add.image(109, 74, "indicadorHambre");
+		
+		// ui_M_materiales
+		indMat = this.add.image(109, 166, "indicadorMateriales");
+		
+		// ui_M_rocas
+		indRocas = this.add.image(109, 256, "indicadorRocas");
+		
+		// ui_M_nubes
+		nube = this.add.image(397, 369, "nube");
+		nube.setOrigin(2, 2);   // *********************************************CAMBIARRRRRRR
+		nube.visible = false;
+		
+		// ui_M_horas
+		timerHoras = this.add.image(553, 97, "timeHoras");
+		
+		// ui_M_minutos
+		timerMinutos = this.add.image(635, 97, "timerMinutos");
+		
+		// ui_M_segundos
+		timerSegundos = this.add.image(716, 97, "timerSegundos");
+		
+		// ui_T_control_pannel
+		controlBase = this.add.image(1447, 676, "controlBase");
+		
+		// ui_T_control_COM
+		controlCom = this.add.image(1388, 549, "controlCom");
+		
+		// ui_T_control_MINA
+		controlMina = this.add.image(1506, 549, "controlMina");
+		
+		// ui_T_control_ROCKET
+		controlRocket = this.add.image(1388, 666, "controlRocket");
+		
+		// ui_T_control_TERR
+		controlTerr = this.add.image(1506, 666, "controlTerr");
+		
+		// ui_T_control_key
+		controlKey = this.add.image(1447, 760, "controlKey");
+		
+		// ui_T_control_pass
+		controlPass = this.add.image(1447, 829, "controlPass");
+		
+		// ui_T_Paqueteria_contadores
+		paqBase = this.add.image(1219, 674, "paqueteriaBase");
+		
+		// ui_T_DDR
+		ddrBase = this.add.image(1055, 793, "ddrBase");
+		
+		// ui_T_Paqueteria_comida
+		paqBtnComida = this.add.image(1167, 581, "paqueteriaBotonComida");
+		
+		// ui_T_DDR_comida
+		ddrBtnComida = this.add.image(1075, 836, "ddrBotonComida");
+		
+		// ui_T_DDR_materiales
+		ddrBtnMat = this.add.image(1114, 836, "ddrBotonMat");
+		
+		// ui_T_DDR_o2
+		ddrBtnO2 = this.add.image(1153, 836, "ddrBotonO2");
+		
+		// ui_T_Paqueteria_materiales
+		paqBtnMat = this.add.image(1220, 581, "paqueteriaBotonMat");
+		
+		// ui_T_Paqueteria_o2
+		paqBtnO2 = this.add.image(1272, 581, "paqueteriaBotonO2");
+		
+		// ui_T_countdown
+		lanzCtdn = this.add.image(956, 210, "lanzaderaCountdown");
+		
+		// ui_T_Lanzadera_door
+		lanzPuerta = this.add.image(958, 83, "lanzaderaPuerta");
+		
+		// ui_M_actionbox
+	    teclaAccion = this.add.image(412, 552, "teclaAccion");
+		
+		// ui_T_pantalla_plano
+		pantallaPlano = this.add.image(1337, 227, "pantallaMapa");
+		
+		// ui_T_Paqueteria_enviar
+		paqBtnEnv = this.add.image(1220, 645, "paqueteriaBotonEnviar");
+		
+		// ui_M_dangerArrow
+		alertaPeligroIz = this.add.image(665, 365, "alertaPeligro");
+		
+		// ui_M_dangerArrow_1
+		alertaPeligroDc = this.add.image(215, 372, "alertaPeligro"); // *************************************************FLIP EJE VERTICAL!
+		
+		// ui_T_rocket
+		rocket = this.add.image(957, 455, "rocket");
+		
+		// ui_T_payload_materiales
+        cargaMat = this.add.image(957, 599, "cargaMateriales");
+        cargaO2 = this.add.image(957, 599, "carga02");
+        cargaComida = this.add.image(957, 599, "cargaComida");
+        cargaRocas = this.add.image(957, 599, "cargaRocas");
+		
+		// ui_M_terrafomlevel
+		terraformLevel = this.add.image(401, 787, "terraformLevel");
+		
+		// ui_T_Paqueteria_pasarela
+		paqPasarela = this.add.image(1056, 584, "paqueteriaPasarela");
+		
+		// ui_T_DDR_arrow
+		ddrFlecha_0 = this.add.image(1076, 776, "ddrFlecha_0");
+		
+		// ui_T_DDR_arrow_1
+		ddrFlecha_1 = this.add.image(1114, 776, "ddrFlecha_1");
+		
+		// ui_T_DDR_arrow_2
+		ddrFlecha_2 = this.add.image(1153, 776, "ddrFlecha_2");
+		
+		// flechasAmarillas
+		flechasAmarillas = this.add.image(393, 232, "FlechasAmarillas");
 
         //Inicialización planeta, máquinas y jugador
         marte = this.add.image(game.config.width/4, 900, "marte");
@@ -240,7 +326,7 @@ class SceneGame extends Phaser.Scene {
 
         player = this.physics.add.sprite(marte.x,485, 'vulpin_idle');
 
-        this.add.image(3*game.config.width/4, game.config.height/2, "fondoTierra");
+        //this.add.image(3*game.config.width/4, game.config.height/2, "fondoTierra");
         
         player.setScale(2);
         marte.setScale(2);
