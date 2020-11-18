@@ -242,7 +242,7 @@ class SceneGame extends Phaser.Scene {
 
         this.add.image(3*game.config.width/4, game.config.height/2, "fondoTierra");
         
-        player.setScale(0.5);
+        player.setScale(0.4);
         marte.setScale(2);
 
         //Inicialización barras de recursos y barra de terraformación
