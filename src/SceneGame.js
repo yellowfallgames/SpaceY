@@ -128,8 +128,8 @@ class SceneGame extends Phaser.Scene {
         this.load.image("fondoTierra", directory+"Fondo_Tierra.png");
         
         this.load.spritesheet('componentes', directory+'componente test.png', { frameWidth: 93, frameHeight: 46 });
-        this.load.spritesheet('stelonauta_idle', directory+'spritesheet_idle.png', { frameWidth: 722, frameHeight: 722 });
-        this.load.spritesheet('stelonauta_run', directory+'spritesheet_run.png', { frameWidth: 722, frameHeight: 722 });
+        this.load.spritesheet('stelonauta_idle', directory+'spritesheet_idle.png', { frameWidth: 361, frameHeight: 361 });
+        this.load.spritesheet('stelonauta_run', directory+'spritesheet_run.png', { frameWidth: 361, frameHeight: 361 });
         
         //UI MARTE
         this.load.image("fondoMarte", directory+"ui_M_bck.png" );
@@ -242,7 +242,7 @@ class SceneGame extends Phaser.Scene {
 
         this.add.image(3*game.config.width/4, game.config.height/2, "fondoTierra");
         
-        player.setScale(0.1);
+        player.setScale(0.5);
         marte.setScale(2);
 
         //Inicialización barras de recursos y barra de terraformación
@@ -303,14 +303,14 @@ class SceneGame extends Phaser.Scene {
         //Animaciones
         this.anims.create({
             key: 'stelonauta_idle',
-            frames: this.anims.generateFrameNumbers('stelonauta_idle', { start: 0, end: 29 }),
-            frameRate: 10,
-            repeat: 1,
+            frames: this.anims.generateFrameNumbers('stelonauta_idle', { start: 0, end: 19 }),
+            frameRate: 18,
+            //repeat: 1,
         });
 
         this.anims.create({
             key: 'stelonauta_run',
-            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 19 }),
+            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 21 }),
             frameRate: 18,
         });
 
