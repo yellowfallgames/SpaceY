@@ -5,6 +5,7 @@ SPACE Y
 Nombre del juego
 ----------------
 
+
 Space Y
 
 Descripción de la temática
