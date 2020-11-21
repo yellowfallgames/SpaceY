@@ -33,10 +33,11 @@ class SceneLogos extends Phaser.Scene {
         this.load.image("timerSegundos", directory+"ui_M_segundos.png" );
         this.load.image("timerMinutos", directory+"ui_M_minutos.png" );
         this.load.image("timeHoras", directory+"ui_M_horas.png" );
-        this.load.image("indicadorRocas", directory+"ui_M_rocas.png" );
+        //this.load.image("indicadorRocas", directory+"ui_M_rocas.png" );
         //this.load.image("indicadorO2", directory+"ui_M_o2.png" );
-        this.load.image("indicadorMateriales", directory+"ui_M_materiales.png" );
-        this.load.image("indicadorHambre", directory+"ui_M_hambre.png" );
+        //this.load.image("indicadorMateriales", directory+"ui_M_materiales.png" );
+        //this.load.image("indicadorHambre", directory+"ui_M_hambre.png" );
+        this.load.spritesheet("indicadores", directory+"M_indicators.png", { frameWidth: 145, frameHeight: 145 });
         this.load.image("flechasAmarillas", directory+"FlechasAmarillas.png" );
         
         //UI TIERRA
