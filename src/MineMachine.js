@@ -7,6 +7,9 @@ class MineMachine extends Machine {
     update(){
         
         if (this.canInteract()) {
+            //
+            //Visibilidad on
+            teclaAccion.setVisible(true);
 
             //Picar en la mina
             //

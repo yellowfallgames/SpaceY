@@ -11,6 +11,8 @@ var nCarga = 0;
 var barraCarga;
 var MAX_CARGA = 100;
 
+var toDestroy;
+
 //Interfaz
 var movTxt = 2;    //Píxeles que se mueve el texto al hacer hovering
 
@@ -52,6 +54,8 @@ var indMat;
 var indHam;
 
 //Tierra
+var controlTierra;
+
 var fondoTierra;
 var lanzadera;
 var rocket;
@@ -91,7 +95,8 @@ var MAX_TERRAFORMACION = 1000;
 var txtTerraformacion;
 
 //Barra cargamento cohete
-var nCoheteMat = 0;
+var objCohete;
+var nCoheteMat = 330;
 var objCoheteMat;
 var MAX_COHETEMAT = 350;
 var txtCoheteMat;
@@ -162,10 +167,11 @@ class SceneGame extends Phaser.Scene {
         this.load.image("lanzadera", directory+"ui_T_Lanzadera.png" );
         this.load.image("lanzaderaPuerta", directory+"ui_T_Lanzadera_door.png" );
         this.load.image("lanzaderaCountdown", directory+"ui_T_countdown.png" );
-        this.load.image("cargaMateriales", directory+"ui_T_payload_materiales.png" );
+        /*this.load.image("cargaMateriales", directory+"ui_T_payload_materiales.png" );
         this.load.image("cargaRocas", directory+"ui_T_payload_rocas.png" );
         this.load.image("cargaO2", directory+"ui_T_payload_o2.png" );
-        this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );
+        this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );*/
+        this.load.spritesheet("payloads", directory+"ui_T_payloads.png", { frameWidth: 52, frameHeight: 37 });
         this.load.image("paqueteriaBase", directory+"ui_T_Paqueteria_contadores.png" );
         this.load.image("paqueteriaBotonComida", directory+"ui_T_Paqueteria_comida.png" );
         this.load.image("paqueteriaBotonO2", directory+"ui_T_Paqueteria_o2.png" );
@@ -197,7 +203,10 @@ class SceneGame extends Phaser.Scene {
         fondoMarte = this.add.image(407, 450, "fondoMarte");
 
         //Inicialización planeta
-        marte = this.add.image(game.config.width/4, 1250, "marte").setScale(3);;
+        marte = this.add.image(game.config.width/4, 1250, "marte").setScale(3);
+
+        //Cohete en Marte
+        objCohete = new Rocket(this, marte.x, marte.y);
 
         //Inicialización máquinas
         maquinas = new Array(4);
@@ -238,15 +247,11 @@ class SceneGame extends Phaser.Scene {
             }
             
         }
+
+        //TIERRA
+        controlTierra = new EarthControl(this, 0, 0, 8);
+        
 		
-		// ui_T_bck
-        fondoTierra = this.add.image(1202, 450, "fondoTierra");
-		
-		// ui_T_pantalla
-		pantalla = this.add.image(1337, 250, "pantalla");
-		
-		// ui_T_Lanzadera
-		lanzadera = this.add.image(963, 365, "lanzadera");
 		
 		// ui_M_horas
 		timerHoras = this.add.image(553, 97, "timeHoras");
@@ -257,100 +262,24 @@ class SceneGame extends Phaser.Scene {
 		// ui_M_segundos
 		timerSegundos = this.add.image(716, 97, "timerSegundos");
 		
-		// ui_T_control_pannel
-		controlBase = this.add.image(1447, 676, "controlBase");
-		
-		// ui_T_control_COM
-		controlCom = this.add.image(1388, 549, "controlCom");
-		
-		// ui_T_control_MINA
-		controlMina = this.add.image(1506, 549, "controlMina");
-		
-		// ui_T_control_ROCKET
-		controlRocket = this.add.image(1388, 666, "controlRocket");
-		
-		// ui_T_control_TERR
-		controlTerr = this.add.image(1506, 666, "controlTerr");
-		
-		// ui_T_control_key
-		controlKey = this.add.image(1447, 760, "controlKey");
-		
-		// ui_T_control_pass
-		controlPass = this.add.image(1447, 829, "controlPass");
-		
-		// ui_T_Paqueteria_contadores
-		paqBase = this.add.image(1219, 674, "paqueteriaBase");
-		
-		// ui_T_DDR
-		ddrBase = this.add.image(1055, 793, "ddrBase");
-		
-		// ui_T_Paqueteria_comida
-		paqBtnComida = this.add.image(1167, 581, "paqueteriaBotonComida");
-		
-		// ui_T_DDR_comida
-		ddrBtnComida = this.add.image(1075, 836, "ddrBotonComida");
-		
-		// ui_T_DDR_materiales
-		ddrBtnMat = this.add.image(1114, 836, "ddrBotonMat");
-		
-		// ui_T_DDR_o2
-		ddrBtnO2 = this.add.image(1153, 836, "ddrBotonO2");
-		
-		// ui_T_Paqueteria_materiales
-		paqBtnMat = this.add.image(1220, 581, "paqueteriaBotonMat");
-		
-		// ui_T_Paqueteria_o2
-		paqBtnO2 = this.add.image(1272, 581, "paqueteriaBotonO2");
-		
-		// ui_T_countdown
-		lanzCtdn = this.add.image(956, 210, "lanzaderaCountdown");
-		
-		// ui_T_Lanzadera_door
-		lanzPuerta = this.add.image(958, 83, "lanzaderaPuerta");
-		
 		// ui_M_actionbox: Tecla de acción
-        teclaAccion = this.add.image(marte.x, 500, "teclaAccion").setVisible(false);;
-		
-		// ui_T_pantalla_plano
-		pantallaPlano = this.add.image(1337, 227, "pantallaMapa");
-		
-		// ui_T_Paqueteria_enviar
-		paqBtnEnv = this.add.image(1220, 645, "paqueteriaBotonEnviar");
+        teclaAccion = this.add.image(marte.x, 500, "teclaAccion").setVisible(false);
 		
 		// ui_M_dangerArrow
 		alertaPeligroIz = this.add.image(665, 365, "alertaPeligro").setVisible(false);
 		
 		// ui_M_dangerArrow_1
 		alertaPeligroDc = this.add.image(144, 365, "alertaPeligro").setScale(-1,1).setVisible(false); // *************************************************FLIP EJE VERTICAL!
-        
-		// ui_T_rocket
-		rocket = this.add.image(957, 455, "rocket");
-		
-		// ui_T_payload_materiales
-        cargaMat = this.add.image(957, 599, "cargaMateriales");
-        cargaO2 = this.add.image(957, 599, "carga02");
-        cargaComida = this.add.image(957, 599, "cargaComida");
-        cargaRocas = this.add.image(957, 599, "cargaRocas");
-		
-		// ui_T_Paqueteria_pasarela
-		paqPasarela = this.add.image(1056, 584, "paqueteriaPasarela");
-		
-		// ui_T_DDR_arrow
-		ddrFlecha_0 = this.add.image(1076, 776, "ddrFlecha_0");
-		
-		// ui_T_DDR_arrow_1
-		ddrFlecha_1 = this.add.image(1114, 776, "ddrFlecha_1");
-		
-		// ui_T_DDR_arrow_2
-		ddrFlecha_2 = this.add.image(1153, 776, "ddrFlecha_2");
-		
+    
+
 		// flechasAmarillas
-		flechasAmarillas = this.add.image(393, 232, "FlechasAmarillas");
+        //flechasAmarillas = this.add.image(393, 232, "FlechasAmarillas"); //¿?¿?¿?¿? No está
+        
+        
 
         //jugador
         player = this.physics.add.sprite(marte.x,marte.y-600, 'vulpin_idle').setScale(3);
 
-        //this.add.image(3*game.config.width/4, game.config.height/2, "fondoTierra");
  
         //Indicadores recursos
         indTerra = new ResourceIndicator(this, 401, 787, 3, nTerraformacion, MAX_TERRAFORMACION);
@@ -358,9 +287,10 @@ class SceneGame extends Phaser.Scene {
         indRocas = new ResourceIndicator(this, 109, 166, 1, nRocas_M, MAX_ROCAS);
         indMat = new ResourceIndicator(this, 109, 256, 2, nMaterial_M, MAX_MATERIAL);
 
-        //Barra cargamento cohete
+        //Cargamento cohete
         objCoheteMat = new Bar(this, game.config.width/4 - 70, player.y + 10, nCoheteMat, MAX_COHETEMAT, 0.5, 0.5, coheteMat_color, true);
         objCoheteMat.obj.setRotation(-1.57);
+
         //Barra de carga
         barraCarga = new Bar(this, player.x-40, player.y-50, nCarga, MAX_CARGA, 0.3, 0.1, -1, false);
 
@@ -389,6 +319,7 @@ class SceneGame extends Phaser.Scene {
     }
     update(time, delta) {
         
+        //MARTE
         //Inputs
         //Movimiento de Marte
         if (key_left.isDown) {
@@ -410,11 +341,7 @@ class SceneGame extends Phaser.Scene {
         //Interaccionar con máquinas//
         //////////////////////////////
         //Mostrar tecla interacción
-        if (maquinas[0].canInteract() || maquinas[1].canInteract() || maquinas[2].canInteract() || maquinas[3].canInteract()) {
-
-            teclaAccion.setVisible(true);
-        }
-        else {
+        if (!(maquinas[0].canInteract() || maquinas[1].canInteract() || maquinas[2].canInteract() || maquinas[3].canInteract()) && maquinas[0].isSending) {
 
             teclaAccion.setVisible(false);
         }
@@ -442,9 +369,18 @@ class SceneGame extends Phaser.Scene {
         //Desgaste hambre//
         indHam.size -= 0.00005;
         indHam.Update();
-        console.log("Hambre: " + indHam.size);
+        //console.log("Hambre: " + indHam.size);
+
+        //TIERRA
+        controlTierra.Update();
+
+
+        //Detruir desde clases
+        //if (toDestroy != null)
+            //toDestroy.destroy(true);
     }
 
+    
 }
 
 
@@ -454,6 +390,7 @@ function updateRotations(sign) {
         nubes[i].rotation += 0.01*sign;
     }
     marte.rotation+=0.02*sign;
+    objCohete.obj.rotation+=0.007*sign;
     for (i=0; i<4; i++) {
 
         maquinas[i].obj.setRotation(maquinas[i].obj.rotation + 0.007*sign);
@@ -465,4 +402,9 @@ function updateRotations(sign) {
     //Desgaste extra hambre
     indHam.size -= 0.0005;
     indHam.Update();
+}
+
+function DestroyOnScene(obj) {
+
+    obj.destroy();
 }
