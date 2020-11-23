@@ -33,10 +33,11 @@ class SceneLogos extends Phaser.Scene {
         this.load.image("timerSegundos", directory+"ui_M_segundos.png" );
         this.load.image("timerMinutos", directory+"ui_M_minutos.png" );
         this.load.image("timeHoras", directory+"ui_M_horas.png" );
-        this.load.image("indicadorRocas", directory+"ui_M_rocas.png" );
+        //this.load.image("indicadorRocas", directory+"ui_M_rocas.png" );
         //this.load.image("indicadorO2", directory+"ui_M_o2.png" );
-        this.load.image("indicadorMateriales", directory+"ui_M_materiales.png" );
-        this.load.image("indicadorHambre", directory+"ui_M_hambre.png" );
+        //this.load.image("indicadorMateriales", directory+"ui_M_materiales.png" );
+        //this.load.image("indicadorHambre", directory+"ui_M_hambre.png" );
+        this.load.spritesheet("indicadores", directory+"M_indicators.png", { frameWidth: 145, frameHeight: 145 });
         this.load.image("flechasAmarillas", directory+"FlechasAmarillas.png" );
         
         //UI TIERRA
@@ -44,10 +45,10 @@ class SceneLogos extends Phaser.Scene {
         this.load.image("lanzadera", directory+"ui_T_Lanzadera.png" );
         this.load.image("lanzaderaPuerta", directory+"ui_T_Lanzadera_door.png" );
         this.load.image("lanzaderaCountdown", directory+"ui_T_countdown.png" );
-        this.load.image("cargaMateriales", directory+"ui_T_payload_materiales.png" );
+        /*this.load.image("cargaMateriales", directory+"ui_T_payload_materiales.png" );
         this.load.image("cargaRocas", directory+"ui_T_payload_rocas.png" );
         this.load.image("cargaO2", directory+"ui_T_payload_o2.png" );
-        this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );
+        this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );*/
         this.load.image("paqueteriaBase", directory+"ui_T_Paqueteria_contadores.png" );
         this.load.image("paqueteriaBotonComida", directory+"ui_T_Paqueteria_comida.png" );
         this.load.image("paqueteriaBotonO2", directory+"ui_T_Paqueteria_o2.png" );

@@ -4,7 +4,7 @@ class meteorito extends Phaser.GameObjects.Sprite{
 
         this.angle = angle;
         this.velocity = velocity;
-
+        ////this.physics.add.overlap(player, terraformador, colliderInteract);
         //super(scene, marte.x, marte.y, "marte");
         //this.setScale(0.25);
 
