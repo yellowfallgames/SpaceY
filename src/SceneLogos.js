@@ -20,8 +20,10 @@ class SceneLogos extends Phaser.Scene {
         this.load.image("barra", directory+"barra.png");
         
         this.load.spritesheet('componentes', directory+'componente test.png', { frameWidth: 93, frameHeight: 46 });
-        this.load.spritesheet('vulpin_idle', directory+'vulpin.png', { frameWidth: 36, frameHeight: 36 });
-        this.load.spritesheet('vulpin_walk', directory+'vulpin_walk.png', { frameWidth: 36, frameHeight: 36 });
+        this.load.spritesheet('stelonauta_idle', directory+'spritesheet_idle.png', { frameWidth: 361, frameHeight: 361 });
+        this.load.spritesheet('stelonauta_run', directory+'spritesheet_run.png', { frameWidth: 361, frameHeight: 361 });
+
+
         
         //UI MARTE
         this.load.image("fondoMarte", directory+"ui_M_bck.png" );
@@ -49,6 +51,7 @@ class SceneLogos extends Phaser.Scene {
         this.load.image("cargaRocas", directory+"ui_T_payload_rocas.png" );
         this.load.image("cargaO2", directory+"ui_T_payload_o2.png" );
         this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );*/
+        this.load.spritesheet("payloads", directory+"ui_T_payloads.png", { frameWidth: 52, frameHeight: 37 });
         this.load.image("paqueteriaBase", directory+"ui_T_Paqueteria_contadores.png" );
         this.load.image("paqueteriaBotonComida", directory+"ui_T_Paqueteria_comida.png" );
         this.load.image("paqueteriaBotonO2", directory+"ui_T_Paqueteria_o2.png" );
