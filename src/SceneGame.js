@@ -135,7 +135,7 @@ class SceneGame extends Phaser.Scene {
 
     preload() {
         
-        ///*
+        /*
         //SceneGame//
         this.load.image("player", directory+"vulp_i1.png");
         this.load.image("marte", directory+"marte test.png");
@@ -144,6 +144,8 @@ class SceneGame extends Phaser.Scene {
         this.load.spritesheet('componentes', directory+'componente test.png', { frameWidth: 93, frameHeight: 46 });
         this.load.spritesheet('vulpin_idle', directory+'vulpin.png', { frameWidth: 36, frameHeight: 36 });
         this.load.spritesheet('vulpin_walk', directory+'vulpin_walk.png', { frameWidth: 36, frameHeight: 36 });
+        this.load.spritesheet('stelonauta_idle', directory+'spritesheet_idle.png', { frameWidth: 361, frameHeight: 361 });
+        this.load.spritesheet('stelonauta_run', directory+'spritesheet_run.png', { frameWidth: 361, frameHeight: 361 });
         
         //UI MARTE
         this.load.image("fondoMarte", directory+"ui_M_bck.png" );
@@ -170,7 +172,7 @@ class SceneGame extends Phaser.Scene {
         /*this.load.image("cargaMateriales", directory+"ui_T_payload_materiales.png" );
         this.load.image("cargaRocas", directory+"ui_T_payload_rocas.png" );
         this.load.image("cargaO2", directory+"ui_T_payload_o2.png" );
-        this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );*/
+        this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );
         this.load.spritesheet("payloads", directory+"ui_T_payloads.png", { frameWidth: 52, frameHeight: 37 });
         this.load.image("paqueteriaBase", directory+"ui_T_Paqueteria_contadores.png" );
         this.load.image("paqueteriaBotonComida", directory+"ui_T_Paqueteria_comida.png" );
@@ -278,7 +280,7 @@ class SceneGame extends Phaser.Scene {
         
 
         //jugador
-        player = this.physics.add.sprite(marte.x,marte.y-600, 'vulpin_idle').setScale(3);
+        player = this.physics.add.sprite(marte.x,marte.y-620, 'stelonauta_idle').setScale(0.6);
 
  
         //Indicadores recursos
@@ -296,16 +298,16 @@ class SceneGame extends Phaser.Scene {
 
         //Animaciones
         this.anims.create({
-            key: 'vulpin_idle',
-            frames: this.anims.generateFrameNumbers('vulpin_idle', { start: 0, end: 5 }),
-            frameRate: 10,
-            repeat: 1,
+            key: 'stelonauta_idle',
+            frames: this.anims.generateFrameNumbers('stelonauta_idle', { start: 0, end: 19 }),
+            frameRate: 18,
+            //repeat: 1,
         });
 
         this.anims.create({
-            key: 'vulpin_walk',
-            frames: this.anims.generateFrameNumbers('vulpin_walk', { start: 0, end: 10 }),
-            frameRate: 10,
+            key: 'stelonauta_run',
+            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 21 }),
+            frameRate: 18,
         });
 
         //Input events
@@ -334,7 +336,7 @@ class SceneGame extends Phaser.Scene {
         }
         else {
 
-            player.anims.play('vulpin_idle', true);
+            player.anims.play('stelonauta_idle', true);
         }
         
         //////////////////////////////
@@ -396,8 +398,8 @@ function updateRotations(sign) {
         maquinas[i].obj.setRotation(maquinas[i].obj.rotation + 0.007*sign);
     }
 
-    sign===1 ? player.flipX = true : player.flipX = false;
-    player.anims.play('vulpin_walk', true);
+    sign===1 ? player.flipX = false : player.flipX = true;
+    player.anims.play('stelonauta_run', true);
 
     //Desgaste extra hambre
     indHam.size -= 0.0005;
