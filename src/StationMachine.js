@@ -19,7 +19,7 @@ class StationMachine extends Machine {
                 this.obj.setRotation(1.57);
             break;
             case 3:
-                //Mina
+                //Mina pacooo
                 this.obj.setRotation(3.14);
             break;
             
