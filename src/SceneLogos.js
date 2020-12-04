@@ -58,7 +58,8 @@ class SceneLogos extends Phaser.Scene {
         this.load.image("paqueteriaBotonMat", directory+"ui_T_Paqueteria_materiales.png" );
         this.load.image("paqueteriaBotonEnviar", directory+"ui_T_Paqueteria_enviar.png" );
         this.load.image("paqueteriaPasarela", directory+"ui_T_Paqueteria_pasarela.png" );
-        this.load.image("ddrBase", directory+"ui_T_DDR.png" );
+        this.load.image("ddrBaseTubo", directory+"ui_T_DDR1.png" );
+        this.load.image("ddrBase", directory+"ui_T_DDR2.png" );
         this.load.image("ddrFlecha_0", directory+"ui_T_DDR_arrow.png" );
         this.load.image("ddrFlecha_1", directory+"ui_T_DDR_arrow.png" );
         this.load.image("ddrFlecha_2", directory+"ui_T_DDR_arrow.png" );

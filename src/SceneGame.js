@@ -134,18 +134,17 @@ class SceneGame extends Phaser.Scene {
     }
 
     preload() {
-        
-        /*
+        ///*
         //SceneGame//
         this.load.image("player", directory+"vulp_i1.png");
         this.load.image("marte", directory+"marte test.png");
         this.load.image("barra", directory+"barra.png");
         
         this.load.spritesheet('componentes', directory+'componente test.png', { frameWidth: 93, frameHeight: 46 });
-        this.load.spritesheet('vulpin_idle', directory+'vulpin.png', { frameWidth: 36, frameHeight: 36 });
-        this.load.spritesheet('vulpin_walk', directory+'vulpin_walk.png', { frameWidth: 36, frameHeight: 36 });
         this.load.spritesheet('stelonauta_idle', directory+'spritesheet_idle.png', { frameWidth: 361, frameHeight: 361 });
         this.load.spritesheet('stelonauta_run', directory+'spritesheet_run.png', { frameWidth: 361, frameHeight: 361 });
+
+
         
         //UI MARTE
         this.load.image("fondoMarte", directory+"ui_M_bck.png" );
@@ -172,7 +171,7 @@ class SceneGame extends Phaser.Scene {
         /*this.load.image("cargaMateriales", directory+"ui_T_payload_materiales.png" );
         this.load.image("cargaRocas", directory+"ui_T_payload_rocas.png" );
         this.load.image("cargaO2", directory+"ui_T_payload_o2.png" );
-        this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );
+        this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );*/
         this.load.spritesheet("payloads", directory+"ui_T_payloads.png", { frameWidth: 52, frameHeight: 37 });
         this.load.image("paqueteriaBase", directory+"ui_T_Paqueteria_contadores.png" );
         this.load.image("paqueteriaBotonComida", directory+"ui_T_Paqueteria_comida.png" );
@@ -180,7 +179,8 @@ class SceneGame extends Phaser.Scene {
         this.load.image("paqueteriaBotonMat", directory+"ui_T_Paqueteria_materiales.png" );
         this.load.image("paqueteriaBotonEnviar", directory+"ui_T_Paqueteria_enviar.png" );
         this.load.image("paqueteriaPasarela", directory+"ui_T_Paqueteria_pasarela.png" );
-        this.load.image("ddrBase", directory+"ui_T_DDR.png" );
+        this.load.image("ddrBaseTubo", directory+"ui_T_DDR1.png" );
+        this.load.image("ddrBase", directory+"ui_T_DDR2.png" );
         this.load.image("ddrFlecha_0", directory+"ui_T_DDR_arrow.png" );
         this.load.image("ddrFlecha_1", directory+"ui_T_DDR_arrow.png" );
         this.load.image("ddrFlecha_2", directory+"ui_T_DDR_arrow.png" );
@@ -198,9 +198,11 @@ class SceneGame extends Phaser.Scene {
         this.load.image("pantallaMapa", directory+"ui_T_pantalla_plano.png" );
         this.load.image("rocket", directory+"ui_T_rocket.png" );
         //*/
+    
     }
 
     create() {
+        //MARTE
 		// ui_M_bck
         fondoMarte = this.add.image(407, 450, "fondoMarte");
 
@@ -252,7 +254,7 @@ class SceneGame extends Phaser.Scene {
 
         //TIERRA
         controlTierra = new EarthControl(this, 0, 0, 8);
-        
+        controlTierra.PushFromMars();
 		
 		
 		// ui_M_horas
