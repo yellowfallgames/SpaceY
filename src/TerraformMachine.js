@@ -24,8 +24,8 @@ class TerraformMachine extends Machine {
             
         }*/
 
-        this.obj.setOrigin(0.5, 2);
-        this.obj.setScale(0.75);
+        this.obj.setOrigin(0.5, 2.6);
+        this.obj.setScale(0.5);
     }
 
     update(){

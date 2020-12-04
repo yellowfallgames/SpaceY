@@ -174,6 +174,7 @@ class SceneGame extends Phaser.Scene {
         this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );*/
         this.load.spritesheet("payloads", directory+"ui_T_payloads.png", { frameWidth: 52, frameHeight: 37 });
         this.load.image("paqueteriaBase", directory+"ui_T_Paqueteria_contadores.png" );
+        this.load.image("paqueteriaBaseTubo", directory+"ui_T_Paqueteria_contadores_tubo.png" );
         this.load.image("paqueteriaBotonComida", directory+"ui_T_Paqueteria_comida.png" );
         this.load.image("paqueteriaBotonO2", directory+"ui_T_Paqueteria_o2.png" );
         this.load.image("paqueteriaBotonMat", directory+"ui_T_Paqueteria_materiales.png" );
@@ -258,7 +259,7 @@ class SceneGame extends Phaser.Scene {
 
         //TIERRA
         controlTierra = new EarthControl(this, 0, 0, 8);
-        controlTierra.PushFromMars();
+        //controlTierra.PushFromMars();
 		
 		
 		// ui_M_horas

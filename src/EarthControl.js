@@ -26,6 +26,8 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.controlPass = scene.add.image(1447, 829, "controlPass");
         // ui_T_Paqueteria_contadores
         this.paqBase = scene.add.image(1219, 674, "paqueteriaBase");
+        // ui_T_Paqueteria_contadores_tubo
+        this.paqBaseTubo = scene.add.image(1239, 775, "paqueteriaBaseTubo");//Tubo 2
         // ui_T_DDR2
         this.ddrBaseTubo = scene.add.image(980, 793, "ddrBaseTubo");/////tubo 1
         this.ddrBaseTubo.depth = 1;
@@ -39,16 +41,18 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         // ui_T_pantalla_plano
         this.pantallaPlano = scene.add.image(1337, 227, "pantallaMapa");
         // ui_T_Paqueteria_pasarela
-        this.paqPasarela = scene.add.image(1056, 584, "paqueteriaPasarela");
+        this.paqPasarela = scene.add.image(1056, 590, "paqueteriaPasarela");////Tubo3
     
-        this.cargaPayloads = new Array(maxSize);
+        this.cargaPayloads = new Array();// = new Array(maxSize);
         this.payloadsPosX = 957;
         this.payloadsPosY = 599;
         this.maxSize = maxSize;
         this.size = 0;
 
-        this.rocket = scene.add.image(957, -200, "rocket").setScale(1);
+        this.rocket = scene.add.image(957, -600, "rocket").setScale(1);
         this.rocketY = 455;
+        this.goTakeOff = false;
+        this.typeOfLoad = 0; //0->Roca, 1->Comida/material
 
         //Botón para descargar rocas
         this.countLanz = 0;
@@ -62,9 +66,10 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.unloadRocketBtn.depth = 1;
 
         //Botones para transformar
+        this.nObj = 0;
         this.ddrBtnComida = scene.add.image(1078, 836, "ddrBotonComida")
         .setInteractive()
-        .on('pointerdown', () => this.StartTransform(this.ddrBtnComida) )
+        .on('pointerdown', () => this.StartTransform(0) )
         .on('pointerup', () => this.Highlight(this.ddrBtnComida, true) )
         .on('pointerover', () => this.Highlight(this.ddrBtnComida, true) )
         .on('pointerout', () => this.Highlight(this.ddrBtnComida, false) );
@@ -72,7 +77,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         this.ddrBtnMat = scene.add.image(1117, 836, "ddrBotonMat")
         .setInteractive()
-        .on('pointerdown', () => this.StartTransform(this.ddrBtnMat) )
+        .on('pointerdown', () => this.StartTransform(1) )
         .on('pointerup', () => this.Highlight(this.ddrBtnMat, true) )
         .on('pointerover', () => this.Highlight(this.ddrBtnMat, true) )
         .on('pointerout', () => this.Highlight(this.ddrBtnMat, false) );
@@ -82,14 +87,14 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         //Botones para añadir elementos al envío
         this.paqBtnComida = scene.add.image(1167, 581, "paqueteriaBotonComida")
         .setInteractive()
-        .on('pointerdown', () => this.tweenTube1On())//this.PutOn(this.paqBtnComida) )
+        .on('pointerdown', () => this.PutOn(1, this.paqBtnComida))
         .on('pointerup', () => this.Highlight(this.paqBtnComida, true) )
         .on('pointerover', () => this.Highlight(this.paqBtnComida, true) )
         .on('pointerout', () => this.Highlight(this.paqBtnComida, false) );
 
         this.paqBtnMat = scene.add.image(1220, 581, "paqueteriaBotonMat")
         .setInteractive()
-        .on('pointerdown', () => this.PutOn(this.paqBtnMat) )
+        .on('pointerdown', () => this.PutOn(2, this.paqBtnMat))
         .on('pointerup', () => this.Highlight(this.paqBtnMat, true) )
         .on('pointerover', () => this.Highlight(this.paqBtnMat, true) )
         .on('pointerout', () => this.Highlight(this.paqBtnMat, false) );
@@ -104,7 +109,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         //Contadores de recursos
         this.counterRoc = 0;
-        this.counterCom = 0;
+        this.counterCom = 8;
         this.counterMat = 0;
 
         this.txtCounterRoc = scene.add.text(this.paqBtnComida.x+105, this.paqBtnComida.y-57, this.counterRoc,{
@@ -135,7 +140,12 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         //Combos
         this.combokeys = new Array(3);
+        this.that;
 
+        //Misc
+        this.zPayL;
+        this.wait = false;
+        this.newPayloadType = 0;
     }
 
     Land() {
@@ -151,7 +161,14 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
     TakeOff() {
 
+        this.rocket.y -= 3;
+        if (this.rocket.y <= -600) {
 
+            this.rocket.y = -600;
+            this.goTakeOff = false;
+            estacionTransporte.isComing = true;
+            estacionTransporte.loadOfEarth = true;
+        }
     }
 
     //Descargar el cohete de rocas
@@ -163,6 +180,9 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
             this.cargaPayloads[i].UnloadFromRocket(timeDelay);
             timeDelay+= 100;
         }
+        this.cargaPayloads.splice(i, this.size);
+        this.typeOfLoad = 1;
+        this.size = 0;
     }
 
     PushFromMars() {
@@ -171,12 +191,17 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
             this.cargaPayloads[i] = new Payload(this.scene, this.payloadsPosX, this.payloadsPosY - (i*35), 0);
         }
+        this.typeOfLoad = 0;
+        this.size = this.maxSize;
     }
 
     Update() {
 
         if (objCohete.goLand)
             controlTierra.Land();
+        
+        if (this.goTakeOff)
+            controlTierra.TakeOff();
     }
 
     Highlight(obj, b) {
@@ -184,9 +209,19 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         b ? obj.tint = Phaser.Display.Color.GetColor(139, 139, 139) : obj.tint = Phaser.Display.Color.GetColor(255, 255, 255);  
     }
 
-    StartTransform(obj) {
+    StartTransform(n) {
 
         if (this.counterRoc > 0) {
+
+            if(n === 0) {
+
+                this.nObj = 0;
+            }
+            else {
+
+                this.nObj = 1;
+            }
+            
 
             this.counterRoc--;
             this.txtCounterRoc.setText(this.counterRoc);
@@ -224,18 +259,23 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
                 
             }
 
-            var that;
-            if (that === undefined)
-                this.scene.input.keyboard.createCombo(this.combokeys,{resetOnWrongKey: false});
+            var combo = this.scene.input.keyboard.createCombo(this.combokeys,{resetOnWrongKey: false, deleteOnMatch: true});
 
-            that = this;
-            this.scene.input.keyboard.on('keycombomatch', function (event) {
+            var that = this;
+            var z = 0;
+            this.scene.input.keyboard.on('keycombomatch', function () {
                 
                 for (var i=0; i<3; i++) {
                     that.combokeys[i] = 0;
                     that.ddrFlechas[i].setVisible(false);
                     that.ddrFlechas[i].setRotation(0);
                 }
+
+                //combo.destroy();
+                console.log("HOLA");
+                if (z == 0)
+                    that.tweenTube2On(this.nObj);
+                z++;
             });
         }
         
@@ -260,40 +300,129 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         }
     }
 
-    PutOn(obj) {
+    PutOn(n, obj) {
 
-        obj.tint = Phaser.Display.Color.GetColor(255, 255, 255)
+        if (n === 1) {
 
-        if(obj === this.paqBtnComida) {
-
-            this.counterCom = Math.max(0, this.counterCom-1);
-            this.txtCounterCom.setText(this.counterCom);
-            
+            var counter = this.counterCom;
         }
-        else if(obj === this.paqBtnMat){
+        else {
 
-            this.counterMat = Math.max(0, this.counterMat-1);
-            this.txtCounterMat.setText(this.counterMat);
+            var counter = this.counterMat;
         }
+
+        if (!this.wait && this.size < this.maxSize && this.typeOfLoad === 1 && counter > 0) {
+
+            obj.tint = Phaser.Display.Color.GetColor(255, 255, 255)
+            this.newPayloadType = n;
+            if (this.newPayloadType === 1) {
+
+                objCohete.comLoad += MAX_COMIDA*0.05;
+            }
+            else{
+
+                objCohete.matLoad += MAX_MATERIAL*0.05;
+            }
+
+            this.wait = true;
+            this.tweenTube3On();
+        }
+        
+    }
+
+    //Añade un payload de comida o material al cohete
+    AddToRocket() {
+
+        this.zPayL = 0;
+        if (this.size > 0) {
+
+            for (var i = 0; i < this.size; i++) {
+                
+                this.cargaPayloads[i].MoveUp();
+            }
+        }
+        else {
+
+            this.CreateNewPayload();
+        }
+        
+        
+    }
+
+    //
+    CreateNewPayload() {
+        if (this.zPayL === 0){
+            var newPayload = new Payload(this.scene, this.payloadsPosX, this.payloadsPosY, this.newPayloadType);
+            this.cargaPayloads.unshift(newPayload);
+            this.size++;
+
+            this.zPayL++;
+            this.wait = false;
+        }
+        
     }
 
     Send(obj) {
 
-        obj.tint = Phaser.Display.Color.GetColor(255, 255, 255)
+        if (this.size === this.maxSize && this.typeOfLoad === 1 && !this.goTakeOff) {
+
+            obj.tint = Phaser.Display.Color.GetColor(255, 255, 255)
+
+            var delay = 0;
+            for (var i = 0; i < this.size; i++) {
+
+                this.cargaPayloads[i].Dissapear(delay, i, this.maxSize);
+                delay += 100;
+            }
+            this.cargaPayloads.splice(i, this.size);
+            this.size = 0;
+            this.typeOfLoad = -1;
+
+            this.tweenLanzPuertaExtIn()
+        }
+        
     }
 
     //Tweenings
+    //Compuerta lanzadera salida exterior
+    tweenLanzPuertaExtIn() {
+
+        this.countLanz = 0;
+        this.scene.tweens.add({
+            targets: this.lanzPuertaOut,
+            x: this.lanzPuertaOut.x+220,
+            duration: 500,
+            ease: 'Cubic.easeOut',
+            repeat: 0,
+            yoyo: false,
+
+            onComplete: this.tweenLanzPuertaExtOut.bind(this)
+        });
+        
+    }
+
+    tweenLanzPuertaExtOut() {
+        
+        this.scene.tweens.add({
+            targets: this.lanzPuertaOut,
+            x: this.lanzPuertaOut.x-220,
+            duration: 500,
+            ease: 'Cubic.easeOut',
+            repeat: 0,
+            delay: 3500,
+            yoyo: false,
+        });  
+    }
+
     //Compuerta lanzadera entrada rocas
     tweenLanzPuertaIn() {
 
-        if (this.cargaPayloads[0].obj.visible === true) {
+        if (this.size === this.maxSize && this.typeOfLoad === 0) {
 
             this.countLanz = 0;
             this.scene.tweens.add({
                 targets: this.unloadRocketBtn,
-                //x: this.unloadRocketBtn.x-220,
                 rotation: -1.7,
-                //scaleX: 0.1,
                 duration: 500,
                 ease: 'Cubic.easeOut',
                 repeat: 0,
@@ -331,7 +460,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.counterRoc++;
         this.txtCounterRoc.setText(this.counterRoc);
 
-        this.scene.tweens.add({
+        this.tweenT3 = this.scene.tweens.add({
             targets: this.ddrBaseTubo,
             scale: 1.3,
             duration: 100,
@@ -358,5 +487,89 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         });
     }
 
+    //Tuberia transformar rocas en mat/com
+    tweenTube2On() {
+
+        this.scene.tweens.add({
+            targets: this.paqBaseTubo,
+            scale: 1.3,
+            duration: 300,
+            ease: 'Expo.easeIn',
+            repeat: 0,
+            yoyo: false,
+
+            onComplete: this.tweenTube2Off.bind(this),
+        });
+
+        
+    }
+
+    tweenTube2Off(n) {
+
+        if (this.nObj === 0) {
+            this.counterCom++;
+            this.txtCounterCom.setText(this.counterCom);
+        }
+        else {
+            this.counterMat++;
+            this.txtCounterMat.setText(this.counterMat);
+        }
+
+        this.scene.tweens.add({
+            targets: this.paqBaseTubo,
+            scale: 1,
+            duration: 1000,
+            ease: 'Expo.easeOut',
+            repeat: 0,
+            yoyo: false,
+
+            //onComplete: this.tweenLanzPuertaOut.bind(this)
+        });
+    }
+
+    //Tubo pasarela
+    tweenTube3On() {
+        
+        if (this.newPayloadType === 1) {
+
+            this.counterCom--;
+            this.txtCounterCom.setText(this.counterCom);
+        }
+        else {
+
+            this.counterMat--;
+            this.txtCounterMat.setText(this.counterMat);
+        }
+        
+
+        this.scene.tweens.add({
+            targets: this.paqPasarela,
+            scale: 1.4,
+            duration: 100,
+            ease: 'Expo.easeIn',
+            repeat: 0,
+            yoyo: true,
+
+            onComplete: this.tweenTube3Off.bind(this),
+        });
+
+        
+    }
+
+    tweenTube3Off() {
+        console.log()
+        this.AddToRocket();
+
+        this.scene.tweens.add({
+            targets: this.paqPasarela,
+            scale: 1,
+            duration: 600,
+            ease: 'Expo.easeOut',
+            repeat: 0,
+            yoyo: false,
+
+            //onComplete: this.tweenLanzPuertaOut.bind(this)
+        });
+    }
 }
 
