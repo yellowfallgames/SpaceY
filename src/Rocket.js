@@ -2,8 +2,8 @@ class Rocket {
     constructor(scene, x, y) {
 
         this.obj = scene.add.image(x, y, "rocket");
-        this.obj.setOrigin(0.5, 3);
-        this.obj.setScale(0.8);
+        this.obj.setOrigin(0.5, 2.5);
+        this.obj.setScale(1);
         this.goLand = false;
 
         this.val = 0;
@@ -12,7 +12,7 @@ class Rocket {
     TakeOff() {
 
         this.val += 0.004;
-        this.obj.setOrigin(0.5, 3+this.val);
+        this.obj.setOrigin(0.5, 2.5+this.val);
 
         if (this.val > 2.5) {
 

@@ -1,10 +1,11 @@
 class StationMachine extends Machine {
-    constructor(scene, x, y, nMachine) {
+    constructor(scene, x, y) {
 
-        super(scene, x, y, nMachine)
-        this.obj.setOrigin(0.5, 2.05);
-        this.obj.setScale(0.75);
-        switch(nMachine) {
+        super(scene, x, y, 0)
+        /*this.obj.setOrigin(0.5, 2.25);
+        this.obj.setScale(0.6);*/
+        //this.obj.setVisible(false);
+        /*switch(nMachine) {
 
             case 0:
                 //Estación de transporte
@@ -23,7 +24,7 @@ class StationMachine extends Machine {
                 this.obj.setRotation(3.14);
             break;
             
-        }
+        }*/
     
         this.animation = false;
         this.isSending = false;

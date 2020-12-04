@@ -47,7 +47,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.maxSize = maxSize;
         this.size = 0;
 
-        this.rocket = scene.add.image(957, -200, "rocket");
+        this.rocket = scene.add.image(957, -200, "rocket").setScale(1);
         this.rocketY = 455;
 
         //Botón para descargar rocas

@@ -197,6 +197,10 @@ class SceneGame extends Phaser.Scene {
         this.load.image("pantalla", directory+"ui_T_pantalla.png" );
         this.load.image("pantallaMapa", directory+"ui_T_pantalla_plano.png" );
         this.load.image("rocket", directory+"ui_T_rocket.png" );
+        this.load.image("antena", directory+"antena.png" );
+        this.load.image("mina", directory+"mina.png" );
+        this.load.image("terraformador", directory+"terraformador.png" );
+    
         //*/
     
     }
@@ -214,7 +218,7 @@ class SceneGame extends Phaser.Scene {
 
         //Inicialización máquinas
         maquinas = new Array(4);
-        estacionTransporte = new StationMachine(this, marte.x, marte.y, 0);
+        estacionTransporte = new StationMachine(this, marte.x, marte.y);
         terraformador = new TerraformMachine(this, marte.x, marte.y, 1);
         comunicaciones = new CommsMachine(this, marte.x, marte.y, 2);
         mina = new MineMachine(this, marte.x, marte.y, 3);
