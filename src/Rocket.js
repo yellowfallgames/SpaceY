@@ -20,7 +20,7 @@ class Rocket {
             estacionTransporte.location = 1;
             this.goLand = true;
 
-            console.log("ADIOH");
+            console.log("ADIOH"); // 
         }
     }
 
