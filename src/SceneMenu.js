@@ -52,6 +52,12 @@ class SceneMenu extends Phaser.Scene {
 //---
 //}
 create() {
+    if(musica!=undefined && musica.key!='MusicMenu')
+    {
+        musica.stop();
+        musica = this.sound.add('MusicMenu');
+        musica.play();
+    }
 
     this.clickButton = this.add.text(100, 100, 'Jugar', { fill: '#0f0' })
     .setInteractive()
@@ -74,18 +80,22 @@ create() {
 }
 
 startGame() {
+    sfx.sounds[0].play();
     this.scene.start('SceneGame');
 }
 
 enterOptions() {
+    sfx.sounds[0].play();
     this.scene.start('SceneOptions');
 }
 
 enterContact() {
+    sfx.sounds[0].play();
     this.scene.start('SceneContact');
 }
 
 enterButtonHoverState(boton) {
+    sfx.sounds[1].play();
     boton.setStyle({ fill: '#ff0'});
     boton.x = boton.x+movTxt;
     boton.y = boton.y+movTxt;

@@ -151,8 +151,9 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     Land() {
 
         this.rocket.y += 7;
+        sfx.sounds[12].play();
         if (this.rocket.y >= this.rocketY) {
-
+            
             this.rocket.y = this.rocketY;
             this.PushFromMars();
             objCohete.goLand = false;
@@ -162,8 +163,9 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     TakeOff() {
 
         this.rocket.y -= 3;
+        sfx.sounds[11].play();
         if (this.rocket.y <= -600) {
-
+            
             this.rocket.y = -600;
             this.goTakeOff = false;
             estacionTransporte.isComing = true;
@@ -456,7 +458,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
     //Tubería de rocas
     tweenTube1On() {
-
+        sfx.sounds[10].play();
         this.counterRoc++;
         this.txtCounterRoc.setText(this.counterRoc);
 
@@ -489,7 +491,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
     //Tuberia transformar rocas en mat/com
     tweenTube2On() {
-
+        sfx.sounds[10].play();
         this.scene.tweens.add({
             targets: this.paqBaseTubo,
             scale: 1.3,
@@ -529,7 +531,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
     //Tubo pasarela
     tweenTube3On() {
-        
+        sfx.sounds[10].play();
         if (this.newPayloadType === 1) {
 
             this.counterCom--;
