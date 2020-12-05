@@ -204,13 +204,10 @@ class SceneGame extends Phaser.Scene {
         this.load.image("terraformador", directory+"terraformador.png" );
     
         //*/
-        this.load.audio("cocacola", directory+"cocacola.mp3");
     }
 
     create() {
 
-        music = this.sound.add("cocacola");
-        music.play();
         //MARTE
 		// ui_M_bck
         fondoMarte = this.add.image(407, 450, "fondoMarte");
