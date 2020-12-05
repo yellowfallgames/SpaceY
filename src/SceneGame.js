@@ -15,6 +15,7 @@ var toDestroy;
 
 //Interfaz
 var movTxt = 2;    //Píxeles que se mueve el texto al hacer hovering
+var counter;
 
 //Inputs
 var key_left;
@@ -114,7 +115,7 @@ var objRocas_M;
 var MAX_ROCAS = 200;
 var txtRocas_M;
 
-var nMaterial_M = 0;
+var nMaterial_M = 20;
 var objMaterial_M;
 var MAX_MATERIAL = 100;
 var txtMaterial_M;
@@ -124,7 +125,7 @@ var txtMaterial_M;
 
 /////////////////////
 
-
+var music;
 
 class SceneGame extends Phaser.Scene {
     
@@ -203,10 +204,13 @@ class SceneGame extends Phaser.Scene {
         this.load.image("terraformador", directory+"terraformador.png" );
     
         //*/
-    
+        this.load.audio("cocacola", directory+"cocacola.mp3");
     }
 
     create() {
+
+        music = this.sound.add("cocacola");
+        music.play();
         //MARTE
 		// ui_M_bck
         fondoMarte = this.add.image(407, 450, "fondoMarte");
@@ -232,14 +236,17 @@ class SceneGame extends Phaser.Scene {
         nubes = new Array(N_NUBES);
         
         for(var i=0; i<N_NUBES; i++) {
-            var nrand = Phaser.Math.Between(0,2);
+
+            nubes[i] = new Cloud(this);
+            /*var nrand = Phaser.Math.Between(0,0);
             switch(nrand) {
                 
                 //NUBE 1
                 case 0:
                     nubes[i] = this.add.image(marte.x, marte.y, "nube");
-                    nubes[i].setOrigin(0.5, 6);
-                    nubes[i].rotation = Phaser.Math.Between(-3.13,3.13);
+                    var orig = Phaser.Math.Linear(6, 8, Phaser.Math.Between(0,100)/100.0);
+                    nubes[i].setOrigin(0.5, orig);
+                    nubes[i].rotation = Phaser.Math.Linear(0, 2*Math.PI, Phaser.Math.Between(0,100)/100.0); 
                 break;
                 //NUBE 2
                 case 1:
@@ -253,7 +260,7 @@ class SceneGame extends Phaser.Scene {
                     nubes[i].setOrigin(0.5, 8);
                     nubes[i].rotation = Phaser.Math.Between(-3.13,3.13);
                 break;
-            }
+            }*/
             
         }
 
@@ -263,7 +270,7 @@ class SceneGame extends Phaser.Scene {
 		
 		
 		// ui_M_horas
-		timerHoras = this.add.image(553, 97, "timeHoras");
+		//timerHoras = this.add.image(553, 97, "timeHoras");
 		
 		// ui_M_minutos
 		timerMinutos = this.add.image(635, 97, "timerMinutos");
@@ -280,9 +287,8 @@ class SceneGame extends Phaser.Scene {
 		// ui_M_dangerArrow_1
 		alertaPeligroDc = this.add.image(144, 365, "alertaPeligro").setScale(-1,1).setVisible(false); // *************************************************FLIP EJE VERTICAL!
     
-
-		// flechasAmarillas
-        //flechasAmarillas = this.add.image(393, 232, "FlechasAmarillas"); //¿?¿?¿?¿? No está
+        //Contador tiempo restante
+        counter = new Counter(this, 10*60);
         
         
 
@@ -369,24 +375,22 @@ class SceneGame extends Phaser.Scene {
 
         //Nubes
         for(var i=0; i<N_NUBES; i++) {
-            nubes[i].rotation += 0.0001;
+            nubes[i].Update();
         }
 
-        //Desgaste máquinas//
+        //Desgaste máquinas//(mejor en sus clases)
         
 
         //Desgaste hambre//
-        indHam.size -= 0.00005;
+        indHam.size -= 0.00015;
         indHam.Update();
-        //console.log("Hambre: " + indHam.size);
+
+        if (indHam <= 0)
+            DefeatCondition();
+
 
         //TIERRA
         controlTierra.Update();
-
-
-        //Detruir desde clases
-        //if (toDestroy != null)
-            //toDestroy.destroy(true);
     }
 
     
@@ -396,7 +400,7 @@ class SceneGame extends Phaser.Scene {
 function updateRotations(sign) {
 
     for(var i=0; i<N_NUBES; i++) {
-        nubes[i].rotation += 0.01*sign;
+        nubes[i].obj.rotation += 0.01*sign;
     }
     marte.rotation+=0.02*sign;
     objCohete.obj.rotation+=0.007*sign;
@@ -409,11 +413,22 @@ function updateRotations(sign) {
     player.anims.play('stelonauta_run', true);
 
     //Desgaste extra hambre
-    indHam.size -= 0.0005;
+    indHam.size -= 0.0015;
     indHam.Update();
 }
 
 function DestroyOnScene(obj) {
 
     obj.destroy();
+}
+
+//Acciones condiciones victoria/derrota
+function VictoryCondition(){
+
+    console.log("HAS GANADO!!!");
+}
+
+function DefeatCondition(){
+
+    console.log("HAS PERDIDO :c");
 }

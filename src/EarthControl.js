@@ -112,10 +112,11 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.counterCom = 8;
         this.counterMat = 0;
 
-        this.txtCounterRoc = scene.add.text(this.paqBtnComida.x+105, this.paqBtnComida.y-57, this.counterRoc,{
+        this.txtCounterRoc = scene.add.text(this.ddrBtnComida.x+78, this.ddrBtnComida.y+1, this.counterRoc,{
             fontSize:'35px',
             fill:'#ffffff',
         }).setOrigin(0.5);
+        this.txtCounterRoc.depth = 1;
 
         this.txtCounterCom = scene.add.text(this.paqBtnComida.x, this.paqBtnComida.y-57, this.counterCom,{
             fontSize:'35px',
@@ -271,8 +272,6 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
                     that.ddrFlechas[i].setRotation(0);
                 }
 
-                //combo.destroy();
-                console.log("HOLA");
                 if (z == 0)
                     that.tweenTube2On(this.nObj);
                 z++;
