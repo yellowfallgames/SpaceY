@@ -11,7 +11,7 @@ class StationMachine extends Machine {
         this.loadOfEarth = false;
     }
 
-    update(){
+    update(delta){
         
         if (this.location === 0 && !this.isSending) {
 
@@ -83,10 +83,10 @@ class StationMachine extends Machine {
         
         //Update despegar/aterrizar
         if (this.isSending)
-            objCohete.TakeOff();
+            objCohete.TakeOff(delta);
 
         if (this.isComing)
-            objCohete.Land();
+            objCohete.Land(delta);
     }
 
 }

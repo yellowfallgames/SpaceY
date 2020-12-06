@@ -49,7 +49,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.maxSize = maxSize;
         this.size = 0;
 
-        this.rocket = scene.add.image(957, -600, "rocket").setScale(1);
+        this.rocket = scene.add.image(957, -400, "rocket").setScale(1);
         this.rocketY = 455;
         this.goTakeOff = false;
         this.typeOfLoad = 0; //0->Roca, 1->Comida/material
@@ -149,9 +149,9 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.newPayloadType = 0;
     }
 
-    Land() {
+    Land(delta) {
 
-        this.rocket.y += 7;
+        this.rocket.y += delta/6;
         if (this.rocket.y >= this.rocketY) {
 
             this.rocket.y = this.rocketY;
@@ -160,9 +160,9 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         }
     }
 
-    TakeOff() {
+    TakeOff(delta) {
 
-        this.rocket.y -= 3;
+        this.rocket.y -= delta/3;
         if (this.rocket.y <= -600) {
 
             this.rocket.y = -600;
@@ -196,13 +196,13 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.size = this.maxSize;
     }
 
-    Update() {
+    Update(delta) {
 
         if (objCohete.goLand)
-            controlTierra.Land();
+            controlTierra.Land(delta);
         
         if (this.goTakeOff)
-            controlTierra.TakeOff();
+            controlTierra.TakeOff(delta);
     }
 
     Highlight(obj, b) {

@@ -53,6 +53,7 @@ var indRocas;
 var indO2;
 var indMat;
 var indHam;
+var meteoritos;
 
 //Tierra
 var controlTierra;
@@ -142,8 +143,8 @@ class SceneGame extends Phaser.Scene {
         this.load.image("barra", directory+"barra.png");
         
         this.load.spritesheet('componentes', directory+'componente test.png', { frameWidth: 93, frameHeight: 46 });
-        this.load.spritesheet('stelonauta_idle', directory+'spritesheet_idle.png', { frameWidth: 361, frameHeight: 361 });
-        this.load.spritesheet('stelonauta_run', directory+'spritesheet_run.png', { frameWidth: 361, frameHeight: 361 });
+        this.load.spritesheet('stelonauta_idle', directory+'spritesheet_idle_repintado.png', { frameWidth: 361, frameHeight: 361 });
+        this.load.spritesheet('stelonauta_run', directory+'spritesheet_run_repintado.png', { frameWidth: 361, frameHeight: 361 });
 
 
         
@@ -152,6 +153,7 @@ class SceneGame extends Phaser.Scene {
         this.load.image("nube", directory+"ui_M_nubes.png" );
         this.load.image("teclaAccion", directory+"ui_M_actionbox.png" );
         this.load.image("alertaMeteorito", directory+"ui_M_meteorito.png" );
+        this.load.image("Meteorito", directory+"meteorito.png");
         this.load.image("terraformLevel", directory+"ui_M_terrafomlevel.png" );
         this.load.image("alertaPeligro", directory+"ui_M_dangerArrow.png" );
         this.load.image("timerSegundos", directory+"ui_M_segundos.png" );
@@ -261,6 +263,10 @@ class SceneGame extends Phaser.Scene {
             
         }
 
+        //
+        meteoritos = new Array();
+        meteoritos[0] = new Meteor(this);
+
         //TIERRA
         controlTierra = new EarthControl(this, 0, 0, 8);
         //controlTierra.PushFromMars();
@@ -270,8 +276,8 @@ class SceneGame extends Phaser.Scene {
 		//timerHoras = this.add.image(553, 97, "timeHoras");
 		
 		// ui_M_minutos
-		timerMinutos = this.add.image(635, 97, "timerMinutos");
-		
+        timerMinutos = this.add.image(635, 97, "timerMinutos");
+        
 		// ui_M_segundos
 		timerSegundos = this.add.image(716, 97, "timerSegundos");
 		
@@ -291,13 +297,16 @@ class SceneGame extends Phaser.Scene {
 
         //jugador
         player = this.physics.add.sprite(marte.x,marte.y-620, 'stelonauta_idle').setScale(0.6);
-
+        
  
         //Indicadores recursos
         indTerra = new ResourceIndicator(this, 401, 787, 3, nTerraformacion, MAX_TERRAFORMACION);
         indHam = new ResourceIndicator(this, 109, 74, 0, nComida_M, MAX_COMIDA);
         indRocas = new ResourceIndicator(this, 109, 166, 1, nRocas_M, MAX_ROCAS);
         indMat = new ResourceIndicator(this, 109, 256, 2, nMaterial_M, MAX_MATERIAL);
+
+        
+        
 
         //Cargamento cohete
         objCoheteMat = new Bar(this, game.config.width/4 - 70, player.y + 10, nCoheteMat, MAX_COHETEMAT, 0.5, 0.5, coheteMat_color, true);
@@ -309,7 +318,7 @@ class SceneGame extends Phaser.Scene {
         //Animaciones
         this.anims.create({
             key: 'stelonauta_idle',
-            frames: this.anims.generateFrameNumbers('stelonauta_idle', { start: 0, end: 19 }),
+            frames: this.anims.generateFrameNumbers('stelonauta_idle', { start: 0, end: 59 }),
             frameRate: 18,
             //repeat: 1,
         });
@@ -328,21 +337,23 @@ class SceneGame extends Phaser.Scene {
         key_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
         
+
+        
     }
     update(time, delta) {
-        
+        console.log(player.body.touching.none);
         //MARTE
         //Inputs
         //Movimiento de Marte
         if (key_left.isDown) {
             
             //Rotación de los elementos de Marte
-            updateRotations(1);
+            updateRotations(1, delta);
         }
         else if (key_right.isDown) {
 
             //Rotación de los elementos de Marte
-            updateRotations(-1);
+            updateRotations(-1, delta);
         }
         else {
 
@@ -361,7 +372,7 @@ class SceneGame extends Phaser.Scene {
         //Acciones de cada máquina
         for(i = 0; i < 4; i++) {
 
-            maquinas[i].update();
+            maquinas[i].update(delta);
         }
 
 
@@ -379,38 +390,44 @@ class SceneGame extends Phaser.Scene {
         
 
         //Desgaste hambre//
-        indHam.size -= 0.00015;
+        indHam.size = Phaser.Math.Clamp(indHam.size - delta/2500, 0, indHam.maxSize); 
         indHam.Update();
 
-        if (indHam <= 0)
+        if (indHam.size <= 0)
             DefeatCondition();
 
 
         //TIERRA
-        controlTierra.Update();
+        controlTierra.Update(delta);
+
+        meteoritos[0].Update();
     }
 
     
 }
 
 
-function updateRotations(sign) {
+function updateRotations(sign, delta) {
 
     for(var i=0; i<N_NUBES; i++) {
-        nubes[i].obj.rotation += 0.01*sign;
+        nubes[i].obj.rotation += sign*delta/1000;
     }
-    marte.rotation+=0.02*sign;
-    objCohete.obj.rotation+=0.007*sign;
+    /*for(var i=0; i<nMeteoritos; i++) {
+        nubes[i].obj.rotation += 0.01*sign;
+    }*/
+    meteoritos[0].obj.rotation += sign*delta/1500;
+    marte.rotation+=sign*delta/1500;
+    objCohete.obj.rotation+=sign*delta/1500;
     for (i=0; i<4; i++) {
 
-        maquinas[i].obj.setRotation(maquinas[i].obj.rotation + 0.007*sign);
+        maquinas[i].obj.setRotation(maquinas[i].obj.rotation + sign*delta/1500);
     }
 
     sign===1 ? player.flipX = false : player.flipX = true;
     player.anims.play('stelonauta_run', true);
 
     //Desgaste extra hambre
-    indHam.size -= 0.0015;
+    indHam.size = Phaser.Math.Clamp(indHam.size - delta/2500, 0, indHam.maxSize); 
     indHam.Update();
 }
 

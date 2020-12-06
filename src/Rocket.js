@@ -12,9 +12,9 @@ class Rocket {
         this.matLoad = 0;
     }
 
-    TakeOff() {
+    TakeOff(delta) {
 
-        this.val += 0.004;
+        this.val += delta/2300;
         this.obj.setOrigin(0.5, 2.5+this.val);
 
         if (this.val > 2.5) {
@@ -26,9 +26,9 @@ class Rocket {
         }
     }
 
-    Land() {
+    Land(delta) {
 
-        this.val -= 0.004;
+        this.val -= delta/2300;
         this.obj.setOrigin(0.5, 2.5+this.val);
 
         if (this.val <= 0) {
