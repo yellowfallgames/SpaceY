@@ -13,6 +13,12 @@ class SceneMenu extends Phaser.Scene {
     }
 
 create() {
+    if(musica!=undefined && musica.key!='MusicMenu')
+    {
+        musica.stop();
+        musica = this.sound.add('MusicMenu');
+        musica.play();
+    }
 
     //ASIGNACION DE METODO
     this.clickButton = this.add.text(game.config.width/2, (game.config.height/8)*4, 'Jugar', { fill: '#0f0'})
@@ -52,15 +58,32 @@ enterButtonRestState(boton) {
 
 
 startGame() {
+    sfx.sounds[0].play();
     this.scene.start('SceneGame');
 }
 
 enterOptions() {
+    sfx.sounds[0].play();
     this.scene.start('SceneOptions');
 }
 
 enterContact() {
+    sfx.sounds[0].play();
     this.scene.start('SceneContact');
+}
+
+
+enterButtonHoverState(boton) {
+    sfx.sounds[1].play();
+    boton.setStyle({ fill: '#ff0'});
+    boton.x = boton.x+movTxt;
+    boton.y = boton.y+movTxt;
+}
+
+enterButtonRestState(boton) {
+    boton.setStyle({ fill: '#0f0' });
+    boton.x = boton.x-movTxt;
+    boton.y = boton.y-movTxt;
 }
 
 

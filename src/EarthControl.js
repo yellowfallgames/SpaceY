@@ -153,7 +153,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         this.rocket.y += delta/6;
         if (this.rocket.y >= this.rocketY) {
-
+            
             this.rocket.y = this.rocketY;
             this.PushFromMars();
             objCohete.goLand = false;
@@ -164,11 +164,13 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         this.rocket.y -= delta/3;
         if (this.rocket.y <= -600) {
-
+            
             this.rocket.y = -600;
             this.goTakeOff = false;
             estacionTransporte.isComing = true;
             estacionTransporte.loadOfEarth = true;
+            //Aterriza en marte
+            sfx.sounds[12].play();
         }
     }
 
@@ -364,7 +366,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     Send(obj) {
 
         if (this.size === this.maxSize && this.typeOfLoad === 1 && !this.goTakeOff) {
-
+            sfx.sounds[11].play();
             obj.tint = Phaser.Display.Color.GetColor(255, 255, 255)
 
             var delay = 0;
@@ -378,6 +380,9 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
             this.typeOfLoad = -1;
 
             this.tweenLanzPuertaExtIn()
+
+            //Pulsar botón para cuenta atrás
+            sfx.sounds[0].play();
         }
         
     }
@@ -455,7 +460,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
     //Tubería de rocas
     tweenTube1On() {
-
+        sfx.sounds[10].play();
         this.counterRoc++;
         this.txtCounterRoc.setText(this.counterRoc);
 
@@ -488,7 +493,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
     //Tuberia transformar rocas en mat/com
     tweenTube2On() {
-
+        sfx.sounds[10].play();
         this.scene.tweens.add({
             targets: this.paqBaseTubo,
             scale: 1.3,
@@ -528,7 +533,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
     //Tubo pasarela
     tweenTube3On() {
-        
+        sfx.sounds[10].play();
         if (this.newPayloadType === 1) {
 
             this.counterCom--;
