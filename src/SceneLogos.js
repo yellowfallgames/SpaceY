@@ -22,8 +22,8 @@ class SceneLogos extends Phaser.Scene {
         this.load.image("barra", directory+"barra.png");
         
         this.load.spritesheet('componentes', directory+'componente test.png', { frameWidth: 93, frameHeight: 46 });
-        this.load.spritesheet('stelonauta_idle', directory+'spritesheet_idle.png', { frameWidth: 361, frameHeight: 361 });
-        this.load.spritesheet('stelonauta_run', directory+'spritesheet_run.png', { frameWidth: 361, frameHeight: 361 });
+        this.load.spritesheet('stelonauta_idle', directory+'spritesheet_idle_repintado.png', { frameWidth: 361, frameHeight: 361 });
+        this.load.spritesheet('stelonauta_run', directory+'spritesheet_run_repintado.png', { frameWidth: 361, frameHeight: 361 });
 
 
         
@@ -32,6 +32,7 @@ class SceneLogos extends Phaser.Scene {
         this.load.image("nube", directory+"ui_M_nubes.png" );
         this.load.image("teclaAccion", directory+"ui_M_actionbox.png" );
         this.load.image("alertaMeteorito", directory+"ui_M_meteorito.png" );
+        this.load.image("Meteorito", directory+"meteorito.png" );
         this.load.image("terraformLevel", directory+"ui_M_terrafomlevel.png" );
         this.load.image("alertaPeligro", directory+"ui_M_dangerArrow.png" );
         this.load.image("timerSegundos", directory+"ui_M_segundos.png" );

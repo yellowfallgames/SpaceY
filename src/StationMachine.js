@@ -2,29 +2,7 @@ class StationMachine extends Machine {
     constructor(scene, x, y) {
 
         super(scene, x, y, 0)
-        /*this.obj.setOrigin(0.5, 2.25);
-        this.obj.setScale(0.6);*/
-        //this.obj.setVisible(false);
-        /*switch(nMachine) {
 
-            case 0:
-                //Estación de transporte
-                this.obj.setRotation(0);
-            break;
-            case 1:
-                //Terraformador
-                this.obj.setRotation(-1.57);
-            break;
-            case 2:
-                //Comunicaciones
-                this.obj.setRotation(1.57);
-            break;
-            case 3:
-                //Mina pacooo
-                this.obj.setRotation(3.14);
-            break;
-            
-        }*/
         this.scene = scene;
         this.animation = false;
         this.isSending = false;
@@ -33,7 +11,7 @@ class StationMachine extends Machine {
         this.loadOfEarth = false;
     }
 
-    update(){
+    update(delta){
         
         if (this.location === 0 && !this.isSending) {
 
@@ -106,10 +84,10 @@ class StationMachine extends Machine {
         
         //Update despegar/aterrizar
         if (this.isSending)
-            objCohete.TakeOff();
+            objCohete.TakeOff(delta);
 
         if (this.isComing)
-            objCohete.Land();
+            objCohete.Land(delta);
     }
 
 }

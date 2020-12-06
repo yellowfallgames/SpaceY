@@ -49,7 +49,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.maxSize = maxSize;
         this.size = 0;
 
-        this.rocket = scene.add.image(957, -600, "rocket").setScale(1);
+        this.rocket = scene.add.image(957, -400, "rocket").setScale(1);
         this.rocketY = 455;
         this.goTakeOff = false;
         this.typeOfLoad = 0; //0->Roca, 1->Comida/material
@@ -112,10 +112,11 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.counterCom = 8;
         this.counterMat = 0;
 
-        this.txtCounterRoc = scene.add.text(this.paqBtnComida.x+105, this.paqBtnComida.y-57, this.counterRoc,{
+        this.txtCounterRoc = scene.add.text(this.ddrBtnComida.x+78, this.ddrBtnComida.y+1, this.counterRoc,{
             fontSize:'35px',
             fill:'#ffffff',
         }).setOrigin(0.5);
+        this.txtCounterRoc.depth = 1;
 
         this.txtCounterCom = scene.add.text(this.paqBtnComida.x, this.paqBtnComida.y-57, this.counterCom,{
             fontSize:'35px',
@@ -148,9 +149,9 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.newPayloadType = 0;
     }
 
-    Land() {
+    Land(delta) {
 
-        this.rocket.y += 7;
+        this.rocket.y += delta/6;
         if (this.rocket.y >= this.rocketY) {
             
             this.rocket.y = this.rocketY;
@@ -159,9 +160,9 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         }
     }
 
-    TakeOff() {
+    TakeOff(delta) {
 
-        this.rocket.y -= 3;
+        this.rocket.y -= delta/3;
         if (this.rocket.y <= -600) {
             
             this.rocket.y = -600;
@@ -197,13 +198,13 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.size = this.maxSize;
     }
 
-    Update() {
+    Update(delta) {
 
         if (objCohete.goLand)
-            controlTierra.Land();
+            controlTierra.Land(delta);
         
         if (this.goTakeOff)
-            controlTierra.TakeOff();
+            controlTierra.TakeOff(delta);
     }
 
     Highlight(obj, b) {
@@ -273,8 +274,6 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
                     that.ddrFlechas[i].setRotation(0);
                 }
 
-                //combo.destroy();
-                console.log("HOLA");
                 if (z == 0)
                     that.tweenTube2On(this.nObj);
                 z++;
