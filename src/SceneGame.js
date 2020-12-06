@@ -124,6 +124,11 @@ var txtMaterial_M;
 
 //Recursos Tierra
 
+
+//Musica
+var musica;
+
+var startSfxRun = false;
 /////////////////////
 
 var music;
@@ -209,6 +214,22 @@ class SceneGame extends Phaser.Scene {
     }
 
     create() {
+
+        //Musica
+        let volumen;
+        if(musica!=undefined){
+            musica.stop();
+            volumen = musica.volume;
+        }
+        musica = this.sound.add('MusicIngame');
+        musica.loop = true;
+        musica.volume = volumen;
+        musica.play();
+        musica = this.sound.add('apolo11Ambient');
+        musica.loop = true;
+        musica.volume = volumen;
+        musica.play();
+
 
         //MARTE
 		// ui_M_bck
@@ -346,18 +367,25 @@ class SceneGame extends Phaser.Scene {
         //Inputs
         //Movimiento de Marte
         if (key_left.isDown) {
-            
             //Rotación de los elementos de Marte
             updateRotations(1, delta);
         }
         else if (key_right.isDown) {
-
             //Rotación de los elementos de Marte
             updateRotations(-1, delta);
         }
         else {
 
             player.anims.play('stelonauta_idle', true);
+        }
+
+        if ((key_left.isDown || key_right.isDown) && !startSfxRun) {
+            startSfxRun = true;
+            sfx.sounds[3].play();
+        }
+        if (key_left.isUp && key_right.isUp) {
+            startSfxRun = false;
+            sfx.sounds[3].stop();
         }
         
         //////////////////////////////

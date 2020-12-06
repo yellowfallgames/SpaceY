@@ -34,22 +34,27 @@ class SceneContact extends Phaser.Scene {
     }
 
     startGame() {
+        sfx.sounds[0].play();
         //this.scene.start(SceneGame);
     }
 
     enterOptions() {
+        sfx.sounds[0].play();
         //this.scene.start(SceneOptions);
     }
 
     enterContact() {
+        sfx.sounds[0].play();
         //this.scene.start(SceneContact);
     }
 
     enterBack() {
+        sfx.sounds[0].play();
         this.scene.start('SceneMenu');
     }
 
     enterButtonHoverState(boton) {
+        sfx.sounds[1].play();
         boton.setStyle({ fill: '#ff0'});
         boton.x = boton.x+movTxt;
         boton.y = boton.y+movTxt;

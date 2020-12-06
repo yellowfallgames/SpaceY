@@ -1,6 +1,8 @@
 var logo1, logo2;
 var timer; 
 var value;
+var musica = undefined;
+var sfx = undefined;
 
 class SceneLogos extends Phaser.Scene {
 
@@ -81,9 +83,66 @@ class SceneLogos extends Phaser.Scene {
         this.load.image("antena", directory+"antena.png" );
         this.load.image("mina", directory+"mina.png" );
         this.load.image("terraformador", directory+"terraformador.png" );
+
+        //MUSICA
+        this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
+        this.load.audio('MusicIngame', ['./Resources/Audio/Music/Pioneers meets Space.ogg']);
+        this.load.audio('MusicTutorial', ['./Resources/Audio/Music/Roboxel - Space Music.ogg']);
+
+        //Ambient noise
+        this.load.audio('SfxTerraformer', ['./Resources/Audio/SFX/Mars/Machines/Terraformer.ogg']);
+        this.load.audio('apolo11Ambient', ['./Resources/Audio/SFX/Common/apolo11Ambient.ogg']);
+
+        //SFX
+        this.load.audio('SfxWalk', ['./Resources/Audio/SFX/Mars/sfx_step_grass.ogg']);
+        this.load.audio('SfxArrive', ['./Resources/Audio/SFX/Fanfare/arrive.ogg']);
+        this.load.audio('SfxClick', ['./Resources/Audio/SFX/Common/click.ogg']);
+        this.load.audio('SfxHover', ['./Resources/Audio/SFX/Common/hover.ogg']);
+        this.load.audio('SfxLeave', ['./Resources/Audio/SFX/Fanfare/leave.ogg']);
+        this.load.audio('SfxReceive', ['./Resources/Audio/SFX/Fanfare/receive.ogg']);
+        this.load.audio('SfxSend', ['./Resources/Audio/SFX/Fanfare/send.ogg']);
+        this.load.audio('SfxPipe', ['./Resources/Audio/SFX/Earth/pipe.ogg']);
+        this.load.audio('SfxTakeOff', ['./Resources/Audio/SFX/Earth/space_ship.ogg']);
+        this.load.audio('SfxLanding', ['./Resources/Audio/SFX/Mars/landing.ogg']);
+        this.load.audio('SfxMeteorHit', ['./Resources/Audio/SFX/Mars/DeathFlash.ogg']);
+        this.load.audio('SfxAlarm', ['./Resources/Audio/SFX/Mars/DeathFlash.ogg']);
+        //Fanfare
+        this.load.audio('SfxWin', ['./Resources/Audio/SFX/Fanfare/win.ogg']);
+        this.load.audio('SfxLose', ['./Resources/Audio/SFX/Fanfare/lose.ogg']);
     }
 
     create() {
+        musica = this.sound.add('MusicMenu');
+        musica.loop = true;
+        musica.play();
+        sfx = {
+            loop: true,
+            volume: 1,
+            sounds: [
+                        this.sound.add('SfxClick'),     //[0]
+                        this.sound.add('SfxHover'),
+                        this.sound.add('SfxTerraformer'),
+                        this.sound.add('SfxWalk'),
+                        this.sound.add('SfxWin'),
+                        this.sound.add('SfxLose'),      //[5]
+                        this.sound.add('SfxArrive'),
+                        this.sound.add('SfxLeave'),
+                        this.sound.add('SfxReceive'),
+                        this.sound.add('SfxSend'),
+                        this.sound.add('SfxPipe'),      //[10]
+                        this.sound.add('SfxTakeOff'),
+                        this.sound.add('SfxLanding'),
+                        this.sound.add('SfxMeteorHit'),
+                        this.sound.add('SfxAlarm')
+                    ]
+        };
+
+        sfx.sounds.forEach(element => {
+            element.volume = sfx.volume;
+        });
+
+        sfx.sounds[2].loop = sfx.loop;
+        sfx.sounds[3].loop = sfx.loop;
 
         logo1 = this.add.image(game.config.width/2, game.config.height/2, "logo1");
         logo2 = this.add.image(game.config.width/2, 2*game.config.height/6, "logo2");
