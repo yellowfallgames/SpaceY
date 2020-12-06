@@ -61,7 +61,8 @@ class StationMachine extends Machine {
         
                     //Enviar recursos del cohete
                     if (key_interact.isDown && objCoheteMat.n === objCoheteMat.max && !this.isSending) {
-        
+                        //Despege de marte
+                        sfx.sounds[11].play();
                         //Enviar a la Tierra (...)
                         objCoheteMat.n = 0;
                         objCoheteMat.Update();

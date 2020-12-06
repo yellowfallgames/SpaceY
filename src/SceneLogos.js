@@ -103,6 +103,8 @@ class SceneLogos extends Phaser.Scene {
         this.load.audio('SfxPipe', ['./Resources/Audio/SFX/Earth/pipe.ogg']);
         this.load.audio('SfxTakeOff', ['./Resources/Audio/SFX/Earth/space_ship.ogg']);
         this.load.audio('SfxLanding', ['./Resources/Audio/SFX/Mars/landing.ogg']);
+        this.load.audio('SfxMeteorHit', ['./Resources/Audio/SFX/Mars/DeathFlash.ogg']);
+        this.load.audio('SfxAlarm', ['./Resources/Audio/SFX/Mars/DeathFlash.ogg']);
         //Fanfare
         this.load.audio('SfxWin', ['./Resources/Audio/SFX/Fanfare/win.ogg']);
         this.load.audio('SfxLose', ['./Resources/Audio/SFX/Fanfare/lose.ogg']);
@@ -128,7 +130,9 @@ class SceneLogos extends Phaser.Scene {
                         this.sound.add('SfxSend'),
                         this.sound.add('SfxPipe'),      //[10]
                         this.sound.add('SfxTakeOff'),
-                        this.sound.add('SfxLanding')
+                        this.sound.add('SfxLanding'),
+                        this.sound.add('SfxMeteorHit'),
+                        this.sound.add('SfxAlarm')
                     ]
         };
 

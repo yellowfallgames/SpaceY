@@ -151,7 +151,6 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     Land() {
 
         this.rocket.y += 7;
-        sfx.sounds[12].play();
         if (this.rocket.y >= this.rocketY) {
             
             this.rocket.y = this.rocketY;
@@ -163,13 +162,14 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     TakeOff() {
 
         this.rocket.y -= 3;
-        sfx.sounds[11].play();
         if (this.rocket.y <= -600) {
             
             this.rocket.y = -600;
             this.goTakeOff = false;
             estacionTransporte.isComing = true;
             estacionTransporte.loadOfEarth = true;
+            //Aterriza en marte
+            sfx.sounds[12].play();
         }
     }
 
@@ -367,7 +367,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     Send(obj) {
 
         if (this.size === this.maxSize && this.typeOfLoad === 1 && !this.goTakeOff) {
-
+            sfx.sounds[11].play();
             obj.tint = Phaser.Display.Color.GetColor(255, 255, 255)
 
             var delay = 0;
@@ -381,6 +381,9 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
             this.typeOfLoad = -1;
 
             this.tweenLanzPuertaExtIn()
+
+            //Pulsar botón para cuenta atrás
+            sfx.sounds[0].play();
         }
         
     }

@@ -23,6 +23,9 @@ class Rocket {
             estacionTransporte.isSending = false;
             estacionTransporte.location = 1;
             this.goLand = true;
+
+            //Aterriza en tierra
+            sfx.sounds[12].play();
         }
     }
 
