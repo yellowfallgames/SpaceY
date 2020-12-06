@@ -466,11 +466,11 @@ function DestroyOnScene(obj) {
 
 //Acciones condiciones victoria/derrota
 function VictoryCondition(){
-
+    sfx.sounds[4].play();
     console.log("HAS GANADO!!!");
 }
 
 function DefeatCondition(){
-
+    sfx.sounds[5].play();
     console.log("HAS PERDIDO :c");
 }

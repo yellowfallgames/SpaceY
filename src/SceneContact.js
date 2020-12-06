@@ -7,21 +7,21 @@ class SceneContact extends Phaser.Scene {
 
     create() {
 
-        this.aButton = this.add.text(100, 100, 'blabluble', { fill: '#0f0' })
+        this.aButton = this.add.text(100, 100, './Itch.io', { fill: '#0f0' })
         .setInteractive()
-        .on('pointerdown', () => this.startGame() )
+        .on('pointerdown', () => this.goItchio() )
         .on('pointerover', () => this.enterButtonHoverState(this.aButton) )
         .on('pointerout', () => this.enterButtonRestState(this.aButton) );
 
-        this.bButton = this.add.text(100, 150, 'bleblubliblo', { fill: '#0f0' })
+        this.bButton = this.add.text(100, 150, './Twitter', { fill: '#0f0' })
         .setInteractive()
-        .on('pointerdown', () => this.enterOptions() )
+        .on('pointerdown', () => this.goTwitter() )
         .on('pointerover', () => this.enterButtonHoverState(this.bButton) )
         .on('pointerout', () => this.enterButtonRestState(this.bButton) );
 
-        this.cButton = this.add.text(100, 200, 'blublublablo', { fill: '#0f0' })
+        this.cButton = this.add.text(100, 200, './Github', { fill: '#0f0' })
         .setInteractive()
-        .on('pointerdown', () => this.enterContact() )
+        .on('pointerdown', () => this.goGithub() )
         .on('pointerover', () => this.enterButtonHoverState(this.cButton) )
         .on('pointerout', () => this.enterButtonRestState(this.cButton) );
 
@@ -33,19 +33,19 @@ class SceneContact extends Phaser.Scene {
 
     }
 
-    startGame() {
+    goItchio() {
         sfx.sounds[0].play();
-        //this.scene.start(SceneGame);
+        window.open('https://yellowfall-fenix.itch.io/space-y', '_blank');
     }
 
-    enterOptions() {
+    goTwitter() {
         sfx.sounds[0].play();
-        //this.scene.start(SceneOptions);
+        window.open('https://twitter.com/SpaceYGame', '_blank');
     }
 
-    enterContact() {
+    goGithub() {
         sfx.sounds[0].play();
-        //this.scene.start(SceneContact);
+        window.open('https://github.com/Jacquesmeyns/SpaceY', '_blank');
     }
 
     enterBack() {
