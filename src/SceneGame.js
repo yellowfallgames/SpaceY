@@ -151,7 +151,7 @@ class SceneGame extends Phaser.Scene {
     }
 
     preload() {
-        ///*
+        /*
         //SceneGame//
         this.load.image("player", directory+"vulp_i1.png");
         this.load.image("marte", directory+"marte test.png");

@@ -146,7 +146,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
                 }
                 that.tweenTube2On(this.nObj);
 
-                console.log("combo flechas");
+                //console.log("combo flechas");
             }
             
         });
@@ -217,7 +217,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
                 that.TxtComboNums.setVisible(false);
                 that.tweenShowWearIN();
-                console.log("Combo numeritos");
+                //console.log("Combo numeritos");
             }
                 
         });
@@ -499,7 +499,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     WarnEvent(n) {
 
         this.TxtEvents.setVisible(true);
-        console.log("warninnnn"+this.TxtEvents.alpha);
+        //console.log("warninnnn"+this.TxtEvents.alpha);
         //Meteoritos
         if (n === 0) {
 
@@ -563,7 +563,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
             yoyo: false,
 
             //onStart: function () {that.wearTxt[that.nWear].setVisible(true); that.wearTxt[that.nWear].alpha = 1;},
-            onComplete: function() {that.TxtEvents.setVisible(false); that.TxtEvents.alpha = 1; console.log("acabo")},
+            onComplete: function() {that.TxtEvents.setVisible(false); that.TxtEvents.alpha = 1;},
         });
 
         var rand = Phaser.Math.Between((1000*60),(1000*60)*2.5);
@@ -763,7 +763,6 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     }
 
     tweenTube3Off() {
-        console.log()
         this.AddToRocket();
 
         this.scene.tweens.add({
