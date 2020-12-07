@@ -33,6 +33,7 @@ class Machine {//extends Phaser.GameObjects.Sprite {
 
         this.maxWear = 100;
         this.wear = this.maxWear;
+        this.wearPerc = 1;
         var rand = Phaser.Math.Linear(5000, 15000, Phaser.Math.Between(0,100)/100.0);
         this.eventWear = scene.time.addEvent({ delay: rand, callback: this.updateWear, callbackScope: this, loop: true });
         this.isBroken = false;
@@ -61,7 +62,7 @@ class Machine {//extends Phaser.GameObjects.Sprite {
         
         var delta = this.delta;
         //Desgaste
-        var rand = Phaser.Math.Linear(delta, delta/1000, Phaser.Math.Between(0,100)/100.0);
+        var rand = Phaser.Math.Linear(delta, delta/1000, Phaser.Math.Between(0,100)/100.0)*this.wearPerc;
         this.wear = Phaser.Math.Clamp(this.wear - rand, 0, 100);
 
         if (this.wear <= 0) {

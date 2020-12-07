@@ -2,13 +2,19 @@ class CommsMachine extends Machine {
     constructor(scene, x, y, nMachine) {
 
         super(scene, x, y, nMachine)
+        this.scene = scene;
         this.obj.setOrigin(0.5, 2.05);
         this.obj.setScale(0.75);
     
         this.keyIndicator = new KeyIndicator(scene, marte.x, 400, "R");
+
+        var rand = Phaser.Math.Between((1000*60),(1000*60)*2);
+        this.event = scene.time.addEvent({ delay: rand, callback: this.StartEvent, callbackScope: this});
     }
 
     update(delta){
+
+        //Avisar de tormentas
         
         //Desgaste
         //this.updateWear(delta);
@@ -37,6 +43,46 @@ class CommsMachine extends Machine {
 
             this.keyIndicator.setVisible(false);
         }
+    }
+
+    StartEvent() {
+
+        var rand = Phaser.Math.Between(0, 1);
+        rand === 0 ? this.SandStorm() : this.MeteorRain();  
+    }
+
+    SandStorm() {
+
+        //Avisar de tormenta
+        if (!this.isBroken)
+            controlTierra.WarnEvent(1);
+        
+        //Activar tormenta
+
+        playerSpeed = 0.5;
+        for(var i=0; i < maquinas.length; i++) {
+            maquinas[i].wearPerc = 2.2;
+        }
+
+        this.scene.time.addEvent({ delay: 1000*30, callback: this.FinishSandstorm, callbackScope: this});
+    }
+
+    FinishSandstorm() {
+
+        for(var i=0; i < maquinas.length; i++) {
+            maquinas[i].wearPerc = 1;
+        }
+        playerSpeed = 1;
+        controlTierra.tweenTxtEventsOUT();
+    }
+
+    MeteorRain() {
+
+        //Avisar de meteoritos
+        if (!this.isBroken)
+            controlTierra.WarnEvent(0);
+
+        this.scene.time.addEvent({ delay: 3000, callback: genMeteors, callbackScope: this.scene, repeat: 4});
     }
 
     GoRepair(delta, n) {

@@ -28,6 +28,7 @@ var key_repair;
 //Objetos
 //Marte
 var player;
+var playerSpeed = 1;
 var marte;
 var fondoMarte;
 var nubes;
@@ -117,7 +118,7 @@ var objRocas_M;
 var MAX_ROCAS = 200;
 var txtRocas_M;
 
-var nMaterial_M = 100;
+var nMaterial_M = 0;
 var objMaterial_M;
 var MAX_MATERIAL = 100;
 var txtMaterial_M;
@@ -145,7 +146,7 @@ class SceneGame extends Phaser.Scene {
     }
 
     preload() {
-        /*
+        ///*
         //SceneGame//
         this.load.image("player", directory+"vulp_i1.png");
         this.load.image("marte", directory+"marte test.png");
@@ -238,7 +239,7 @@ class SceneGame extends Phaser.Scene {
 
     create() {
 
-        /*
+        ///*
         musica = this.sound.add('MusicMenu');
         musica.volume = 0.5;
         musica.loop = true;
@@ -317,29 +318,6 @@ class SceneGame extends Phaser.Scene {
         for(var i=0; i<N_NUBES; i++) {
 
             nubes[i] = new Cloud(this);
-            /*var nrand = Phaser.Math.Between(0,0);
-            switch(nrand) {
-                
-                //NUBE 1
-                case 0:
-                    nubes[i] = this.add.image(marte.x, marte.y, "nube");
-                    var orig = Phaser.Math.Linear(6, 8, Phaser.Math.Between(0,100)/100.0);
-                    nubes[i].setOrigin(0.5, orig);
-                    nubes[i].rotation = Phaser.Math.Linear(0, 2*Math.PI, Phaser.Math.Between(0,100)/100.0); 
-                break;
-                //NUBE 2
-                case 1:
-                    nubes[i] = this.add.image(marte.x, marte.y, "nube");
-                    nubes[i].setOrigin(0.5,7);
-                    nubes[i].rotation = Phaser.Math.Between(-3.13,3.13);
-                break;
-                //NUBE 3
-                case 2:
-                    nubes[i] = this.add.image(marte.x, marte.y, "nube");
-                    nubes[i].setOrigin(0.5, 8);
-                    nubes[i].rotation = Phaser.Math.Between(-3.13,3.13);
-                break;
-            }*/
             
         }
 
@@ -500,16 +478,16 @@ function genMeteors() {
 function updateRotations(sign, delta) {
 
     for(var i=0; i<N_NUBES; i++) {
-        nubes[i].obj.rotation += sign*delta/1000;
+        nubes[i].obj.rotation += sign*delta/1000*playerSpeed;
     }
     for(var i=0; i < meteoritos.length; i++) {
-        meteoritos[i].obj.rotation += sign*delta/1500;
+        meteoritos[i].obj.rotation += sign*delta/1500*playerSpeed;
     }
-    marte.rotation+=sign*delta/1500;
-    objCohete.obj.rotation+=sign*delta/1500;
+    marte.rotation+=sign*delta/1500*playerSpeed;
+    objCohete.obj.rotation+=sign*delta/1500*playerSpeed;
     for (i=0; i<4; i++) {
 
-        maquinas[i].obj.setRotation(maquinas[i].obj.rotation + sign*delta/1500);
+        maquinas[i].obj.setRotation(maquinas[i].obj.rotation + sign*delta/1500*playerSpeed);
     }
 
     sign===1 ? player.flipX = false : player.flipX = true;
