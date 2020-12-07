@@ -23,6 +23,7 @@ var key_right;
 var key_up;
 var key_down;
 var key_interact;
+var key_repair;
 
 //Objetos
 //Marte
@@ -116,11 +117,14 @@ var objRocas_M;
 var MAX_ROCAS = 200;
 var txtRocas_M;
 
-var nMaterial_M = 20;
+var nMaterial_M = 100;
 var objMaterial_M;
 var MAX_MATERIAL = 100;
 var txtMaterial_M;
 
+//Barra carga
+var repairBar_color = Phaser.Display.Color.GetColor(160, 190, 55);
+var repairBar_color2 = Phaser.Display.Color.GetColor(225, 164, 13);
 
 //Recursos Tierra
 
@@ -141,7 +145,7 @@ class SceneGame extends Phaser.Scene {
     }
 
     preload() {
-        ///*
+        /*
         //SceneGame//
         this.load.image("player", directory+"vulp_i1.png");
         this.load.image("marte", directory+"marte test.png");
@@ -164,10 +168,6 @@ class SceneGame extends Phaser.Scene {
         this.load.image("timerSegundos", directory+"ui_M_segundos.png" );
         this.load.image("timerMinutos", directory+"ui_M_minutos.png" );
         this.load.image("timeHoras", directory+"ui_M_horas.png" );
-        //this.load.image("indicadorRocas", directory+"ui_M_rocas.png" );
-        //this.load.image("indicadorO2", directory+"ui_M_o2.png" );
-        //this.load.image("indicadorMateriales", directory+"ui_M_materiales.png" );
-        //this.load.image("indicadorHambre", directory+"ui_M_hambre.png" );
         this.load.spritesheet("indicadores", directory+"M_indicators.png", { frameWidth: 145, frameHeight: 145 });
         this.load.image("flechasAmarillas", directory+"FlechasAmarillas.png" );
         
@@ -176,10 +176,6 @@ class SceneGame extends Phaser.Scene {
         this.load.image("lanzadera", directory+"ui_T_Lanzadera.png" );
         this.load.image("lanzaderaPuerta", directory+"ui_T_Lanzadera_door.png" );
         this.load.image("lanzaderaCountdown", directory+"ui_T_countdown.png" );
-        /*this.load.image("cargaMateriales", directory+"ui_T_payload_materiales.png" );
-        this.load.image("cargaRocas", directory+"ui_T_payload_rocas.png" );
-        this.load.image("cargaO2", directory+"ui_T_payload_o2.png" );
-        this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );*/
         this.load.spritesheet("payloads", directory+"ui_T_payloads.png", { frameWidth: 52, frameHeight: 37 });
         this.load.image("paqueteriaBase", directory+"ui_T_Paqueteria_contadores.png" );
         this.load.image("paqueteriaBaseTubo", directory+"ui_T_Paqueteria_contadores_tubo.png" );
@@ -209,11 +205,74 @@ class SceneGame extends Phaser.Scene {
         this.load.image("antena", directory+"antena.png" );
         this.load.image("mina", directory+"mina.png" );
         this.load.image("terraformador", directory+"terraformador.png" );
+
+        //MUSICA
+        ///*
+        this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
+        this.load.audio('MusicIngame', ['./Resources/Audio/Music/Pioneers meets Space.ogg']);
+        this.load.audio('MusicTutorial', ['./Resources/Audio/Music/Roboxel - Space Music.ogg']);
+
+        //Ambient noise
+        this.load.audio('SfxTerraformer', ['./Resources/Audio/SFX/Mars/Machines/Terraformer.ogg']);
+        this.load.audio('apolo11Ambient', ['./Resources/Audio/SFX/Common/apolo11Ambient.ogg']);
+
+        //SFX
+        this.load.audio('SfxWalk', ['./Resources/Audio/SFX/Mars/sfx_step_grass.ogg']);
+        this.load.audio('SfxArrive', ['./Resources/Audio/SFX/Fanfare/arrive.ogg']);
+        this.load.audio('SfxClick', ['./Resources/Audio/SFX/Common/click.ogg']);
+        this.load.audio('SfxHover', ['./Resources/Audio/SFX/Common/hover.ogg']);
+        this.load.audio('SfxLeave', ['./Resources/Audio/SFX/Fanfare/leave.ogg']);
+        this.load.audio('SfxReceive', ['./Resources/Audio/SFX/Fanfare/receive.ogg']);
+        this.load.audio('SfxSend', ['./Resources/Audio/SFX/Fanfare/send.ogg']);
+        this.load.audio('SfxPipe', ['./Resources/Audio/SFX/Earth/pipe.ogg']);
+        this.load.audio('SfxTakeOff', ['./Resources/Audio/SFX/Earth/space_ship.ogg']);
+        this.load.audio('SfxLanding', ['./Resources/Audio/SFX/Mars/landing.ogg']);
+        this.load.audio('SfxMeteorHit', ['./Resources/Audio/SFX/Mars/DeathFlash.ogg']);
+        this.load.audio('SfxAlarm', ['./Resources/Audio/SFX/Mars/DeathFlash.ogg']);
+        //Fanfare
+        this.load.audio('SfxWin', ['./Resources/Audio/SFX/Fanfare/win.ogg']);
+        this.load.audio('SfxLose', ['./Resources/Audio/SFX/Fanfare/lose.ogg']);
     
         //*/
     }
 
     create() {
+
+        /*
+        musica = this.sound.add('MusicMenu');
+        musica.volume = 0.5;
+        musica.loop = true;
+        musica.play();
+        sfx = {
+            loop: true,
+            volume: 1,
+            sounds: [
+                        this.sound.add('SfxClick'),     //[0]
+                        this.sound.add('SfxHover'),
+                        this.sound.add('SfxTerraformer'),
+                        this.sound.add('SfxWalk'),
+                        this.sound.add('SfxWin'),
+                        this.sound.add('SfxLose'),      //[5]
+                        this.sound.add('SfxArrive'),
+                        this.sound.add('SfxLeave'),
+                        this.sound.add('SfxReceive'),
+                        this.sound.add('SfxSend'),
+                        this.sound.add('SfxPipe'),      //[10]
+                        this.sound.add('SfxTakeOff'),
+                        this.sound.add('SfxLanding'),
+                        this.sound.add('SfxMeteorHit'),
+                        this.sound.add('SfxAlarm')
+                    ]
+        };
+
+        sfx.sounds.forEach(element => {
+            element.volume = sfx.volume;
+        });
+
+        sfx.sounds[2].loop = sfx.loop;
+        sfx.sounds[3].loop = sfx.loop;
+        sfx.sounds[12].volume = 0.3;
+        //*/
 
         //Musica
         let volumen;
@@ -233,10 +292,10 @@ class SceneGame extends Phaser.Scene {
 
         //MARTE
 		// ui_M_bck
-        fondoMarte = this.add.image(407, 450, "fondoMarte");
+        fondoMarte = this.add.image(407, 450, "fondoMarte").setDepth(-2);
 
         //Inicialización planeta
-        marte = this.add.image(game.config.width/4, 1250, "marte").setScale(3);
+        marte = this.add.image(game.config.width/4, 1250, "marte").setScale(3).setDepth(-2);
 
         //Cohete en Marte
         objCohete = new Rocket(this, marte.x, marte.y);
@@ -286,24 +345,16 @@ class SceneGame extends Phaser.Scene {
 
         //
         meteoritos = new Array();
-        meteoritos[0] = new Meteor(this);
 
         //TIERRA
         controlTierra = new EarthControl(this, 0, 0, 8);
         //controlTierra.PushFromMars();
 		
 		
-		// ui_M_horas
-		//timerHoras = this.add.image(553, 97, "timeHoras");
 		
-		// ui_M_minutos
-        timerMinutos = this.add.image(635, 97, "timerMinutos");
-        
-		// ui_M_segundos
-		timerSegundos = this.add.image(716, 97, "timerSegundos");
 		
 		// ui_M_actionbox: Tecla de acción
-        teclaAccion = this.add.image(marte.x, 500, "teclaAccion").setVisible(false);
+        //
 		
 		// ui_M_dangerArrow
 		alertaPeligroIz = this.add.image(665, 365, "alertaPeligro").setVisible(false);
@@ -346,8 +397,8 @@ class SceneGame extends Phaser.Scene {
 
         this.anims.create({
             key: 'stelonauta_run',
-            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 21 }),
-            frameRate: 18,
+            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 20 }),
+            frameRate: 30,
         });
 
         //Input events
@@ -357,12 +408,12 @@ class SceneGame extends Phaser.Scene {
         key_up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         key_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
+        key_repair = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         
-
-        
+        //Genera meteoritos cada x ms
+        //var timedEvent = this.time.addEvent({ delay: 3000, callback: genMeteors, callbackScope: this, loop: true });
     }
     update(time, delta) {
-        console.log(player.body.touching.none);
         //MARTE
         //Inputs
         //Movimiento de Marte
@@ -387,15 +438,21 @@ class SceneGame extends Phaser.Scene {
             startSfxRun = false;
             sfx.sounds[3].stop();
         }
+
+        //Meteoritos
+        for(var i=0; i < meteoritos.length; i++) {
+ 
+            meteoritos[i].Update();
+        }
         
         //////////////////////////////
         //Interaccionar con máquinas//
         //////////////////////////////
         //Mostrar tecla interacción
-        if (!(maquinas[0].canInteract() || maquinas[1].canInteract() || maquinas[2].canInteract() || maquinas[3].canInteract()) && maquinas[0].isSending) {
+        /*if (!(maquinas[0].canInteract() || maquinas[1].canInteract() || maquinas[2].canInteract() || maquinas[3].canInteract()) && maquinas[0].isSending) {
 
             teclaAccion.setVisible(false);
-        }
+        }*/
 
         //Acciones de cada máquina
         for(i = 0; i < 4; i++) {
@@ -427,23 +484,27 @@ class SceneGame extends Phaser.Scene {
 
         //TIERRA
         controlTierra.Update(delta);
-
-        meteoritos[0].Update();
     }
 
     
 }
 
+function genMeteors() {
 
+    for(var i=0; i < 3; i++) {
+ 
+        meteoritos[i] = new Meteor(this);
+    }
+    
+}
 function updateRotations(sign, delta) {
 
     for(var i=0; i<N_NUBES; i++) {
         nubes[i].obj.rotation += sign*delta/1000;
     }
-    /*for(var i=0; i<nMeteoritos; i++) {
-        nubes[i].obj.rotation += 0.01*sign;
-    }*/
-    meteoritos[0].obj.rotation += sign*delta/1500;
+    for(var i=0; i < meteoritos.length; i++) {
+        meteoritos[i].obj.rotation += sign*delta/1500;
+    }
     marte.rotation+=sign*delta/1500;
     objCohete.obj.rotation+=sign*delta/1500;
     for (i=0; i<4; i++) {

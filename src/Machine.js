@@ -29,6 +29,18 @@ class Machine {//extends Phaser.GameObjects.Sprite {
             break;
             
         }
+        this.area = 0.15;
+
+        this.maxWear = 100;
+        this.wear = this.maxWear;
+        var rand = Phaser.Math.Linear(5000, 15000, Phaser.Math.Between(0,100)/100.0);
+        this.eventWear = scene.time.addEvent({ delay: rand, callback: this.updateWear, callbackScope: this, loop: true });
+        this.isBroken = false;
+
+        this.repairCost = MAX_MATERIAL*0.2;
+        this.repairBar = new Bar(scene, marte.x-40, marte.y-670, nCarga, MAX_CARGA, 0.3, 0.1, repairBar_color, false);
+
+        this.delta;
     }
 
     setRotation(n){
@@ -45,5 +57,43 @@ class Machine {//extends Phaser.GameObjects.Sprite {
         return false;
     }
 
+    updateWear() {
+        
+        var delta = this.delta;
+        //Desgaste
+        var rand = Phaser.Math.Linear(delta, delta/1000, Phaser.Math.Between(0,100)/100.0);
+        this.wear = Phaser.Math.Clamp(this.wear - rand, 0, 100);
+
+        if (this.wear <= 0) {
+
+            this.isBroken = true;
+            //Cambiar sprite
+            this.eventWear.paused = true;
+        }
+        else {
+
+            this.eventWear.delay = Phaser.Math.Linear(5000, 15000, Phaser.Math.Between(0,100)/100.0);
+        }
+    }
+
+    Repair() {
+
+        var n;
+        if (this.isBroken) {
+
+            n = 1;
+        }
+        else {
+
+            n = 0.5;
+        }
+
+        indMat.size = Math.max(0, indMat.size - this.repairCost*n);
+        indMat.Update();
+
+        this.isBroken = false;
+        this.wear = 100;
+        this.eventWear.paused = false;
+    }
 }
 

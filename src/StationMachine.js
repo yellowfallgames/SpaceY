@@ -9,11 +9,13 @@ class StationMachine extends Machine {
         this.isComing = false;
         this.location = 0; //0 -> MARTE, 1 -> TIERRA
         this.loadOfEarth = false;
+
+        this.keyIndicator = new KeyIndicator(scene, marte.x, 350, "W");
     }
 
     update(delta){
         
-        if (this.location === 0 && !this.isSending) {
+        if (this.location === 0 && !this.isSending && !this.isBroken) {
 
             if (this.canInteract()) {
 
@@ -22,7 +24,8 @@ class StationMachine extends Machine {
 
                     //Visibilidad on
                     objCoheteMat.setVisible(true);
-                    teclaAccion.setVisible(true);
+                    this.keyIndicator.setVisible(true);
+                    this.keyIndicator.changeKey("W");
         
                     //Aumentar carga del cohete
                     if (key_up.isDown) {
@@ -38,23 +41,29 @@ class StationMachine extends Machine {
                     }
         
                     //Enviar recursos del cohete
-                    if (key_interact.isDown && objCoheteMat.n === objCoheteMat.max && !this.isSending) {
-                        //Despege de marte
-                        sfx.sounds[11].play();
-                        //Enviar a la Tierra (...)
-                        objCoheteMat.n = 0;
-                        objCoheteMat.Update();
-                        this.isSending = true;
+                    if (objCoheteMat.n === objCoheteMat.max && !this.isSending) {
 
-                        objCoheteMat.setVisible(false);
-                        teclaAccion.setVisible(false);
+                        this.keyIndicator.changeKey("H");
+
+                        if (key_interact.isDown) {
+
+                            //Despege de marte
+                            sfx.sounds[11].play();
+                            //Enviar a la Tierra (...)
+                            objCoheteMat.n = 0;
+                            objCoheteMat.Update();
+                            this.isSending = true;
+
+                            objCoheteMat.setVisible(false);
+                            this.keyIndicator.setVisible(false);
+                        }
                     }
         
                 }
                 else {
 
                     //Visibilidad on
-                    teclaAccion.setVisible(true);
+                    this.keyIndicator.setVisible(true);
 
                     //Recoger elementos de la tierra
                     if (key_interact.isDown) {
@@ -67,19 +76,41 @@ class StationMachine extends Machine {
                         objCohete.comLoad = 0;
                         objCohete.matLoad = 0;
                         this.loadOfEarth = false;
+
+                        this.keyIndicator.changeKey("W");
                     }
                     
                 }
+
+                //Reparar sin estar rota
+                this.GoRepair(delta, 0.5);
                 
             
             }
             else {
                 //Visibilidad off
                 objCoheteMat.setVisible(false);
-                teclaAccion.setVisible(false);
+                this.keyIndicator.setVisible(false);
             }
             
                 
+        }
+        else if (this.isBroken) {
+
+            if (this.canInteract()) {
+
+                objCoheteMat.setVisible(false);
+                this.keyIndicator.setVisible(true);
+                this.keyIndicator.changeKey("R");
+
+                this.GoRepair(delta, 1);
+            }
+            else{
+
+                this.keyIndicator.setVisible(false);
+            }
+
+
         }
         
         //Update despegar/aterrizar
@@ -88,6 +119,50 @@ class StationMachine extends Machine {
 
         if (this.isComing)
             objCohete.Land(delta);
+
+        
+        //Desgaste
+        //this.updateWear(delta);
+        this.delta = delta;
     }
 
+    GoRepair(delta, n) {
+
+        if (key_repair.isDown && this.wear < this.maxWear) {
+            var spd;
+            if (n === 0.5) {
+
+                spd = delta/6;
+            }
+            else {
+
+                spd = delta/10;
+            }
+            //Reparación rota
+            //Si no tienes materiales, reparación lenta
+            if (indMat.size < this.repairCost*0.5) {
+
+                this.repairBar.SetColor(repairBar_color2);
+                spd /= 6;
+            }
+
+            if (this.repairBar.n < this.repairBar.max) {
+
+                this.repairBar.n += spd;
+                this.repairBar.Update();
+            }
+            else if (this.repairBar.n >= 1) {
+
+                this.Repair();
+
+                this.repairBar.n = 0;
+                this.repairBar.Update();
+            }
+        }
+        else{
+            //Si se deja de reparar
+            this.repairBar.n = 0;
+            this.repairBar.Update();
+        }
+    }
 }
