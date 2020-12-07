@@ -67,8 +67,6 @@ enterButtonRestState(boton) {
 startGame() {
     sfx.sounds[0].play();
     this.Rocketeing(this.playButton,this,game.config.width/2,900,2);
-    //timer = this.time.delayedCall(4000, this.scene.start('SceneGame'),[this]);
-    
 }
 
 enterOptions() {
@@ -131,10 +129,10 @@ enterButtonRestState(boton) {
                  },
          },
          duration:100,  //que todo el tween dure 
-         
-         
      });
-     
+     this.contactButton.setVisible(false);
+     this.optionsButton.setVisible(false);
+     var timedEvent = this.time.addEvent({ delay: yPos+500, callback: function(){this.scene.start('SceneGame')}, callbackScope: this});
  }
 
 //EASINGS
