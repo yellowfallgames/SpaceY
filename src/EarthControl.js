@@ -528,7 +528,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
                 scale: 1.3,
                 duration: 500,
                 ease: 'Cubic.easeOut',
-                repeat: 20,
+                repeat: 22,
                 yoyo: true,
     
                 //onStart: function () {that.wearTxt[that.nWear].setVisible(true); that.wearTxt[that.nWear].alpha = 1;},
@@ -542,7 +542,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
                 scale: 1.3,
                 duration: 500,
                 ease: 'Cubic.easeOut',
-                repeat: 30,
+                repeat: 35,
                 yoyo: true,
     
                 //onStart: function () {that.wearTxt[that.nWear].setVisible(true); that.wearTxt[that.nWear].alpha = 1;},

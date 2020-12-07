@@ -213,7 +213,7 @@ class SceneGame extends Phaser.Scene {
         this.load.image("terraformador", directory+"terraformador.png" );
 
         //MUSICA
-        ///*
+        /*
         this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
         this.load.audio('MusicIngame', ['./Resources/Audio/Music/Pioneers meets Space.ogg']);
         this.load.audio('MusicTutorial', ['./Resources/Audio/Music/Roboxel - Space Music.ogg']);
@@ -245,7 +245,7 @@ class SceneGame extends Phaser.Scene {
 
     create() {
 
-        ///*
+        /*
         musica = this.sound.add('MusicMenu');
         musica.volume = 0;
         musica.loop = true;
@@ -501,14 +501,14 @@ class SceneGame extends Phaser.Scene {
     }
     update(time, delta) {
         //DEBUG PARTICULAS
-        if (key_left.isDown) {
+        /*if (key_left.isDown) {
             //Apaga
             emitterStorm.on = false;
         }
         else if (key_right.isDown) {
             //Enciende
             emitterStorm.on = true;
-        }
+        }*/
 
         //emitter.setPosition(Phaser.Math.Between(0, game.config.width), 0)
         //MARTE
@@ -605,12 +605,12 @@ function updateRotations(sign, delta) {
     for(var i=0; i < meteoritos.length; i++) {
         meteoritos[i].obj.rotation += sign*delta/1500*playerSpeed;
     }
-    marte.rotation+=sign*delta/1500;
-    objCohete.obj.rotation+=sign*delta/1500;
+    marte.rotation+=sign*delta/1500*playerSpeed;
+    objCohete.obj.rotation+=sign*delta/1500*playerSpeed;
 
     for (i=0; i<4; i++) {
 
-        maquinas[i].obj.setRotation(maquinas[i].obj.rotation + sign*delta/1500);
+        maquinas[i].obj.setRotation(maquinas[i].obj.rotation + sign*delta/1500*playerSpeed);
         //Update sonidos
         var beta = maquinas[i].obj.rotation < 0 ? maquinas[i].obj.rotation * -1: maquinas[i].obj.rotation ;
         if(beta < 0.8)
