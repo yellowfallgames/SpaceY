@@ -23,17 +23,17 @@ class SceneOptions extends Phaser.Scene {
     }
 
     create() {
-        var txt1 = (musica ==undefined) ? '0' : musica.volume;
+        var txt1 = (musica == undefined) ? '0' : musica.volume;
         var txt2 = (sfx == undefined) ? '0' : sfx.volume;
-        var print0 = this.add.text(600, 100, txt1);
-        var print1 = this.add.text(600, 150, txt2);
+        var print0 = this.add.text(game.config.width/2 + 200, (game.config.height/8)*3 + 32, txt1); //porcentaje musica
+        var print1 = this.add.text(game.config.width/2 + 200, (game.config.height/8)*4 + 32, txt2);//porcentaje sfx
         
 
         //Slider musica
         //if(sliderMusic == undefined)
         sliderMusic = this.rexUI.add.slider({
-            x: 400,
-            y: 107,
+            x: game.config.width/2,
+            y: (game.config.height/8)*3 + 40,
             width: 300,
             height: 20,
             orientation: 'x',
@@ -59,8 +59,8 @@ class SceneOptions extends Phaser.Scene {
         //Slider SFX
         //if(sliderSfx == undefined)
         sliderSfx = this.rexUI.add.slider({
-            x: 400,
-            y: 157,
+            x: game.config.width/2,
+            y: (game.config.height/8)*4 + 40,
             width: 300,
             height: 20,
             orientation: 'x',
@@ -89,33 +89,30 @@ class SceneOptions extends Phaser.Scene {
             .layout();
 
 
-
-        this.volumeButton = this.add.text(100, 100, 'Music volume', { fill: '#0f0' })
+        this.volumeButton = this.add.text(-300, (game.config.height/8)*3, 'Music volume', { fill: '#0f0' })
         .setInteractive()
         .on('pointerdown', () => this.switchMusic() )
         .on('pointerover', () => this.enterButtonHoverState(this.volumeButton) )
         .on('pointerout', () => this.enterButtonRestState(this.volumeButton) );
+        this.volumeButton.setOrigin(0.5);
+        this.easeMe(this.volumeButton,this,1);
 
-        this.sfxButton = this.add.text(100, 150, 'SFX volume', { fill: '#0f0' })
+        this.sfxButton = this.add.text(game.config.width + 300, (game.config.height/8)*4, 'SFX volume', { fill: '#0f0' })
         .setInteractive()
         .on('pointerdown', () => this.switchSfx() )
         .on('pointerover', () => this.enterButtonHoverState(this.sfxButton) )
         .on('pointerout', () => this.enterButtonRestState(this.sfxButton) );
+        this.sfxButton.setOrigin(0.5);
+        this.easeMe(this.sfxButton,this,2);
+        
 
-        /*
-        this.sfxButton = this.add.text(100, 200, 'Ambient volume', { fill: '#0f0' })
-        .setInteractive()
-        .on('pointerdown', () => this.enterOptions() )
-        .on('pointerover', () => this.enterButtonHoverState(this.sfxButton) )
-        .on('pointerout', () => this.enterButtonRestState(this.sfxButton) );
-        */
-
-        this.backButton = this.add.text(game.config.width-200, game.config.height-100, 'Atrás', { fill: '#0f0' })
+        this.backButton = this.add.text(game.config.width/2, game.config.height + 300, 'Atrás', { fill: '#0f0' })
         .setInteractive()
         .on('pointerdown', () => this.enterBack() )
         .on('pointerover', () => this.enterButtonHoverState(this.backButton) )
         .on('pointerout', () => this.enterButtonRestState(this.backButton) );
-
+        this.backButton.setOrigin(0.5);
+        this.easeMe(this.backButton,this,3);
     }
 
     switchMusic() {
@@ -170,4 +167,30 @@ class SceneOptions extends Phaser.Scene {
         boton.y = boton.y-movTxt;
     }
 
+    //EASINGS
+easeMe(boton,scene,nOp) {
+    var endX;
+    var endY;
+    switch (nOp)
+    {
+        case 1: endX = game.config.width / 2; endY = (game.config.height/8)*3; break;
+        case 2: endX = game.config.width / 2; endY = (game.config.height/8)*4; break;
+        case 3: endX = game.config.width / 2; endY = (game.config.height/8)*5; break;
+        default: break;
+    }
+    scene.tweens.add({
+        targets: boton,
+        x: endX,
+        y: endY,
+        delay: nOp * 100,
+        //aplha: {start: game.config.width / 2, to: game.config.width / 8},
+        duration: 500,
+        ease: 'Circ.easeOut',
+        repeat: 0,
+        yoyo: false,
+        //delay:delay,
+
+        //onComplete: this.EnterOnMachine.bind(this)
+    });
+}
 }
