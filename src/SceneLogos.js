@@ -109,6 +109,9 @@ class SceneLogos extends Phaser.Scene {
         //Fanfare
         this.load.audio('SfxWin', ['./Resources/Audio/SFX/Fanfare/win.ogg']);
         this.load.audio('SfxLose', ['./Resources/Audio/SFX/Fanfare/lose.ogg']);
+
+        //Placeholder partícula
+        this.load.image('spark', './Resources/snowflake.png');
     }
 
     create() {
@@ -144,7 +147,11 @@ class SceneLogos extends Phaser.Scene {
 
         sfx.sounds[2].loop = sfx.loop;
         sfx.sounds[3].loop = sfx.loop;
+        sfx.sounds[8].loop = true;
+        sfx.sounds[14].loop = true;
         sfx.sounds[12].volume = 0.3;
+        sfx.sounds[2].volume = 0;
+        sfx.sounds[8].volume = 0;
 
         logo1 = this.add.image(game.config.width/2, game.config.height/2, "logo1");
         logo2 = this.add.image(game.config.width/2, 2*game.config.height/6, "logo2");
