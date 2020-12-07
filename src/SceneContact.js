@@ -57,6 +57,7 @@ openExternalLink (name)
     if (s && s.focus)
     {
         s.focus();
+
     }
     else if (!s)
     {
