@@ -108,7 +108,7 @@ var spdCargarCohete = 0.25;
 var coheteMat_color = Phaser.Display.Color.GetColor(150, 103, 34);
 
 //Recursos Marte
-var nComida_M = 1;
+var nComida_M = 100;
 var objComida_M;
 var MAX_COMIDA = 150;
 var txtComida_M;
@@ -654,7 +654,7 @@ function VictoryCondition(that){
 
 function DefeatCondition(that){
     musica.stop();
-    sfx.sounds[5].play();
+    
     that.scene.launch('SceneGameEnd');
     that.scene.pause('SceneGame');
     console.log("HAS PERDIDO :c");

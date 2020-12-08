@@ -499,6 +499,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     WarnEvent(n) {
 
         this.TxtEvents.setVisible(true);
+        sfx.sounds[14].play();
         //console.log("warninnnn"+this.TxtEvents.alpha);
         //Meteoritos
         if (n === 0) {
@@ -563,7 +564,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
             yoyo: false,
 
             //onStart: function () {that.wearTxt[that.nWear].setVisible(true); that.wearTxt[that.nWear].alpha = 1;},
-            onComplete: function() {that.TxtEvents.setVisible(false); that.TxtEvents.alpha = 1;},
+            onComplete: function() {that.TxtEvents.setVisible(false); that.TxtEvents.alpha = 1; sfx.sounds[14].stop();},
         });
 
         var rand = Phaser.Math.Between((1000*60),(1000*60)*2.5);

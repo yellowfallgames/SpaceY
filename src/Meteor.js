@@ -38,7 +38,9 @@ class Meteor extends Phaser.GameObjects.Sprite{
         //this.obj.setVisible(false);
         this.obj.destroy();
         //this.destroy();
-        
+
+        //Sonido explosión meteorito
+        sfx.sounds[13].play();
     }
 
     checkCollision() {
