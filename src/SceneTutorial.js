@@ -122,6 +122,65 @@ var MAX_MATERIAL = 100;
 var txtMaterial_M;
 
 
+/* =========================== */
+/*      TUTORIAL               */
+
+var textMarte = [
+    'Bienvenido a Space Y',
+
+    'Cohete',
+    'Aqui aterriza y despega tu cohete, OVBIO',
+    'Solo podrá despegar si está lleno de ROCAS',
+    'Para lanzarlo pulsa H',
+
+    'Mina',
+    'Pulsa X para obtener ROCAS de la mina',
+    'Se incrementan aqui',
+
+    'Terraformador',
+    'Esta máquina permite la habitabilidad en Marte',
+    'Convierte tus ROCAS en energía transformadora',
+    'Conseguid el 100% para completar la misión',
+    
+    'Comunicación',
+    'Permite la comunicación con la Tierra',
+    'Si se estropea, no podrán avisarte de TORMENTAS o METEORITOS',
+    'Para reparar cualquier máquina pulsa TECLA',
+
+    'Pantalla de misión',
+    'Aquí podrás ver el estado de la terraformación',
+    'Sólo tu podrás ver si se acercan meteoritos o tormentas',
+    'Avisa al Stelonauta para que pueda ponerse a cubierto',
+];
+//TEXTO EN TIERRA
+var textTierra = [
+    'Bienvenido a Space Y',
+
+    'Lanzadera',
+    'Aqui aterriza y despega tu cohete, OVBIO',
+    'Solo podrá despegar si no está lleno de recursos o vacio de rocas',
+    'Para vaciarlo pulsa en la compuerta verde inferior',
+
+    'Conversor DDR',
+    'Transforma pulsando las flechas 1 roca en 1 de Comida o Materiales',
+    'Si te equivocas, perderás el recurso',
+
+    'Sistema de Paquetería',
+    'Este es tu almacen de Comida y Materiales',
+    'Pulsa sobre comida/materiales para llenar el cohete en 1 unidad',
+    'Cuando el cohete esté lleno podrás enviarlo pulsando aquí',
+    
+    'Panel de Control',
+    'Al pulsar sobre un botón aparecerá una combinación',
+    'Introducirla correctamente permite ver el estado de las máquinas',
+    'Comunica esto al Stelonauta para mantener el estado de la misión',
+
+    'Pantalla de misión',
+    'Aquí podrás ver el estado de la terraformación',
+    'Sólo tu podrás ver si se acercan meteoritos o tormentas',
+    'Avisa al Stelonauta para que pueda ponerse a cubierto',
+];
+
 //Recursos Tierra
 
 
@@ -428,8 +487,9 @@ class SceneGame extends Phaser.Scene {
         //          TUTORIAL
         //*********************************** */
         if (key_skipTutorial.isDown) {
-            //Rotación de los elementos de Marte
-         runTutorial(idx);
+            //Pasa una linea en ambas partes del tutorial
+            //textMarte[++];
+            //textTierra[++];
         }
 
 
@@ -547,22 +607,47 @@ function DefeatCondition(){
     console.log("HAS PERDIDO :c");
 }
 
-function initTutorial(){
-//añadimos la pantalla negra
-var tutofondo = this.add.image(0,0,'tutoBck');
-tutofondo.setAlpha(0.5).setScale(2,2).setDepth(8);
+function initTutorial(scene,linea){
+    //añadimos la pantalla negra
+    var tutofondo = this.add.image(0,0,'tutoBck');
+    tutofondo.setAlpha(0.5).setScale(2,2).setDepth(8);
+    
+    //Mostramos textos
+    var tutotextMarte = scene.add.text (x,y,textMarte[linea]);
+    var tutotextTierra = scene.add.text (x,y,textMarte[linea]);
+    
+
+
 }
-function moverMascaraMarte(fposX,fposY,maskType,scene) //x fposX, y = fposYcmask o smask
-{
-    var maskMarte = this.add.image(fposX,fposY,maskType);;
-    //mascara en marte y tierra
-    tutofondo.maskMarte = new Phaser.Display.Masks.GeometryMask(this, maskMarte);
+
+function TipoMask(textMarte,line){
+    tutofondo.maskMarte = new Phaser.Display.Masks.GeometryMask(scene, maskMarte);
     tutofondo.maskMarte.setInvertAlpha(true) ;
+}
+
+function moverMascara(fposX,fposY,maskType,scene) //x fposX, y = fposYcmask o smask
+{
+    var maskMarte = scene.add.image(fposX,fposY,maskType);
+    //mascara en marte y tierra
+   
 
     scene.tweens.add({
+        targets: [maskMarte,maskTierra]
+        x: maskMarte.x,
+        y: maskMarte.y,
+        delay: 100,
+        duration: 500,
+        ease: 'Elastic.easeInOut',
+        repeat: 0,
+        yoyo: false,
+        //delay:delay,
+
+        //onComplete: this.EnterOnMachine.bind(this)
+    });
+    scene.tweens.add({
         targets: maskMarte,
-        x: x,
-        y: y,
+        scaleX:
+        scaleY:
         delay: 100,
         duration: 500,
         ease: 'Elastic.easeInOut',
