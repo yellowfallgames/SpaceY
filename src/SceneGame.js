@@ -108,7 +108,7 @@ var spdCargarCohete = 0.25;
 var coheteMat_color = Phaser.Display.Color.GetColor(150, 103, 34);
 
 //Recursos Marte
-var nComida_M = 75;
+var nComida_M = 1;
 var objComida_M;
 var MAX_COMIDA = 150;
 var txtComida_M;
@@ -560,8 +560,6 @@ class SceneGame extends Phaser.Scene {
             maquinas[i].update(delta);
         }
 
-
-
         ///////////
         //Pasivas//
         ///////////
@@ -579,7 +577,7 @@ class SceneGame extends Phaser.Scene {
         indHam.Update();
 
         if (indHam.size <= 0)
-            DefeatCondition();
+            DefeatCondition(this);
 
 
         //TIERRA
@@ -649,12 +647,15 @@ function DestroyOnScene(obj) {
 }
 
 //Acciones condiciones victoria/derrota
-function VictoryCondition(){
+function VictoryCondition(that){
     sfx.sounds[4].play();
     console.log("HAS GANADO!!!");
 }
 
-function DefeatCondition(){
+function DefeatCondition(that){
+    musica.stop();
     sfx.sounds[5].play();
+    that.scene.launch('SceneGameEnd');
+    that.scene.pause('SceneGame');
     console.log("HAS PERDIDO :c");
 }

@@ -7,6 +7,8 @@ class TerraformMachine extends Machine {
         this.obj.setScale(0.5);
 
         this.keyIndicator = new KeyIndicator(scene, marte.x, 400, "W");
+
+        this.scene = scene;
     }
 
     update(delta){
@@ -34,7 +36,7 @@ class TerraformMachine extends Machine {
 
                         //Comprobar que se cumple la condición de victoria
                         if (indTerra.size >= indTerra.maxSize)
-                            VictoryCondition();
+                            VictoryCondition(this.scene);
                     }
                 }
 

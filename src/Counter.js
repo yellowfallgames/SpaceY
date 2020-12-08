@@ -29,12 +29,14 @@ class Counter{
 
         this.stop = false;
 
+        this.scene = scene;
+
     }
 
     formatTimeMinutes(seconds){
         if (seconds <= 0) {
 
-            DefeatCondition();
+            DefeatCondition(this.scene);
             this.stop = true;
         }
 

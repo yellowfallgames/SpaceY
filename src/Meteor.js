@@ -46,7 +46,7 @@ class Meteor extends Phaser.GameObjects.Sprite{
         //Colisión con el jugador
         if (this.obj.rotation < this.areaCol/2 && this.obj.rotation > -this.areaCol/2) {
 
-            DefeatCondition();
+            DefeatCondition(this.scene);
         }
 
         //Colisión con máquinas
