@@ -124,80 +124,75 @@ var txtMaterial_M;
 
 /* =========================== */
 /*      TUTORIAL               */
-
+var posTuto;
 var textMarte = [
-    'Bienvenido a Space Y',
-
+    'Bienvenido a Space Y\n\nPulsa Y para continuar',
+    '#',
     'Cohete',
     'Aqui aterriza y despega tu cohete, OBVIO',
     'Solo podrá despegar si está lleno de ROCAS',
     'Para lanzarlo pulsa H',
-
-
+    '#',
     'Mina',
+    'Desplázate usando A y D a tu derecha',
     'Pulsa X para obtener ROCAS de la mina',
     'Se incrementan aqui',
-
+    '#',
     'Terraformador',
     'Esta máquina permite la habitabilidad en Marte',
     'Convierte tus ROCAS en energía transformadora',
     'Conseguid el 100% para completar la misión',
-    
+    '#',
     'Comunicación',
     'Permite la comunicación con la Tierra',
     'Si se estropea, no podrán avisarte de TORMENTAS o METEORITOS',
     'Para reparar cualquier máquina pulsa TECLA',
-
+    '#',
     'Pantalla de misión',
     'Aquí podrás ver el estado de la terraformación',
     'Sólo tu podrás ver si se acercan meteoritos o tormentas',
     'Avisa al Stelonauta para que pueda ponerse a cubierto',
+    '#',
+    'En caso de duda, CLICK en Post-IT',
+    '$' //fin tutorial
 ];
 //TEXTO EN TIERRA
 var textTierra = [
-    'Bienvenido a Space Y',
-
+    'Bienvenido a Space Y\n\nPulsa Y para continuar',
+    '#',
     'Lanzadera',
     'Aqui aterriza y despega tu cohete, OBVIO',
     'Solo podrá despegar si no está lleno de recursos o vacio de rocas',
     'Para vaciarlo pulsa en la compuerta verde inferior',
-    
+    '#',
     'Conversor DDR',
-    'Transforma pulsando las flechas 1 roca en 1 de Comida o Materiales',
+    'Transforma un recurso pulsando las flechas',
+    '1 roca = 1 de Comida o Materiales',
     'Si te equivocas, perderás el recurso',
-
+    '#',
     'Sistema de Paquetería',
     'Este es tu almacen de Comida y Materiales',
     'Pulsa sobre comida/materiales para llenar el cohete en 1 unidad',
     'Cuando el cohete esté lleno podrás enviarlo pulsando aquí',
-    
+    '#',
     'Panel de Control',
     'Al pulsar sobre un botón aparecerá una combinación',
     'Introducirla correctamente permite ver el estado de las máquinas',
     'Comunica esto al Stelonauta para mantener el estado de la misión',
-
+    '#',
     'Pantalla de misión',
     'Aquí podrás ver el estado de la terraformación',
     'Sólo tu podrás ver si se acercan meteoritos o tormentas',
     'Avisa al Stelonauta para que pueda ponerse a cubierto',
+    '#',
+    'En caso de duda, CLICK en Post-IT',
+    '$' //fin tutorial
 ];
-var posTuto = {
-    tierra : [
-        new Phaser.Math.Vector2 (),
-        new Phaser.Math.Vector2 (),
-        new Phaser.Math.Vector2 (),
-        new Phaser.Math.Vector2 (),
-        new Phaser.Math.Vector2 (),
-        new Phaser.Math.Vector2 (),
-        new Phaser.Math.Vector2 (),
-        new Phaser.Math.Vector2 (),
-    ],
-    marte: []
-};
+
 var currentLine = 0;
+var tutoPosIndex;
 var tutofondo;
 var maskMarte;
-var maskTierra;
 //Recursos Tierra
 
 
@@ -315,6 +310,29 @@ class SceneTutorial extends Phaser.Scene {
         //Fanfare
         this.load.audio('SfxWin', ['./Resources/Audio/SFX/Fanfare/win.ogg']);
         this.load.audio('SfxLose', ['./Resources/Audio/SFX/Fanfare/lose.ogg']);
+        //Array de Posiciones de los artilugios del juego
+        posTuto = {
+            tierra : [
+                new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //welcome
+                new Phaser.Math.Vector2 (963,365), //lanzadera
+                new Phaser.Math.Vector2 (1058,793), // ddr
+                new Phaser.Math.Vector2 (1219,674), //paqueteria
+                new Phaser.Math.Vector2 (1447,676), //panel control
+                new Phaser.Math.Vector2 (1337,250), //pantalla mision
+                new Phaser.Math.Vector2 (game.config.width/2,game.config.height/2), //POST-IT
+                new Phaser.Math.Vector2 (game.config.width/2,game.config.height/2) //fin tutorial
+            ],
+            marte: [
+                new Phaser.Math.Vector2 (game.config.width/4*3,game.config.height/2), //welcome
+                new Phaser.Math.Vector2 (), //cohete
+                new Phaser.Math.Vector2 (), //mina
+                new Phaser.Math.Vector2 (), //terraformador
+                new Phaser.Math.Vector2 (), //comunicacion
+                new Phaser.Math.Vector2 (), //pantalla de mision
+                new Phaser.Math.Vector2 (game.config.width/2,game.config.height/2), //POST-IT
+                new Phaser.Math.Vector2 (game.config.width/2,game.config.height/2) //fin tutorial
+            ]
+        };
     }
 
     create() {
@@ -502,15 +520,38 @@ class SceneTutorial extends Phaser.Scene {
     update(time, delta) {
 
         //*************************************** */
-        //          TUTORIAL
+        //          UPDATE TUTORIAL
         //*********************************** */
         if (Phaser.Input.Keyboard.JustDown (key_skipTutorial)) {
-            //Pasa una linea en ambas partes del tutorial
+            //Pasa una linea en ambas partes del tutorial y actualiza la posicion de las mascaras
             currentLine ++;
+            if(textMarte[currentLine] == '#' || textTierra[currentLine] == '#')
+            {
+                tutoPosIndex++;//avanzamos en la siguiente posicion de marte
+                currentLine ++; //avanzamos en lineas de tutorial
+            }
+            
             tutotextMarte.destroy();
             tutotextTierra.destroy();
-            tutotextMarte = this.add.text (100,100,textMarte[currentLine]).setDepth(10);
-            tutotextTierra = this.add.text (100,300,textTierra[currentLine]).setDepth(10);
+            tutotextMarte = this.add.text (posTuto.marte[tutoPosIndex].x,posTuto.marte[tutoPosIndex].y,textMarte[currentLine]).setDepth(10);
+            tutotextTierra = this.add.text (posTuto.tierra[tutoPosIndex].x,posTuto.tierra[tutoPosIndex].y,textTierra[currentLine]).setDepth(10)
+            
+            //Aqui indicamos que tipo de máscara se va a usar y en que punto
+            CrearMascara(this,
+                posTuto.marte[tutoPosIndex].x,
+                posTuto.marte[tutoPosIndex].y,
+                'c',
+
+                posTuto.tierra[tutoPosIndex].x,
+                posTuto.tierra[tutoPosIndex].y,
+                's');
+            // TWEENING de la máscara
+            moverMascara(tutofondo.mask,this);
+            if(textMarte[currentLine] == '$' || textTierra[currentLine] == '$')
+            {
+                endTutorial(this,tutotextMarte,tutotextTierra,2000); //escena, texto 1, texto 2, t fade
+            }
+            
         }
 
 
@@ -628,64 +669,128 @@ function DefeatCondition(){
     console.log("HAS PERDIDO :c");
 }
 
+/*=============================== */
+/*          TUTORIAL         */
+/*=============================== */
 function initTutorial(scene){
     //añadimos la pantalla negra
-    tutofondo = scene.add.image(0,0,'tutoBck');
-    tutofondo.setAlpha(0.8).setScale(2,2).setDepth(8);
+    tutoPosIndex = 0;
+    tutofondo = scene.add.image(0,0,'tutoBck'); //añadimos capa grisalla
+    tutofondo.setAlpha(0.8).setScale(2,2).setDepth(8);  //configuramos su visibilidad
     
-    //Mostramos textos
-    tutotextMarte = scene.add.text (100,100,textMarte[currentLine]).setDepth(10);
-    tutotextTierra = scene.add.text (100,300,textTierra[currentLine]).setDepth(10);
-    
-    TipoMask(scene,'s');
-    moverMascara(500,500,maskMarte,scene);
+    //Mostramos textos iniciales del tutorial
+    tutotextMarte = scene.add.text (posTuto.marte[currentLine].x,posTuto.marte[currentLine].y,textMarte[currentLine]).setDepth(10);
+    tutotextTierra = scene.add.text (posTuto.tierra[currentLine].x,posTuto.tierra[currentLine].y,textTierra[currentLine]).setDepth(10);
 
 }
-
-function TipoMask(scene,tipo){
-    maskMarte = scene.make.graphics();  //haz un grafico
-    switch (tipo){
-        case 's':
-            maskMarte.fillStyle(000000,1);  //color y alpha
-            maskMarte.fillCircle(300,0,100);  //x, y, radio
-            maskMarte.moveTo(300, 500);
-            maskMarte.fillStyle(000000,1);  //color y alpha
-            maskMarte.fillCircle(300,500,100);  //x, y, radio
-        case 'c':
-    }
-    tutofondo.mask = new Phaser.Display.Masks.GeometryMask(scene, maskMarte);
-    tutofondo.mask.setInvertAlpha (true);
-
-    
-}
-
-function moverMascara(fposX,fposY,mask,scene) //x fposX, y = fposYcmask o smask
+function endTutorial(scene,textM, textT,fadeOut)
 {
-    scene.tweens.add({
-        targets: [mask],
-        x: fposX,
-        y: fposY,
-        delay: 100,
-        duration: 500,
-        ease: 'Elastic.easeInOut',
-        repeat: 0,
-        yoyo: false,
-        //delay:delay,
+    textM.destroy();
+    textT.destroy();
+    tutofondo.clearMask();
 
-        //onComplete: this.EnterOnMachine.bind(this)
+    scene.tweens.add({
+        targets: tutofondo,
+        delay: 100,
+        alpha:1,
+        duration: fadeOut,
+        ease: 'Expo.easeInOut',
+        onComplete: scene.time.addEvent({ delay: fadeOut, callback: function(){scene.scene.start('SceneGame')}, callbackScope: this})
     });
+
+}
+function CrearMascara(scene,posXM,posYM,tipoM, posXT,posYT,tipoT){
+
+    maskMarte = scene.make.graphics();  //dibujamos un grafico compuesto de dos formas
+
+    switch (tipoM){ //FORMA DE MARTE
+        case 's':
+            //Mascara cuadrada marte
+            maskMarte.fillStyle(000000,1);  //color y alpha
+            maskMarte.fillRect(posXM,posYM,100,100);  //x, y,width height
+            break;
+        case 'c':
+            //Mascara circular marte
+            maskMarte.fillStyle(000000,1);  //color y alpha
+            maskMarte.fillCircle(posXM,posYM,100);  //x, y, radio
+            break;
+    }
+    maskMarte.moveTo(posXT,posYT);  //NOS DESPLAZAMOS PARA DIBUJAR
+
+    switch (tipoT)  //FORMA EN TIERRA
+    {   
+        case 's':
+            //mascara cuadrada tierra
+            maskMarte.fillStyle(000000,1);  //color y alpha
+            maskMarte.fillRect(posXT,posYT,100,100);  //x, y,width height
+            console.log('letsgo');
+            break;
+        case 'c':
+            //mascara circular  tierra
+            maskMarte.fillStyle(000000,1);  //color y alpha
+            maskMarte.fillCircle(posXT,posYT,100);  //x, y, radio
+            break;
+    }
+    
+    //Aplicamos sobre el fondo tutorfondo la mascara creada
+    tutofondo.mask = new Phaser.Display.Masks.GeometryMask(scene, maskMarte);   //enmascaramos
+    tutofondo.mask.setInvertAlpha (true);   //invertimos alpha para mostrar todo menos area indicada
+
+}
+
+function moverMascara(mask,scene) //x fposX, y = fposYcmask o smask
+{
     scene.tweens.add({
         targets: mask,
         scaleX: 1.2,
         scaleY: 1.2,
         delay: 100,
-        duration: 500,
+        duration: 1000,
         ease: 'Expo.easeInOut',
         repeat: -1,
         yoyo: true,
         //delay:delay,
-
         //onComplete: this.EnterOnMachine.bind(this)
     });
 }
-/* TUTORIAL */
+
+function Rocketeing (object,scene, xPos, yPos, shake)
+{   
+    var dir = 1;
+    var loopTime = 10;
+    var motion;    //landing - launching
+    
+    if(yPos<0){    //si está lanzandose
+        motion = 'Expo.easeOut';
+       }
+   else{   //si aterriza
+           motion = 'Expo.easeIn'
+       }
+    scene.tweens.add({
+        targets: object,
+        props: {
+            x: { value: 
+                    function () { 
+                    return xPos + (dir*=-1 )*shake;
+                    },
+                ease:'Linear',
+                duration : loopTime, //cuanto mas bajo más potente
+                yoyo: true,    //ida y vuelta
+                repeat:-1,  // que se repita en bucle este ease en x
+                },
+
+            y: { 
+                value: function () { 
+                    return object.y -= yPos; 
+                },
+                ease: motion,
+                duration: yPos  //que el ease en y dure 3s
+                },
+        },
+        duration:100,  //que todo el tween dure 
+        
+        
+    });
+    
+}
+
