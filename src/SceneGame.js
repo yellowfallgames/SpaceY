@@ -28,6 +28,7 @@ var key_repair;
 //Objetos
 //Marte
 var player;
+var playerSpeed = 1;
 var marte;
 var fondoMarte;
 var nubes;
@@ -107,7 +108,7 @@ var spdCargarCohete = 0.25;
 var coheteMat_color = Phaser.Display.Color.GetColor(150, 103, 34);
 
 //Recursos Marte
-var nComida_M = 75;
+var nComida_M = 100;
 var objComida_M;
 var MAX_COMIDA = 150;
 var txtComida_M;
@@ -117,7 +118,7 @@ var objRocas_M;
 var MAX_ROCAS = 200;
 var txtRocas_M;
 
-var nMaterial_M = 100;
+var nMaterial_M = 0;
 var objMaterial_M;
 var MAX_MATERIAL = 100;
 var txtMaterial_M;
@@ -150,7 +151,7 @@ class SceneGame extends Phaser.Scene {
     }
 
     preload() {
-        ///*
+        /*
         //SceneGame//
         this.load.image("player", directory+"vulp_i1.png");
         this.load.image("marte", directory+"marte test.png");
@@ -212,7 +213,7 @@ class SceneGame extends Phaser.Scene {
         this.load.image("terraformador", directory+"terraformador.png" );
 
         //MUSICA
-        ///*
+        /*
         this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
         this.load.audio('MusicIngame', ['./Resources/Audio/Music/Pioneers meets Space.ogg']);
         this.load.audio('MusicTutorial', ['./Resources/Audio/Music/Roboxel - Space Music.ogg']);
@@ -330,29 +331,6 @@ class SceneGame extends Phaser.Scene {
         for(var i=0; i<N_NUBES; i++) {
 
             nubes[i] = new Cloud(this);
-            /*var nrand = Phaser.Math.Between(0,0);
-            switch(nrand) {
-                
-                //NUBE 1
-                case 0:
-                    nubes[i] = this.add.image(marte.x, marte.y, "nube");
-                    var orig = Phaser.Math.Linear(6, 8, Phaser.Math.Between(0,100)/100.0);
-                    nubes[i].setOrigin(0.5, orig);
-                    nubes[i].rotation = Phaser.Math.Linear(0, 2*Math.PI, Phaser.Math.Between(0,100)/100.0); 
-                break;
-                //NUBE 2
-                case 1:
-                    nubes[i] = this.add.image(marte.x, marte.y, "nube");
-                    nubes[i].setOrigin(0.5,7);
-                    nubes[i].rotation = Phaser.Math.Between(-3.13,3.13);
-                break;
-                //NUBE 3
-                case 2:
-                    nubes[i] = this.add.image(marte.x, marte.y, "nube");
-                    nubes[i].setOrigin(0.5, 8);
-                    nubes[i].rotation = Phaser.Math.Between(-3.13,3.13);
-                break;
-            }*/
             
         }
 
@@ -523,14 +501,14 @@ class SceneGame extends Phaser.Scene {
     }
     update(time, delta) {
         //DEBUG PARTICULAS
-        if (key_left.isDown) {
+        /*if (key_left.isDown) {
             //Apaga
             emitterStorm.on = false;
         }
         else if (key_right.isDown) {
             //Enciende
             emitterStorm.on = true;
-        }
+        }*/
 
         //emitter.setPosition(Phaser.Math.Between(0, game.config.width), 0)
         //MARTE
@@ -582,8 +560,6 @@ class SceneGame extends Phaser.Scene {
             maquinas[i].update(delta);
         }
 
-
-
         ///////////
         //Pasivas//
         ///////////
@@ -601,7 +577,7 @@ class SceneGame extends Phaser.Scene {
         indHam.Update();
 
         if (indHam.size <= 0)
-            DefeatCondition();
+            DefeatCondition(this);
 
 
         //TIERRA
@@ -622,17 +598,17 @@ function genMeteors() {
 function updateRotations(sign, delta) {
 
     for(var i=0; i<N_NUBES; i++) {
-        nubes[i].obj.rotation += sign*delta/1000;
+        nubes[i].obj.rotation += sign*delta/1000*playerSpeed;
     }
     for(var i=0; i < meteoritos.length; i++) {
-        meteoritos[i].obj.rotation += sign*delta/1500;
+        meteoritos[i].obj.rotation += sign*delta/1500*playerSpeed;
     }
-    marte.rotation+=sign*delta/1500;
-    objCohete.obj.rotation+=sign*delta/1500;
+    marte.rotation+=sign*delta/1500*playerSpeed;
+    objCohete.obj.rotation+=sign*delta/1500*playerSpeed;
 
     for (i=0; i<4; i++) {
 
-        maquinas[i].obj.setRotation(maquinas[i].obj.rotation + sign*delta/1500);
+        maquinas[i].obj.setRotation(maquinas[i].obj.rotation + sign*delta/1500*playerSpeed);
         //Update sonidos
         var beta = maquinas[i].obj.rotation < 0 ? maquinas[i].obj.rotation * -1: maquinas[i].obj.rotation ;
         if(beta < 0.8)
@@ -671,12 +647,15 @@ function DestroyOnScene(obj) {
 }
 
 //Acciones condiciones victoria/derrota
-function VictoryCondition(){
+function VictoryCondition(that){
     sfx.sounds[4].play();
     console.log("HAS GANADO!!!");
 }
 
-function DefeatCondition(){
-    sfx.sounds[5].play();
+function DefeatCondition(that){
+    musica.stop();
+    
+    that.scene.launch('SceneGameEnd');
+    that.scene.pause('SceneGame');
     console.log("HAS PERDIDO :c");
 }

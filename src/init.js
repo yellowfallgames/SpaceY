@@ -9,9 +9,7 @@ var config = {
         create: create,
         update: update     
     },//*/
-
-    scene:[SceneLogos,SceneMenu,SceneGame,SceneContact, SceneOptions],
-
+    scene:[SceneLogos,SceneMenu,SceneGame,SceneContact, SceneOptions, SceneGameEnd],
     physics: {
         default: "arcade",
         arcade: {

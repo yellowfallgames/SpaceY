@@ -1,10 +1,10 @@
 class Meteor extends Phaser.GameObjects.Sprite{
     constructor(scene){
         super(scene, 0, 0, "payloads", 0);
-        this.rotation = Phaser.Math.Linear(0, Math.PI*2, Phaser.Math.Between(0,100)/100.0);
+        this.rotation = Phaser.Math.Linear(0.15, 0.15, Phaser.Math.Between(0,100)/100.0);
 
         this.obj = scene.add.image(marte.x, marte.y, "Meteorito")
-        this.obj.depth = -1;
+        this.obj.depth = 9;
         this.obj.rotation = this.rotation;
         this.obj.setOrigin(0.5, 6);
         this.incr = 0;
@@ -38,7 +38,9 @@ class Meteor extends Phaser.GameObjects.Sprite{
         //this.obj.setVisible(false);
         this.obj.destroy();
         //this.destroy();
-        
+
+        //Sonido explosión meteorito
+        sfx.sounds[13].play();
     }
 
     checkCollision() {
@@ -46,7 +48,7 @@ class Meteor extends Phaser.GameObjects.Sprite{
         //Colisión con el jugador
         if (this.obj.rotation < this.areaCol/2 && this.obj.rotation > -this.areaCol/2) {
 
-            DefeatCondition();
+            DefeatCondition(this.scene);
         }
 
         //Colisión con máquinas

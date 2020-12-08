@@ -131,7 +131,25 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         //Combos
         this.combokeys = new Array(3);
-        this.that;
+        
+
+        //Combo flechas
+        var that = this;
+        this.scene.input.keyboard.on('keycombomatch', function (event) {
+                
+            if (event.size < 4) {
+
+                for (var i=0; i<3; i++) {
+                    that.combokeys[i] = 0;
+                    that.ddrFlechas[i].setVisible(false);
+                    that.ddrFlechas[i].setRotation(0);
+                }
+                that.tweenTube2On(this.nObj);
+
+                //console.log("combo flechas");
+            }
+            
+        });
 
         //Misc
         this.zPayL;
@@ -143,28 +161,28 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         // ui_T_control_COM
         this.controlCom = scene.add.image(1388, 549, "controlCom").setDepth(2)
         .setInteractive()
-        .on('pointerdown', () => this.CheckWear(0))
+        .on('pointerdown', () => this.CheckWear(2))
         .on('pointerup', () => this.Highlight(this.controlCom, true) )
         .on('pointerover', () => this.Highlight(this.controlCom, true) )
         .on('pointerout', () => this.Highlight(this.controlCom, false) );		
 		// ui_T_control_MINA
         this.controlMina = scene.add.image(1506, 549, "controlMina").setDepth(2)
         .setInteractive()
-        .on('pointerdown', () => this.CheckWear(1))
+        .on('pointerdown', () => this.CheckWear(3))
         .on('pointerup', () => this.Highlight(this.controlMina, true) )
         .on('pointerover', () => this.Highlight(this.controlMina, true) )
         .on('pointerout', () => this.Highlight(this.controlMina, false) );		
 		// ui_T_control_ROCKET
         this.controlRocket = scene.add.image(1388, 666, "controlRocket").setDepth(2)
         .setInteractive()
-        .on('pointerdown', () => this.CheckWear(2))
+        .on('pointerdown', () => this.CheckWear(0))
         .on('pointerup', () => this.Highlight(this.controlRocket, true) )
         .on('pointerover', () => this.Highlight(this.controlRocket, true) )
         .on('pointerout', () => this.Highlight(this.controlRocket, false) );		
 		// ui_T_control_TERR
         this.controlTerr = scene.add.image(1506, 666, "controlTerr").setDepth(2)
         .setInteractive()
-        .on('pointerdown', () => this.CheckWear(3))
+        .on('pointerdown', () => this.CheckWear(1))
         .on('pointerup', () => this.Highlight(this.controlTerr, true) )
         .on('pointerover', () => this.Highlight(this.controlTerr, true) )
         .on('pointerout', () => this.Highlight(this.controlTerr, false) );
@@ -179,13 +197,61 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
                 fontStyle:'bold',
             }).setOrigin(0.5).setDepth(5);
         }
-        this.wearTxt[0].setPosition(this.controlRocket.x, this.controlRocket.y);
-        this.wearTxt[1].setPosition(this.controlTerr.x, this.controlTerr.y);
-        this.wearTxt[2].setPosition(this.controlCom.x, this.controlCom.y);
-        this.wearTxt[3].setPosition(this.controlMina.x, this.controlMina.y);
+        this.wearTxt[0].setPosition(this.controlRocket.x, this.controlRocket.y).setVisible(false);
+        this.wearTxt[1].setPosition(this.controlTerr.x, this.controlTerr.y).setVisible(false);
+        this.wearTxt[2].setPosition(this.controlCom.x, this.controlCom.y).setVisible(false);
+        this.wearTxt[3].setPosition(this.controlMina.x, this.controlMina.y).setVisible(false);
 
+        this.comboNums = new Array(8);
+        this.TxtComboNums = scene.add.text(this.controlKey.x, this.controlKey.y+2, "00000000",{
+            fontSize:'35px',
+            fontStyle:'bold',
+            fill:'#ffffff',
+        }).setOrigin(0.5).setDepth(5).setVisible(false);
+
+        this.nWear = 0;
+
+        //Combo números
+        this.scene.input.keyboard.on('keycombomatch', function (event) {
+            if (event.size > 3) {
+
+                that.TxtComboNums.setVisible(false);
+                that.tweenShowWearIN();
+                //console.log("Combo numeritos");
+            }
+                
+        });
+
+        //Texto eventos metereologicos
+        this.TxtEvents = scene.add.text(this.pantalla.x, this.pantalla.y+160, "GUNGINGAN",{
+            fontSize:'28px',
+            fontStyle:'bold',
+            fill:'#D52020',
+        }).setOrigin(0.5).setDepth(5).setVisible(false);
+        
     }
 
+    Update(delta) {
+
+        if (objCohete.goLand)
+            controlTierra.Land(delta);
+        
+        if (this.goTakeOff)
+            controlTierra.TakeOff(delta);
+
+        //Desgaste textos
+        for (var i=0; i < maquinas.length; i++) {
+            this.wearTxt[i].setText(Math.round((maquinas[i].wear/maquinas[i].maxWear)*100)+"%");
+        }
+        
+    }
+
+    Highlight(obj, b) {
+
+        b ? obj.tint = Phaser.Display.Color.GetColor(139, 139, 139) : obj.tint = Phaser.Display.Color.GetColor(255, 255, 255);  
+    }
+
+    //Funciones sistema de paquetería//
     Land(delta) {
 
         this.rocket.y += delta/6;
@@ -233,26 +299,6 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         }
         this.typeOfLoad = 0;
         this.size = this.maxSize;
-    }
-
-    Update(delta) {
-
-        if (objCohete.goLand)
-            controlTierra.Land(delta);
-        
-        if (this.goTakeOff)
-            controlTierra.TakeOff(delta);
-
-        //Desgaste textos
-        for (var i=0; i < maquinas.length; i++) {
-            this.wearTxt[i].setText(Math.round((maquinas[i].wear/maquinas[i].maxWear)*100)+"%");
-        }
-        
-    }
-
-    Highlight(obj, b) {
-
-        b ? obj.tint = Phaser.Display.Color.GetColor(139, 139, 139) : obj.tint = Phaser.Display.Color.GetColor(255, 255, 255);  
     }
 
     StartTransform(n) {
@@ -306,21 +352,6 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
             }
 
             var combo = this.scene.input.keyboard.createCombo(this.combokeys,{resetOnWrongKey: false, deleteOnMatch: true});
-
-            var that = this;
-            var z = 0;
-            this.scene.input.keyboard.on('keycombomatch', function () {
-                
-                for (var i=0; i<3; i++) {
-                    that.combokeys[i] = 0;
-                    that.ddrFlechas[i].setVisible(false);
-                    that.ddrFlechas[i].setRotation(0);
-                }
-
-                if (z == 0)
-                    that.tweenTube2On(this.nObj);
-                z++;
-            });
         }
         
     }
@@ -430,13 +461,136 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         
     }
 
+    //Funciones sistema de check de desgaste//
+
     CheckWear(n) {
 
+        this.nWear = n;
+
+        var nrand;
+        var nums = new Array(8);
+        for (var i=0; i<this.comboNums.length; i++) {
+
+            nrand = Phaser.Math.Between(0,9);
+            switch(nrand) {
+                case 0: this.comboNums[i] = 96; break;
+                case 1: this.comboNums[i] = 97; break;
+                case 2: this.comboNums[i] = 98; break;
+                case 3: this.comboNums[i] = 99; break;
+                case 4: this.comboNums[i] = 100; break;
+                case 5: this.comboNums[i] = 101; break;
+                case 6: this.comboNums[i] = 102; break;
+                case 7: this.comboNums[i] = 103; break;
+                case 8: this.comboNums[i] = 104; break;
+                case 9: this.comboNums[i] = 105; break;
+            }
+
+            nums[i] = nrand;
+        }
+
+        this.TxtComboNums.setVisible(true);
+        this.TxtComboNums.setText(nums[0] + "" + nums[1] + "" + nums[2] + "" + nums[3]
+            + "" + nums[4] + "" + nums[5] + "" + nums[6] + "" + nums[7]);
+
+        this.scene.input.keyboard.createCombo(this.comboNums,{resetOnWrongKey: false, deleteOnMatch: true});
+    }
+
+    //Funciones eventos metereológicos
+    WarnEvent(n) {
+
+        this.TxtEvents.setVisible(true);
+        sfx.sounds[14].play();
+        //console.log("warninnnn"+this.TxtEvents.alpha);
+        //Meteoritos
+        if (n === 0) {
+
+            this.TxtEvents.setText("SE ACERCAN METEORITOS")
+            this.tweenTxtEventsIN(n);
+        }
+        else {
+
+            this.TxtEvents.setText("SE ACERCA UNA TORMENTA")
+            this.tweenTxtEventsIN(n);
+        }
 
 
     }
 
     //Tweenings
+    //Texto eventos
+    tweenTxtEventsIN(n) {
+
+        var that = this;
+
+        if (n === 0) {
+
+            this.scene.tweens.add({
+                targets: this.TxtEvents,
+                scale: 1.3,
+                duration: 500,
+                ease: 'Cubic.easeOut',
+                repeat: 22,
+                yoyo: true,
+    
+                //onStart: function () {that.wearTxt[that.nWear].setVisible(true); that.wearTxt[that.nWear].alpha = 1;},
+                onComplete: function() {that.tweenTxtEventsOUT();},
+            });
+        }
+        else {
+
+            this.scene.tweens.add({
+                targets: this.TxtEvents,
+                scale: 1.3,
+                duration: 500,
+                ease: 'Cubic.easeOut',
+                repeat: 35,
+                yoyo: true,
+    
+                //onStart: function () {that.wearTxt[that.nWear].setVisible(true); that.wearTxt[that.nWear].alpha = 1;},
+                //onComplete: function() {that.tweenTxtEventsOUT()},
+            });
+        }
+    
+    }
+    tweenTxtEventsOUT() {
+
+        var that = this;
+        this.scene.tweens.add({
+            targets: this.TxtEvents,
+            alpha: 0,
+            duration: 2000,
+            ease: 'Cubic.easeOut',
+            repeat: 0,
+            yoyo: false,
+
+            //onStart: function () {that.wearTxt[that.nWear].setVisible(true); that.wearTxt[that.nWear].alpha = 1;},
+            onComplete: function() {that.TxtEvents.setVisible(false); that.TxtEvents.alpha = 1; sfx.sounds[14].stop();},
+        });
+
+        var rand = Phaser.Math.Between((1000*60),(1000*60)*2.5);
+        maquinas[2].event = this.scene.time.addEvent({ delay: rand, callback: maquinas[2].StartEvent, callbackScope: maquinas[2]});
+    }
+
+    //Mostrar estado máquina
+    tweenShowWearIN() {
+
+        this.wearTxt[this.nWear].setVisible(true);
+        var that = this;
+        this.scene.tweens.add({
+            targets: this.wearTxt[this.nWear],
+            alpha: 0,
+            duration: 12000,
+            ease: 'Cubic.easeOut',
+            repeat: 0,
+            yoyo: false,
+
+            onStart: function () {that.wearTxt[that.nWear].setVisible(true); that.wearTxt[that.nWear].alpha = 1;},
+            onComplete: function() {that.wearTxt[that.nWear].setVisible(false); that.wearTxt[that.nWear].alpha = 1;},
+        });
+        
+    }
+
+
     //Compuerta lanzadera salida exterior
     tweenLanzPuertaExtIn() {
 
@@ -610,7 +764,6 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     }
 
     tweenTube3Off() {
-        console.log()
         this.AddToRocket();
 
         this.scene.tweens.add({

@@ -24,12 +24,12 @@ class MineMachine extends Machine {
 
                     if (barraCarga.n < barraCarga.max && indRocas.size < indRocas.maxSize) {
 
-                        barraCarga.n += delta/10;
+                        barraCarga.n += delta/7;
                         barraCarga.Update();
                     }
                     else if (barraCarga.n >= 1) {
 
-                        indRocas.size = Phaser.Math.Clamp(indRocas.size + 10, 0, MAX_ROCAS);
+                        indRocas.size = Phaser.Math.Clamp(indRocas.size + 20, 0, MAX_ROCAS);
                         indRocas.Update();
 
                         barraCarga.n = 0;

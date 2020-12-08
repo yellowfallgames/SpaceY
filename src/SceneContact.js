@@ -23,7 +23,7 @@ class SceneContact extends Phaser.Scene {
         this.SofiButton.setOrigin(0.5);
         this.easeMe(this.SofiButton, this, 2);
 
-        this.PepeButton = this.add.text(game.config.width/2, game.config.height+300, 'Jose Igancio Pintado Murillo', { fill: '#0f0' })
+        this.PepeButton = this.add.text(game.config.width/2, game.config.height+300, 'Jose Ignacio Pintado Murillo', { fill: '#0f0' })
         .setInteractive()
         .on('pointerdown', () => this.enterPepe() )
         .on('pointerover', () => this.enterButtonHoverState(this.PepeButton) )
