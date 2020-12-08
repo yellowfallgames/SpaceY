@@ -512,6 +512,7 @@ class SceneGame extends Phaser.Scene {
     
     }
     update(time, delta) {
+        controlTierra.pantallaPlano.rotation+=delta/16000;
         //DEBUG PARTICULAS
         /*if (key_left.isDown) {
             //Apaga
@@ -646,6 +647,7 @@ function updateRotations(sign, delta) {
     for(var i=0; i < meteoritos.length; i++) {
         meteoritos[i].obj.rotation += sign*delta/1500*playerSpeed;
     }
+    
     marte.rotation+=sign*delta/1500*playerSpeed;
     objCohete.obj.rotation+=sign*delta/1500*playerSpeed;
 
