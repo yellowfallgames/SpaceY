@@ -1,4 +1,3 @@
-
 class SceneMenu extends Phaser.Scene {
 
     constructor() {
@@ -7,7 +6,7 @@ class SceneMenu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("bck",directory+"vulp_i1.png" );
+        
         //this.load.image("player", directory+"vulp_i1.png");
         //this.load.spritesheet("button", "./Resources/Img/button.png", 185, 80);
         //this.load.image('background',"./Resources/Img/starfield.jpg");
@@ -48,6 +47,11 @@ create() {
     .on('pointerout', () => this.enterButtonRestState(this.contactButton) );
     this.contactButton.setOrigin(0.5);
     this.easeMe(this.contactButton, this, 3);
+
+    
+
+
+    
 }
 //INTERACTIVIDAD
 
