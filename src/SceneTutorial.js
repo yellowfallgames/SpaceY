@@ -129,9 +129,10 @@ var textMarte = [
     'Bienvenido a Space Y',
 
     'Cohete',
-    'Aqui aterriza y despega tu cohete, OVBIO',
+    'Aqui aterriza y despega tu cohete, OBVIO',
     'Solo podrá despegar si está lleno de ROCAS',
     'Para lanzarlo pulsa H',
+
 
     'Mina',
     'Pulsa X para obtener ROCAS de la mina',
@@ -157,10 +158,10 @@ var textTierra = [
     'Bienvenido a Space Y',
 
     'Lanzadera',
-    'Aqui aterriza y despega tu cohete, OVBIO',
+    'Aqui aterriza y despega tu cohete, OBVIO',
     'Solo podrá despegar si no está lleno de recursos o vacio de rocas',
     'Para vaciarlo pulsa en la compuerta verde inferior',
-
+    
     'Conversor DDR',
     'Transforma pulsando las flechas 1 roca en 1 de Comida o Materiales',
     'Si te equivocas, perderás el recurso',
@@ -180,7 +181,23 @@ var textTierra = [
     'Sólo tu podrás ver si se acercan meteoritos o tormentas',
     'Avisa al Stelonauta para que pueda ponerse a cubierto',
 ];
-
+var posTuto = {
+    tierra : [
+        new Phaser.Math.Vector2 (),
+        new Phaser.Math.Vector2 (),
+        new Phaser.Math.Vector2 (),
+        new Phaser.Math.Vector2 (),
+        new Phaser.Math.Vector2 (),
+        new Phaser.Math.Vector2 (),
+        new Phaser.Math.Vector2 (),
+        new Phaser.Math.Vector2 (),
+    ],
+    marte: []
+};
+var currentLine = 0;
+var tutofondo;
+var maskMarte;
+var maskTierra;
 //Recursos Tierra
 
 
@@ -192,11 +209,11 @@ var startSfxRun = false;
 
 var music;
 
-class SceneGame extends Phaser.Scene {
+class SceneTutorial extends Phaser.Scene {
     
     constructor() {
 
-        super("SceneGame");
+        super("SceneTutorial");
     }
 
     preload() {
@@ -268,9 +285,10 @@ class SceneGame extends Phaser.Scene {
         this.load.image("antena", directory+"antena.png" );
         this.load.image("mina", directory+"mina.png" );
         this.load.image("terraformador", directory+"terraformador.png" );
+
+        //TUTORIAL
         this.load.image('tutoBck', directory +'tutorial__bck.jpg');
-        this.load.image('cmask', directory +'circle_mask-02.png');
-        this.load.image('smask', directory +'square_mask-01.png');
+    
         //*/
         //MUSICA
         this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
@@ -479,17 +497,20 @@ class SceneGame extends Phaser.Scene {
         key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
         key_skipTutorial = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Y);
 
-        
+        initTutorial(this);
     }
     update(time, delta) {
 
         //*************************************** */
         //          TUTORIAL
         //*********************************** */
-        if (key_skipTutorial.isDown) {
+        if (Phaser.Input.Keyboard.JustDown (key_skipTutorial)) {
             //Pasa una linea en ambas partes del tutorial
-            //textMarte[++];
-            //textTierra[++];
+            currentLine ++;
+            tutotextMarte.destroy();
+            tutotextTierra.destroy();
+            tutotextMarte = this.add.text (100,100,textMarte[currentLine]).setDepth(10);
+            tutotextTierra = this.add.text (100,300,textTierra[currentLine]).setDepth(10);
         }
 
 
@@ -607,34 +628,43 @@ function DefeatCondition(){
     console.log("HAS PERDIDO :c");
 }
 
-function initTutorial(scene,linea){
+function initTutorial(scene){
     //añadimos la pantalla negra
-    var tutofondo = this.add.image(0,0,'tutoBck');
-    tutofondo.setAlpha(0.5).setScale(2,2).setDepth(8);
+    tutofondo = scene.add.image(0,0,'tutoBck');
+    tutofondo.setAlpha(0.8).setScale(2,2).setDepth(8);
     
     //Mostramos textos
-    var tutotextMarte = scene.add.text (x,y,textMarte[linea]);
-    var tutotextTierra = scene.add.text (x,y,textMarte[linea]);
+    tutotextMarte = scene.add.text (100,100,textMarte[currentLine]).setDepth(10);
+    tutotextTierra = scene.add.text (100,300,textTierra[currentLine]).setDepth(10);
     
-
+    TipoMask(scene,'s');
+    moverMascara(500,500,maskMarte,scene);
 
 }
 
-function TipoMask(textMarte,line){
-    tutofondo.maskMarte = new Phaser.Display.Masks.GeometryMask(scene, maskMarte);
-    tutofondo.maskMarte.setInvertAlpha(true) ;
+function TipoMask(scene,tipo){
+    maskMarte = scene.make.graphics();  //haz un grafico
+    switch (tipo){
+        case 's':
+            maskMarte.fillStyle(000000,1);  //color y alpha
+            maskMarte.fillCircle(300,0,100);  //x, y, radio
+            maskMarte.moveTo(300, 500);
+            maskMarte.fillStyle(000000,1);  //color y alpha
+            maskMarte.fillCircle(300,500,100);  //x, y, radio
+        case 'c':
+    }
+    tutofondo.mask = new Phaser.Display.Masks.GeometryMask(scene, maskMarte);
+    tutofondo.mask.setInvertAlpha (true);
+
+    
 }
 
-function moverMascara(fposX,fposY,maskType,scene) //x fposX, y = fposYcmask o smask
+function moverMascara(fposX,fposY,mask,scene) //x fposX, y = fposYcmask o smask
 {
-    var maskMarte = scene.add.image(fposX,fposY,maskType);
-    //mascara en marte y tierra
-   
-
     scene.tweens.add({
-        targets: [maskMarte,maskTierra]
-        x: maskMarte.x,
-        y: maskMarte.y,
+        targets: [mask],
+        x: fposX,
+        y: fposY,
         delay: 100,
         duration: 500,
         ease: 'Elastic.easeInOut',
@@ -645,92 +675,17 @@ function moverMascara(fposX,fposY,maskType,scene) //x fposX, y = fposYcmask o sm
         //onComplete: this.EnterOnMachine.bind(this)
     });
     scene.tweens.add({
-        targets: maskMarte,
-        scaleX:
-        scaleY:
+        targets: mask,
+        scaleX: 1.2,
+        scaleY: 1.2,
         delay: 100,
         duration: 500,
-        ease: 'Elastic.easeInOut',
-        repeat: 0,
-        yoyo: false,
+        ease: 'Expo.easeInOut',
+        repeat: -1,
+        yoyo: true,
         //delay:delay,
 
         //onComplete: this.EnterOnMachine.bind(this)
     });
 }
 /* TUTORIAL */
-
-
-
-/*
-function runTutorial(idx)
-{
-    var m0 = new Phaser.Math.Vector2 (0,0);
-    var m1 = new Phaser.Math.Vector2 (0,100);
-    var m2 = new Phaser.Math.Vector2 (100,0);
-    var m3 = new Phaser.Math.Vector2 (100,100);
-    var maskMarte = creaQuad(m0,m1,m2,m3,this);
-
-    var t0 = new Phaser.Math.Vector2 (0,0);
-    var t1 = new Phaser.Math.Vector2 (0,100);
-    var t2 = new Phaser.Math.Vector2 (100,0);
-    var t3 = new Phaser.Math.Vector2 (100,100);
-    var maskTierra = creaQuad(t0,t1,t2,t3,this);
-
-    var tutofondo = this.add.image(0,0,'tutoBck');
-    tutofondo.setAlpha(0.5).setScale(2,2).setDepth(8);
-
-    var idxMarte = {
-        ,//
-     };
-    var idxTierra =
-    tutofondo.maskMarte = new Phaser.Display.Masks.GeometryMask(this, maskMarte);
-    tutofondo.maskMarte.setInvertAlpha(true) ;
-
-    tutofondo.maskTierra = new Phaser.Display.Masks.GeometryMask(this, maskTierra);
-    tutofondo.maskTierra.setInvertAlpha(true) ;
-}
-
-// Me hago un quad (2 tris) tamaño ventana
-function creaQuad (aa,ab,ba,bb,scene){
-    var quad = {
-        tLX : aa.x, tLY : aa.y,   //top left
-        tRX : ab.x, tRY : ab.y,   //top right
-
-        bLX : ba.x, bLY : ba.y,  //botom left
-        bRX : bb.x, bRY : bb.y   //bottom right
-        }
-    var mesh = scene.make.mesh({
-        key: 'tutoBck',
-        x: 0,
-        y: 0,
-        vertices: [
-            //tri sup
-            quad.tLX, quad.tLY,   //top left
-            quad.bLX, quad.bLY,   //botom left
-            quad.bRX, quad.bRY,   //bottom right
-            //tri inf
-            quad.tLX, quad.tLY,   //top left
-            quad.bRX, quad.bRY,  //botom right
-            quad.tRX, quad.tRY   //top right
-        ],
-        uv: [
-        //  U   |   V  */   //mappeo de texturas u= x, v= y
-        // ----------- */
-        /*
-            0,      0,
-            0,      1,
-            1,      1,
-            
-            0,      0,
-            1,      1,
-            1,      0
-        ],
-        */
-       /*
-    add : false
-    });
-    return mesh;
-    
-}
-*/
