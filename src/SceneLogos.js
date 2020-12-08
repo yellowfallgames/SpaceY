@@ -106,6 +106,7 @@ class SceneLogos extends Phaser.Scene {
         this.load.audio('SfxLanding', ['./Resources/Audio/SFX/Mars/landing.ogg']);
         this.load.audio('SfxMeteorHit', ['./Resources/Audio/SFX/Mars/DeathFlash.ogg']);
         this.load.audio('SfxAlarm', ['./Resources/Audio/SFX/Mars/Alarm_Loop_01.ogg']);
+        this.load.audio('SfxStorm', ['./Resources/Audio/SFX/Mars/windStorm.ogg']);
         //Fanfare
         this.load.audio('SfxWin', ['./Resources/Audio/SFX/Fanfare/win.ogg']);
         this.load.audio('SfxLose', ['./Resources/Audio/SFX/Fanfare/lose.ogg']);
@@ -137,7 +138,8 @@ class SceneLogos extends Phaser.Scene {
                         this.sound.add('SfxTakeOff'),
                         this.sound.add('SfxLanding'),
                         this.sound.add('SfxMeteorHit'),
-                        this.sound.add('SfxAlarm')
+                        this.sound.add('SfxAlarm'),
+                        this.sound.add('SfxStorm')      //[15]
                     ]
         };
 
@@ -149,6 +151,7 @@ class SceneLogos extends Phaser.Scene {
         sfx.sounds[3].loop = sfx.loop;
         sfx.sounds[8].loop = true;
         sfx.sounds[14].loop = true;
+        sfx.sounds[15].loop = true;
         sfx.sounds[12].volume = 0.3;
         sfx.sounds[2].volume = 0;
         sfx.sounds[8].volume = 0;
