@@ -23,10 +23,12 @@ var key_right;
 var key_up;
 var key_down;
 var key_interact;
+var key_repair;
 
 //Objetos
 //Marte
 var player;
+var playerSpeed = 1;
 var marte;
 var fondoMarte;
 var nubes;
@@ -106,7 +108,7 @@ var spdCargarCohete = 0.25;
 var coheteMat_color = Phaser.Display.Color.GetColor(150, 103, 34);
 
 //Recursos Marte
-var nComida_M = 75;
+var nComida_M = 100;
 var objComida_M;
 var MAX_COMIDA = 150;
 var txtComida_M;
@@ -116,11 +118,14 @@ var objRocas_M;
 var MAX_ROCAS = 200;
 var txtRocas_M;
 
-var nMaterial_M = 20;
+var nMaterial_M = 0;
 var objMaterial_M;
 var MAX_MATERIAL = 100;
 var txtMaterial_M;
 
+//Barra carga
+var repairBar_color = Phaser.Display.Color.GetColor(160, 190, 55);
+var repairBar_color2 = Phaser.Display.Color.GetColor(225, 164, 13);
 
 //Recursos Tierra
 
@@ -133,6 +138,11 @@ var startSfxRun = false;
 
 var music;
 
+
+//Particulas
+var emitterStorm;
+var emitterMachines = []; // 0 - Cohete || 1 - Radio || 2 - Mina || 3 - Terraformador
+
 class SceneGame extends Phaser.Scene {
     
     constructor() {
@@ -141,7 +151,7 @@ class SceneGame extends Phaser.Scene {
     }
 
     preload() {
-        ///*
+        /*
         //SceneGame//
         this.load.image("player", directory+"vulp_i1.png");
         this.load.image("marte", directory+"marte test.png");
@@ -164,10 +174,6 @@ class SceneGame extends Phaser.Scene {
         this.load.image("timerSegundos", directory+"ui_M_segundos.png" );
         this.load.image("timerMinutos", directory+"ui_M_minutos.png" );
         this.load.image("timeHoras", directory+"ui_M_horas.png" );
-        //this.load.image("indicadorRocas", directory+"ui_M_rocas.png" );
-        //this.load.image("indicadorO2", directory+"ui_M_o2.png" );
-        //this.load.image("indicadorMateriales", directory+"ui_M_materiales.png" );
-        //this.load.image("indicadorHambre", directory+"ui_M_hambre.png" );
         this.load.spritesheet("indicadores", directory+"M_indicators.png", { frameWidth: 145, frameHeight: 145 });
         this.load.image("flechasAmarillas", directory+"FlechasAmarillas.png" );
         
@@ -176,10 +182,6 @@ class SceneGame extends Phaser.Scene {
         this.load.image("lanzadera", directory+"ui_T_Lanzadera.png" );
         this.load.image("lanzaderaPuerta", directory+"ui_T_Lanzadera_door.png" );
         this.load.image("lanzaderaCountdown", directory+"ui_T_countdown.png" );
-        /*this.load.image("cargaMateriales", directory+"ui_T_payload_materiales.png" );
-        this.load.image("cargaRocas", directory+"ui_T_payload_rocas.png" );
-        this.load.image("cargaO2", directory+"ui_T_payload_o2.png" );
-        this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );*/
         this.load.spritesheet("payloads", directory+"ui_T_payloads.png", { frameWidth: 52, frameHeight: 37 });
         this.load.image("paqueteriaBase", directory+"ui_T_Paqueteria_contadores.png" );
         this.load.image("paqueteriaBaseTubo", directory+"ui_T_Paqueteria_contadores_tubo.png" );
@@ -209,19 +211,104 @@ class SceneGame extends Phaser.Scene {
         this.load.image("antena", directory+"antena.png" );
         this.load.image("mina", directory+"mina.png" );
         this.load.image("terraformador", directory+"terraformador.png" );
+
+        //MUSICA
+        /*
+        this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
+        this.load.audio('MusicIngame', ['./Resources/Audio/Music/Pioneers meets Space.ogg']);
+        this.load.audio('MusicTutorial', ['./Resources/Audio/Music/Roboxel - Space Music.ogg']);
+
+        //Ambient noise
+        this.load.audio('SfxTerraformer', ['./Resources/Audio/SFX/Mars/Machines/Terraformer.ogg']);
+        this.load.audio('apolo11Ambient', ['./Resources/Audio/SFX/Common/apolo11Ambient.ogg']);
+
+        //SFX
+        this.load.audio('SfxWalk', ['./Resources/Audio/SFX/Mars/sfx_step_grass.ogg']);
+        this.load.audio('SfxArrive', ['./Resources/Audio/SFX/Fanfare/arrive.ogg']);
+        this.load.audio('SfxClick', ['./Resources/Audio/SFX/Common/click.ogg']);
+        this.load.audio('SfxHover', ['./Resources/Audio/SFX/Common/hover.ogg']);
+        this.load.audio('SfxLeave', ['./Resources/Audio/SFX/Fanfare/leave.ogg']);
+        this.load.audio('SfxReceive', ['./Resources/Audio/SFX/Fanfare/receive.ogg']);
+        this.load.audio('SfxSend', ['./Resources/Audio/SFX/Fanfare/send.ogg']);
+        this.load.audio('SfxPipe', ['./Resources/Audio/SFX/Earth/pipe.ogg']);
+        this.load.audio('SfxTakeOff', ['./Resources/Audio/SFX/Earth/space_ship.ogg']);
+        this.load.audio('SfxLanding', ['./Resources/Audio/SFX/Mars/landing.ogg']);
+        this.load.audio('SfxMeteorHit', ['./Resources/Audio/SFX/Mars/DeathFlash.ogg']);
+        this.load.audio('SfxAlarm', ['./Resources/Audio/SFX/Mars/Alarm_Loop_01.ogg']);
+        //Fanfare
+        this.load.audio('SfxWin', ['./Resources/Audio/SFX/Fanfare/win.ogg']);
+        this.load.audio('SfxLose', ['./Resources/Audio/SFX/Fanfare/lose.ogg']);
     
         //*/
+        this.load.image('spark', './Resources/snowflake.png');
     }
 
     create() {
+        /*
+        musica = this.sound.add('MusicMenu');
+        musica.volume = 0;
+        musica.loop = true;
+        musica.play();
+        sfx = {
+            loop: true,
+            volume: 1,
+            sounds: [
+                        this.sound.add('SfxClick'),     //[0]
+                        this.sound.add('SfxHover'),
+                        this.sound.add('SfxTerraformer'),
+                        this.sound.add('SfxWalk'),
+                        this.sound.add('SfxWin'),
+                        this.sound.add('SfxLose'),      //[5]
+                        this.sound.add('SfxArrive'),
+                        this.sound.add('SfxLeave'),
+                        this.sound.add('SfxReceive'),
+                        this.sound.add('SfxSend'),
+                        this.sound.add('SfxPipe'),      //[10]
+                        this.sound.add('SfxTakeOff'),
+                        this.sound.add('SfxLanding'),
+                        this.sound.add('SfxMeteorHit'),
+                        this.sound.add('SfxAlarm')
+                    ]
+        };
 
+        sfx.sounds.forEach(element => {
+            element.volume = sfx.volume;
+        });
+
+        sfx.sounds[2].loop = sfx.loop;
+        sfx.sounds[3].loop = sfx.loop;
+        sfx.sounds[8].loop = true;
+        sfx.sounds[14].loop = true;
+        sfx.sounds[12].volume = 0.3;
+        sfx.sounds[2].volume = 0;
+        sfx.sounds[8].volume = 0;
+        //*/
+
+        //Musica
+        let volumen;
+        if(musica!=undefined){
+            musica.stop();
+            volumen = musica.volume;
+        }
+        musica = this.sound.add('MusicIngame');
+        musica.loop = true;
+        musica.volume = volumen;
+        musica.play();
+        musica = this.sound.add('apolo11Ambient');
+        musica.loop = true;
+        musica.volume = volumen;
+        musica.play();
+
+        //PLAY a los sonidos de las máquinas
+        sfx.sounds[2].play();
+        sfx.sounds[8].play();
 
         //MARTE
 		// ui_M_bck
-        fondoMarte = this.add.image(407, 450, "fondoMarte");
+        fondoMarte = this.add.image(407, 450, "fondoMarte").setDepth(-2);
 
         //Inicialización planeta
-        marte = this.add.image(game.config.width/4, 1250, "marte").setScale(3);
+        marte = this.add.image(game.config.width/4, 1250, "marte").setScale(3).setDepth(-2);
 
         //Cohete en Marte
         objCohete = new Rocket(this, marte.x, marte.y);
@@ -243,52 +330,21 @@ class SceneGame extends Phaser.Scene {
         for(var i=0; i<N_NUBES; i++) {
 
             nubes[i] = new Cloud(this);
-            /*var nrand = Phaser.Math.Between(0,0);
-            switch(nrand) {
-                
-                //NUBE 1
-                case 0:
-                    nubes[i] = this.add.image(marte.x, marte.y, "nube");
-                    var orig = Phaser.Math.Linear(6, 8, Phaser.Math.Between(0,100)/100.0);
-                    nubes[i].setOrigin(0.5, orig);
-                    nubes[i].rotation = Phaser.Math.Linear(0, 2*Math.PI, Phaser.Math.Between(0,100)/100.0); 
-                break;
-                //NUBE 2
-                case 1:
-                    nubes[i] = this.add.image(marte.x, marte.y, "nube");
-                    nubes[i].setOrigin(0.5,7);
-                    nubes[i].rotation = Phaser.Math.Between(-3.13,3.13);
-                break;
-                //NUBE 3
-                case 2:
-                    nubes[i] = this.add.image(marte.x, marte.y, "nube");
-                    nubes[i].setOrigin(0.5, 8);
-                    nubes[i].rotation = Phaser.Math.Between(-3.13,3.13);
-                break;
-            }*/
             
         }
 
         //
         meteoritos = new Array();
-        meteoritos[0] = new Meteor(this);
 
         //TIERRA
         controlTierra = new EarthControl(this, 0, 0, 8);
         //controlTierra.PushFromMars();
 		
 		
-		// ui_M_horas
-		//timerHoras = this.add.image(553, 97, "timeHoras");
 		
-		// ui_M_minutos
-        timerMinutos = this.add.image(635, 97, "timerMinutos");
-        
-		// ui_M_segundos
-		timerSegundos = this.add.image(716, 97, "timerSegundos");
 		
 		// ui_M_actionbox: Tecla de acción
-        teclaAccion = this.add.image(marte.x, 500, "teclaAccion").setVisible(false);
+        //
 		
 		// ui_M_dangerArrow
 		alertaPeligroIz = this.add.image(665, 365, "alertaPeligro").setVisible(false);
@@ -331,8 +387,8 @@ class SceneGame extends Phaser.Scene {
 
         this.anims.create({
             key: 'stelonauta_run',
-            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 21 }),
-            frameRate: 18,
+            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 20 }),
+            frameRate: 30,
         });
 
         //Input events
@@ -342,15 +398,122 @@ class SceneGame extends Phaser.Scene {
         key_up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         key_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
+        key_repair = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         
+        //Genera meteoritos cada x ms
+        //var timedEvent = this.time.addEvent({ delay: 3000, callback: genMeteors, callbackScope: this, loop: true });
+
+
+        //PARTÍCULAS TORMENTA
+        emitterStorm = this.add.particles('spark').createEmitter({
+            x: {min: 0, max: 1500},
+            y: 0,
+            blendMode: 'COLOR',
+            scale: { start: 0.2, end: 0 },
+            tint: 0x50ff6a00,
+            speedX: { min: -500, max: -900 },
+            speedY: { min: 500, max: 1500 },
+            quantity: 100,
+            on: false
+        });
 
         
+/*
+        //Cohete        [0]
+        emitterMachines[0] = this.add.particles('spark').createEmitter({
+            x: 300,
+            y: 30,
+//            follow: objCohete,
+            followOffset:
+            {
+                x: 0.5,
+                y: -300
+            },
+            blendMode: 'SCREEN',
+            scale: { start: 2, end: 0 },
+            speedX: { min: -900, max: -500 },
+            speedY: { min: 500, max: 2000 },
+            quantity: 5,
+            on: false
+        });
+
+        //emitterMachines[0].startFollow(player);
+
+        //Radio         [1]
+        emitterMachines[1] = this.add.particles('spark').createEmitter({
+            x: 320,
+            y: 300,
+            blendMode: 'SCREEN',
+            scale: { start: 0.2, end: 0 },
+            speedX: { min: -900, max: -500 },
+            speedY: { min: 500, max: 2000 },
+            quantity: 5,
+            on : false
+        });
+    
+
+        //Mina          [2]
+        emitterMachines[2] = this.add.particles('spark').createEmitter({
+            x: 700,
+            y: 300,
+            blendMode: 'SCREEN',
+            scale: { start: 0.2, end: 0 },
+            speedX: { min: -900, max: -500 },
+            speedY: { min: 500, max: 2000 },
+            quantity: 5,
+            on : false
+        });
+    
+
+        //Terraformador [3]
+        emitterMachines[3] = this.add.particles('spark').createEmitter({
+            x: 700,
+            y: 400,
+            blendMode: 'SCREEN',
+            scale: { start: 0.2, end: 0 },
+            speedX: { min: -900, max: -500 },
+            speedY: { min: 500, max: 2000 },
+            quantity: 5,
+            on : false
+        });
+
+    //*/
+        /*
+        this.input.on('pointerDown', function (pointer) {
+            //emitter.setPosition(Phaser.Math.Between(0, game.config.width), 0)
+            emitterStorm.emitZoneIndex = 1;
+            emitterStorm.active = false;
+            console.log("APAGA");
+        });
+        //*/
+    
+        /*
+        this.input.on('pointerdown', function (pointer) {
+            emitZoneIndex = (emitZoneIndex + 1) % emitZones.length;
+            emitter.setEmitZone(emitZones[emitZoneIndex]);
+            emitter.explode();
+        });
+        //*/
+    
+        //emitter.setEmitZone(emitZones[emitZoneIndex]); 
+    
     }
     update(time, delta) {
-        console.log(player.body.touching.none);
+        //DEBUG PARTICULAS
+        /*if (key_left.isDown) {
+            //Apaga
+            emitterStorm.on = false;
+        }
+        else if (key_right.isDown) {
+            //Enciende
+            emitterStorm.on = true;
+        }*/
+
+        //emitter.setPosition(Phaser.Math.Between(0, game.config.width), 0)
         //MARTE
         //Inputs
         //Movimiento de Marte
+
         if (key_left.isDown) {
             //Rotación de los elementos de Marte
             updateRotations(1, delta);
@@ -372,23 +535,29 @@ class SceneGame extends Phaser.Scene {
             startSfxRun = false;
             sfx.sounds[3].stop();
         }
+
+
+        
+        //Meteoritos
+        for(var i=0; i < meteoritos.length; i++) {
+ 
+            meteoritos[i].Update();
+        }
         
         //////////////////////////////
         //Interaccionar con máquinas//
         //////////////////////////////
         //Mostrar tecla interacción
-        if (!(maquinas[0].canInteract() || maquinas[1].canInteract() || maquinas[2].canInteract() || maquinas[3].canInteract()) && maquinas[0].isSending) {
+        /*if (!(maquinas[0].canInteract() || maquinas[1].canInteract() || maquinas[2].canInteract() || maquinas[3].canInteract()) && maquinas[0].isSending) {
 
             teclaAccion.setVisible(false);
-        }
+        }*/
 
         //Acciones de cada máquina
         for(i = 0; i < 4; i++) {
 
             maquinas[i].update(delta);
         }
-
-
 
         ///////////
         //Pasivas//
@@ -407,33 +576,60 @@ class SceneGame extends Phaser.Scene {
         indHam.Update();
 
         if (indHam.size <= 0)
-            DefeatCondition();
+            DefeatCondition(this);
 
 
         //TIERRA
         controlTierra.Update(delta);
-
-        meteoritos[0].Update();
     }
 
     
 }
 
+function genMeteors() {
 
+    for(var i=0; i < 3; i++) {
+ 
+        meteoritos[i] = new Meteor(this);
+    }
+    
+}
 function updateRotations(sign, delta) {
 
     for(var i=0; i<N_NUBES; i++) {
-        nubes[i].obj.rotation += sign*delta/1000;
+        nubes[i].obj.rotation += sign*delta/1000*playerSpeed;
     }
-    /*for(var i=0; i<nMeteoritos; i++) {
-        nubes[i].obj.rotation += 0.01*sign;
-    }*/
-    meteoritos[0].obj.rotation += sign*delta/1500;
-    marte.rotation+=sign*delta/1500;
-    objCohete.obj.rotation+=sign*delta/1500;
+    for(var i=0; i < meteoritos.length; i++) {
+        meteoritos[i].obj.rotation += sign*delta/1500*playerSpeed;
+    }
+    marte.rotation+=sign*delta/1500*playerSpeed;
+    objCohete.obj.rotation+=sign*delta/1500*playerSpeed;
+
     for (i=0; i<4; i++) {
 
-        maquinas[i].obj.setRotation(maquinas[i].obj.rotation + sign*delta/1500);
+        maquinas[i].obj.setRotation(maquinas[i].obj.rotation + sign*delta/1500*playerSpeed);
+        //Update sonidos
+        var beta = maquinas[i].obj.rotation < 0 ? maquinas[i].obj.rotation * -1: maquinas[i].obj.rotation ;
+        if(beta < 0.8)
+        {
+            var volumen = (0.8 - beta)/0.8;
+            if(volumen<0.02)
+                volumen = 0;
+            switch(i)
+            {
+                case 0: //Cohete
+
+                    break;
+                case 1: //Terraformador
+                case 3: //Mina
+                    sfx.sounds[2].volume = volumen;
+                    break;
+                case 2: //Comunicaciones
+                    sfx.sounds[8].volume = volumen;
+                    break;
+            }
+            
+        }
     }
 
     sign===1 ? player.flipX = false : player.flipX = true;
@@ -450,12 +646,15 @@ function DestroyOnScene(obj) {
 }
 
 //Acciones condiciones victoria/derrota
-function VictoryCondition(){
+function VictoryCondition(that){
     sfx.sounds[4].play();
     console.log("HAS GANADO!!!");
 }
 
-function DefeatCondition(){
-    sfx.sounds[5].play();
+function DefeatCondition(that){
+    musica.stop();
+    
+    that.scene.launch('SceneGameEnd');
+    that.scene.pause('SceneGame');
     console.log("HAS PERDIDO :c");
 }

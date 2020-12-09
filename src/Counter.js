@@ -1,32 +1,42 @@
 class Counter{
     constructor(scene, initTime) {
         
+        // ui_M_horas
+		//timerHoras = this.add.image(553, 97, "timeHoras");
+		// ui_M_minutos
+        this.timerMinutos = scene.add.image(635, 97, "timerMinutos");
+		// ui_M_segundos
+		this.timerSegundos = scene.add.image(716, 97, "timerSegundos");
+
         // 2:30 in seconds
         this.initialTime = initTime;
 
-        this.textMinutes = scene.add.text(timerMinutos.x, timerMinutos.y+4,this.formatTimeMinutes(this.initialTime),{
+        this.textMinutes = scene.add.text(this.timerMinutos.x, this.timerMinutos.y+4,this.formatTimeMinutes(this.initialTime),{
             fontSize:'60px',
             fontStyle:'bold',
             fill:'#ffffff',
         }).setOrigin(0.5);
+        //this.textMinutes.depth = 3;
 
-        this.textSeconds = scene.add.text(timerSegundos.x+1, timerSegundos.y+7,this.formatTimeSeconds(this.initialTime),{
+        this.textSeconds = scene.add.text(this.timerSegundos.x+1, this.timerSegundos.y+7,this.formatTimeSeconds(this.initialTime),{
             fontSize:'50px',
             fontStyle:'bold',
             fill:'#ffffff',
         }).setOrigin(0.5);
 
         // Each 1000 ms call onEvent
-        this.timedEvent = scene.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
+        this.timedEvent = scene.time.addEvent({ delay: 1000, callback: countDown, callbackScope: this, loop: true });
 
         this.stop = false;
+
+        this.scene = scene;
 
     }
 
     formatTimeMinutes(seconds){
         if (seconds <= 0) {
 
-            DefeatCondition();
+            DefeatCondition(this.scene);
             this.stop = true;
         }
 
@@ -49,7 +59,7 @@ class Counter{
 
 }
 
-function onEvent ()
+function countDown ()
 {
     if (!this.stop) {
 

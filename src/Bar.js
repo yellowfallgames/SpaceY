@@ -1,7 +1,7 @@
 class Bar {
     constructor(scene, x, y, n, max, scaleX, scaleY, color, withText) {
 
-        this.obj = scene.add.sprite(x, y, "barra");
+        this.obj = scene.add.sprite(x, y, "barra").setDepth(5);
 
         this.n = n;
         this.max = max;
@@ -19,7 +19,7 @@ class Bar {
             this.txt = scene.add.text(x-24, y-10, Math.round((n/max)*100)+'%',{
                 fontSize:'40px',
                 fill: '#ffffff',
-            }).setVisible(false);
+            }).setVisible(false).setDepth(6);
         }
         
     }
@@ -41,6 +41,11 @@ class Bar {
         }*/
         this.obj.scaleX = (this.n/this.max)*this.ancho;
         if (this.withText)  this.txt.setText(Math.round((this.n/this.max)*100)+'%');
+    }
+
+    SetColor(color) {
+
+        if (color != -1)    this.obj.tint = color;
     }
 
 }
