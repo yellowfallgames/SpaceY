@@ -310,6 +310,33 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     }
 
     StartTransform(n) {
+        var obj;
+        //GIVE ME DA JUIIIIICEEEEE
+        switch (n){
+            case 0: 
+            this.obj = this.ddrBtnMat;
+            this.scene.tweens.add({
+                targets: this.obj,
+                scaleX: 1.2,
+                scaleY: 1.2,
+                duration: 50,
+                ease: 'Expo.easeIn',
+                yoyo:true
+            });
+            break;
+            case 1: 
+            this.obj = this.ddrBtnComida;
+            this.scene.tweens.add({
+                targets: this.obj,
+                scaleX: 1.2,
+                scaleY: 1.2,
+                duration: 50,
+                ease: 'Expo.easeIn',
+                yoyo:true
+            });break;
+        }
+    
+        
 
         if (this.counterRoc > 0) {
 

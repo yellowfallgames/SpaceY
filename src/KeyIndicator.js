@@ -14,13 +14,22 @@ class KeyIndicator {
         this.teclaTween = scene.tweens.add({
             targets: [this.obj],
             y: this.obj.y + 50,
-            //scaleX: 1.2,
-            //scaleY: 1.2,
             duration: 700,
             ease: 'Expo.easeIn',
             yoyo:true,
-            repeat:-1
+            repeat:-1,
+            /*onYoyo: function(){
+                scene.tweens.add({
+                targets: [this.obj],
+                scaleX: 1.2,
+                scaleY: 1.2,
+                delay:700,
+                duration: 300,
+                ease: 'Expo.easeOut',
+                yoyo:true,
+                repeat:2})}*/
         });
+
     }
     update ()
     {
