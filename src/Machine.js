@@ -15,17 +15,18 @@ class Machine {//extends Phaser.GameObjects.Sprite {
             break;
             case 1:
                 //Terraformador
-                this.obj = scene.add.sprite(x, y, "movimientoTerraformador",0);
+                this.obj = scene.add.sprite(x, y, "movimientoTerraformador", 0);
                 this.obj.setRotation(-1.57);
             break;
             case 2:
                 //Comunicaciones
-                this.obj = scene.add.sprite(x, y, "antena");
+                this.obj = scene.add.sprite(x, y, "movimientoAntena");
+                this.obj.anims.play("movimientoAntena");
                 this.obj.setRotation(1.57);
             break;
             case 3:
                 //Mina
-                this.obj = scene.add.sprite(x, y, "mina");
+                this.obj = scene.add.sprite(x, y, "movimientoMina");
                 this.obj.setRotation(3.14);
             break;
             

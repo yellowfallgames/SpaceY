@@ -26,6 +26,9 @@ class MineMachine extends Machine {
 
                         barraCarga.n += delta/7;
                         barraCarga.Update();
+
+                        if (!this.obj.anims.isPlaying)
+                            this.obj.anims.play("movimientoMina");
                     }
                     else if (barraCarga.n >= 1) {
 
@@ -35,11 +38,17 @@ class MineMachine extends Machine {
                         barraCarga.n = 0;
                         barraCarga.Update();
                     }
+                    else if (indRocas.size >= indRocas.maxSize) {
+
+                        this.StopAnim();
+                    }
                 }
                 else{
                     //Si deja de picar
                     barraCarga.n = 0;
                     barraCarga.Update();
+
+                    this.StopAnim();
                 }
 
                 //Reparar sin estar rota
@@ -110,6 +119,12 @@ class MineMachine extends Machine {
             this.repairBar.n = 0;
             this.repairBar.Update();
         }
+    }
+
+    StopAnim() {
+
+        this.obj.anims.stop();
+        this.obj.setFrame(0);
     }
 
 }

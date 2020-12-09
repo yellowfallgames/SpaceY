@@ -336,6 +336,18 @@ class SceneGame extends Phaser.Scene {
             frameRate: 10,
             repeat: -1,
         });
+        this.anims.create({
+            key: 'movimientoAntena',
+            frames: this.anims.generateFrameNumbers('movimientoAntena', { start: 0, end: 9 }),
+            frameRate: 4,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'movimientoMina',
+            frames: this.anims.generateFrameNumbers('movimientoMina', { start: 0, end: 10 }),
+            frameRate: 10,
+            repeat: -1,
+        });
 
         //MARTE
 		// ui_M_bck
@@ -601,7 +613,7 @@ class SceneGame extends Phaser.Scene {
           emitterMachines[2].emitParticleAt(emitterMachines[2].posX, emitterMachines[2].posY);
           emitterMachines[3].emitParticleAt(emitterMachines[3].posX, emitterMachines[3].posY);
         */
-        console.log("Pos X: " + emitterMachines[0].posX + "\nPos Y: " + emitterMachines[0].posY);
+        //console.log("Pos X: " + emitterMachines[0].posX + "\nPos Y: " + emitterMachines[0].posY);
         
 
         if ((key_left.isDown || key_right.isDown) && !startSfxRun) {

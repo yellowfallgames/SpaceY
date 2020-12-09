@@ -22,7 +22,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         // ui_T_Paqueteria_contadores_tubo
         this.paqBaseTubo = scene.add.image(1239, 775, "paqueteriaBaseTubo").setDepth(2);//Tubo 2
         // ui_T_DDR2
-        this.ddrBaseTubo = scene.add.image(980, 793, "ddrBaseTubo").setDepth(4);/////tubo 1
+        this.ddrBaseTubo = scene.add.image(980, 775, "ddrBaseTubo").setDepth(3);/////tubo 1
         // ui_T_DDR1
         this.ddrBase = scene.add.image(1110, 805, "ddrBase").setDepth(3);
         // ui_T_countdown
@@ -48,7 +48,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         //Botón para descargar rocas
         this.countLanz = 0;
       
-        this.unloadRocketBtn = scene.add.image(860, 665, "lanzaderaPuerta").setDepth(4)
+        this.unloadRocketBtn = scene.add.image(860, 665, "lanzaderaPuertaRecursos").setDepth(4)
 
         .setInteractive()
         .on('pointerdown', () =>  this.tweenLanzPuertaIn())//this.Unload(this.unloadRocketBtn)
@@ -128,11 +128,11 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         //Flechas pantalla trasnformaciones
         this.ddrFlechas = new Array(3);
         // ui_T_DDR_arrow
-        this.ddrFlechas[0] = scene.add.image(1076, 776, "ddrFlecha_0").setVisible(false).setDepth(2);
+        this.ddrFlechas[0] = scene.add.image(1072, 772, "ddrFlecha_0").setVisible(false).setDepth(3);
 		// ui_T_DDR_arrow_1
-        this.ddrFlechas[1] = scene.add.image(1114, 776, "ddrFlecha_0").setVisible(false).setDepth(2);
+        this.ddrFlechas[1] = scene.add.image(1110, 772, "ddrFlecha_0").setVisible(false).setDepth(3);
 		// ui_T_DDR_arrow_2
-        this.ddrFlechas[2] = scene.add.image(1153, 776, "ddrFlecha_0").setVisible(false).setDepth(2);
+        this.ddrFlechas[2] = scene.add.image(1149, 772, "ddrFlecha_0").setVisible(false).setDepth(3);
 
         //Combos
         this.combokeys = new Array(3);
