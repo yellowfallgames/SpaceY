@@ -12,7 +12,8 @@ class TerraformMachine extends Machine {
     }
 
     update(delta){
-        
+        //update tecla
+        this.keyIndicator.update();
         //Interacción
         if (this.canInteract()) {
 

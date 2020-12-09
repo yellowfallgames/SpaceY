@@ -5,12 +5,27 @@ class KeyIndicator {
         this.key = k;
 
         this.txt = scene.add.text(this.obj.x, this.obj.y-45, this.key,{
+            fontFamily:'textFont',
             fontSize:'35px',
             fill:'#ffffff',
             fontStyle:'bold',
         }).setOrigin(0.5).setDepth(4);
-    }
 
+        this.teclaTween = scene.tweens.add({
+            targets: [this.obj],
+            y: this.obj.y + 50,
+            //scaleX: 1.2,
+            //scaleY: 1.2,
+            duration: 700,
+            ease: 'Expo.easeIn',
+            yoyo:true,
+            repeat:-1
+        });
+    }
+    update ()
+    {
+        this.txt.y = this.obj.y-45;
+    }
     setVisible(b) {
 
         this.obj.setVisible(b);

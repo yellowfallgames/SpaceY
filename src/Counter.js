@@ -13,6 +13,7 @@ class Counter{
 
         this.textMinutes = scene.add.text(this.timerMinutos.x, this.timerMinutos.y+4,this.formatTimeMinutes(this.initialTime),{
             fontSize:'60px',
+            fontFamily:'textFont',
             fontStyle:'bold',
             fill:'#ffffff',
         }).setOrigin(0.5);

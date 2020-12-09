@@ -14,7 +14,8 @@ class StationMachine extends Machine {
     }
 
     update(delta){
-        
+        //update tecla
+        this.keyIndicator.update();
         if (this.location === 0 && !this.isSending && !this.isBroken) {
 
             if (this.canInteract()) {

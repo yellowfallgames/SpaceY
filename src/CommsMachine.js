@@ -16,6 +16,8 @@ class CommsMachine extends Machine {
 
         //Avisar de tormentas
         
+        //update tecla
+        this.keyIndicator.update();
         //Desgaste
         //this.updateWear(delta);
         this.delta = delta;

@@ -9,7 +9,8 @@ class MineMachine extends Machine {
     }
 
     update(delta){
-        
+        //update tecla
+        this.keyIndicator.update();
         if (this.canInteract()) {
             
             //

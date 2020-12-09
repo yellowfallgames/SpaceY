@@ -10,7 +10,7 @@ class SceneContact extends Phaser.Scene {
         this.bckContact =  this.add.image(game.config.width/2, game.config.height+1000,"tablon");
         this.easeMe(this.bckContact, this, 1);
 
-        this.JacquesButton = this.add.text(game.config.width/2, game.config.height+300, 'Jacques David Meyns Villaldea', { fill: '#000000',fontFamily:'textFont',fontSize:'100'})
+        this.JacquesButton = this.add.text(game.config.width/2, game.config.height+300, 'Jacques David Meyns Villaldea', { fill: '#000000',fontFamily:'textFont',fontSize:'20px',align:'left'})
         .setInteractive()
         .on('pointerdown', () => this.enterJacques() )
         .on('pointerover', () => this.enterButtonHoverState(this.JacquesButton) )
@@ -18,7 +18,7 @@ class SceneContact extends Phaser.Scene {
         this.JacquesButton.setOrigin(0.5);
         this.easeMe(this.JacquesButton, this, 2);
 
-        this.SofiButton = this.add.text(game.config.width/2, game.config.height+300, 'Sofía de Vega Gimenez',  { fill: '#000000',fontFamily:'textFont',fontSize:'500'})
+        this.SofiButton = this.add.text(game.config.width/2, game.config.height+300, 'Sofia de Vega Gimenez',  { fill: '#000000',fontFamily:'textFont',fontSize:'20px',align:'left'})
         .setInteractive()
         .on('pointerdown', () => this.enterSofi() )
         .on('pointerover', () => this.enterButtonHoverState(this.SofiButton) )
@@ -26,7 +26,7 @@ class SceneContact extends Phaser.Scene {
         this.SofiButton.setOrigin(0.5);
         this.easeMe(this.SofiButton, this, 3);
 
-        this.PepeButton = this.add.text(game.config.width/2, game.config.height+300, 'Jose Ignacio Pintado Murillo',  { fill: '#000000',fontFamily:'textFont',fontSize:'500'})
+        this.PepeButton = this.add.text(game.config.width/2, game.config.height+300, 'Jose Ignacio Pintado Murillo',  { fill: '#000000',fontFamily:'textFont',fontSize:'20px',align:'left'})
         .setInteractive()
         .on('pointerdown', () => this.enterPepe() )
         .on('pointerover', () => this.enterButtonHoverState(this.PepeButton) )
@@ -34,7 +34,7 @@ class SceneContact extends Phaser.Scene {
         this.PepeButton.setOrigin(0.5);
         this.easeMe(this.PepeButton, this, 4);
 
-        this.ManuButton = this.add.text(game.config.width/2 , game.config.height+300, 'Manuel Mantecón Polo',  { fill: '#000000',fontFamily:'textFont',fontSize:'500'})
+        this.ManuButton = this.add.text(game.config.width/2 , game.config.height+300, 'Manuel Mantecon Polo',  { fill: '#000000',fontFamily:'textFont',fontSize:'20px',align:'left'})
         .setInteractive()
         .on('pointerdown', () => this.enterManu() )
         .on('pointerover', () => this.enterButtonHoverState(this.ManuButton) )
@@ -42,7 +42,7 @@ class SceneContact extends Phaser.Scene {
         this.ManuButton.setOrigin(0.5);
         this.easeMe(this.ManuButton, this, 5);
 
-        this.backButton = this.add.text(game.config.width/2, game.config.height+300, 'Atrás',  { fill: '#000000',fontFamily:'textFont',fontSize:'500'})
+        this.backButton = this.add.text(game.config.width/2, game.config.height+300, 'Atras',  { fill: '#000000',fontFamily:'textFont',fontSize:'20px',align:'left'})
         .setInteractive()
         .on('pointerdown', () => this.enterBack() )
         .on('pointerover', () => this.enterButtonHoverState(this.backButton) )
@@ -93,7 +93,7 @@ openExternalLink (name)
 
     enterButtonHoverState(boton) {
         sfx.sounds[1].play();
-        boton.setStyle({ fill: '#ff0'});
+        boton.setStyle({ fill: '#4a95ff'});
         boton.x = boton.x+movTxt;
         boton.y = boton.y+movTxt;
     }
