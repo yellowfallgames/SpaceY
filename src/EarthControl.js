@@ -171,6 +171,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         //Control de desgaste de máquinas//
         //Botones check desgaste
+
         // ui_T_control_COM
         this.controlCom = scene.add.image(1388, 549, "controlCom").setDepth(2)
         .setInteractive()
@@ -539,6 +540,52 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     //Funciones sistema de check de desgaste//
 
     CheckWear(n) {
+        var obj;
+        //JUICEEE
+        switch (n){
+            case 0: 
+            this.obj = this.controlRocket;
+            this.scene.tweens.add({
+                targets: this.obj,
+                scaleX: 1.2,
+                scaleY: 1.2,
+                duration: 50,
+                ease: 'Expo.easeIn',
+                yoyo:true
+            });
+            break;
+            case 1: 
+            this.obj = this.controlTerr;
+            this.scene.tweens.add({
+                targets: this.obj,
+                scaleX: 1.2,
+                scaleY: 1.2,
+                duration: 50,
+                ease: 'Expo.easeIn',
+                yoyo:true
+            });break;
+            case 2: 
+            this.obj = this.controlCom;
+            this.scene.tweens.add({
+                targets: this.obj,
+                scaleX: 1.2,
+                scaleY: 1.2,
+                duration: 50,
+                ease: 'Expo.easeIn',
+                yoyo:true
+            });
+            break;
+            case 3: 
+            this.obj = this.controlMina;
+            this.scene.tweens.add({
+                targets: this.obj,
+                scaleX: 1.2,
+                scaleY: 1.2,
+                duration: 50,
+                ease: 'Expo.easeIn',
+                yoyo:true
+            });break;
+        }
 
         if (!maquinas[2].isBroken) {
 
@@ -719,6 +766,15 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
                 onCompleteDelay: 150,
                 onComplete: this.Unload.bind(this)
+            });
+        }else{
+            this.scene.tweens.add({
+                targets: this.unloadRocketBtn,
+                scaleX: 1.2,
+                scaleY: 1.2,
+                duration: 50,
+                ease: 'Expo.easeIn',
+                yoyo:true
             });
         }
     }
