@@ -15,13 +15,7 @@ class StationMachine extends Machine {
 
     update(delta){
 
-
         this.keyIndicator.update();
-
-
-        if (this.isBroken) {
-
-        
 
         if (this.location === 0 && !this.isSending && !this.isBroken) {
 

@@ -28,7 +28,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         // ui_T_countdown
 		this.lanzCtdn = scene.add.image(956, 210, "lanzaderaCountdown").setDepth(2);////
 		// ui_T_Lanzadera_door
-        this.lanzPuertaOut = scene.add.image(958, 83, "lanzaderaPuerta").setDepth(2);
+        this.lanzPuertaOut = scene.add.image(958, 83, "lanzaderaPuerta").setDepth(4);
         // ui_T_pantalla_plano
         this.pantallaPlano = scene.add.image(1337, 227, "pantallaMapa").setDepth(2);
         // ui_T_Paqueteria_pasarela

@@ -102,7 +102,6 @@ enterOptions() {
 
 enterContact() {
     sfx.sounds[0].play();
-    soundtrack.pistas[0].stop();
     this.scene.start('SceneContact');
 }
 
