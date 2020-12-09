@@ -6,6 +6,8 @@ class SceneContact extends Phaser.Scene {
     }
 
     create() {
+        
+        //this.bckContact =  this.add.image(game.config.width/2, game.config.height/2,"tablon");
 
         this.JacquesButton = this.add.text(game.config.width/2, game.config.height+300, 'Jacques David Meyns Villaldea', { fill: '#0f0' })
         .setInteractive()
