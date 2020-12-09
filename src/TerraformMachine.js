@@ -33,7 +33,7 @@ class TerraformMachine extends Machine {
 
                         indTerra.Update();
                         indRocas.Update();
-                        
+
                         if (!this.obj.anims.isPlaying)
                             this.obj.anims.play("movimientoTerraformador");
 

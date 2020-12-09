@@ -351,7 +351,7 @@ class SceneGame extends Phaser.Scene {
         this.anims.create({
             key: 'movimientoCohete',
             frames: this.anims.generateFrameNumbers('movimientoCohete', { start: 0, end: 8 }),
-            frameRate: 10,
+            frameRate: 15,
             repeat: -1,
         });
 
@@ -583,8 +583,8 @@ class SceneGame extends Phaser.Scene {
             emitterMachines[1].posX = marte.x + 700 * Math.cos(3.14 + marte.rotation);
             emitterMachines[1].posY = marte.y + 700 * Math.sin(3.14 + marte.rotation);
             //Comunicaciones
-            emitterMachines[2].posX = marte.x + 800 * Math.cos(marte.rotation);
-            emitterMachines[2].posY = marte.y + 800 * Math.sin(marte.rotation);
+            emitterMachines[2].posX = marte.x + 570 * Math.cos(marte.rotation);
+            emitterMachines[2].posY = marte.y + 570 * Math.sin(marte.rotation);
             //Mina
             emitterMachines[3].posX = marte.x + 870 * Math.cos(1.57 + marte.rotation);
             emitterMachines[3].posY = marte.y + 870 * Math.sin(1.57 + marte.rotation);
@@ -601,8 +601,8 @@ class SceneGame extends Phaser.Scene {
             emitterMachines[1].posX = marte.x + 700 * Math.cos(3.14 + marte.rotation);
             emitterMachines[1].posY = marte.y + 700 * Math.sin(3.14 + marte.rotation);
             //Comunicaciones
-            emitterMachines[2].posX = marte.x + 800 * Math.cos(marte.rotation);
-            emitterMachines[2].posY = marte.y + 800 * Math.sin(marte.rotation);
+            emitterMachines[2].posX = marte.x + 570 * Math.cos(marte.rotation);
+            emitterMachines[2].posY = marte.y + 570 * Math.sin(marte.rotation);
             //Mina
             emitterMachines[3].posX = marte.x + 870 * Math.cos(1.57 + marte.rotation);
             emitterMachines[3].posY = marte.y + 870 * Math.sin(1.57 + marte.rotation);

@@ -1,7 +1,7 @@
 class Rocket {
     constructor(scene, x, y) {
 
-        this.obj = scene.add.image(x, y, "rocket");
+        this.obj = scene.add.sprite(x, y, "movimientoCohete");
         this.obj.setOrigin(0.5, 2.5);
         this.obj.setScale(1);
         this.goLand = false;
@@ -10,6 +10,8 @@ class Rocket {
 
         this.comLoad = 0;
         this.matLoad = 0;
+
+        this.obj.anims.play("movimientoCohete");
     }
 
     TakeOff(delta) {

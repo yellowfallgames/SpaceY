@@ -14,7 +14,8 @@ class CommsMachine extends Machine {
 
     update(delta){
 
-        //Avisar de tormentas
+        if (!this.obj.anims.isPlaying && !this.isBroken)
+            this.obj.anims.play("movimientoAntena");
         
         //Desgaste
         //this.updateWear(delta);

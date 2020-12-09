@@ -84,8 +84,8 @@ class SceneBoot extends Phaser.Scene {
         this.load.image("minaPolvo", directory+"mina_polvo.png" );
         this.load.image("terraformadorRoto", directory+"terraformador_roto.png" );
         this.load.image("terraformadorPolvo", directory+"terraformador_polvo.png" );
-        //this.load.spritesheet("movimientoCohete", directory+"movimiento_cohete.png", { frameWidth: 44, frameHeight: 29 });
-        this.load.spritesheet("movimientoAntena", directory+"movimiento_antena.png", { frameWidth: 598, frameHeight: 630 });
+        this.load.spritesheet("movimientoCohete", directory+"movimiento_cohete.png", { frameWidth: 225, frameHeight: 369 });
+        this.load.spritesheet("movimientoAntena", directory+"movimiento_antena.png", { frameWidth: 575, frameHeight: 668 });
         this.load.spritesheet("movimientoTerraformador", directory+"movimiento_terraformador.png", { frameWidth: 943, frameHeight: 669 });
         this.load.spritesheet("movimientoMina", directory+"movimiento_mina.png", { frameWidth: 732, frameHeight: 583 });
         
