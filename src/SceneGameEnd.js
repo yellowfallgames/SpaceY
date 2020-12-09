@@ -12,8 +12,6 @@ class SceneGameEnd extends Phaser.Scene {
 
     create() {
 
-        sfx.sounds[5].play();
-
         //Botón para volver al menú
         this.BtnBackToMenu = this.add.text(game.config.width/2, 2*game.config.height/3, "VOLVER",{fontSize:'60px',fill:'#ffffff',}).setDepth(6).setOrigin(0.5)
         .setInteractive()

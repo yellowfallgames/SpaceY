@@ -1,7 +1,7 @@
 class Meteor {
     constructor(scene, delay){
         //super(scene, 0, 0, "payloads", 0);
-        this.rotation = Phaser.Math.Linear(0, Math.PI*2, Phaser.Math.Between(0,100)/100.0);
+        this.rotation = 0;//Phaser.Math.Linear(0, Math.PI*2, Phaser.Math.Between(0,100)/100.0);
 
         this.obj = scene.add.image(marte.x, marte.y, "Meteorito")
         this.obj.depth = 1;
@@ -59,10 +59,28 @@ class Meteor {
             var machArea = maquinas[i].area;
             if (this.obj.rotation < machPos + machArea && this.obj.rotation > machPos - machArea) {
 
-                //Aplicar rotura a la máquina
-                maquinas[i].wear = Math.max(0, maquinas[i].wear - maquinas[i].maxWear*0.3);
-                maquinas[i].isBroken = true;
-                //console.log("ROTO");
+                //Particularidad cohete
+                if (i === 0){
+
+                    if (maquinas[0].location === 0 && !maquinas[0].isSending && !maquinas[0].isComing) {
+
+                        maquinas[0].wear = 0;
+                        maquinas[0].isBroken = true;
+                        objCohete.obj.setTexture(maquinas[0].textureBreak);    
+                        //console.log("TUPUTAMADREEEEEEEEEE,"+maquinas[0].location +","+ !maquinas[0].isSending+"," +!maquinas[0].isComing);
+                        //console.log("JAJAJAJAJAJJAAJJAJAJAJJA");
+                    }
+                }
+                else {
+
+                    //Aplicar rotura a la máquina
+                    maquinas[i].wear = 0;//Math.max(0, maquinas[i].wear - maquinas[i].maxWear*0.3);
+                    maquinas[i].isBroken = true;
+                    maquinas[i].obj.anims.stop();
+                    maquinas[i].obj.setTexture(maquinas[i].textureBreak);
+                    maquinas[i].eventWear.paused = true;
+                }
+                
             }
         }
 

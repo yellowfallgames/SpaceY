@@ -352,8 +352,15 @@ class SceneGame extends Phaser.Scene {
             key: 'movimientoCohete',
             frames: this.anims.generateFrameNumbers('movimientoCohete', { start: 0, end: 8 }),
             frameRate: 15,
-            repeat: -1,
+            repeat: 0,
         });
+        this.anims.create({
+            key: 'movimientoCoheteReverse',
+            frames: this.anims.generateFrameNumbers('movimientoCohete', { start: 8, end: 0 }),
+            frameRate: 15,
+            repeat: 0,
+        });
+        
 
         //MARTE
 		// ui_M_bck
@@ -414,7 +421,7 @@ class SceneGame extends Phaser.Scene {
         
  
         //Indicadores recursos
-        indTerra = new ResourceIndicator(this, 401, 787, 3, nTerraformacion, MAX_TERRAFORMACION);
+        indTerra = new ResourceIndicator(this, 401, 787, 3, 0, 1);
         indHam = new ResourceIndicator(this, 109, 74, 0, nComida_M, MAX_COMIDA);
         indRocas = new ResourceIndicator(this, 109, 166, 1, nRocas_M, MAX_ROCAS);
         indMat = new ResourceIndicator(this, 109, 256, 2, nMaterial_M, MAX_MATERIAL);
@@ -556,6 +563,8 @@ class SceneGame extends Phaser.Scene {
     
     }
     update(time, delta) {
+        //console.log(maquinas[0].isSending);
+
         controlTierra.pantallaPlano.rotation+=delta/16000;
         //DEBUG PARTICULAS
         /*if (key_left.isDown) {
@@ -743,8 +752,15 @@ function DestroyOnScene(obj) {
 
 //Acciones condiciones victoria/derrota
 function VictoryCondition(that){
+    sfx.sounds.forEach(element => {
+        element.stop();
+    });
+    musica[0].stop();
+    musica[1].stop();
     sfx.sounds[4].play();
-    console.log("HAS GANADO!!!");
+    that.scene.launch('SceneGameEnd');
+    that.scene.pause('SceneGame');
+    
 }
 
 function DefeatCondition(that){
@@ -753,7 +769,7 @@ function DefeatCondition(that){
     });
     musica[0].stop();
     musica[1].stop();
+    sfx.sounds[5].play();
     that.scene.launch('SceneGameEnd');
     that.scene.pause('SceneGame');
-    console.log("HAS PERDIDO :c");
 }
