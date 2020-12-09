@@ -128,7 +128,7 @@ class StationMachine extends Machine {
 
     GoRepair(delta, n) {
 
-        if (this.key_repair.isDown && this.wear < this.maxWear) {
+        if (key_repair.isDown && this.wear < this.maxWear) {
             var spd;
             if (n === 0.5) {
 
