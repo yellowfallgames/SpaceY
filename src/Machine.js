@@ -9,22 +9,24 @@ class Machine {//extends Phaser.GameObjects.Sprite {
 
             case 0:
                 //Estación de transporte
-                this.obj = scene.add.image(x, y, "rocket");
+                this.obj = scene.add.sprite(x, y, "rocket");
+                //this.obj = scene.add.sprite(x, y, "movimientoCohete", 0);
                 this.obj.setRotation(0);
             break;
             case 1:
                 //Terraformador
-                this.obj = scene.add.image(x, y, "terraformador");
+                this.obj = scene.add.sprite(x, y, "movimientoTerraformador", 0);
                 this.obj.setRotation(-1.57);
             break;
             case 2:
                 //Comunicaciones
-                this.obj = scene.add.image(x, y, "antena");
+                this.obj = scene.add.sprite(x, y, "movimientoAntena", 0);
+                this.obj.anims.play("movimientoAntena");
                 this.obj.setRotation(1.57);
             break;
             case 3:
                 //Mina
-                this.obj = scene.add.image(x, y, "mina");
+                this.obj = scene.add.sprite(x, y, "movimientoMina", 0);
                 this.obj.setRotation(3.14);
             break;
             

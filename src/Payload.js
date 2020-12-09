@@ -4,7 +4,7 @@ class Payload extends Phaser.GameObjects.Sprite {
 
         super(scene, x, y, "payloads", n);
         this.scene = scene;
-        this.obj = scene.add.image(x, y, "payloads", n).setDepth(3);
+        this.obj = scene.add.image(x, y, "payloads", n).setDepth(2);
         this.obj.setScale(0);
 
         scene.tweens.add({

@@ -214,7 +214,7 @@ class SceneTutorial extends Phaser.Scene {
     }
 
     preload() {
-        ///*
+        /*
         //SceneGame//
         this.load.image("player", directory+"vulp_i1.png");
         this.load.image("marte", directory+"marte test.png");
@@ -249,10 +249,7 @@ class SceneTutorial extends Phaser.Scene {
         this.load.image("lanzadera", directory+"ui_T_Lanzadera.png" );
         this.load.image("lanzaderaPuerta", directory+"ui_T_Lanzadera_door.png" );
         this.load.image("lanzaderaCountdown", directory+"ui_T_countdown.png" );
-        /*this.load.image("cargaMateriales", directory+"ui_T_payload_materiales.png" );
-        this.load.image("cargaRocas", directory+"ui_T_payload_rocas.png" );
-        this.load.image("cargaO2", directory+"ui_T_payload_o2.png" );
-        this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );*/
+
         this.load.spritesheet("payloads", directory+"ui_T_payloads.png", { frameWidth: 44, frameHeight: 29 });
         this.load.image("paqueteriaBase", directory+"ui_T_Paqueteria_contadores.png" );
         this.load.image("paqueteriaBaseTubo", directory+"ui_T_Paqueteria_contadores_tubo.png" );
@@ -283,10 +280,8 @@ class SceneTutorial extends Phaser.Scene {
         this.load.image("mina", directory+"mina.png" );
         this.load.image("terraformador", directory+"terraformador.png" );
 
-        //TUTORIAL
-        this.load.image('tutoBck', directory +'tutorial__bck.jpg');
+        
     
-        //*/
         //MUSICA
         this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
         this.load.audio('MusicIngame', ['./Resources/Audio/Music/Pioneers meets Space.ogg']);
@@ -311,7 +306,7 @@ class SceneTutorial extends Phaser.Scene {
         this.load.audio('SfxAlarm', ['./Resources/Audio/SFX/Mars/DeathFlash.ogg']);
         //Fanfare
         this.load.audio('SfxWin', ['./Resources/Audio/SFX/Fanfare/win.ogg']);
-        this.load.audio('SfxLose', ['./Resources/Audio/SFX/Fanfare/lose.ogg']);
+        this.load.audio('SfxLose', ['./Resources/Audio/SFX/Fanfare/lose.ogg']);*/
         //Array de Posiciones de los artilugios del juego
         posTuto = {
             tierra : [
@@ -338,40 +333,6 @@ class SceneTutorial extends Phaser.Scene {
     }
 
     create() {
-        //musica
-        musica = this.sound.add('MusicMenu');
-        musica.volume = 0.5;
-        musica.loop = true;
-        musica.play();
-        sfx = {
-            loop: true,
-            volume: 1,
-            sounds: [
-                        this.sound.add('SfxClick'),     //[0]
-                        this.sound.add('SfxHover'),
-                        this.sound.add('SfxTerraformer'),
-                        this.sound.add('SfxWalk'),
-                        this.sound.add('SfxWin'),
-                        this.sound.add('SfxLose'),      //[5]
-                        this.sound.add('SfxArrive'),
-                        this.sound.add('SfxLeave'),
-                        this.sound.add('SfxReceive'),
-                        this.sound.add('SfxSend'),
-                        this.sound.add('SfxPipe'),      //[10]
-                        this.sound.add('SfxTakeOff'),
-                        this.sound.add('SfxLanding'),
-                        this.sound.add('SfxMeteorHit'),
-                        this.sound.add('SfxAlarm')
-                    ]
-        };
-
-        sfx.sounds.forEach(element => {
-            element.volume = sfx.volume;
-        });
-
-        sfx.sounds[2].loop = sfx.loop;
-        sfx.sounds[3].loop = sfx.loop;
-        sfx.sounds[12].volume = 0.3;
 
         //Musica
         let volumen;

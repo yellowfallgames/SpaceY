@@ -213,6 +213,16 @@ class SceneGame extends Phaser.Scene {
         this.load.image("mina", directory+"mina.png" );
         this.load.image("terraformador", directory+"terraformador.png" );
 
+        this.load.image("rocketRoto", directory+"cohete_roto.png" );
+        this.load.image("rocketPolvo", directory+"cohete_polvo.png" );
+        this.load.image("antenaRoto", directory+"antena_rota.png" );
+        this.load.image("antenaPolvo", directory+"antena_polvo.png" );
+        this.load.image("minaRoto", directory+"mina_rota.png" );
+        this.load.image("minaPolvo", directory+"mina_polvo.png" );
+        this.load.image("terraformadorRoto", directory+"terraformador_roto.png" );
+        this.load.image("terraformadorPolvo", directory+"terraformador_polvo.png" );
+        this.load.spritesheet("movimientoCohete", directory+"movimiento_cohete.png", { frameWidth: 44, frameHeight: 29 });
+
         //MUSICA
         ///*
         this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
@@ -306,6 +316,45 @@ class SceneGame extends Phaser.Scene {
         sfx.sounds[2].play();
         sfx.sounds[8].play();
 
+        //Animaciones
+        this.anims.create({
+            key: 'stelonauta_idle',
+            frames: this.anims.generateFrameNumbers('stelonauta_idle', { start: 0, end: 59 }),
+            frameRate: 18,
+            //repeat: 1,
+        });
+
+        this.anims.create({
+            key: 'stelonauta_run',
+            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 20 }),
+            frameRate: 30,
+        });
+
+        this.anims.create({
+            key: 'movimientoTerraformador',
+            frames: this.anims.generateFrameNumbers('movimientoTerraformador', { start: 0, end: 10 }),
+            frameRate: 10,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'movimientoAntena',
+            frames: this.anims.generateFrameNumbers('movimientoAntena', { start: 0, end: 10 }),
+            frameRate: 4,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'movimientoMina',
+            frames: this.anims.generateFrameNumbers('movimientoMina', { start: 0, end: 10 }),
+            frameRate: 10,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'movimientoCohete',
+            frames: this.anims.generateFrameNumbers('movimientoCohete', { start: 0, end: 8 }),
+            frameRate: 10,
+            repeat: -1,
+        });
+
         //MARTE
 		// ui_M_bck
         fondoMarte = this.add.image(407, 450, "fondoMarte").setDepth(-2);
@@ -378,21 +427,7 @@ class SceneGame extends Phaser.Scene {
         objCoheteMat.obj.setRotation(-1.57);
 
         //Barra de carga
-        barraCarga = new Bar(this, player.x-40, player.y-50, nCarga, MAX_CARGA, 0.3, 0.1, -1, false);
-
-        //Animaciones
-        this.anims.create({
-            key: 'stelonauta_idle',
-            frames: this.anims.generateFrameNumbers('stelonauta_idle', { start: 0, end: 59 }),
-            frameRate: 18,
-            //repeat: 1,
-        });
-
-        this.anims.create({
-            key: 'stelonauta_run',
-            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 20 }),
-            frameRate: 30,
-        });
+        barraCarga = new Bar(this, player.x-40, player.y-50, nCarga, MAX_CARGA, 0.3, 0.1, -1, false);        
 
         //Input events
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -584,7 +619,7 @@ class SceneGame extends Phaser.Scene {
           emitterMachines[2].emitParticleAt(emitterMachines[2].posX, emitterMachines[2].posY);
           emitterMachines[3].emitParticleAt(emitterMachines[3].posX, emitterMachines[3].posY);
         */
-        console.log("Pos X: " + emitterMachines[0].posX + "\nPos Y: " + emitterMachines[0].posY);
+        //console.log("Pos X: " + emitterMachines[0].posX + "\nPos Y: " + emitterMachines[0].posY);
         
 
         if ((key_left.isDown || key_right.isDown) && !startSfxRun) {
@@ -596,8 +631,6 @@ class SceneGame extends Phaser.Scene {
             sfx.sounds[3].stop();
         }
 
-
-        
         //Meteoritos
         for(var i=0; i < meteoritos.length; i++) {
  
