@@ -332,19 +332,25 @@ class SceneGame extends Phaser.Scene {
 
         this.anims.create({
             key: 'movimientoTerraformador',
-            frames: this.anims.generateFrameNumbers('movimientoTerraformador', { start: 0, end: 9 }),
+            frames: this.anims.generateFrameNumbers('movimientoTerraformador', { start: 0, end: 10 }),
             frameRate: 10,
             repeat: -1,
         });
         this.anims.create({
             key: 'movimientoAntena',
-            frames: this.anims.generateFrameNumbers('movimientoAntena', { start: 0, end: 9 }),
+            frames: this.anims.generateFrameNumbers('movimientoAntena', { start: 0, end: 10 }),
             frameRate: 4,
             repeat: -1,
         });
         this.anims.create({
             key: 'movimientoMina',
             frames: this.anims.generateFrameNumbers('movimientoMina', { start: 0, end: 10 }),
+            frameRate: 10,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'movimientoCohete',
+            frames: this.anims.generateFrameNumbers('movimientoCohete', { start: 0, end: 8 }),
             frameRate: 10,
             repeat: -1,
         });

@@ -10,7 +10,7 @@ class Machine {//extends Phaser.GameObjects.Sprite {
             case 0:
                 //Estación de transporte
                 this.obj = scene.add.sprite(x, y, "rocket");
-                
+                //this.obj = scene.add.sprite(x, y, "movimientoCohete", 0);
                 this.obj.setRotation(0);
             break;
             case 1:
@@ -20,13 +20,13 @@ class Machine {//extends Phaser.GameObjects.Sprite {
             break;
             case 2:
                 //Comunicaciones
-                this.obj = scene.add.sprite(x, y, "movimientoAntena");
+                this.obj = scene.add.sprite(x, y, "movimientoAntena", 0);
                 this.obj.anims.play("movimientoAntena");
                 this.obj.setRotation(1.57);
             break;
             case 3:
                 //Mina
-                this.obj = scene.add.sprite(x, y, "movimientoMina");
+                this.obj = scene.add.sprite(x, y, "movimientoMina", 0);
                 this.obj.setRotation(3.14);
             break;
             
