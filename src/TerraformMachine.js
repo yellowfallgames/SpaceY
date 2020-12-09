@@ -34,6 +34,8 @@ class TerraformMachine extends Machine {
                         indTerra.Update();
                         indRocas.Update();
 
+                        this.obj.anims.play("movimientoTerraformador");
+
                         //Comprobar que se cumple la condición de victoria
                         if (indTerra.size >= indTerra.maxSize)
                             VictoryCondition(this.scene);

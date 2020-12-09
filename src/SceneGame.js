@@ -181,6 +181,7 @@ class SceneGame extends Phaser.Scene {
         this.load.image("fondoTierra", directory+"ui_T_bck.png" );
         this.load.image("lanzadera", directory+"ui_T_Lanzadera.png" );
         this.load.image("lanzaderaPuerta", directory+"ui_T_Lanzadera_door.png" );
+        this.load.image("lanzaderaPuertaRecursos", directory+"ui_T_Lanzadera_door_2.png" );
         this.load.image("lanzaderaCountdown", directory+"ui_T_countdown.png" );
         this.load.spritesheet("payloads", directory+"ui_T_payloads.png", { frameWidth: 52, frameHeight: 37 });
         this.load.image("paqueteriaBase", directory+"ui_T_Paqueteria_contadores.png" );
@@ -212,8 +213,18 @@ class SceneGame extends Phaser.Scene {
         this.load.image("mina", directory+"mina.png" );
         this.load.image("terraformador", directory+"terraformador.png" );
 
+        this.load.image("rocketRoto", directory+"cohete_roto.png" );
+        this.load.image("rocketPolvo", directory+"cohete_polvo.png" );
+        this.load.image("antenaRoto", directory+"antena_rota.png" );
+        this.load.image("antenaPolvo", directory+"antena_polvo.png" );
+        this.load.image("minaRoto", directory+"mina_rota.png" );
+        this.load.image("minaPolvo", directory+"mina_polvo.png" );
+        this.load.image("terraformadorRoto", directory+"terraformador_roto.png" );
+        this.load.image("terraformadorPolvo", directory+"terraformador_polvo.png" );
+        this.load.spritesheet("movimientoCohete", directory+"movimiento_cohete.png", { frameWidth: 44, frameHeight: 29 });
+
         //MUSICA
-        /*
+        ///*
         this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
         this.load.audio('MusicIngame', ['./Resources/Audio/Music/Pioneers meets Space.ogg']);
         this.load.audio('MusicTutorial', ['./Resources/Audio/Music/Roboxel - Space Music.ogg']);
@@ -289,19 +300,42 @@ class SceneGame extends Phaser.Scene {
         if(musica!=undefined){
             musica.stop();
             volumen = musica.volume;
+            musica = [];
         }
-        musica = this.sound.add('MusicIngame');
-        musica.loop = true;
-        musica.volume = volumen;
-        musica.play();
-        musica = this.sound.add('apolo11Ambient');
-        musica.loop = true;
-        musica.volume = volumen;
-        musica.play();
+
+        musica[0] = this.sound.add('MusicIngame');
+        musica[0].loop = true;
+        musica[0].volume = volumen;
+        musica[0].play();
+        musica[1] = this.sound.add('apolo11Ambient');
+        musica[1].loop = true;
+        musica[1].volume = 0.2;
+        musica[1].play();
 
         //PLAY a los sonidos de las máquinas
         sfx.sounds[2].play();
         sfx.sounds[8].play();
+
+        //Animaciones
+        this.anims.create({
+            key: 'stelonauta_idle',
+            frames: this.anims.generateFrameNumbers('stelonauta_idle', { start: 0, end: 59 }),
+            frameRate: 18,
+            //repeat: 1,
+        });
+
+        this.anims.create({
+            key: 'stelonauta_run',
+            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 20 }),
+            frameRate: 30,
+        });
+
+        this.anims.create({
+            key: 'movimientoTerraformador',
+            frames: this.anims.generateFrameNumbers('movimientoTerraformador', { start: 0, end: 9 }),
+            frameRate: 10,
+            repeat: -1,
+        });
 
         //MARTE
 		// ui_M_bck
@@ -375,21 +409,7 @@ class SceneGame extends Phaser.Scene {
         objCoheteMat.obj.setRotation(-1.57);
 
         //Barra de carga
-        barraCarga = new Bar(this, player.x-40, player.y-50, nCarga, MAX_CARGA, 0.3, 0.1, -1, false);
-
-        //Animaciones
-        this.anims.create({
-            key: 'stelonauta_idle',
-            frames: this.anims.generateFrameNumbers('stelonauta_idle', { start: 0, end: 59 }),
-            frameRate: 18,
-            //repeat: 1,
-        });
-
-        this.anims.create({
-            key: 'stelonauta_run',
-            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 20 }),
-            frameRate: 30,
-        });
+        barraCarga = new Bar(this, player.x-40, player.y-50, nCarga, MAX_CARGA, 0.3, 0.1, -1, false);        
 
         //Input events
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -418,64 +438,83 @@ class SceneGame extends Phaser.Scene {
         });
 
         
-/*
+
         //Cohete        [0]
-        emitterMachines[0] = this.add.particles('spark').createEmitter({
+        emitterMachines[0] = this.add.particles('spark');
+        emitterMachines[0].createEmitter({
             x: 300,
-            y: 30,
-//            follow: objCohete,
-            followOffset:
-            {
-                x: 0.5,
-                y: -300
-            },
-            blendMode: 'SCREEN',
-            scale: { start: 2, end: 0 },
-            speedX: { min: -900, max: -500 },
-            speedY: { min: 500, max: 2000 },
-            quantity: 5,
-            on: false
-        });
-
-        //emitterMachines[0].startFollow(player);
-
-        //Radio         [1]
-        emitterMachines[1] = this.add.particles('spark').createEmitter({
-            x: 320,
             y: 300,
             blendMode: 'SCREEN',
             scale: { start: 0.2, end: 0 },
-            speedX: { min: -900, max: -500 },
-            speedY: { min: 500, max: 2000 },
+            speedX: { min: -200, max: 200 },
+            speedY: { min: -100, max: -300 },
             quantity: 5,
-            on : false
+            lifespan: 2000,
+            on: false
         });
+        
+        emitterMachines[0].posX = emitterMachines[0].x;
+        emitterMachines[0].posY = emitterMachines[0].y;
+
+        //emitterMachines[0].startFollow(player);
+///*
+        //Radio         [1]
+        emitterMachines[1] = this.add.particles('spark');
+        emitterMachines[1].createEmitter({
+            x: 300,
+            y: 300,
+            blendMode: 'SCREEN',
+            scale: { start: 0.2, end: 0 },
+            speedX: { min: -200, max: 200 },
+            speedY: { min: -100, max: -300 },
+            quantity: 5,
+            lifespan: 2000,
+            on: false
+        });
+        
+        emitterMachines[1].posX = emitterMachines[1].x;
+        emitterMachines[1].posY = emitterMachines[1].y;
     
 
         //Mina          [2]
-        emitterMachines[2] = this.add.particles('spark').createEmitter({
-            x: 700,
+        emitterMachines[2] = this.add.particles('spark');
+        emitterMachines[2].createEmitter({
+            x: 300,
             y: 300,
             blendMode: 'SCREEN',
             scale: { start: 0.2, end: 0 },
-            speedX: { min: -900, max: -500 },
-            speedY: { min: 500, max: 2000 },
+            speedX: { min: -200, max: 200 },
+            speedY: { min: -100, max: -300 },
             quantity: 5,
-            on : false
+            lifespan: 2000,
+            on: false
         });
+        
+        emitterMachines[2].posX = emitterMachines[2].x;
+        emitterMachines[2].posY = emitterMachines[2].y;
     
 
         //Terraformador [3]
-        emitterMachines[3] = this.add.particles('spark').createEmitter({
-            x: 700,
-            y: 400,
+        emitterMachines[3] = this.add.particles('spark');
+        emitterMachines[3].createEmitter({
+            x: 300,
+            y: 300,
             blendMode: 'SCREEN',
             scale: { start: 0.2, end: 0 },
-            speedX: { min: -900, max: -500 },
-            speedY: { min: 500, max: 2000 },
+            speedX: { min: -200, max: 200 },
+            speedY: { min: -100, max: -300 },
             quantity: 5,
-            on : false
+            lifespan: 2000,
+            on: false
         });
+        
+        emitterMachines[3].posX = emitterMachines[3].x;
+        emitterMachines[3].posY = emitterMachines[3].y;
+
+        emitterMachines.forEach(element => {
+            element.setDepth(-1);
+        });
+
 
     //*/
         /*
@@ -499,6 +538,7 @@ class SceneGame extends Phaser.Scene {
     
     }
     update(time, delta) {
+        controlTierra.pantallaPlano.rotation+=delta/16000;
         //DEBUG PARTICULAS
         /*if (key_left.isDown) {
             //Apaga
@@ -517,15 +557,52 @@ class SceneGame extends Phaser.Scene {
         if (key_left.isDown) {
             //Rotación de los elementos de Marte
             updateRotations(1, delta);
+            //marte.rotation += 1*delta/1500*playerSpeed;
+            //Cohete
+            emitterMachines[0].posX = marte.x + 700 * Math.cos(-1.57 + marte.rotation);
+            emitterMachines[0].posY = marte.y + 700 * Math.sin(-1.57 + marte.rotation);
+            //Terraformador
+            emitterMachines[1].posX = marte.x + 700 * Math.cos(3.14 + marte.rotation);
+            emitterMachines[1].posY = marte.y + 700 * Math.sin(3.14 + marte.rotation);
+            //Comunicaciones
+            emitterMachines[2].posX = marte.x + 800 * Math.cos(marte.rotation);
+            emitterMachines[2].posY = marte.y + 800 * Math.sin(marte.rotation);
+            //Mina
+            emitterMachines[3].posX = marte.x + 870 * Math.cos(1.57 + marte.rotation);
+            emitterMachines[3].posY = marte.y + 870 * Math.sin(1.57 + marte.rotation);
+            //emitterMachines[0].emitParticleAt(emitterMachines[0].posX, emitterMachines[0].posY);
         }
         else if (key_right.isDown) {
             //Rotación de los elementos de Marte
             updateRotations(-1, delta);
+            //marte.rotation += -1*delta/1500*playerSpeed;
+            //Cohete
+            emitterMachines[0].posX = marte.x + 700 * Math.cos(-1.57 + marte.rotation);
+            emitterMachines[0].posY = marte.y + 700 * Math.sin(-1.57 + marte.rotation);
+            //Terraformador
+            emitterMachines[1].posX = marte.x + 700 * Math.cos(3.14 + marte.rotation);
+            emitterMachines[1].posY = marte.y + 700 * Math.sin(3.14 + marte.rotation);
+            //Comunicaciones
+            emitterMachines[2].posX = marte.x + 800 * Math.cos(marte.rotation);
+            emitterMachines[2].posY = marte.y + 800 * Math.sin(marte.rotation);
+            //Mina
+            emitterMachines[3].posX = marte.x + 870 * Math.cos(1.57 + marte.rotation);
+            emitterMachines[3].posY = marte.y + 870 * Math.sin(1.57 + marte.rotation);
+            //emitterMachines[0].emitParticleAt(emitterMachines[0].posX, emitterMachines[0].posY);
         }
         else {
 
             player.anims.play('stelonauta_idle', true);
+            
         }
+        //if(maquina[i].isRota == true)
+        /*  emitterMachines[0].emitParticleAt(emitterMachines[0].posX, emitterMachines[0].posY);
+          emitterMachines[1].emitParticleAt(emitterMachines[1].posX, emitterMachines[1].posY);
+          emitterMachines[2].emitParticleAt(emitterMachines[2].posX, emitterMachines[2].posY);
+          emitterMachines[3].emitParticleAt(emitterMachines[3].posX, emitterMachines[3].posY);
+        */
+        console.log("Pos X: " + emitterMachines[0].posX + "\nPos Y: " + emitterMachines[0].posY);
+        
 
         if ((key_left.isDown || key_right.isDown) && !startSfxRun) {
             startSfxRun = true;
@@ -536,8 +613,6 @@ class SceneGame extends Phaser.Scene {
             sfx.sounds[3].stop();
         }
 
-
-        
         //Meteoritos
         for(var i=0; i < meteoritos.length; i++) {
  
@@ -557,6 +632,8 @@ class SceneGame extends Phaser.Scene {
         for(i = 0; i < 4; i++) {
 
             maquinas[i].update(delta);
+            if(maquinas[i].isBroken == true)
+                emitterMachines[i].emitParticleAt(emitterMachines[i].posX, emitterMachines[i].posY);
         }
 
         ///////////
@@ -602,6 +679,7 @@ function updateRotations(sign, delta) {
     for(var i=0; i < meteoritos.length; i++) {
         meteoritos[i].obj.rotation += sign*delta/1500*playerSpeed;
     }
+    
     marte.rotation+=sign*delta/1500*playerSpeed;
     objCohete.obj.rotation+=sign*delta/1500*playerSpeed;
 
@@ -652,8 +730,11 @@ function VictoryCondition(that){
 }
 
 function DefeatCondition(that){
-    musica.stop();
-    
+    sfx.sounds.forEach(element => {
+        element.stop();
+    });
+    musica[0].stop();
+    musica[1].stop();
     that.scene.launch('SceneGameEnd');
     that.scene.pause('SceneGame');
     console.log("HAS PERDIDO :c");
