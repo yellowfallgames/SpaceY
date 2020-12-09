@@ -13,15 +13,6 @@ class SceneMenu extends Phaser.Scene {
     }
 
 create() {
-    /*
-    if(musica.key!='MusicMenu')
-    {
-        musica.forEach(element => {
-            element.stop();
-        });
-        musica = this.sound.add('MusicMenu');
-        musica.play();
-    }*/
     
     //EASINGS
   

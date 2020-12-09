@@ -35,7 +35,6 @@ class StationMachine extends Machine {
         
                     //Aumentar carga del cohete
                     if (key_up.isDown) {
-        
                         if (indRocas.size >= spdCargarCohete && objCoheteMat.n < objCoheteMat.max) {
         
                             objCoheteMat.n+=spdCargarCohete;

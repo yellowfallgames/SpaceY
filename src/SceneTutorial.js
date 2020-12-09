@@ -199,8 +199,6 @@ var tutorialEnded;
 //Recursos Tierra
 
 
-//Musica
-var musica;
 
 var startSfxRun = false;
 /////////////////////
@@ -243,14 +241,7 @@ class SceneTutorial extends Phaser.Scene {
     create() {
         tutorialEnded = false;  //utorial acabado
         currentLine = 0;
-        //Musica
-        /*
-        let volumen;
-        if(musica!=undefined){
-            musica.stop();
-            volumen = musica.volume;
-        }
-        */
+
 
         soundtrack.pistas[2].play();
 

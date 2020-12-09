@@ -90,6 +90,8 @@ class SceneBoot extends Phaser.Scene {
         this.load.spritesheet("movimientoAntena", directory+"movimiento_antena.png", { frameWidth: 575, frameHeight: 668 });
         this.load.spritesheet("movimientoTerraformador", directory+"movimiento_terraformador.png", { frameWidth: 943, frameHeight: 669 });
         this.load.spritesheet("movimientoMina", directory+"movimiento_mina.png", { frameWidth: 732, frameHeight: 583 });
+
+        this.load.image("pantallaFinal", directory+"ui_T_pantalla_aux.png" );
         
         //TUTORIAL
         this.load.image('tutoBck', directory +'tutorial__bck.jpg');
