@@ -17,6 +17,8 @@ class CommsMachine extends Machine {
         if (!this.obj.anims.isPlaying && !this.isBroken)
             this.obj.anims.play("movimientoAntena");
         
+        //update tecla
+        this.keyIndicator.update();
         //Desgaste
         //this.updateWear(delta);
         this.delta = delta;

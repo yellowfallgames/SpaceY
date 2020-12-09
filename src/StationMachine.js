@@ -15,12 +15,14 @@ class StationMachine extends Machine {
 
     update(delta){
 
-        //Sprite cohete
-        /*if (this.isBroken) {
 
-            objCohete.obj.setTexture(this.textureBreak);
-        }*/
+        this.keyIndicator.update();
+
+
+        if (this.isBroken) {
+
         
+
         if (this.location === 0 && !this.isSending && !this.isBroken) {
 
             if (this.canInteract()) {

@@ -28,6 +28,23 @@ class SceneOptions extends Phaser.Scene {
         var print0 = this.add.text(game.config.width/2 + 200, (game.config.height/8)*3 + 32, txt1); //porcentaje musica
         var print1 = this.add.text(game.config.width/2 + 200, (game.config.height/8)*4 + 32, txt2);//porcentaje sfx
         
+        //FONDO ANIMADO YEAH
+        this.bckRadio = this.add.image(game.config.width/2, -2000,"radio");
+        this.easeMe(this.bckRadio,this,1);
+
+        //Altaoces animados
+        this.bckAltavoces = this.add.image(game.config.width/2, -2000,"altavoces");
+        this.easeMe(this.bckAltavoces,this,1);
+        this.tweens.add({
+            targets: this.bckAltavoces,
+            scaleX: 1.1,
+            scaleY: 1.1,
+            duration: 800,
+            ease: 'Elastic.easeOut',
+            repeat: -1,
+        });
+        
+
 
         //Slider musica
         //if(sliderMusic == undefined)
@@ -93,30 +110,30 @@ class SceneOptions extends Phaser.Scene {
             .layout();
 
 
-        this.volumeButton = this.add.text(-300, (game.config.height/8)*3, 'Music volume', { fill: '#0f0' })
+        this.volumeButton = this.add.text(-300, (game.config.height/8)*3, 'Music volume', { fill: '000000',fontFamily:'menuFont',fontSize:'60px' })
         .setInteractive()
         .on('pointerdown', () => this.switchMusic() )
         .on('pointerover', () => this.enterButtonHoverState(this.volumeButton) )
         .on('pointerout', () => this.enterButtonRestState(this.volumeButton) );
         this.volumeButton.setOrigin(0.5);
-        this.easeMe(this.volumeButton,this,1);
+        this.easeMe(this.volumeButton,this,2);
 
-        this.sfxButton = this.add.text(game.config.width + 300, (game.config.height/8)*4, 'SFX volume', { fill: '#0f0' })
+        this.sfxButton = this.add.text(game.config.width + 300, (game.config.height/8)*4, 'SFX volume', { fill: '000000',fontFamily:'menuFont',fontSize:'60px' })
         .setInteractive()
         .on('pointerdown', () => this.switchSfx() )
         .on('pointerover', () => this.enterButtonHoverState(this.sfxButton) )
         .on('pointerout', () => this.enterButtonRestState(this.sfxButton) );
         this.sfxButton.setOrigin(0.5);
-        this.easeMe(this.sfxButton,this,2);
+        this.easeMe(this.sfxButton,this,3);
         
 
-        this.backButton = this.add.text(game.config.width/2, game.config.height + 300, 'Atrás', { fill: '#0f0' })
+        this.backButton = this.add.text(game.config.width/2, game.config.height + 300, 'Atrás', { fill: '000000',fontFamily:'menuFont',fontSize:'60px' })
         .setInteractive()
         .on('pointerdown', () => this.enterBack() )
         .on('pointerover', () => this.enterButtonHoverState(this.backButton) )
         .on('pointerout', () => this.enterButtonRestState(this.backButton) );
         this.backButton.setOrigin(0.5);
-        this.easeMe(this.backButton,this,3);
+        this.easeMe(this.backButton,this,4);
     }
 
     switchMusic() {
@@ -166,7 +183,7 @@ class SceneOptions extends Phaser.Scene {
     }
     
     enterButtonRestState(boton) {
-        boton.setStyle({ fill: '#0f0' });
+        boton.setStyle({ fill: '#000000' });
         boton.x = boton.x-movTxt;
         boton.y = boton.y-movTxt;
     }
@@ -177,16 +194,17 @@ easeMe(boton,scene,nOp) {
     var endY;
     switch (nOp)
     {
-        case 1: endX = game.config.width / 2; endY = (game.config.height/8)*3; break;
-        case 2: endX = game.config.width / 2; endY = (game.config.height/8)*4; break;
-        case 3: endX = game.config.width / 2; endY = (game.config.height/8)*5; break;
+        case 1: endX = game.config.width / 2; endY = (game.config.height/2); break;
+        case 2: endX = game.config.width / 2; endY = (game.config.height/8)*3; break;
+        case 3: endX = game.config.width / 2; endY = (game.config.height/8)*4; break;
+        case 4: endX = game.config.width / 2; endY = (game.config.height/8)*5; break;
         default: break;
     }
     scene.tweens.add({
         targets: boton,
         x: endX,
         y: endY,
-        delay: nOp * 100,
+        delay: nOp * 150,
         //aplha: {start: game.config.width / 2, to: game.config.width / 8},
         duration: 500,
         ease: 'Circ.easeOut',

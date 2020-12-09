@@ -18,6 +18,7 @@ class Bar {
 
             this.txt = scene.add.text(x-24, y-10, Math.round((n/max)*100)+'%',{
                 fontSize:'40px',
+                fontFamily:'textFont',
                 fill: '#ffffff',
             }).setVisible(false).setDepth(6);
         }

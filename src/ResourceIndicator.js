@@ -8,15 +8,18 @@ class ResourceIndicator {
         
         if (nInd != 3) {
 
-            this.txt = scene.add.text(this.obj.x-5, this.obj.y-12, Math.round((this.size/this.maxSize)*100)+'%',{
-                fontSize:'35px',
+            this.txt = scene.add.text(this.obj.x, this.obj.y-12, Math.round((this.size/this.maxSize)*100)+'%',{
+                fontFamily:'textFont',
+                fontSize:'25px',
                 fill:'#ffffff',
+                
             });
         } 
         else {
 
             this.txt = scene.add.text(this.obj.x, this.obj.y, Math.round((this.size/this.maxSize)*100)+'%',{
-                fontSize:'35px',
+                fontFamily:'textFont',
+                fontSize:'45px',
                 fill:'#ffffff',
             }).setOrigin(0.5);
         }

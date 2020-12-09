@@ -11,6 +11,9 @@ class SceneBoot extends Phaser.Scene {
     preload(){
         //Scene Contact
         this.load.image("tablon", directory+"tablon.png");
+        //Scene Options
+         this.load.image("radio", directory+"radio.png");
+         this.load.image("altavoces", directory+"altavoces.png");
         //SceneGame//
         this.load.image("player", directory+"vulp_i1.png");
         this.load.image("marte", directory+"marte test.png");

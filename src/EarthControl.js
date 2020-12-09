@@ -106,6 +106,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         //DDR
         this.txtCounterRoc = scene.add.text(this.ddrBtnComida.x+85, this.ddrBtnComida.y, this.counterRoc,{
             fontSize:'35px',
+            fontFamily:'textFont',
             fill:'#ffffff',
         }).setOrigin(0.5);
         this.txtCounterRoc.depth = 3;
@@ -113,12 +114,14 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         //PAQUETERIA
         this.txtCounterMat = scene.add.text(1170, 515, this.counterMat,{
             fontSize:'35px',
+            fontFamily:'textFont',
             fill:'#ffffff',
         }).setOrigin(0.5);
         this.txtCounterMat.depth = 3;
 
         this.txtCounterCom = scene.add.text(1170, 575, this.counterCom,{
             fontSize:'35px',
+            fontFamily:'textFont',
             fill:'#ffffff',
         }).setOrigin(0.5);
         this.txtCounterCom.depth = 3;
@@ -333,6 +336,33 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     }
 
     StartTransform(n) {
+        var obj;
+        //GIVE ME DA JUIIIIICEEEEE
+        switch (n){
+            case 0: 
+            this.obj = this.ddrBtnMat;
+            this.scene.tweens.add({
+                targets: this.obj,
+                scaleX: 1.2,
+                scaleY: 1.2,
+                duration: 50,
+                ease: 'Expo.easeIn',
+                yoyo:true
+            });
+            break;
+            case 1: 
+            this.obj = this.ddrBtnComida;
+            this.scene.tweens.add({
+                targets: this.obj,
+                scaleX: 1.2,
+                scaleY: 1.2,
+                duration: 50,
+                ease: 'Expo.easeIn',
+                yoyo:true
+            });break;
+        }
+    
+        
 
         if (this.counterRoc > 0) {
 
@@ -406,7 +436,15 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     }
 
     PutOn(n, obj) {
-
+        //tween boton
+        this.scene.tweens.add({
+            targets: obj,
+            scaleX: 1.1,
+            scaleY: 1.1,
+            duration: 50,
+            ease: 'Expo.easeIn',
+            yoyo:true
+        });
         if (n === 1) {
 
             var counter = this.counterCom;
@@ -468,7 +506,14 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     }
 
     Send(obj) {
-
+        this.scene.tweens.add({
+            targets: obj,
+            scaleX: 1.2,
+            scaleY: 1.2,
+            duration: 50,
+            ease: 'Expo.easeIn',
+            yoyo:true
+        });
         if (this.size === this.maxSize && this.typeOfLoad === 1 && !this.goTakeOff) {
             sfx.sounds[11].play();
             obj.tint = Phaser.Display.Color.GetColor(255, 255, 255)
