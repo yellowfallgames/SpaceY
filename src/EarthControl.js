@@ -32,16 +32,16 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         // ui_T_pantalla_plano
         this.pantallaPlano = scene.add.image(1337, 227, "pantallaMapa").setDepth(2);
         // ui_T_Paqueteria_pasarela
-        this.paqPasarela = scene.add.image(1056, 590, "paqueteriaPasarela").setDepth(2);////Tubo3
+        this.paqPasarela = scene.add.image(1056, 561, "paqueteriaPasarela").setDepth(2);////Tubo3
     
         this.cargaPayloads = new Array();// = new Array(maxSize);
         this.payloadsPosX = 957;
-        this.payloadsPosY = 599;
+        this.payloadsPosY = 570;
         this.maxSize = maxSize;
         this.size = 0;
 
-        this.rocket = scene.add.image(957, -400, "rocket").setScale(1).setDepth(2);
-        this.rocketY = 455;
+        this.rocket = scene.add.image(957, -400, "movimientoCohete", 7).setScale(1.3).setDepth(2);
+        this.rocketY = 400;
         this.goTakeOff = false;
         this.typeOfLoad = 0; //0->Roca, 1->Comida/material
 
@@ -170,30 +170,30 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.controlCom = scene.add.image(1388, 549, "controlCom").setDepth(2)
         .setInteractive()
         .on('pointerdown', () => this.CheckWear(2))
-        .on('pointerup', () => this.Highlight(this.controlCom, true) )
-        .on('pointerover', () => this.Highlight(this.controlCom, true) )
-        .on('pointerout', () => this.Highlight(this.controlCom, false) );		
+        .on('pointerup', () => this.HighlightController(this.controlCom, true) )
+        .on('pointerover', () => this.HighlightController(this.controlCom, true) )
+        .on('pointerout', () => this.HighlightController(this.controlCom, false) );		
 		// ui_T_control_MINA
         this.controlMina = scene.add.image(1506, 549, "controlMina").setDepth(2)
         .setInteractive()
         .on('pointerdown', () => this.CheckWear(3))
-        .on('pointerup', () => this.Highlight(this.controlMina, true) )
-        .on('pointerover', () => this.Highlight(this.controlMina, true) )
-        .on('pointerout', () => this.Highlight(this.controlMina, false) );		
+        .on('pointerup', () => this.HighlightController(this.controlMina, true) )
+        .on('pointerover', () => this.HighlightController(this.controlMina, true) )
+        .on('pointerout', () => this.HighlightController(this.controlMina, false) );		
 		// ui_T_control_ROCKET
         this.controlRocket = scene.add.image(1388, 666, "controlRocket").setDepth(2)
         .setInteractive()
         .on('pointerdown', () => this.CheckWear(0))
-        .on('pointerup', () => this.Highlight(this.controlRocket, true) )
-        .on('pointerover', () => this.Highlight(this.controlRocket, true) )
-        .on('pointerout', () => this.Highlight(this.controlRocket, false) );		
+        .on('pointerup', () => this.HighlightController(this.controlRocket, true) )
+        .on('pointerover', () => this.HighlightController(this.controlRocket, true) )
+        .on('pointerout', () => this.HighlightController(this.controlRocket, false) );		
 		// ui_T_control_TERR
         this.controlTerr = scene.add.image(1506, 666, "controlTerr").setDepth(2)
         .setInteractive()
         .on('pointerdown', () => this.CheckWear(1))
-        .on('pointerup', () => this.Highlight(this.controlTerr, true) )
-        .on('pointerover', () => this.Highlight(this.controlTerr, true) )
-        .on('pointerout', () => this.Highlight(this.controlTerr, false) );
+        .on('pointerup', () => this.HighlightController(this.controlTerr, true) )
+        .on('pointerover', () => this.HighlightController(this.controlTerr, true) )
+        .on('pointerout', () => this.HighlightController(this.controlTerr, false) );
 
         //Textos desgaste
         this.wearTxt = new Array(4);
@@ -257,6 +257,22 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
     Highlight(obj, b) {
 
         b ? obj.tint = Phaser.Display.Color.GetColor(139, 139, 139) : obj.tint = Phaser.Display.Color.GetColor(255, 255, 255);  
+    }
+
+    HighlightController(obj, b) {
+
+        if (maquinas[2].isBroken) {
+
+            this.HighlightError(obj, b)
+        }
+        else {
+
+            this.Highlight(obj, b)
+        }
+    }
+    HighlightError(obj, b) {
+
+        b ? obj.tint = Phaser.Display.Color.GetColor(213, 32, 32) : obj.tint = Phaser.Display.Color.GetColor(255, 255, 255);  
     }
 
     //Funciones sistema de paquetería//
@@ -515,34 +531,38 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
     CheckWear(n) {
 
-        this.nWear = n;
+        if (!maquinas[2].isBroken) {
 
-        var nrand;
-        var nums = new Array(8);
-        for (var i=0; i<this.comboNums.length; i++) {
+            this.nWear = n;
 
-            nrand = Phaser.Math.Between(0,9);
-            switch(nrand) {
-                case 0: this.comboNums[i] = 96; break;
-                case 1: this.comboNums[i] = 97; break;
-                case 2: this.comboNums[i] = 98; break;
-                case 3: this.comboNums[i] = 99; break;
-                case 4: this.comboNums[i] = 100; break;
-                case 5: this.comboNums[i] = 101; break;
-                case 6: this.comboNums[i] = 102; break;
-                case 7: this.comboNums[i] = 103; break;
-                case 8: this.comboNums[i] = 104; break;
-                case 9: this.comboNums[i] = 105; break;
+            var nrand;
+            var nums = new Array(8);
+            for (var i=0; i<this.comboNums.length; i++) {
+
+                nrand = Phaser.Math.Between(0,9);
+                switch(nrand) {
+                    case 0: this.comboNums[i] = 96; break;
+                    case 1: this.comboNums[i] = 97; break;
+                    case 2: this.comboNums[i] = 98; break;
+                    case 3: this.comboNums[i] = 99; break;
+                    case 4: this.comboNums[i] = 100; break;
+                    case 5: this.comboNums[i] = 101; break;
+                    case 6: this.comboNums[i] = 102; break;
+                    case 7: this.comboNums[i] = 103; break;
+                    case 8: this.comboNums[i] = 104; break;
+                    case 9: this.comboNums[i] = 105; break;
+                }
+
+                nums[i] = nrand;
             }
 
-            nums[i] = nrand;
+            this.TxtComboNums.setVisible(true);
+            this.TxtComboNums.setText(nums[0] + "" + nums[1] + "" + nums[2] + "" + nums[3]
+                + "" + nums[4] + "" + nums[5] + "" + nums[6] + "" + nums[7]);
+
+            this.scene.input.keyboard.createCombo(this.comboNums,{resetOnWrongKey: false, deleteOnMatch: true});
         }
-
-        this.TxtComboNums.setVisible(true);
-        this.TxtComboNums.setText(nums[0] + "" + nums[1] + "" + nums[2] + "" + nums[3]
-            + "" + nums[4] + "" + nums[5] + "" + nums[6] + "" + nums[7]);
-
-        this.scene.input.keyboard.createCombo(this.comboNums,{resetOnWrongKey: false, deleteOnMatch: true});
+        
     }
 
     //Funciones eventos metereológicos
@@ -635,7 +655,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
             yoyo: false,
 
             onStart: function () {that.wearTxt[that.nWear].setVisible(true); that.wearTxt[that.nWear].alpha = 1;},
-            onComplete: function() {that.wearTxt[that.nWear].setVisible(false); that.wearTxt[that.nWear].alpha = 1;},
+            onComplete: function() {that.wearTxt[that.nWear].setVisible(false);},
         });
         
     }

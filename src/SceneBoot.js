@@ -1,4 +1,5 @@
 var sfx = undefined;
+var soundtrack = undefined;
 
 class SceneBoot extends Phaser.Scene {
 
@@ -88,8 +89,8 @@ class SceneBoot extends Phaser.Scene {
         this.load.image("minaPolvo", directory+"mina_polvo.png" );
         this.load.image("terraformadorRoto", directory+"terraformador_roto.png" );
         this.load.image("terraformadorPolvo", directory+"terraformador_polvo.png" );
-        //this.load.spritesheet("movimientoCohete", directory+"movimiento_cohete.png", { frameWidth: 44, frameHeight: 29 });
-        this.load.spritesheet("movimientoAntena", directory+"movimiento_antena.png", { frameWidth: 598, frameHeight: 630 });
+        this.load.spritesheet("movimientoCohete", directory+"movimiento_cohete.png", { frameWidth: 225, frameHeight: 369 });
+        this.load.spritesheet("movimientoAntena", directory+"movimiento_antena.png", { frameWidth: 575, frameHeight: 668 });
         this.load.spritesheet("movimientoTerraformador", directory+"movimiento_terraformador.png", { frameWidth: 943, frameHeight: 669 });
         this.load.spritesheet("movimientoMina", directory+"movimiento_mina.png", { frameWidth: 732, frameHeight: 583 });
         
@@ -130,7 +131,7 @@ class SceneBoot extends Phaser.Scene {
     create() {
         sfx = {
             loop: true,
-            volume: 1,
+            volume: 0.5,
             sounds: [
                         this.sound.add('SfxClick'),     //[0]
                         this.sound.add('SfxHover'),
@@ -163,6 +164,23 @@ class SceneBoot extends Phaser.Scene {
         sfx.sounds[12].volume = 0.3;
         sfx.sounds[2].volume = 0;
         sfx.sounds[8].volume = 0;
+
+        soundtrack = {
+            volume: 0.5,
+            pistas: [
+                        this.sound.add('MusicMenu'),
+                        this.sound.add('MusicIngame'),
+                        this.sound.add('MusicTutorial'),
+                        this.sound.add('apolo11Ambient')
+            ]
+        };
+
+        soundtrack.pistas.forEach(element =>{
+            element.loop = true;
+            element.volume = soundtrack.volume;
+        });
+
+        soundtrack.pistas[0].play();
 
         console.log("Acabé");
         this.scene.stop('SceneBoot');

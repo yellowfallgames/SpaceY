@@ -23,7 +23,7 @@ class SceneOptions extends Phaser.Scene {
     }
 
     create() {
-        var txt1 = (musica == undefined) ? '0' : musica.volume;
+        var txt1 = (soundtrack == undefined) ? '0' : soundtrack.volume;
         var txt2 = (sfx == undefined) ? '0' : sfx.volume;
         var print0 = this.add.text(game.config.width/2 + 200, (game.config.height/8)*3 + 32, txt1); //porcentaje musica
         var print1 = this.add.text(game.config.width/2 + 200, (game.config.height/8)*4 + 32, txt2);//porcentaje sfx
@@ -54,7 +54,7 @@ class SceneOptions extends Phaser.Scene {
             width: 300,
             height: 20,
             orientation: 'x',
-            value: (musica ==undefined) ? '0' : musica.volume,
+            value: (soundtrack ==undefined) ? '0' : soundtrack.volume,
 
             track: this.rexUI.add.roundRectangle(0, 0, 0, 0, 6, COLOR_DARK),
             indicator: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_PRIMARY),
@@ -63,7 +63,11 @@ class SceneOptions extends Phaser.Scene {
             valuechangeCallback: function (value) {
                 print0.text = Math.ceil(value*100);
                 //if(musica!=undefined)
-                    musica.setVolume(value);
+                    soundtrack.volume = value;
+                    soundtrack.pistas.forEach(element =>{
+                        element.volume = soundtrack.volume;
+                    });
+                    soundtrack.pistas[0].volume = soundtrack.volume * 0.2;
             },
             space: {
                 top: 4,

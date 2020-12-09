@@ -9,32 +9,44 @@ class Machine {//extends Phaser.GameObjects.Sprite {
 
             case 0:
                 //Estación de transporte
-                this.obj = scene.add.sprite(x, y, "rocket");
-                //this.obj = scene.add.sprite(x, y, "movimientoCohete", 0);
+                //this.obj = scene.add.sprite(x, y, "rocket");
+                this.obj = scene.add.sprite(x, y, "movimientoCohete", 0);
                 this.obj.setRotation(0);
+                this.textureNormal = "movimientoCohete";
+                this.textureBreak = "rocketRoto";
+                this.textureDirty = "rocketPolvo";
             break;
             case 1:
                 //Terraformador
                 this.obj = scene.add.sprite(x, y, "movimientoTerraformador", 0);
                 this.obj.setRotation(-1.57);
+                this.textureNormal = "movimientoTerraformador";
+                this.textureBreak = "terraformadorRoto";
+                this.textureDirty = "terraformadorPolvo";
             break;
             case 2:
                 //Comunicaciones
                 this.obj = scene.add.sprite(x, y, "movimientoAntena", 0);
-                this.obj.anims.play("movimientoAntena");
                 this.obj.setRotation(1.57);
+                this.textureNormal = "movimientoAntena";
+                this.textureBreak = "antenaRoto";
+                this.textureDirty = "antenaPolvo";
             break;
             case 3:
                 //Mina
                 this.obj = scene.add.sprite(x, y, "movimientoMina", 0);
                 this.obj.setRotation(3.14);
+                this.textureNormal = "movimientoMina";
+                this.textureBreak = "minaRoto";
+                this.textureDirty = "minaPolvo";
             break;
             
         }
+        this.typeMachine = nMachine; //0->cohete , 1->terraformador , 2->comunicaciones , 3->mina
         this.area = 0.15;
 
         this.maxWear = 100;
-        this.wear = this.maxWear;
+        this.wear = 0;//this.maxWear;
         this.wearPerc = 1;
         var rand = Phaser.Math.Linear(5000, 15000, Phaser.Math.Between(0,100)/100.0);
         this.eventWear = scene.time.addEvent({ delay: rand, callback: this.updateWear, callbackScope: this, loop: true });
@@ -70,7 +82,8 @@ class Machine {//extends Phaser.GameObjects.Sprite {
         if (this.wear <= 0) {
 
             this.isBroken = true;
-            //Cambiar sprite
+            this.obj.anims.stop();
+            this.obj.setTexture(this.textureBreak);
             this.eventWear.paused = true;
         }
         else {
@@ -96,6 +109,7 @@ class Machine {//extends Phaser.GameObjects.Sprite {
 
         this.isBroken = false;
         this.wear = 100;
+        this.obj.setTexture(this.textureNormal);
         this.eventWear.paused = false;
     }
 }
