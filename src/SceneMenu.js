@@ -13,20 +13,22 @@ class SceneMenu extends Phaser.Scene {
     }
 
 create() {
-    if(musica.length > 1 && musica.key!='MusicMenu')
+    /*
+    if(musica.key!='MusicMenu')
     {
         musica.forEach(element => {
             element.stop();
         });
         musica = this.sound.add('MusicMenu');
         musica.play();
-    }
+    }*/
+    
     //EASINGS
   
 
 
     //ASIGNACION DE METODO
-    this.playButton = this.add.text((game.config.width/8)*3, -100, 'Jugar', { fill: '#0f0',fontFamily:'menuFont',fontSize:'100'})
+    this.playButton = this.add.text((game.config.width/8)*3, -100, 'Jugar', { fill: '#0f0',fontFamily:'menuFont'})
     .setInteractive()
     .on('pointerdown', () => this.startGame() )
     .on('pointerover', () => this.enterButtonHoverState(this.playButton) )
@@ -34,7 +36,7 @@ create() {
     this.playButton.setOrigin(0.5);
     this.easeMe(this.playButton, this, 1);
 
-    this.tutorialButton = this.add.text((game.config.width/2)*4, -100, 'Tutorial', { fill: '#0f0',fontFamily:'menuFont',fontSize:'100'})
+    this.tutorialButton = this.add.text((game.config.width/2)*4, -100, 'Tutorial', { fill: '#0f0',fontFamily:'menuFont'})
     .setInteractive()
     .on('pointerdown', () => this.enterTutorial() )
     .on('pointerover', () => this.enterButtonHoverState(this.tutorialButton) )
@@ -42,7 +44,7 @@ create() {
     this.tutorialButton.setOrigin(0.5);
     this.easeMe(this.tutorialButton, this, 2);
 
-    this.optionsButton = this.add.text(-100, (game.config.height/8)*5, 'Opciones', { fill: '#0f0',fontFamily:'menuFont',fontSize:'100' })
+    this.optionsButton = this.add.text(-100, (game.config.height/8)*5, 'Opciones', { fill: '#0f0',fontFamily:'menuFont' })
     .setInteractive()
     .on('pointerdown', () => this.enterOptions() )
     .on('pointerover', () => this.enterButtonHoverState(this.optionsButton) )
@@ -50,7 +52,7 @@ create() {
     this.optionsButton.setOrigin(0.5);
     this.easeMe(this.optionsButton, this, 3);
     
-    this.contactButton = this.add.text(game.config.width + 100, (game.config.height/8)*6, 'Contacto', { fill: '#0f0',fontFamily:'menuFont',fontSize:'100' })
+    this.contactButton = this.add.text(game.config.width + 100, (game.config.height/8)*6, 'Contacto', { fill: '#0f0',fontFamily:'menuFont' })
     .setInteractive()
     .on('pointerdown', () => this.enterContact() )
     .on('pointerover', () => this.enterButtonHoverState(this.contactButton) )
@@ -83,7 +85,7 @@ startGame() {
     this.Rocketeing(this.playButton,this,game.config.width/2,900,2);
 }
 enterTutorial() {
-
+    soundtrack.pistas[0].stop();
     sfx.sounds[0].play();
     this.tweens.add({
             targets: [this.playButton,this.optionsButton,this.tutorialButton,this.contactButton],
@@ -103,6 +105,7 @@ enterOptions() {
 
 enterContact() {
     sfx.sounds[0].play();
+    soundtrack.pistas[0].stop();
     this.scene.start('SceneContact');
 }
 
