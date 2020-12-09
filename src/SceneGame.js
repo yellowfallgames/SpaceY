@@ -151,7 +151,7 @@ class SceneGame extends Phaser.Scene {
     }
 
     preload() {
-        ///*
+        /*
         //SceneGame//
         this.load.image("player", directory+"vulp_i1.png");
         this.load.image("marte", directory+"marte test.png");
@@ -245,7 +245,7 @@ class SceneGame extends Phaser.Scene {
 
     create() {
 
-        ///*
+        /*
         musica = this.sound.add('MusicMenu');
         musica.volume = 0;
         musica.loop = true;
@@ -432,6 +432,7 @@ class SceneGame extends Phaser.Scene {
             speedX: { min: -200, max: 200 },
             speedY: { min: -100, max: -300 },
             quantity: 5,
+            lifespan: 2000,
             on: false
         });
         
@@ -450,6 +451,7 @@ class SceneGame extends Phaser.Scene {
             speedX: { min: -200, max: 200 },
             speedY: { min: -100, max: -300 },
             quantity: 5,
+            lifespan: 2000,
             on: false
         });
         
@@ -467,6 +469,7 @@ class SceneGame extends Phaser.Scene {
             speedX: { min: -200, max: 200 },
             speedY: { min: -100, max: -300 },
             quantity: 5,
+            lifespan: 2000,
             on: false
         });
         
@@ -484,11 +487,17 @@ class SceneGame extends Phaser.Scene {
             speedX: { min: -200, max: 200 },
             speedY: { min: -100, max: -300 },
             quantity: 5,
+            lifespan: 2000,
             on: false
         });
         
         emitterMachines[3].posX = emitterMachines[3].x;
         emitterMachines[3].posY = emitterMachines[3].y;
+
+        emitterMachines.forEach(element => {
+            element.setDepth(-1);
+        });
+
 
     //*/
         /*
@@ -532,28 +541,36 @@ class SceneGame extends Phaser.Scene {
             //Rotación de los elementos de Marte
             updateRotations(1, delta);
             //marte.rotation += 1*delta/1500*playerSpeed;
-            emitterMachines[0].posX = marte.x + 850 * Math.cos(1.57 + marte.rotation);
-            emitterMachines[0].posY = marte.y + 850 * Math.sin(1.57 + marte.rotation);
-            emitterMachines[1].posX = marte.x + 850 * Math.cos(marte.rotation);
-            emitterMachines[1].posY = marte.y + 850 * Math.sin(marte.rotation);
-            emitterMachines[2].posX = marte.x + 850 * Math.cos(3.14 + marte.rotation);
-            emitterMachines[2].posY = marte.y + 850 * Math.sin(3.14 + marte.rotation);
-            emitterMachines[3].posX = marte.x + 850 * Math.cos(-1.57 + marte.rotation);
-            emitterMachines[3].posY = marte.y + 850 * Math.sin(-1.57 + marte.rotation);
+            //Cohete
+            emitterMachines[0].posX = marte.x + 700 * Math.cos(-1.57 + marte.rotation);
+            emitterMachines[0].posY = marte.y + 700 * Math.sin(-1.57 + marte.rotation);
+            //Terraformador
+            emitterMachines[1].posX = marte.x + 700 * Math.cos(3.14 + marte.rotation);
+            emitterMachines[1].posY = marte.y + 700 * Math.sin(3.14 + marte.rotation);
+            //Comunicaciones
+            emitterMachines[2].posX = marte.x + 800 * Math.cos(marte.rotation);
+            emitterMachines[2].posY = marte.y + 800 * Math.sin(marte.rotation);
+            //Mina
+            emitterMachines[3].posX = marte.x + 870 * Math.cos(1.57 + marte.rotation);
+            emitterMachines[3].posY = marte.y + 870 * Math.sin(1.57 + marte.rotation);
             //emitterMachines[0].emitParticleAt(emitterMachines[0].posX, emitterMachines[0].posY);
         }
         else if (key_right.isDown) {
             //Rotación de los elementos de Marte
             updateRotations(-1, delta);
             //marte.rotation += -1*delta/1500*playerSpeed;
-            emitterMachines[0].posX = marte.x + 850 * Math.cos(1.57 + marte.rotation);
-            emitterMachines[0].posY = marte.y + 850 * Math.sin(1.57 + marte.rotation);
-            emitterMachines[1].posX = marte.x + 850 * Math.cos(marte.rotation);
-            emitterMachines[1].posY = marte.y + 850 * Math.sin(marte.rotation);
-            emitterMachines[2].posX = marte.x + 850 * Math.cos(3.14 + marte.rotation);
-            emitterMachines[2].posY = marte.y + 850 * Math.sin(3.14 + marte.rotation);
-            emitterMachines[3].posX = marte.x + 850 * Math.cos(-1.57 + marte.rotation);
-            emitterMachines[3].posY = marte.y + 850 * Math.sin(-1.57 + marte.rotation);
+            //Cohete
+            emitterMachines[0].posX = marte.x + 700 * Math.cos(-1.57 + marte.rotation);
+            emitterMachines[0].posY = marte.y + 700 * Math.sin(-1.57 + marte.rotation);
+            //Terraformador
+            emitterMachines[1].posX = marte.x + 700 * Math.cos(3.14 + marte.rotation);
+            emitterMachines[1].posY = marte.y + 700 * Math.sin(3.14 + marte.rotation);
+            //Comunicaciones
+            emitterMachines[2].posX = marte.x + 800 * Math.cos(marte.rotation);
+            emitterMachines[2].posY = marte.y + 800 * Math.sin(marte.rotation);
+            //Mina
+            emitterMachines[3].posX = marte.x + 870 * Math.cos(1.57 + marte.rotation);
+            emitterMachines[3].posY = marte.y + 870 * Math.sin(1.57 + marte.rotation);
             //emitterMachines[0].emitParticleAt(emitterMachines[0].posX, emitterMachines[0].posY);
         }
         else {
@@ -703,8 +720,7 @@ function DefeatCondition(that){
     });
     musica[0].stop();
     musica[1].stop();
-    //Para debugear partículas
-    //that.scene.launch('SceneGameEnd');
-    //that.scene.pause('SceneGame');
+    that.scene.launch('SceneGameEnd');
+    that.scene.pause('SceneGame');
     console.log("HAS PERDIDO :c");
 }
