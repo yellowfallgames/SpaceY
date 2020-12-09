@@ -515,6 +515,7 @@ class SceneTutorial extends Phaser.Scene {
         key_up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         key_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
+        key_repair = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         key_skipTutorial = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Y);
 
         initTutorial(this);
@@ -630,46 +631,6 @@ class SceneTutorial extends Phaser.Scene {
     
 }
 
-
-function updateRotations(sign, delta) {
-
-    for(var i=0; i<N_NUBES; i++) {
-        nubes[i].obj.rotation += sign*delta/1000;
-    }
-    /*for(var i=0; i<nMeteoritos; i++) {
-        nubes[i].obj.rotation += 0.01*sign;
-    }*/
-    meteoritos[0].obj.rotation += sign*delta/1500;
-    marte.rotation+=sign*delta/1500;
-    objCohete.obj.rotation+=sign*delta/1500;
-    for (i=0; i<4; i++) {
-
-        maquinas[i].obj.setRotation(maquinas[i].obj.rotation + sign*delta/1500);
-    }
-
-    sign===1 ? player.flipX = false : player.flipX = true;
-    player.anims.play('stelonauta_run', true);
-
-    //Desgaste extra hambre
-    indHam.size = Phaser.Math.Clamp(indHam.size - delta/2500, 0, indHam.maxSize); 
-    indHam.Update();
-}
-
-function DestroyOnScene(obj) {
-
-    obj.destroy();
-}
-
-//Acciones condiciones victoria/derrota
-function VictoryCondition(){
-    sfx.sounds[4].play();
-    console.log("HAS GANADO!!!");
-}
-
-function DefeatCondition(){
-    sfx.sounds[5].play();
-    console.log("HAS PERDIDO :c");
-}
 
 /*=============================== */
 /*          TUTORIAL         */

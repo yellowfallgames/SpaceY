@@ -400,7 +400,7 @@ class SceneGame extends Phaser.Scene {
         key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
         key_repair = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         
-        //Genera meteoritos cada x ms
+        //Genera meteoritos cada x ms (TESTING)
         //var timedEvent = this.time.addEvent({ delay: 3000, callback: genMeteors, callbackScope: this, loop: true });
 
 
@@ -588,11 +588,11 @@ class SceneGame extends Phaser.Scene {
 
 function genMeteors() {
 
+    //var delay = 0;
     for(var i=0; i < 3; i++) {
  
         meteoritos[i] = new Meteor(this);
     }
-    
 }
 function updateRotations(sign, delta) {
 

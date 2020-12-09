@@ -1,10 +1,11 @@
-class Meteor extends Phaser.GameObjects.Sprite{
-    constructor(scene){
-        super(scene, 0, 0, "payloads", 0);
-        this.rotation = Phaser.Math.Linear(0.15, 0.15, Phaser.Math.Between(0,100)/100.0);
+class Meteor {
+    constructor(scene, delay){
+        //super(scene, 0, 0, "payloads", 0);
+        this.rotation = Phaser.Math.Linear(0, Math.PI*2, Phaser.Math.Between(0,100)/100.0);
 
         this.obj = scene.add.image(marte.x, marte.y, "Meteorito")
         this.obj.depth = 9;
+        this.obj.z = 0;
         this.obj.rotation = this.rotation;
         this.obj.setOrigin(0.5, 6);
         this.incr = 0;
@@ -13,14 +14,14 @@ class Meteor extends Phaser.GameObjects.Sprite{
 
         this.scene = scene;
 
-        scene.tweens.add({
+        this.startTween = scene.tweens.add({
             targets: this.obj,
             z:9,
             duration: 3000,
             ease: 'Quint.easeIn',
             repeat: 0,
             yoyo: false,
-            delay: 0,
+            delay: delay,
 
             onComplete: this.Explode.bind(this)
         });
