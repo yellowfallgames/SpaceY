@@ -53,7 +53,7 @@ class Machine {//extends Phaser.GameObjects.Sprite {
         this.isBroken = false;
 
         this.repairCost = MAX_MATERIAL*0.2;
-        this.repairBar = new Bar(scene, marte.x-40, marte.y-670, nCarga, MAX_CARGA, 0.3, 0.1, repairBar_color, false);
+        this.repairBar = new Bar(scene, marte.x-40, marte.y-690, nCarga, MAX_CARGA, 0.5, 0.4, repairBar_color, false);
 
         this.delta;
     }
