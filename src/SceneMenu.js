@@ -1,4 +1,3 @@
-
 class SceneMenu extends Phaser.Scene {
 
     constructor() {
@@ -7,7 +6,7 @@ class SceneMenu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("bck",directory+"vulp_i1.png" );
+        
         //this.load.image("player", directory+"vulp_i1.png");
         //this.load.spritesheet("button", "./Resources/Img/button.png", 185, 80);
         //this.load.image('background',"./Resources/Img/starfield.jpg");
@@ -25,7 +24,7 @@ create() {
 
 
     //ASIGNACION DE METODO
-    this.playButton = this.add.text(game.config.width/2, -100, 'Jugar', { fill: '#0f0'})
+    this.playButton = this.add.text((game.config.width/8)*3, -100, 'Jugar', { fill: '#0f0'})
     .setInteractive()
     .on('pointerdown', () => this.startGame() )
     .on('pointerover', () => this.enterButtonHoverState(this.playButton) )
@@ -33,21 +32,34 @@ create() {
     this.playButton.setOrigin(0.5);
     this.easeMe(this.playButton, this, 1);
 
-    this.optionsButton = this.add.text(-100, (game.config.height/8)*4, 'Opciones', { fill: '#0f0' })
+    this.tutorialButton = this.add.text((game.config.width/2)*4, -100, 'Tutorial', { fill: '#0f0'})
+    .setInteractive()
+    .on('pointerdown', () => this.enterTutorial() )
+    .on('pointerover', () => this.enterButtonHoverState(this.tutorialButton) )
+    .on('pointerout', () => this.enterButtonRestState(this.tutorialButton) );
+    this.tutorialButton.setOrigin(0.5);
+    this.easeMe(this.tutorialButton, this, 2);
+
+    this.optionsButton = this.add.text(-100, (game.config.height/8)*5, 'Opciones', { fill: '#0f0' })
     .setInteractive()
     .on('pointerdown', () => this.enterOptions() )
     .on('pointerover', () => this.enterButtonHoverState(this.optionsButton) )
     .on('pointerout', () => this.enterButtonRestState(this.optionsButton) );
     this.optionsButton.setOrigin(0.5);
-    this.easeMe(this.optionsButton, this, 2);
+    this.easeMe(this.optionsButton, this, 3);
     
-    this.contactButton = this.add.text(game.config.width + 100, (game.config.height/8)*5, 'Contacto', { fill: '#0f0' })
+    this.contactButton = this.add.text(game.config.width + 100, (game.config.height/8)*6, 'Contacto', { fill: '#0f0' })
     .setInteractive()
     .on('pointerdown', () => this.enterContact() )
     .on('pointerover', () => this.enterButtonHoverState(this.contactButton) )
     .on('pointerout', () => this.enterButtonRestState(this.contactButton) );
     this.contactButton.setOrigin(0.5);
-    this.easeMe(this.contactButton, this, 3);
+    this.easeMe(this.contactButton, this, 4);
+
+    
+
+
+    
 }
 //INTERACTIVIDAD
 
@@ -68,6 +80,19 @@ startGame() {
     sfx.sounds[0].play();
     this.Rocketeing(this.playButton,this,game.config.width/2,900,2);
 }
+enterTutorial() {
+
+    sfx.sounds[0].play();
+    this.tweens.add({
+            targets: [this.playButton,this.optionsButton,this.tutorialButton,this.contactButton],
+            //delay: 100,
+            alpha:0,
+            duration: 2000,
+            ease: 'Expo.easeOut',
+            onComplete: this.scene.start('SceneTutorial')
+        });
+      //fin transicion
+}
 
 enterOptions() {
     sfx.sounds[0].play();
@@ -78,6 +103,7 @@ enterContact() {
     sfx.sounds[0].play();
     this.scene.start('SceneContact');
 }
+
 
 
 enterButtonHoverState(boton) {
@@ -132,6 +158,7 @@ enterButtonRestState(boton) {
      });
      this.contactButton.setVisible(false);
      this.optionsButton.setVisible(false);
+     this.tutorialButton.setVisible(false);
      var timedEvent = this.time.addEvent({ delay: yPos+500, callback: function(){this.scene.start('SceneGame')}, callbackScope: this});
  }
 
@@ -144,7 +171,7 @@ easeMe(boton,scene,nOp) {
         case 1: endX = game.config.width / 2; endY = (game.config.height/8)*3; break;
         case 2: endX = game.config.width / 2; endY = (game.config.height/8)*4; break;
         case 3: endX = game.config.width / 2; endY = (game.config.height/8)*5; break;
-        //case 4: endX = game.config.width / 2; endY = game.config.height / 2; break;
+        case 4: endX = game.config.width / 2; endY = (game.config.height/8)*6; break;
         default: break;
     }
     scene.tweens.add({
