@@ -39,3 +39,44 @@ class SceneGameEnd extends Phaser.Scene {
         this.scene.start("SceneMenu");
     }
 }
+function GlowMe(scene,target,fadeOut){
+    this.tweens.addCounter({
+        targets: target,
+        from: 255,
+        to: 0,
+        duration: 1000,
+        duration: fadeOut,
+        ease: 'Expo.easeInOut',
+        yoyo: true,
+        onUpdate: function (tween)
+        {
+            var value = Math.floor(tween.getValue());
+
+            image.setTint(Phaser.Display.Color.GetColor(value, value, value));
+        }
+    });
+    
+}
+
+/*
+key_cleanV = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.V);
+key_cleanB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
+
+//PARA EL UPDATE 
+if (Phaser.Input.Keyboard.JustDown (key_cleanV) && maquinasucia)
+    {
+        if (Phaser.Input.Keyboard.JustDown (key_cleanB))
+        {
+            //contador sucio -1
+        }
+
+    }
+    if (Phaser.Input.Keyboard.JustDown (key_cleanB) && maquinasucia)
+    {
+        if (Phaser.Input.Keyboard.JustDown (key_cleanV))
+        {
+            //contador sucio -1
+        }
+    }
+*/
+

@@ -4,7 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
+    <!-- FONT LOADER-->
+    <style media='screen' type='text/css'>
+        @font-face {
+          font-family: textFont;
+          src: url('Resources/Fuentes/Spaceport_2006.otf');
+          font-weight:400;
+          font-weight:normal;
+        }
+    </style>
+    <style media='screen' type='text/css'>
+        @font-face {
+          font-family: menuFont;
+          src: url('Resources/Fuentes/BradBunR.ttf');
+          font-weight:400;
+          font-weight:normal;
+        }
+    </style>
+    <!-- fin font loader-->
     <style>
         body {
 
@@ -15,7 +32,10 @@
 </head>
 <body>
     <div id="container"></div>
-
+    <!-- FONT LOADER-->
+    <div style="font-family:menuFont; position:absolute; left:-1000px; visibility:hidden;">.</div>
+    <div style="font-family:textFont; position:absolute; left:-1000px; visibility:hidden;">.</div>
+    <!-- -->
     <script src="./node_modules/phaser/dist/phaser.js"></script>
     <script src="./src/SceneGameEnd.js"></script>
     <script src="./src/SceneGame.js"></script>
@@ -23,6 +43,7 @@
     <script src="./src/SceneOptions.js"></script>
     <script src="./src/SceneMenu.js"></script>
     <script src="./src/SceneLogos.js"></script>
+    <script src="./src/SceneTutorial.js"></script>
     <script src="./src/init.js"></script><!-- type="module"-->
     <script type="text/javascript" src="./src/Machine.js"></script>
     <script type="text/javascript" src="./src/TerraformMachine.js"></script>

@@ -49,12 +49,13 @@ class SceneLogos extends Phaser.Scene {
         this.load.image("fondoTierra", directory+"ui_T_bck.png" );
         this.load.image("lanzadera", directory+"ui_T_Lanzadera.png" );
         this.load.image("lanzaderaPuerta", directory+"ui_T_Lanzadera_door.png" );
+        this.load.image("lanzaderaPuertaRecursos", directory+"ui_T_Lanzadera_door_2.png" );
         this.load.image("lanzaderaCountdown", directory+"ui_T_countdown.png" );
         /*this.load.image("cargaMateriales", directory+"ui_T_payload_materiales.png" );
         this.load.image("cargaRocas", directory+"ui_T_payload_rocas.png" );
         this.load.image("cargaO2", directory+"ui_T_payload_o2.png" );
         this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );*/
-        this.load.spritesheet("payloads", directory+"ui_T_payloads.png", { frameWidth: 52, frameHeight: 37 });
+        this.load.spritesheet("payloads", directory+"ui_T_payloads.png", { frameWidth: 44, frameHeight: 29 });
         this.load.image("paqueteriaBase", directory+"ui_T_Paqueteria_contadores.png" );
         this.load.image("paqueteriaBaseTubo", directory+"ui_T_Paqueteria_contadores_tubo.png" );
         this.load.image("paqueteriaBotonComida", directory+"ui_T_Paqueteria_comida.png" );

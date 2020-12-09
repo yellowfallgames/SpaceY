@@ -23,12 +23,10 @@ var key_right;
 var key_up;
 var key_down;
 var key_interact;
-var key_repair;
-
+var key_skipTutorial;
 //Objetos
 //Marte
 var player;
-var playerSpeed = 1;
 var marte;
 var fondoMarte;
 var nubes;
@@ -108,7 +106,7 @@ var spdCargarCohete = 0.25;
 var coheteMat_color = Phaser.Display.Color.GetColor(150, 103, 34);
 
 //Recursos Marte
-var nComida_M = 100;
+var nComida_M = 75;
 var objComida_M;
 var MAX_COMIDA = 150;
 var txtComida_M;
@@ -118,15 +116,85 @@ var objRocas_M;
 var MAX_ROCAS = 200;
 var txtRocas_M;
 
-var nMaterial_M = 0;
+var nMaterial_M = 20;
 var objMaterial_M;
 var MAX_MATERIAL = 100;
 var txtMaterial_M;
 
-//Barra carga
-var repairBar_color = Phaser.Display.Color.GetColor(160, 190, 55);
-var repairBar_color2 = Phaser.Display.Color.GetColor(225, 164, 13);
 
+/* =========================== */
+/*      TUTORIAL               */
+var posTuto;
+var textMarte = [
+    'Bienvenido a Space Y\n\nPulsa Y para continuar',
+    '#',
+    'Cohete',
+    'Aqui aterriza y despega tu cohete, OBVIO',
+    'Solo podrá despegar si está lleno de ROCAS',
+    'Para lanzarlo pulsa H',
+    '#',
+    'Mina',
+    'Desplázate usando A y D a tu derecha',
+    'Pulsa X para obtener ROCAS de la mina',
+    'Se incrementan aqui',
+    '#',
+    'Terraformador',
+    'Esta máquina permite la habitabilidad en Marte',
+    'Convierte tus ROCAS en energía transformadora',
+    'Conseguid el 100% para completar la misión',
+    '#',
+    'Comunicación',
+    'Permite la comunicación con la Tierra',
+    'Si se estropea, no podrán avisarte de TORMENTAS o METEORITOS',
+    'Para reparar cualquier máquina pulsa TECLA',
+    '#',
+    'Pantalla de misión',
+    'Aquí podrás ver el estado de la terraformación',
+    'Sólo tu podrás ver si se acercan meteoritos o tormentas',
+    'Avisa al Stelonauta para que pueda ponerse a cubierto',
+    '#',
+    'En caso de duda, CLICK en Post-IT',
+    '$' //fin tutorial
+];
+//TEXTO EN TIERRA
+var textTierra = [
+    'Bienvenido a Space Y\n\nPulsa Y para continuar',
+    '#',
+    'Lanzadera',
+    'Aqui aterriza y despega tu cohete, OBVIO',
+    'Solo podrá despegar si no está lleno de recursos o vacio de rocas',
+    'Para vaciarlo pulsa en la compuerta verde inferior',
+    '#',
+    'Conversor DDR',
+    'Transforma un recurso pulsando las flechas',
+    '1 roca = 1 de Comida o Materiales',
+    'Si te equivocas, perderás el recurso',
+    '#',
+    'Sistema de Paquetería',
+    'Este es tu almacen de Comida y Materiales',
+    'Pulsa sobre comida/materiales para llenar el cohete en 1 unidad',
+    'Cuando el cohete esté lleno podrás enviarlo pulsando aquí',
+    '#',
+    'Panel de Control',
+    'Al pulsar sobre un botón aparecerá una combinación',
+    'Introducirla correctamente permite ver el estado de las máquinas',
+    'Comunica esto al Stelonauta para mantener el estado de la misión',
+    '#',
+    'Pantalla de misión',
+    'Aquí podrás ver el estado de la terraformación',
+    'Sólo tu podrás ver si se acercan meteoritos o tormentas',
+    'Avisa al Stelonauta para que pueda ponerse a cubierto',
+    '#',
+    'En caso de duda, CLICK en Post-IT',
+    '$' //fin tutorial
+];
+
+var currentLine = 0;
+var tutoPosIndex;
+var tutofondo;
+var tutotextMarte;
+var tutotextTierra;
+var maskMarte;
 //Recursos Tierra
 
 
@@ -138,20 +206,15 @@ var startSfxRun = false;
 
 var music;
 
-
-//Particulas
-var emitterStorm;
-var emitterMachines = []; // 0 - Cohete || 1 - Radio || 2 - Mina || 3 - Terraformador
-
-class SceneGame extends Phaser.Scene {
+class SceneTutorial extends Phaser.Scene {
     
     constructor() {
 
-        super("SceneGame");
+        super("SceneTutorial");
     }
 
     preload() {
-        /*
+        ///*
         //SceneGame//
         this.load.image("player", directory+"vulp_i1.png");
         this.load.image("marte", directory+"marte test.png");
@@ -174,6 +237,10 @@ class SceneGame extends Phaser.Scene {
         this.load.image("timerSegundos", directory+"ui_M_segundos.png" );
         this.load.image("timerMinutos", directory+"ui_M_minutos.png" );
         this.load.image("timeHoras", directory+"ui_M_horas.png" );
+        //this.load.image("indicadorRocas", directory+"ui_M_rocas.png" );
+        //this.load.image("indicadorO2", directory+"ui_M_o2.png" );
+        //this.load.image("indicadorMateriales", directory+"ui_M_materiales.png" );
+        //this.load.image("indicadorHambre", directory+"ui_M_hambre.png" );
         this.load.spritesheet("indicadores", directory+"M_indicators.png", { frameWidth: 145, frameHeight: 145 });
         this.load.image("flechasAmarillas", directory+"FlechasAmarillas.png" );
         
@@ -181,9 +248,12 @@ class SceneGame extends Phaser.Scene {
         this.load.image("fondoTierra", directory+"ui_T_bck.png" );
         this.load.image("lanzadera", directory+"ui_T_Lanzadera.png" );
         this.load.image("lanzaderaPuerta", directory+"ui_T_Lanzadera_door.png" );
-        this.load.image("lanzaderaPuertaRecursos", directory+"ui_T_Lanzadera_door_2.png" );
         this.load.image("lanzaderaCountdown", directory+"ui_T_countdown.png" );
-        this.load.spritesheet("payloads", directory+"ui_T_payloads.png", { frameWidth: 52, frameHeight: 37 });
+        /*this.load.image("cargaMateriales", directory+"ui_T_payload_materiales.png" );
+        this.load.image("cargaRocas", directory+"ui_T_payload_rocas.png" );
+        this.load.image("cargaO2", directory+"ui_T_payload_o2.png" );
+        this.load.image("cargaComida", directory+"ui_T_payload_comida.png" );*/
+        this.load.spritesheet("payloads", directory+"ui_T_payloads.png", { frameWidth: 44, frameHeight: 29 });
         this.load.image("paqueteriaBase", directory+"ui_T_Paqueteria_contadores.png" );
         this.load.image("paqueteriaBaseTubo", directory+"ui_T_Paqueteria_contadores_tubo.png" );
         this.load.image("paqueteriaBotonComida", directory+"ui_T_Paqueteria_comida.png" );
@@ -213,8 +283,11 @@ class SceneGame extends Phaser.Scene {
         this.load.image("mina", directory+"mina.png" );
         this.load.image("terraformador", directory+"terraformador.png" );
 
+        //TUTORIAL
+        this.load.image('tutoBck', directory +'tutorial__bck.jpg');
+    
+        //*/
         //MUSICA
-        ///*
         this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
         this.load.audio('MusicIngame', ['./Resources/Audio/Music/Pioneers meets Space.ogg']);
         this.load.audio('MusicTutorial', ['./Resources/Audio/Music/Roboxel - Space Music.ogg']);
@@ -235,19 +308,39 @@ class SceneGame extends Phaser.Scene {
         this.load.audio('SfxTakeOff', ['./Resources/Audio/SFX/Earth/space_ship.ogg']);
         this.load.audio('SfxLanding', ['./Resources/Audio/SFX/Mars/landing.ogg']);
         this.load.audio('SfxMeteorHit', ['./Resources/Audio/SFX/Mars/DeathFlash.ogg']);
-        this.load.audio('SfxAlarm', ['./Resources/Audio/SFX/Mars/Alarm_Loop_01.ogg']);
+        this.load.audio('SfxAlarm', ['./Resources/Audio/SFX/Mars/DeathFlash.ogg']);
         //Fanfare
         this.load.audio('SfxWin', ['./Resources/Audio/SFX/Fanfare/win.ogg']);
         this.load.audio('SfxLose', ['./Resources/Audio/SFX/Fanfare/lose.ogg']);
-    
-        //*/
-        this.load.image('spark', './Resources/snowflake.png');
+        //Array de Posiciones de los artilugios del juego
+        posTuto = {
+            tierra : [
+                new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //welcome
+                new Phaser.Math.Vector2 (963,365), //lanzadera
+                new Phaser.Math.Vector2 (1058,793), // ddr
+                new Phaser.Math.Vector2 (1219,674), //paqueteria
+                new Phaser.Math.Vector2 (1447,676), //panel control
+                new Phaser.Math.Vector2 (1337,250), //pantalla mision
+                new Phaser.Math.Vector2 (game.config.width/2,game.config.height/2), //POST-IT
+                new Phaser.Math.Vector2 (game.config.width/2,game.config.height/2) //fin tutorial
+            ],
+            marte: [
+                new Phaser.Math.Vector2 (game.config.width/4*3,game.config.height/2), //welcome
+                new Phaser.Math.Vector2 (), //cohete
+                new Phaser.Math.Vector2 (), //mina
+                new Phaser.Math.Vector2 (), //terraformador
+                new Phaser.Math.Vector2 (), //comunicacion
+                new Phaser.Math.Vector2 (), //pantalla de mision
+                new Phaser.Math.Vector2 (game.config.width/2,game.config.height/2), //POST-IT
+                new Phaser.Math.Vector2 (game.config.width/2,game.config.height/2) //fin tutorial
+            ]
+        };
     }
 
     create() {
-        /*
+        //musica
         musica = this.sound.add('MusicMenu');
-        musica.volume = 0;
+        musica.volume = 0.5;
         musica.loop = true;
         musica.play();
         sfx = {
@@ -278,40 +371,30 @@ class SceneGame extends Phaser.Scene {
 
         sfx.sounds[2].loop = sfx.loop;
         sfx.sounds[3].loop = sfx.loop;
-        sfx.sounds[8].loop = true;
-        sfx.sounds[14].loop = true;
         sfx.sounds[12].volume = 0.3;
-        sfx.sounds[2].volume = 0;
-        sfx.sounds[8].volume = 0;
-        //*/
 
         //Musica
         let volumen;
         if(musica!=undefined){
             musica.stop();
             volumen = musica.volume;
-            musica = [];
         }
+        musica = this.sound.add('MusicIngame');
+        musica.loop = true;
+        musica.volume = volumen;
+        musica.play();
+        musica = this.sound.add('apolo11Ambient');
+        musica.loop = true;
+        musica.volume = volumen;
+        musica.play();
 
-        musica[0] = this.sound.add('MusicIngame');
-        musica[0].loop = true;
-        musica[0].volume = volumen;
-        musica[0].play();
-        musica[1] = this.sound.add('apolo11Ambient');
-        musica[1].loop = true;
-        musica[1].volume = 0.2;
-        musica[1].play();
-
-        //PLAY a los sonidos de las máquinas
-        sfx.sounds[2].play();
-        sfx.sounds[8].play();
 
         //MARTE
 		// ui_M_bck
-        fondoMarte = this.add.image(407, 450, "fondoMarte").setDepth(-2);
+        fondoMarte = this.add.image(407, 450, "fondoMarte");
 
         //Inicialización planeta
-        marte = this.add.image(game.config.width/4, 1250, "marte").setScale(3).setDepth(-2);
+        marte = this.add.image(game.config.width/4, 1250, "marte").setScale(3);
 
         //Cohete en Marte
         objCohete = new Rocket(this, marte.x, marte.y);
@@ -333,21 +416,52 @@ class SceneGame extends Phaser.Scene {
         for(var i=0; i<N_NUBES; i++) {
 
             nubes[i] = new Cloud(this);
+            /*var nrand = Phaser.Math.Between(0,0);
+            switch(nrand) {
+                
+                //NUBE 1
+                case 0:
+                    nubes[i] = this.add.image(marte.x, marte.y, "nube");
+                    var orig = Phaser.Math.Linear(6, 8, Phaser.Math.Between(0,100)/100.0);
+                    nubes[i].setOrigin(0.5, orig);
+                    nubes[i].rotation = Phaser.Math.Linear(0, 2*Math.PI, Phaser.Math.Between(0,100)/100.0); 
+                break;
+                //NUBE 2
+                case 1:
+                    nubes[i] = this.add.image(marte.x, marte.y, "nube");
+                    nubes[i].setOrigin(0.5,7);
+                    nubes[i].rotation = Phaser.Math.Between(-3.13,3.13);
+                break;
+                //NUBE 3
+                case 2:
+                    nubes[i] = this.add.image(marte.x, marte.y, "nube");
+                    nubes[i].setOrigin(0.5, 8);
+                    nubes[i].rotation = Phaser.Math.Between(-3.13,3.13);
+                break;
+            }*/
             
         }
 
         //
         meteoritos = new Array();
+        meteoritos[0] = new Meteor(this);
 
         //TIERRA
         controlTierra = new EarthControl(this, 0, 0, 8);
         //controlTierra.PushFromMars();
 		
 		
+		// ui_M_horas
+		//timerHoras = this.add.image(553, 97, "timeHoras");
 		
+		// ui_M_minutos
+        timerMinutos = this.add.image(635, 97, "timerMinutos");
+        
+		// ui_M_segundos
+		timerSegundos = this.add.image(716, 97, "timerSegundos");
 		
 		// ui_M_actionbox: Tecla de acción
-        //
+        teclaAccion = this.add.image(marte.x, 500, "teclaAccion").setVisible(false);
 		
 		// ui_M_dangerArrow
 		alertaPeligroIz = this.add.image(665, 365, "alertaPeligro").setVisible(false);
@@ -390,8 +504,8 @@ class SceneGame extends Phaser.Scene {
 
         this.anims.create({
             key: 'stelonauta_run',
-            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 20 }),
-            frameRate: 30,
+            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 21 }),
+            frameRate: 18,
         });
 
         //Input events
@@ -402,190 +516,65 @@ class SceneGame extends Phaser.Scene {
         key_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
         key_repair = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        
-        //Genera meteoritos cada x ms (TESTING)
-        //var timedEvent = this.time.addEvent({ delay: 3000, callback: genMeteors, callbackScope: this, loop: true });
+        key_skipTutorial = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Y);
 
-
-        //PARTÍCULAS TORMENTA
-        emitterStorm = this.add.particles('spark').createEmitter({
-            x: {min: 0, max: 1500},
-            y: 0,
-            blendMode: 'COLOR',
-            scale: { start: 0.2, end: 0 },
-            tint: 0x50ff6a00,
-            speedX: { min: -500, max: -900 },
-            speedY: { min: 500, max: 1500 },
-            quantity: 100,
-            on: false
-        });
-
-        
-
-        //Cohete        [0]
-        emitterMachines[0] = this.add.particles('spark');
-        emitterMachines[0].createEmitter({
-            x: 300,
-            y: 300,
-            blendMode: 'SCREEN',
-            scale: { start: 0.2, end: 0 },
-            speedX: { min: -200, max: 200 },
-            speedY: { min: -100, max: -300 },
-            quantity: 5,
-            lifespan: 2000,
-            on: false
-        });
-        
-        emitterMachines[0].posX = emitterMachines[0].x;
-        emitterMachines[0].posY = emitterMachines[0].y;
-
-        //emitterMachines[0].startFollow(player);
-///*
-        //Radio         [1]
-        emitterMachines[1] = this.add.particles('spark');
-        emitterMachines[1].createEmitter({
-            x: 300,
-            y: 300,
-            blendMode: 'SCREEN',
-            scale: { start: 0.2, end: 0 },
-            speedX: { min: -200, max: 200 },
-            speedY: { min: -100, max: -300 },
-            quantity: 5,
-            lifespan: 2000,
-            on: false
-        });
-        
-        emitterMachines[1].posX = emitterMachines[1].x;
-        emitterMachines[1].posY = emitterMachines[1].y;
-    
-
-        //Mina          [2]
-        emitterMachines[2] = this.add.particles('spark');
-        emitterMachines[2].createEmitter({
-            x: 300,
-            y: 300,
-            blendMode: 'SCREEN',
-            scale: { start: 0.2, end: 0 },
-            speedX: { min: -200, max: 200 },
-            speedY: { min: -100, max: -300 },
-            quantity: 5,
-            lifespan: 2000,
-            on: false
-        });
-        
-        emitterMachines[2].posX = emitterMachines[2].x;
-        emitterMachines[2].posY = emitterMachines[2].y;
-    
-
-        //Terraformador [3]
-        emitterMachines[3] = this.add.particles('spark');
-        emitterMachines[3].createEmitter({
-            x: 300,
-            y: 300,
-            blendMode: 'SCREEN',
-            scale: { start: 0.2, end: 0 },
-            speedX: { min: -200, max: 200 },
-            speedY: { min: -100, max: -300 },
-            quantity: 5,
-            lifespan: 2000,
-            on: false
-        });
-        
-        emitterMachines[3].posX = emitterMachines[3].x;
-        emitterMachines[3].posY = emitterMachines[3].y;
-
-        emitterMachines.forEach(element => {
-            element.setDepth(-1);
-        });
-
-
-    //*/
-        /*
-        this.input.on('pointerDown', function (pointer) {
-            //emitter.setPosition(Phaser.Math.Between(0, game.config.width), 0)
-            emitterStorm.emitZoneIndex = 1;
-            emitterStorm.active = false;
-            console.log("APAGA");
-        });
-        //*/
-    
-        /*
-        this.input.on('pointerdown', function (pointer) {
-            emitZoneIndex = (emitZoneIndex + 1) % emitZones.length;
-            emitter.setEmitZone(emitZones[emitZoneIndex]);
-            emitter.explode();
-        });
-        //*/
-    
-        //emitter.setEmitZone(emitZones[emitZoneIndex]); 
-    
+        initTutorial(this);
     }
     update(time, delta) {
-        controlTierra.pantallaPlano.rotation+=delta/16000;
-        //DEBUG PARTICULAS
-        /*if (key_left.isDown) {
-            //Apaga
-            emitterStorm.on = false;
-        }
-        else if (key_right.isDown) {
-            //Enciende
-            emitterStorm.on = true;
-        }*/
 
-        //emitter.setPosition(Phaser.Math.Between(0, game.config.width), 0)
+        //*************************************** */
+        //          UPDATE TUTORIAL
+        //*********************************** */
+        if (Phaser.Input.Keyboard.JustDown (key_skipTutorial)) {
+            //Pasa una linea en ambas partes del tutorial y actualiza la posicion de las mascaras
+            currentLine ++;
+            if(textMarte[currentLine] == '#' || textTierra[currentLine] == '#')
+            {
+                tutoPosIndex++;//avanzamos en la siguiente posicion de marte
+                currentLine ++; //avanzamos en lineas de tutorial
+            }
+            
+            tutotextMarte.destroy();
+            tutotextTierra.destroy();
+            tutotextMarte = this.add.text (posTuto.marte[tutoPosIndex].x,posTuto.marte[tutoPosIndex].y,textMarte[currentLine],{ fill: '#0f0',fontFamily:'textFont'}).setDepth(10);
+            tutotextTierra = this.add.text (posTuto.tierra[tutoPosIndex].x,posTuto.tierra[tutoPosIndex].y,textTierra[currentLine],{ fill: '#0f0',fontFamily:'textFont'}).setDepth(10)
+            
+            //Aqui indicamos que tipo de máscara se va a usar y en que punto
+            CrearMascara(this,
+                posTuto.marte[tutoPosIndex].x,
+                posTuto.marte[tutoPosIndex].y,
+                'c',
+
+                posTuto.tierra[tutoPosIndex].x,
+                posTuto.tierra[tutoPosIndex].y,
+                's');
+            // TWEENING de la máscara
+            moverMascara(tutofondo.mask,this);
+            if(textMarte[currentLine] == '$' || textTierra[currentLine] == '$')
+            {
+                endTutorial(this,tutotextMarte,tutotextTierra,2000); //escena, texto 1, texto 2, t fade
+            }
+            
+        }
+
+
+
+
         //MARTE
         //Inputs
         //Movimiento de Marte
-
         if (key_left.isDown) {
             //Rotación de los elementos de Marte
             updateRotations(1, delta);
-            //marte.rotation += 1*delta/1500*playerSpeed;
-            //Cohete
-            emitterMachines[0].posX = marte.x + 700 * Math.cos(-1.57 + marte.rotation);
-            emitterMachines[0].posY = marte.y + 700 * Math.sin(-1.57 + marte.rotation);
-            //Terraformador
-            emitterMachines[1].posX = marte.x + 700 * Math.cos(3.14 + marte.rotation);
-            emitterMachines[1].posY = marte.y + 700 * Math.sin(3.14 + marte.rotation);
-            //Comunicaciones
-            emitterMachines[2].posX = marte.x + 800 * Math.cos(marte.rotation);
-            emitterMachines[2].posY = marte.y + 800 * Math.sin(marte.rotation);
-            //Mina
-            emitterMachines[3].posX = marte.x + 870 * Math.cos(1.57 + marte.rotation);
-            emitterMachines[3].posY = marte.y + 870 * Math.sin(1.57 + marte.rotation);
-            //emitterMachines[0].emitParticleAt(emitterMachines[0].posX, emitterMachines[0].posY);
         }
         else if (key_right.isDown) {
             //Rotación de los elementos de Marte
             updateRotations(-1, delta);
-            //marte.rotation += -1*delta/1500*playerSpeed;
-            //Cohete
-            emitterMachines[0].posX = marte.x + 700 * Math.cos(-1.57 + marte.rotation);
-            emitterMachines[0].posY = marte.y + 700 * Math.sin(-1.57 + marte.rotation);
-            //Terraformador
-            emitterMachines[1].posX = marte.x + 700 * Math.cos(3.14 + marte.rotation);
-            emitterMachines[1].posY = marte.y + 700 * Math.sin(3.14 + marte.rotation);
-            //Comunicaciones
-            emitterMachines[2].posX = marte.x + 800 * Math.cos(marte.rotation);
-            emitterMachines[2].posY = marte.y + 800 * Math.sin(marte.rotation);
-            //Mina
-            emitterMachines[3].posX = marte.x + 870 * Math.cos(1.57 + marte.rotation);
-            emitterMachines[3].posY = marte.y + 870 * Math.sin(1.57 + marte.rotation);
-            //emitterMachines[0].emitParticleAt(emitterMachines[0].posX, emitterMachines[0].posY);
         }
         else {
 
             player.anims.play('stelonauta_idle', true);
-            
         }
-        //if(maquina[i].isRota == true)
-        /*  emitterMachines[0].emitParticleAt(emitterMachines[0].posX, emitterMachines[0].posY);
-          emitterMachines[1].emitParticleAt(emitterMachines[1].posX, emitterMachines[1].posY);
-          emitterMachines[2].emitParticleAt(emitterMachines[2].posX, emitterMachines[2].posY);
-          emitterMachines[3].emitParticleAt(emitterMachines[3].posX, emitterMachines[3].posY);
-        */
-        console.log("Pos X: " + emitterMachines[0].posX + "\nPos Y: " + emitterMachines[0].posY);
-        
 
         if ((key_left.isDown || key_right.isDown) && !startSfxRun) {
             startSfxRun = true;
@@ -595,31 +584,23 @@ class SceneGame extends Phaser.Scene {
             startSfxRun = false;
             sfx.sounds[3].stop();
         }
-
-
-        
-        //Meteoritos
-        for(var i=0; i < meteoritos.length; i++) {
- 
-            meteoritos[i].Update();
-        }
         
         //////////////////////////////
         //Interaccionar con máquinas//
         //////////////////////////////
         //Mostrar tecla interacción
-        /*if (!(maquinas[0].canInteract() || maquinas[1].canInteract() || maquinas[2].canInteract() || maquinas[3].canInteract()) && maquinas[0].isSending) {
+        if (!(maquinas[0].canInteract() || maquinas[1].canInteract() || maquinas[2].canInteract() || maquinas[3].canInteract()) && maquinas[0].isSending) {
 
             teclaAccion.setVisible(false);
-        }*/
+        }
 
         //Acciones de cada máquina
         for(i = 0; i < 4; i++) {
 
             maquinas[i].update(delta);
-            if(maquinas[i].isBroken == true)
-                emitterMachines[i].emitParticleAt(emitterMachines[i].posX, emitterMachines[i].posY);
         }
+
+
 
         ///////////
         //Pasivas//
@@ -638,89 +619,102 @@ class SceneGame extends Phaser.Scene {
         indHam.Update();
 
         if (indHam.size <= 0)
-            DefeatCondition(this);
+            DefeatCondition();
 
 
         //TIERRA
         controlTierra.Update(delta);
+
+        meteoritos[0].Update();
     }
 
     
 }
 
-function genMeteors() {
 
-    //var delay = 0;
-    for(var i=0; i < 3; i++) {
- 
-        meteoritos[i] = new Meteor(this);
-    }
-}
-function updateRotations(sign, delta) {
-
-    for(var i=0; i<N_NUBES; i++) {
-        nubes[i].obj.rotation += sign*delta/1000*playerSpeed;
-    }
-    for(var i=0; i < meteoritos.length; i++) {
-        meteoritos[i].obj.rotation += sign*delta/1500*playerSpeed;
-    }
+/*=============================== */
+/*          TUTORIAL         */
+/*=============================== */
+function initTutorial(scene){
+    //añadimos la pantalla negra
+    tutoPosIndex = 0;
+    tutofondo = scene.add.image(0,0,'tutoBck'); //añadimos capa grisalla
+    tutofondo.setAlpha(0.8).setScale(2,2).setDepth(8);  //configuramos su visibilidad
     
-    marte.rotation+=sign*delta/1500*playerSpeed;
-    objCohete.obj.rotation+=sign*delta/1500*playerSpeed;
+    //Mostramos textos iniciales del tutorial
+    tutotextMarte = scene.add.text (posTuto.marte[currentLine].x,posTuto.marte[currentLine].y,textMarte[currentLine]).setDepth(10);
+    tutotextTierra = scene.add.text (posTuto.tierra[currentLine].x,posTuto.tierra[currentLine].y,textTierra[currentLine]).setDepth(10);
 
-    for (i=0; i<4; i++) {
-
-        maquinas[i].obj.setRotation(maquinas[i].obj.rotation + sign*delta/1500*playerSpeed);
-        //Update sonidos
-        var beta = maquinas[i].obj.rotation < 0 ? maquinas[i].obj.rotation * -1: maquinas[i].obj.rotation ;
-        if(beta < 0.8)
-        {
-            var volumen = (0.8 - beta)/0.8;
-            if(volumen<0.02)
-                volumen = 0;
-            switch(i)
-            {
-                case 0: //Cohete
-
-                    break;
-                case 1: //Terraformador
-                case 3: //Mina
-                    sfx.sounds[2].volume = volumen;
-                    break;
-                case 2: //Comunicaciones
-                    sfx.sounds[8].volume = volumen;
-                    break;
-            }
-            
-        }
-    }
-
-    sign===1 ? player.flipX = false : player.flipX = true;
-    player.anims.play('stelonauta_run', true);
-
-    //Desgaste extra hambre
-    indHam.size = Phaser.Math.Clamp(indHam.size - delta/2500, 0, indHam.maxSize); 
-    indHam.Update();
 }
+function endTutorial(scene,textM, textT,fadeOut)
+{
+    textM.destroy();
+    textT.destroy();
+    tutofondo.clearMask();
 
-function DestroyOnScene(obj) {
-
-    obj.destroy();
-}
-
-//Acciones condiciones victoria/derrota
-function VictoryCondition(that){
-    sfx.sounds[4].play();
-    console.log("HAS GANADO!!!");
-}
-
-function DefeatCondition(that){
-    sfx.sounds.forEach(element => {
-        element.stop();
+    scene.tweens.add({
+        targets: tutofondo,
+        delay: 100,
+        alpha:1,
+        duration: fadeOut,
+        ease: 'Expo.easeInOut',
+        onComplete: scene.time.addEvent({ delay: fadeOut, callback: function(){scene.scene.start('SceneMenu')}, callbackScope: this})
     });
-    musica[0].stop();
-    musica[1].stop();
-    that.scene.launch('SceneGameEnd');
-    that.scene.pause('SceneGame');
-    console.log("HAS PERDIDO :c");
 }
+function CrearMascara(scene,posXM,posYM,tipoM, posXT,posYT,tipoT){
+
+    maskMarte = scene.make.graphics();  //dibujamos un grafico compuesto de dos formas
+
+    switch (tipoM){ //FORMA DE MARTE
+        case 's':
+            //Mascara cuadrada marte
+            maskMarte.fillStyle(000000,1);  //color y alpha
+            maskMarte.fillRect(posXM,posYM,100,100);  //x, y,width height
+            break;
+        case 'c':
+            //Mascara circular marte
+            maskMarte.fillStyle(000000,1);  //color y alpha
+            maskMarte.fillCircle(posXM,posYM,100);  //x, y, radio
+            break;
+    }
+    maskMarte.moveTo(posXT,posYT);  //NOS DESPLAZAMOS PARA DIBUJAR
+
+    switch (tipoT)  //FORMA EN TIERRA
+    {   
+        case 's':
+            //mascara cuadrada tierra
+            maskMarte.fillStyle(000000,1);  //color y alpha
+            maskMarte.fillRect(posXT,posYT,100,100);  //x, y,width height
+            console.log('letsgo');
+            break;
+        case 'c':
+            //mascara circular  tierra
+            maskMarte.fillStyle(000000,1);  //color y alpha
+            maskMarte.fillCircle(posXT,posYT,100);  //x, y, radio
+            break;
+    }
+    
+    //Aplicamos sobre el fondo tutorfondo la mascara creada
+    tutofondo.mask = new Phaser.Display.Masks.GeometryMask(scene, maskMarte);   //enmascaramos
+    tutofondo.mask.setInvertAlpha (true);   //invertimos alpha para mostrar todo menos area indicada
+
+}
+
+function moverMascara(mask,scene) //x fposX, y = fposYcmask o smask
+{
+    scene.tweens.add({
+        targets: mask,
+        scaleX: 1.2,
+        scaleY: 1.2,
+        delay: 100,
+        duration: 1000,
+        ease: 'Expo.easeInOut',
+        repeat: -1,
+        yoyo: true,
+        //delay:delay,
+        //onComplete: this.EnterOnMachine.bind(this)
+    });
+}
+
+
+
