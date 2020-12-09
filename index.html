@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- FONT LOADER-->
+    <!-- FONT LOADER   : fuente: https://stackoverflow.com/questions/51217147/how-to-use-a-local-font-in-phaser-3-->
     <style media='screen' type='text/css'>
         @font-face {
           font-family: textFont;
@@ -12,15 +12,15 @@
           font-weight:400;
           font-weight:normal;
         }
-    </style>
-    <style media='screen' type='text/css'>
         @font-face {
           font-family: menuFont;
-          src: url('Resources/Fuentes/BradBunR.ttf');
+          src: url('Resources/Fuentes/Digitalt.ttf');
           font-weight:400;
           font-weight:normal;
         }
     </style>
+    <!--https://www.dafont.com/es/digitalt.font?text=JUGAR+OPCIONES+Creditos&l[]=10&back=theme-->
+    <!--https://www.dafont.com/es/spaceport-2006.font?text=Jugar+Opciones+Creditos-->
     <!-- fin font loader-->
     <style>
         body {
@@ -31,11 +31,13 @@
     </style>
 </head>
 <body>
-    <div id="container"></div>
     <!-- FONT LOADER-->
     <div style="font-family:menuFont; position:absolute; left:-1000px; visibility:hidden;">.</div>
     <div style="font-family:textFont; position:absolute; left:-1000px; visibility:hidden;">.</div>
     <!-- -->
+    
+    <div id="container"></div>
+    
     <script src="./node_modules/phaser/dist/phaser.js"></script>
     <script src="./src/SceneGameEnd.js"></script>
     <script src="./src/SceneGame.js"></script>
