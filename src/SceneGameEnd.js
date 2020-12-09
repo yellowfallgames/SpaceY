@@ -39,3 +39,21 @@ class SceneGameEnd extends Phaser.Scene {
         this.scene.start("SceneMenu");
     }
 }
+function GlowMe(scene,target,fadeOut){
+    this.tweens.addCounter({
+        targets: target,
+        from: 255,
+        to: 0,
+        duration: 1000,
+        duration: fadeOut,
+        ease: 'Expo.easeInOut',
+        yoyo: true,
+        onUpdate: function (tween)
+        {
+            var value = Math.floor(tween.getValue());
+
+            image.setTint(Phaser.Display.Color.GetColor(value, value, value));
+        }
+    });
+    
+}

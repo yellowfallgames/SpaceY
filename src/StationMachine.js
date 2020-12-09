@@ -128,7 +128,7 @@ class StationMachine extends Machine {
 
     GoRepair(delta, n) {
 
-        if (key_repair.isDown && this.wear < this.maxWear) {
+        if (this.key_repair.isDown && this.wear < this.maxWear) {
             var spd;
             if (n === 0.5) {
 
@@ -140,7 +140,7 @@ class StationMachine extends Machine {
             }
             //Reparación rota
             //Si no tienes materiales, reparación lenta
-            if (indMat.size < this.repairCost*0.5) {
+            if (this.indMat.size < this.repairCost*0.5) {
 
                 this.repairBar.SetColor(repairBar_color2);
                 spd /= 6;
