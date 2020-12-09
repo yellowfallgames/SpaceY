@@ -293,7 +293,7 @@ class SceneGame extends Phaser.Scene {
         
  
         //Indicadores recursos
-        indTerra = new ResourceIndicator(this, 401, 787, 3, 0, 1);
+        indTerra = new ResourceIndicator(this, 401, 787, 3, nTerraformacion, MAX_TERRAFORMACION);
         indHam = new ResourceIndicator(this, 109, 74, 0, nComida_M, MAX_COMIDA);
         indRocas = new ResourceIndicator(this, 109, 166, 1, nRocas_M, MAX_ROCAS);
         indMat = new ResourceIndicator(this, 109, 256, 2, nMaterial_M, MAX_MATERIAL);

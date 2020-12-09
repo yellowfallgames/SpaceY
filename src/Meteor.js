@@ -1,7 +1,7 @@
 class Meteor {
     constructor(scene, delay){
         //super(scene, 0, 0, "payloads", 0);
-        this.rotation = 0;//Phaser.Math.Linear(0, Math.PI*2, Phaser.Math.Between(0,100)/100.0);
+        this.rotation = Phaser.Math.Linear(0, Math.PI*2, Phaser.Math.Between(0,100)/100.0);
 
         this.obj = scene.add.image(marte.x, marte.y, "Meteorito")
         this.obj.depth = 1;
