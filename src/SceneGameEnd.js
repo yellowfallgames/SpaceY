@@ -37,6 +37,7 @@ class SceneGameEnd extends Phaser.Scene {
 
         this.scene.stop("SceneGame");
         this.scene.start("SceneMenu");
+        soundtrack.pistas[0].play();
     }
 }
 function GlowMe(scene,target,fadeOut){
