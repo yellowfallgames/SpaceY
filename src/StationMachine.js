@@ -15,21 +15,11 @@ class StationMachine extends Machine {
 
     update(delta){
 
-        if (this.isBroken) {
+        //Sprite cohete
+        /*if (this.isBroken) {
 
             objCohete.obj.setTexture(this.textureBreak);
-        }
-        else {
-
-            objCohete.obj.setTexture(this.textureNormal);
-            if (!this.obj.anims.isPlaying) {
-
-                this.obj.anims.play("movimientoCohete");
-                
-            }
-                
-        }   
-        
+        }*/
         
         if (this.location === 0 && !this.isSending && !this.isBroken) {
 
@@ -63,9 +53,10 @@ class StationMachine extends Machine {
 
                         if (key_interact.isDown) {
 
+                            objCohete.obj.anims.play("movimientoCohete");
+
                             //Despege de marte
                             sfx.sounds[11].play();
-                            //Enviar a la Tierra (...)
                             objCoheteMat.n = 0;
                             objCoheteMat.Update();
                             this.isSending = true;

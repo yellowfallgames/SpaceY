@@ -18,7 +18,7 @@ class SceneBoot extends Phaser.Scene {
         
         this.load.spritesheet('componentes', directory+'componente test.png', { frameWidth: 93, frameHeight: 46 });
         this.load.spritesheet('stelonauta_idle', directory+'spritesheet_idle_repintado.png', { frameWidth: 361, frameHeight: 361 });
-        this.load.spritesheet('stelonauta_run', directory+'spritesheet_run_repintado.png', { frameWidth: 361, frameHeight: 361 });
+        this.load.spritesheet('stelonauta_run', directory+'spritesheet_run_repintado.png', { frameWidth: 361, frameHeight: 413 });
         
         //UI MARTE
         this.load.image("fondoMarte", directory+"ui_M_bck.png" );
@@ -179,7 +179,7 @@ class SceneBoot extends Phaser.Scene {
 
         soundtrack.pistas[0].play();
 
-        console.log("Acabé");
+        //console.log("Acabé");
         this.scene.stop('SceneBoot');
     }
 }

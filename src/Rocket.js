@@ -10,8 +10,6 @@ class Rocket {
 
         this.comLoad = 0;
         this.matLoad = 0;
-
-        this.obj.anims.play("movimientoCohete");
     }
 
     TakeOff(delta) {
@@ -43,6 +41,8 @@ class Rocket {
             estacionTransporte.isComing = false;
             estacionTransporte.location = 0;
             estacionTransporte.loadOfEarth = true;
+
+            this.obj.anims.play("movimientoCoheteReverse");
         }
     }
 
