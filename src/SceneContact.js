@@ -7,7 +7,8 @@ class SceneContact extends Phaser.Scene {
 
     create() {
         
-        this.bckContact =  this.add.image(game.config.width/2, game.config.height/2,"tablon");
+        this.bckContact =  this.add.image(game.config.width/2, game.config.height+1000,"tablon");
+        this.easeMe(this.bckContact, this, 1);
 
         this.JacquesButton = this.add.text(game.config.width/2, game.config.height+300, 'Jacques David Meyns Villaldea', { fill: '#000000',fontFamily:'textFont',fontSize:'100'})
         .setInteractive()
@@ -15,7 +16,7 @@ class SceneContact extends Phaser.Scene {
         .on('pointerover', () => this.enterButtonHoverState(this.JacquesButton) )
         .on('pointerout', () => this.enterButtonRestState(this.JacquesButton) );
         this.JacquesButton.setOrigin(0.5);
-        this.easeMe(this.JacquesButton, this, 1);
+        this.easeMe(this.JacquesButton, this, 2);
 
         this.SofiButton = this.add.text(game.config.width/2, game.config.height+300, 'Sofía de Vega Gimenez',  { fill: '#000000',fontFamily:'textFont',fontSize:'500'})
         .setInteractive()
@@ -23,7 +24,7 @@ class SceneContact extends Phaser.Scene {
         .on('pointerover', () => this.enterButtonHoverState(this.SofiButton) )
         .on('pointerout', () => this.enterButtonRestState(this.SofiButton) );
         this.SofiButton.setOrigin(0.5);
-        this.easeMe(this.SofiButton, this, 2);
+        this.easeMe(this.SofiButton, this, 3);
 
         this.PepeButton = this.add.text(game.config.width/2, game.config.height+300, 'Jose Ignacio Pintado Murillo',  { fill: '#000000',fontFamily:'textFont',fontSize:'500'})
         .setInteractive()
@@ -31,7 +32,7 @@ class SceneContact extends Phaser.Scene {
         .on('pointerover', () => this.enterButtonHoverState(this.PepeButton) )
         .on('pointerout', () => this.enterButtonRestState(this.PepeButton) );
         this.PepeButton.setOrigin(0.5);
-        this.easeMe(this.PepeButton, this, 3);
+        this.easeMe(this.PepeButton, this, 4);
 
         this.ManuButton = this.add.text(game.config.width/2 , game.config.height+300, 'Manuel Mantecón Polo',  { fill: '#000000',fontFamily:'textFont',fontSize:'500'})
         .setInteractive()
@@ -39,7 +40,7 @@ class SceneContact extends Phaser.Scene {
         .on('pointerover', () => this.enterButtonHoverState(this.ManuButton) )
         .on('pointerout', () => this.enterButtonRestState(this.ManuButton) );
         this.ManuButton.setOrigin(0.5);
-        this.easeMe(this.ManuButton, this, 4);
+        this.easeMe(this.ManuButton, this, 5);
 
         this.backButton = this.add.text(game.config.width/2, game.config.height+300, 'Atrás',  { fill: '#000000',fontFamily:'textFont',fontSize:'500'})
         .setInteractive()
@@ -47,7 +48,7 @@ class SceneContact extends Phaser.Scene {
         .on('pointerover', () => this.enterButtonHoverState(this.backButton) )
         .on('pointerout', () => this.enterButtonRestState(this.backButton) );
         this.backButton.setOrigin(0.5);
-        this.easeMe(this.backButton, this, 5);
+        this.easeMe(this.backButton, this, 6);
 
     }
 
@@ -108,11 +109,20 @@ openExternalLink (name)
         var endY;
         switch (nOp)
         {
-            case 1: endX = game.config.width / 2; endY = (game.config.height/8)*2; break;
-            case 2: endX = game.config.width / 2; endY = (game.config.height/8)*3; break;
-            case 3: endX = game.config.width / 2; endY = (game.config.height/8)*4; break;
-            case 4: endX = game.config.width / 2; endY = (game.config.height/8)*5; break;
-            case 5: endX = game.config.width / 2; endY = (game.config.height/8)*6; break;
+            case 1: endX = game.config.width/2; endY = game.config.height/2;
+            scene.tweens.add({
+                targets: boton,
+                scaleX: 1.2,
+                scaleY: 1.2,
+                duration: 200,
+                ease: 'Expo.easeIn',
+                yoyo: true,
+            }); break;
+            case 2: endX = game.config.width / 2; endY = (game.config.height/8)*2; break;
+            case 3: endX = game.config.width / 2; endY = (game.config.height/8)*3; break;
+            case 4: endX = game.config.width / 2; endY = (game.config.height/8)*4; break;
+            case 5: endX = game.config.width / 2; endY = (game.config.height/8)*5; break;
+            case 6: endX = game.config.width / 2; endY = (game.config.height/8)*6; break;
             default: break;
         }
         scene.tweens.add({
