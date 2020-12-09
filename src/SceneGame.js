@@ -181,6 +181,7 @@ class SceneGame extends Phaser.Scene {
         this.load.image("fondoTierra", directory+"ui_T_bck.png" );
         this.load.image("lanzadera", directory+"ui_T_Lanzadera.png" );
         this.load.image("lanzaderaPuerta", directory+"ui_T_Lanzadera_door.png" );
+        this.load.image("lanzaderaPuertaRecursos", directory+"ui_T_Lanzadera_door_2.png" );
         this.load.image("lanzaderaCountdown", directory+"ui_T_countdown.png" );
         this.load.spritesheet("payloads", directory+"ui_T_payloads.png", { frameWidth: 52, frameHeight: 37 });
         this.load.image("paqueteriaBase", directory+"ui_T_Paqueteria_contadores.png" );
