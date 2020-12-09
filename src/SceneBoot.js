@@ -1,4 +1,5 @@
 var sfx = undefined;
+var soundtrack = undefined;
 
 class SceneBoot extends Phaser.Scene {
 
@@ -127,7 +128,7 @@ class SceneBoot extends Phaser.Scene {
     create() {
         sfx = {
             loop: true,
-            volume: 1,
+            volume: 0.5,
             sounds: [
                         this.sound.add('SfxClick'),     //[0]
                         this.sound.add('SfxHover'),
@@ -160,6 +161,23 @@ class SceneBoot extends Phaser.Scene {
         sfx.sounds[12].volume = 0.3;
         sfx.sounds[2].volume = 0;
         sfx.sounds[8].volume = 0;
+
+        soundtrack = {
+            volume: 0.5,
+            pistas: [
+                        this.sound.add('MusicMenu'),
+                        this.sound.add('MusicIngame'),
+                        this.sound.add('MusicTutorial'),
+                        this.sound.add('apolo11Ambient')
+            ]
+        };
+
+        soundtrack.pistas.forEach(element =>{
+            element.loop = true;
+            element.volume = soundtrack.volume;
+        });
+
+        soundtrack.pistas[0].play();
 
         console.log("Acabé");
         this.scene.stop('SceneBoot');
