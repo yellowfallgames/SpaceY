@@ -244,19 +244,15 @@ class SceneTutorial extends Phaser.Scene {
         tutorialEnded = false;  //utorial acabado
         currentLine = 0;
         //Musica
+        /*
         let volumen;
         if(musica!=undefined){
             musica.stop();
             volumen = musica.volume;
         }
-        musica[0] = this.sound.add('MusicIngame');
-        musica[0].loop = true;
-        musica[0].volume = volumen;
-        musica[0].play();
-        musica[1] = this.sound.add('apolo11Ambient');
-        musica[1].loop = true;
-        musica[1].volume = 0.2;
-        musica[1].play();
+        */
+
+        soundtrack.pistas[2].play();
 
 
 
@@ -504,8 +500,7 @@ function endTutorial(scene,textM, textT,fadeOut)
     sfx.sounds.forEach(element => {
         element.stop();
     });
-    musica[0].stop();
-    musica[1].stop();
+    
 
     textM.destroy();
     textT.destroy();
@@ -517,7 +512,7 @@ function endTutorial(scene,textM, textT,fadeOut)
         alpha:1,
         duration: fadeOut,
         ease: 'Expo.easeInOut',
-        onComplete: scene.time.addEvent({ delay: fadeOut, callback: function(){scene.scene.start('SceneMenu')}, callbackScope: this})
+        onComplete: scene.time.addEvent({ delay: fadeOut, callback: function(){scene.scene.start('SceneMenu'); soundtrack.pistas[2].stop();soundtrack.pistas[0].play();}, callbackScope: this})
     });
 }
 function CrearMascara(scene,posXM,posYM,tipoM, posXT,posYT,tipoT){
