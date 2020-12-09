@@ -18,13 +18,13 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 		// ui_T_control_pass
         this.controlPass = scene.add.image(1447, 829, "controlPass").setDepth(2);
         // ui_T_Paqueteria_contadores
-        this.paqBase = scene.add.image(1219, 674, "paqueteriaBase").setDepth(2);
+        this.paqBase = scene.add.image(1219, 594, "paqueteriaBase").setDepth(2);
         // ui_T_Paqueteria_contadores_tubo
         this.paqBaseTubo = scene.add.image(1239, 775, "paqueteriaBaseTubo").setDepth(2);//Tubo 2
         // ui_T_DDR2
         this.ddrBaseTubo = scene.add.image(980, 793, "ddrBaseTubo").setDepth(4);/////tubo 1
         // ui_T_DDR1
-        this.ddrBase = scene.add.image(1058, 793, "ddrBase").setDepth(2);
+        this.ddrBase = scene.add.image(1110, 805, "ddrBase").setDepth(3);
         // ui_T_countdown
 		this.lanzCtdn = scene.add.image(956, 210, "lanzaderaCountdown").setDepth(2);////
 		// ui_T_Lanzadera_door
@@ -47,7 +47,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         //Botón para descargar rocas
         this.countLanz = 0;
-        this.unloadRocketBtn = scene.add.image(870, 665, "lanzaderaPuerta").setDepth(4)
+        this.unloadRocketBtn = scene.add.image(860, 665, "lanzaderaPuerta").setDepth(4)
         .setInteractive()
         .on('pointerdown', () =>  this.tweenLanzPuertaIn())//this.Unload(this.unloadRocketBtn)
         .on('pointerup', () => this.Highlight(this.unloadRocketBtn, true) )
@@ -57,7 +57,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         //Botones para transformar
         this.nObj = 0;
-        this.ddrBtnComida = scene.add.image(1078, 836, "ddrBotonComida")
+        this.ddrBtnComida = scene.add.image(1066, 832, "ddrBotonComida")
         .setInteractive()
         .on('pointerdown', () => this.StartTransform(1) )
         .on('pointerup', () => this.Highlight(this.ddrBtnComida, true) )
@@ -65,7 +65,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         .on('pointerout', () => this.Highlight(this.ddrBtnComida, false) );
         this.ddrBtnComida.depth = 4;
 
-        this.ddrBtnMat = scene.add.image(1117, 836, "ddrBotonMat").setDepth(2)
+        this.ddrBtnMat = scene.add.image(1105, 832, "ddrBotonMat").setDepth(2)
         .setInteractive()
         .on('pointerdown', () => this.StartTransform(0) )
         .on('pointerup', () => this.Highlight(this.ddrBtnMat, true) )
@@ -75,14 +75,14 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         
         //Botones para añadir elementos al envío
-        this.paqBtnComida = scene.add.image(1167, 581, "paqueteriaBotonComida").setDepth(2)
+        this.paqBtnComida = scene.add.image(1270, 575, "paqueteriaBotonComida").setDepth(2)
         .setInteractive()
         .on('pointerdown', () => this.PutOn(1, this.paqBtnComida))
         .on('pointerup', () => this.Highlight(this.paqBtnComida, true) )
         .on('pointerover', () => this.Highlight(this.paqBtnComida, true) )
         .on('pointerout', () => this.Highlight(this.paqBtnComida, false) );
 
-        this.paqBtnMat = scene.add.image(1220, 581, "paqueteriaBotonMat").setDepth(2)
+        this.paqBtnMat = scene.add.image(1270, 515, "paqueteriaBotonMat").setDepth(2)
         .setInteractive()
         .on('pointerdown', () => this.PutOn(0, this.paqBtnMat))
         .on('pointerup', () => this.Highlight(this.paqBtnMat, true) )
@@ -90,7 +90,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         .on('pointerout', () => this.Highlight(this.paqBtnMat, false) );
 
         //Botón para enviar
-        this.paqBtnEnv = scene.add.image(1220, 645, "paqueteriaBotonEnviar").setDepth(2)
+        this.paqBtnEnv = scene.add.image(1220, 640, "paqueteriaBotonEnviar").setDepth(2)
         .setInteractive()
         .on('pointerdown', () => this.Send(this.paqBtnEnv) )
         .on('pointerup', () => this.Highlight(this.paqBtnEnv, true) )
@@ -101,24 +101,27 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.counterRoc = 0;
         this.counterCom = 8;
         this.counterMat = 0;
-
-        this.txtCounterRoc = scene.add.text(this.ddrBtnComida.x+78, this.ddrBtnComida.y+1, this.counterRoc,{
+        //DDR
+        this.txtCounterRoc = scene.add.text(this.ddrBtnComida.x+85, this.ddrBtnComida.y, this.counterRoc,{
             fontSize:'35px',
             fill:'#ffffff',
         }).setOrigin(0.5);
         this.txtCounterRoc.depth = 3;
 
-        this.txtCounterCom = scene.add.text(this.paqBtnComida.x, this.paqBtnComida.y-57, this.counterCom,{
+        //PAQUETERIA
+        this.txtCounterMat = scene.add.text(1170, 515, this.counterMat,{
+            fontSize:'35px',
+            fill:'#ffffff',
+        }).setOrigin(0.5);
+        this.txtCounterMat.depth = 3;
+
+        this.txtCounterCom = scene.add.text(1170, 575, this.counterCom,{
             fontSize:'35px',
             fill:'#ffffff',
         }).setOrigin(0.5);
         this.txtCounterCom.depth = 3;
 
-        this.txtCounterMat = scene.add.text(this.paqBtnMat.x, this.paqBtnMat.y-57, this.counterMat,{
-            fontSize:'35px',
-            fill:'#ffffff',
-        }).setOrigin(0.5);
-        this.txtCounterMat.depth = 3;
+       
 
         //Flechas pantalla trasnformaciones
         this.ddrFlechas = new Array(3);
