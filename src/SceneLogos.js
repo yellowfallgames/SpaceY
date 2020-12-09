@@ -85,6 +85,20 @@ class SceneLogos extends Phaser.Scene {
         this.load.image("mina", directory+"mina.png" );
         this.load.image("terraformador", directory+"terraformador.png" );
 
+        this.load.image("rocketRoto", directory+"cohete_roto.png" );
+        this.load.image("rocketPolvo", directory+"cohete_polvo.png" );
+        this.load.image("antenaRoto", directory+"antena_rota.png" );
+        this.load.image("antenaPolvo", directory+"antena_polvo.png" );
+        this.load.image("minaRoto", directory+"mina_rota.png" );
+        this.load.image("minaPolvo", directory+"mina_polvo.png" );
+        this.load.image("terraformadorRoto", directory+"terraformador_roto.png" );
+        this.load.image("terraformadorPolvo", directory+"terraformador_polvo.png" );
+        //this.load.spritesheet("movimientoCohete", directory+"movimiento_cohete.png", { frameWidth: 44, frameHeight: 29 });
+        this.load.spritesheet("movimientoAntena", directory+"movimiento_antena.png", { frameWidth: 598.9, frameHeight: 630 });
+        this.load.spritesheet("movimientoTerraformador", directory+"movimiento_terraformador.png", { frameWidth: 943, frameHeight: 669 });
+        this.load.spritesheet("movimientoMina", directory+"movimiento_mina.png", { frameWidth: 732, frameHeight: 583 });
+        
+
         //MUSICA
         this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
         this.load.audio('MusicIngame', ['./Resources/Audio/Music/Pioneers meets Space.ogg']);
