@@ -536,8 +536,8 @@ class SceneTutorial extends Phaser.Scene {
             
             tutotextMarte.destroy();
             tutotextTierra.destroy();
-            tutotextMarte = this.add.text (posTuto.marte[tutoPosIndex].x,posTuto.marte[tutoPosIndex].y,textMarte[currentLine]).setDepth(10);
-            tutotextTierra = this.add.text (posTuto.tierra[tutoPosIndex].x,posTuto.tierra[tutoPosIndex].y,textTierra[currentLine]).setDepth(10)
+            tutotextMarte = this.add.text (posTuto.marte[tutoPosIndex].x,posTuto.marte[tutoPosIndex].y,textMarte[currentLine],{ fill: '#0f0',fontFamily:'textFont'}).setDepth(10);
+            tutotextTierra = this.add.text (posTuto.tierra[tutoPosIndex].x,posTuto.tierra[tutoPosIndex].y,textTierra[currentLine],{ fill: '#0f0',fontFamily:'textFont'}).setDepth(10)
             
             //Aqui indicamos que tipo de máscara se va a usar y en que punto
             CrearMascara(this,
