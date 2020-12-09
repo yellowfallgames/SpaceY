@@ -22,12 +22,6 @@ class SceneLogos extends Phaser.Scene {
 
     create() {
 
-        //
-        /*musica = this.sound.add('MusicMenu');
-        musica.volume = 0.5;
-        musica.loop = true;
-        musica.play();
-    */
         logo1 = this.add.image(game.config.width/2, game.config.height/2, "logo1");
         logo2 = this.add.image(game.config.width/2, 2*game.config.height/6, "logo2");
         

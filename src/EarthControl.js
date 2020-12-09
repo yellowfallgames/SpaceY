@@ -40,7 +40,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.maxSize = maxSize;
         this.size = 0;
 
-        this.rocket = scene.add.image(957, -400, "movimientoCohete", 7).setScale(1.3).setDepth(2);
+        this.rocket = scene.add.sprite(957, -400, "movimientoCohete", 7).setScale(1.3).setDepth(2);
         this.rocketY = 400;
         this.goTakeOff = false;
         this.typeOfLoad = 0; //0->Roca, 1->Comida/material
@@ -100,7 +100,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         .on('pointerout', () => this.Highlight(this.paqBtnEnv, false) );
 
         //Contadores de recursos
-        this.counterRoc = 0;
+        this.counterRoc = 10;
         this.counterCom = 8;
         this.counterMat = 0;
         //DDR
@@ -142,9 +142,10 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         
 
         //Combo flechas
+        this.actualComboFlechas;
         var that = this;
         this.scene.input.keyboard.on('keycombomatch', function (event) {
-                
+
             if (event.size < 4) {
 
                 for (var i=0; i<3; i++) {
@@ -152,7 +153,11 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
                     that.ddrFlechas[i].setVisible(false);
                     that.ddrFlechas[i].setRotation(0);
                 }
+                that.counterRoc--;
+                that.txtCounterRoc.setText(that.counterRoc);
                 that.tweenTube2On(this.nObj);
+
+                that.actualComboFlechas = null;
 
                 //console.log("combo flechas");
             }
@@ -220,11 +225,14 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.nWear = 0;
 
         //Combo números
+        this.actualComboNum;
         this.scene.input.keyboard.on('keycombomatch', function (event) {
             if (event.size > 3) {
 
                 that.TxtComboNums.setVisible(false);
                 that.tweenShowWearIN();
+
+                that.actualComboNum = null;
                 //console.log("Combo numeritos");
             }
                 
@@ -284,6 +292,8 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
             this.rocket.y = this.rocketY;
             this.PushFromMars();
             objCohete.goLand = false;
+
+            this.rocket.anims.play("movimientoCoheteReverse");
         }
     }
 
@@ -356,6 +366,9 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         if (this.counterRoc > 0) {
 
+            if (this.actualComboFlechas != null)
+                this.actualComboFlechas.destroy();
+
             if(n === 1) {
 
                 this.nObj = 0;
@@ -364,10 +377,6 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
                 this.nObj = 1;
             }
-            
-
-            this.counterRoc--;
-            this.txtCounterRoc.setText(this.counterRoc);
 
             var nrand;
             for (var i=0; i<3; i++) {
@@ -402,7 +411,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
                 
             }
 
-            var combo = this.scene.input.keyboard.createCombo(this.combokeys,{resetOnWrongKey: false, deleteOnMatch: true});
+            this.actualComboFlechas = this.scene.input.keyboard.createCombo(this.combokeys,{resetOnWrongKey: false, deleteOnMatch: true});
         }
         
     }
@@ -533,6 +542,9 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         if (!maquinas[2].isBroken) {
 
+            if (this.actualComboNum != null)
+                this.actualComboNum.destroy();
+
             this.nWear = n;
 
             var nrand;
@@ -560,7 +572,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
             this.TxtComboNums.setText(nums[0] + "" + nums[1] + "" + nums[2] + "" + nums[3]
                 + "" + nums[4] + "" + nums[5] + "" + nums[6] + "" + nums[7]);
 
-            this.scene.input.keyboard.createCombo(this.comboNums,{resetOnWrongKey: false, deleteOnMatch: true});
+            this.actualComboNum = this.scene.input.keyboard.createCombo(this.comboNums,{resetOnWrongKey: false, deleteOnMatch: true});
         }
         
     }

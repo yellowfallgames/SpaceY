@@ -130,9 +130,6 @@ var repairBar_color2 = Phaser.Display.Color.GetColor(225, 164, 13);
 //Recursos Tierra
 
 
-//Musica
-var musica;
-
 var startSfxRun = false;
 /////////////////////
 
@@ -162,24 +159,7 @@ class SceneGame extends Phaser.Scene {
         sfx.sounds[12].volume = 0.3;
         sfx.sounds[2].volume = 0;
         sfx.sounds[8].volume = 0;
-        //*/
-
-        //Musica
-/*        let volumen;
-        if(musica!=undefined){
-            musica.stop();
-            volumen = musica.volume;
-            musica = [];
-        }
-
-        musica[0] = this.sound.add('MusicIngame');
-        musica[0].loop = true;
-        musica[0].volume = volumen;
-        musica[0].play();
-        musica[1] = this.sound.add('apolo11Ambient');
-        musica[1].loop = true;
-        musica[1].volume = musica[1].volume * 0.2;
-        musica[1].play();*/
+        
         soundtrack.pistas[0].stop();
         soundtrack.pistas[1].play();
         soundtrack.pistas[3].play();
@@ -224,8 +204,15 @@ class SceneGame extends Phaser.Scene {
             key: 'movimientoCohete',
             frames: this.anims.generateFrameNumbers('movimientoCohete', { start: 0, end: 8 }),
             frameRate: 15,
-            repeat: -1,
+            repeat: 0,
         });
+        this.anims.create({
+            key: 'movimientoCoheteReverse',
+            frames: this.anims.generateFrameNumbers('movimientoCohete', { start: 8, end: 0 }),
+            frameRate: 15,
+            repeat: 0,
+        });
+        
 
         //MARTE
 		// ui_M_bck
@@ -309,6 +296,8 @@ class SceneGame extends Phaser.Scene {
         key_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
         key_repair = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+
+
         
         //Genera meteoritos cada x ms (TESTING)
         //var timedEvent = this.time.addEvent({ delay: 3000, callback: genMeteors, callbackScope: this, loop: true });
@@ -428,6 +417,8 @@ class SceneGame extends Phaser.Scene {
     
     }
     update(time, delta) {
+
+
         controlTierra.pantallaPlano.rotation+=delta/16000;
         //DEBUG PARTICULAS
         /*if (key_left.isDown) {
@@ -445,6 +436,7 @@ class SceneGame extends Phaser.Scene {
         //Movimiento de Marte
 
         if (key_left.isDown) {
+
             //Rotación de los elementos de Marte
             updateRotations(1, delta);
             //marte.rotation += 1*delta/1500*playerSpeed;
@@ -463,6 +455,7 @@ class SceneGame extends Phaser.Scene {
             //emitterMachines[0].emitParticleAt(emitterMachines[0].posX, emitterMachines[0].posY);
         }
         else if (key_right.isDown) {
+            
             //Rotación de los elementos de Marte
             updateRotations(-1, delta);
             //marte.rotation += -1*delta/1500*playerSpeed;
@@ -548,6 +541,15 @@ class SceneGame extends Phaser.Scene {
 
         //TIERRA
         controlTierra.Update(delta);
+
+        if (key_left.isDown) {
+
+            DefeatCondition(this);
+        }
+        if (key_right.isDown) {
+
+            VictoryCondition(this);
+        }
     }
 
     
@@ -615,17 +617,30 @@ function DestroyOnScene(obj) {
 
 //Acciones condiciones victoria/derrota
 function VictoryCondition(that){
+    sfx.sounds.forEach(element => {
+        element.stop();
+    });
+
     sfx.sounds[4].play();
-    console.log("HAS GANADO!!!");
+
+    soundtrack.pistas[1].stop();
+    soundtrack.pistas[3].stop();
+    
+    that.scene.launch('SceneGameEnd');
+    that.scene.pause('SceneGame');
+    
 }
 
 function DefeatCondition(that){
     sfx.sounds.forEach(element => {
         element.stop();
     });
+
+    sfx.sounds[5].play();
+
     soundtrack.pistas[1].stop();
     soundtrack.pistas[3].stop();
+
     that.scene.launch('SceneGameEnd');
     that.scene.pause('SceneGame');
-    console.log("HAS PERDIDO :c");
 }
