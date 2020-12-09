@@ -13,7 +13,7 @@ class SceneMenu extends Phaser.Scene {
     }
 
 create() {
-    if(musica!=undefined && musica.key!='MusicMenu')
+    if(musica.length > 1 && musica.key!='MusicMenu')
     {
         musica.forEach(element => {
             element.stop();
