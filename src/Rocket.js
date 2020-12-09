@@ -5,7 +5,7 @@ class Rocket {
         this.obj.setOrigin(0.5, 2.5);
         this.obj.setScale(1);
         this.goLand = false;
-
+        this.scene = scene;
         this.val = 0;
 
         this.comLoad = 0;
@@ -33,7 +33,6 @@ class Rocket {
 
         this.val -= delta/2300;
         this.obj.setOrigin(0.5, 2.5+this.val);
-
         if (this.val <= 0) {
 
             this.val = 0;
@@ -52,8 +51,6 @@ class Rocket {
      var dir = 1;
      var loopTime = 10;
      var motion;    //landing - launching
-     xPos = game.config.width/2;
-     yPos = 900; //> 1000
      shake = 2;   //distancia de meneo, numeros bajos plis < 5
     
      if(yPos<0){    //si está lanzandose

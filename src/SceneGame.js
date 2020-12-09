@@ -140,6 +140,9 @@ var music;
 var emitterStorm;
 var emitterMachines = []; // 0 - Cohete || 1 - Radio || 2 - Mina || 3 - Terraformador
 
+//POST ITS
+var postIt;
+
 class SceneGame extends Phaser.Scene {
     
     constructor() {
@@ -282,7 +285,7 @@ class SceneGame extends Phaser.Scene {
         
 
         //Cargamento cohete
-        objCoheteMat = new Bar(this, game.config.width/4 - 70, player.y + 10, nCoheteMat, MAX_COHETEMAT, 0.5, 0.5, coheteMat_color, true);
+        objCoheteMat = new Bar(this, game.config.width/4 - 120, player.y - 100, nCoheteMat, MAX_COHETEMAT, 0.5, 0.5, coheteMat_color, true);
         objCoheteMat.obj.setRotation(-1.57);
 
         //Barra de carga
@@ -394,7 +397,23 @@ class SceneGame extends Phaser.Scene {
             element.setDepth(-1);
         });
 
+        //POST IT
+        /*postIt = this.add.image(game.config.width/2, game.config.height/2, "postIt")
+        .setInteractive()
+        .on('pointerdown', () => this.OpenPostIt())
+        .on('pointerup', () => this.HighlightPostIt(this.postIt, true) )
+        .on('pointerover', () => this.HighlightPostIt(this.postIt, true) )
+        .on('pointerout', () => this.HighlightPostIt(this.postIt, false) );	
+        
+        HighlightPostIt(obj, b) {
 
+            b ? obj.tint = Phaser.Display.Color.GetColor(139, 139, 139) : obj.tint = Phaser.Display.Color.GetColor(255, 255, 255);  
+        }
+        OpenPostIt(obj, b) {
+
+           this.obj  
+        }*/
+        
     //*/
         /*
         this.input.on('pointerDown', function (pointer) {
