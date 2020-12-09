@@ -21,7 +21,7 @@ class SceneBoot extends Phaser.Scene {
         
         this.load.spritesheet('componentes', directory+'componente test.png', { frameWidth: 93, frameHeight: 46 });
         this.load.spritesheet('stelonauta_idle', directory+'spritesheet_idle_repintado.png', { frameWidth: 361, frameHeight: 361 });
-        this.load.spritesheet('stelonauta_run', directory+'spritesheet_run_repintado.png', { frameWidth: 361, frameHeight: 361 });
+        this.load.spritesheet('stelonauta_run', directory+'spritesheet_run_repintado.png', { frameWidth: 361, frameHeight: 413 });
         
         //UI MARTE
         this.load.image("fondoMarte", directory+"ui_M_bck.png" );
@@ -93,6 +93,8 @@ class SceneBoot extends Phaser.Scene {
         this.load.spritesheet("movimientoAntena", directory+"movimiento_antena.png", { frameWidth: 575, frameHeight: 668 });
         this.load.spritesheet("movimientoTerraformador", directory+"movimiento_terraformador.png", { frameWidth: 943, frameHeight: 669 });
         this.load.spritesheet("movimientoMina", directory+"movimiento_mina.png", { frameWidth: 732, frameHeight: 583 });
+
+        this.load.image("pantallaFinal", directory+"ui_T_pantalla_aux.png" );
         
         //TUTORIAL
         this.load.image('tutoBck', directory +'tutorial__bck.jpg');
@@ -185,7 +187,7 @@ class SceneBoot extends Phaser.Scene {
 
         soundtrack.pistas[0].play();
 
-        console.log("Acabé");
+        //console.log("Acabé");
         this.scene.stop('SceneBoot');
     }
 }

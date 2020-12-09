@@ -74,6 +74,9 @@ class Payload extends Phaser.GameObjects.Sprite {
 
     DestroyObj() {
 
+        if (!controlTierra.goTakeOff) {
+            controlTierra.rocket.anims.play("movimientoCohete");
+        }
         controlTierra.goTakeOff = true;
 
         this.destroy();

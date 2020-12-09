@@ -46,7 +46,7 @@ class Machine {//extends Phaser.GameObjects.Sprite {
         this.area = 0.15;
 
         this.maxWear = 100;
-        this.wear = 0;//this.maxWear;
+        this.wear = this.maxWear;
         this.wearPerc = 1;
         var rand = Phaser.Math.Linear(5000, 15000, Phaser.Math.Between(0,100)/100.0);
         this.eventWear = scene.time.addEvent({ delay: rand, callback: this.updateWear, callbackScope: this, loop: true });
@@ -84,6 +84,8 @@ class Machine {//extends Phaser.GameObjects.Sprite {
             this.isBroken = true;
             this.obj.anims.stop();
             this.obj.setTexture(this.textureBreak);
+            if(this.typeMachine === 0)
+                objCohete.obj.setTexture(this.textureBreak);  
             this.eventWear.paused = true;
         }
         else {
@@ -110,6 +112,8 @@ class Machine {//extends Phaser.GameObjects.Sprite {
         this.isBroken = false;
         this.wear = 100;
         this.obj.setTexture(this.textureNormal);
+        if(this.typeMachine === 0)
+            objCohete.obj.setTexture(this.textureNormal);  
         this.eventWear.paused = false;
     }
 }

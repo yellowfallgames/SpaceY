@@ -50,7 +50,7 @@ class CommsMachine extends Machine {
 
     StartEvent() {
 
-        var rand = Phaser.Math.Between(0, 1);
+        var rand = Phaser.Math.Between(1, 1);
         rand === 0 ? this.AlertSandStorm() : this.AlertMeteorRain();  
     }
 
