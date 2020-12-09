@@ -57,3 +57,26 @@ function GlowMe(scene,target,fadeOut){
     });
     
 }
+
+/*
+key_cleanV = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.V);
+key_cleanB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
+
+//PARA EL UPDATE 
+if (Phaser.Input.Keyboard.JustDown (key_cleanV) && maquinasucia)
+    {
+        if (Phaser.Input.Keyboard.JustDown (key_cleanB))
+        {
+            //contador sucio -1
+        }
+
+    }
+    if (Phaser.Input.Keyboard.JustDown (key_cleanB) && maquinasucia)
+    {
+        if (Phaser.Input.Keyboard.JustDown (key_cleanV))
+        {
+            //contador sucio -1
+        }
+    }
+*/
+
