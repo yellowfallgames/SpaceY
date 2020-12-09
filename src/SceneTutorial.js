@@ -189,12 +189,13 @@ var textTierra = [
     '$' //fin tutorial
 ];
 
-var currentLine = 0;
+var currentLine;
 var tutoPosIndex;
 var tutofondo;
 var tutotextMarte;
 var tutotextTierra;
 var maskMarte;
+var tutorialEnded;
 //Recursos Tierra
 
 
@@ -214,100 +215,7 @@ class SceneTutorial extends Phaser.Scene {
     }
 
     preload() {
-        /*
-        //SceneGame//
-        this.load.image("player", directory+"vulp_i1.png");
-        this.load.image("marte", directory+"marte test.png");
-        this.load.image("barra", directory+"barra.png");
         
-        this.load.spritesheet('componentes', directory+'componente test.png', { frameWidth: 93, frameHeight: 46 });
-        this.load.spritesheet('stelonauta_idle', directory+'spritesheet_idle_repintado.png', { frameWidth: 361, frameHeight: 361 });
-        this.load.spritesheet('stelonauta_run', directory+'spritesheet_run_repintado.png', { frameWidth: 361, frameHeight: 361 });
-
-
-        
-        //UI MARTE
-        this.load.image("fondoMarte", directory+"ui_M_bck.png" );
-        this.load.image("nube", directory+"ui_M_nubes.png" );
-        this.load.image("teclaAccion", directory+"ui_M_actionbox.png" );
-        this.load.image("alertaMeteorito", directory+"ui_M_meteorito.png" );
-        this.load.image("Meteorito", directory+"meteorito.png");
-        this.load.image("terraformLevel", directory+"ui_M_terrafomlevel.png" );
-        this.load.image("alertaPeligro", directory+"ui_M_dangerArrow.png" );
-        this.load.image("timerSegundos", directory+"ui_M_segundos.png" );
-        this.load.image("timerMinutos", directory+"ui_M_minutos.png" );
-        this.load.image("timeHoras", directory+"ui_M_horas.png" );
-        //this.load.image("indicadorRocas", directory+"ui_M_rocas.png" );
-        //this.load.image("indicadorO2", directory+"ui_M_o2.png" );
-        //this.load.image("indicadorMateriales", directory+"ui_M_materiales.png" );
-        //this.load.image("indicadorHambre", directory+"ui_M_hambre.png" );
-        this.load.spritesheet("indicadores", directory+"M_indicators.png", { frameWidth: 145, frameHeight: 145 });
-        this.load.image("flechasAmarillas", directory+"FlechasAmarillas.png" );
-        
-        //UI TIERRA
-        this.load.image("fondoTierra", directory+"ui_T_bck.png" );
-        this.load.image("lanzadera", directory+"ui_T_Lanzadera.png" );
-        this.load.image("lanzaderaPuerta", directory+"ui_T_Lanzadera_door.png" );
-        this.load.image("lanzaderaCountdown", directory+"ui_T_countdown.png" );
-
-        this.load.spritesheet("payloads", directory+"ui_T_payloads.png", { frameWidth: 44, frameHeight: 29 });
-        this.load.image("paqueteriaBase", directory+"ui_T_Paqueteria_contadores.png" );
-        this.load.image("paqueteriaBaseTubo", directory+"ui_T_Paqueteria_contadores_tubo.png" );
-        this.load.image("paqueteriaBotonComida", directory+"ui_T_Paqueteria_comida.png" );
-        this.load.image("paqueteriaBotonO2", directory+"ui_T_Paqueteria_o2.png" );
-        this.load.image("paqueteriaBotonMat", directory+"ui_T_Paqueteria_materiales.png" );
-        this.load.image("paqueteriaBotonEnviar", directory+"ui_T_Paqueteria_enviar.png" );
-        this.load.image("paqueteriaPasarela", directory+"ui_T_Paqueteria_pasarela.png" );
-        this.load.image("ddrBaseTubo", directory+"ui_T_DDR1.png" );
-        this.load.image("ddrBase", directory+"ui_T_DDR2.png" );
-        this.load.image("ddrFlecha_0", directory+"ui_T_DDR_arrow.png" );
-        this.load.image("ddrFlecha_1", directory+"ui_T_DDR_arrow.png" );
-        this.load.image("ddrFlecha_2", directory+"ui_T_DDR_arrow.png" );
-        this.load.image("ddrBotonMat", directory+"ui_T_DDR_materiales.png" );
-        this.load.image("ddrBotonO2", directory+"ui_T_DDR_o2.png" );
-        this.load.image("ddrBotonComida", directory+"ui_T_DDR_comida.png" );
-        this.load.image("controlBase", directory+"ui_T_control_pannel.png" );
-        this.load.image("controlKey", directory+"ui_T_control_key.png" );
-        this.load.image("controlPass", directory+"ui_T_control_pass.png" );
-        this.load.image("controlTerr", directory+"ui_T_control_TERR.png" );
-        this.load.image("controlMina", directory+"ui_T_control_MINA.png" );
-        this.load.image("controlRocket", directory+"ui_T_control_ROCKET.png" );
-        this.load.image("controlCom", directory+"ui_T_control_COM.png" );
-        this.load.image("pantalla", directory+"ui_T_pantalla.png" );
-        this.load.image("pantallaMapa", directory+"ui_T_pantalla_plano.png" );
-        this.load.image("rocket", directory+"ui_T_rocket.png" );
-        this.load.image("antena", directory+"antena.png" );
-        this.load.image("mina", directory+"mina.png" );
-        this.load.image("terraformador", directory+"terraformador.png" );
-
-        
-    
-        //MUSICA
-        this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
-        this.load.audio('MusicIngame', ['./Resources/Audio/Music/Pioneers meets Space.ogg']);
-        this.load.audio('MusicTutorial', ['./Resources/Audio/Music/Roboxel - Space Music.ogg']);
-
-        //Ambient noise
-        this.load.audio('SfxTerraformer', ['./Resources/Audio/SFX/Mars/Machines/Terraformer.ogg']);
-        this.load.audio('apolo11Ambient', ['./Resources/Audio/SFX/Common/apolo11Ambient.ogg']);
-
-        //SFX
-        this.load.audio('SfxWalk', ['./Resources/Audio/SFX/Mars/sfx_step_grass.ogg']);
-        this.load.audio('SfxArrive', ['./Resources/Audio/SFX/Fanfare/arrive.ogg']);
-        this.load.audio('SfxClick', ['./Resources/Audio/SFX/Common/click.ogg']);
-        this.load.audio('SfxHover', ['./Resources/Audio/SFX/Common/hover.ogg']);
-        this.load.audio('SfxLeave', ['./Resources/Audio/SFX/Fanfare/leave.ogg']);
-        this.load.audio('SfxReceive', ['./Resources/Audio/SFX/Fanfare/receive.ogg']);
-        this.load.audio('SfxSend', ['./Resources/Audio/SFX/Fanfare/send.ogg']);
-        this.load.audio('SfxPipe', ['./Resources/Audio/SFX/Earth/pipe.ogg']);
-        this.load.audio('SfxTakeOff', ['./Resources/Audio/SFX/Earth/space_ship.ogg']);
-        this.load.audio('SfxLanding', ['./Resources/Audio/SFX/Mars/landing.ogg']);
-        this.load.audio('SfxMeteorHit', ['./Resources/Audio/SFX/Mars/DeathFlash.ogg']);
-        this.load.audio('SfxAlarm', ['./Resources/Audio/SFX/Mars/DeathFlash.ogg']);
-        //Fanfare
-        this.load.audio('SfxWin', ['./Resources/Audio/SFX/Fanfare/win.ogg']);
-        this.load.audio('SfxLose', ['./Resources/Audio/SFX/Fanfare/lose.ogg']);*/
-        //Array de Posiciones de los artilugios del juego
         posTuto = {
             tierra : [
                 new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //welcome
@@ -333,21 +241,23 @@ class SceneTutorial extends Phaser.Scene {
     }
 
     create() {
-
+        tutorialEnded = false;  //utorial acabado
+        currentLine = 0;
         //Musica
         let volumen;
         if(musica!=undefined){
             musica.stop();
             volumen = musica.volume;
         }
-        musica = this.sound.add('MusicIngame');
-        musica.loop = true;
-        musica.volume = volumen;
-        musica.play();
-        musica = this.sound.add('apolo11Ambient');
-        musica.loop = true;
-        musica.volume = volumen;
-        musica.play();
+        musica[0] = this.sound.add('MusicIngame');
+        musica[0].loop = true;
+        musica[0].volume = volumen;
+        musica[0].play();
+        musica[1] = this.sound.add('apolo11Ambient');
+        musica[1].loop = true;
+        musica[1].volume = 0.2;
+        musica[1].play();
+
 
 
         //MARTE
@@ -377,29 +287,6 @@ class SceneTutorial extends Phaser.Scene {
         for(var i=0; i<N_NUBES; i++) {
 
             nubes[i] = new Cloud(this);
-            /*var nrand = Phaser.Math.Between(0,0);
-            switch(nrand) {
-                
-                //NUBE 1
-                case 0:
-                    nubes[i] = this.add.image(marte.x, marte.y, "nube");
-                    var orig = Phaser.Math.Linear(6, 8, Phaser.Math.Between(0,100)/100.0);
-                    nubes[i].setOrigin(0.5, orig);
-                    nubes[i].rotation = Phaser.Math.Linear(0, 2*Math.PI, Phaser.Math.Between(0,100)/100.0); 
-                break;
-                //NUBE 2
-                case 1:
-                    nubes[i] = this.add.image(marte.x, marte.y, "nube");
-                    nubes[i].setOrigin(0.5,7);
-                    nubes[i].rotation = Phaser.Math.Between(-3.13,3.13);
-                break;
-                //NUBE 3
-                case 2:
-                    nubes[i] = this.add.image(marte.x, marte.y, "nube");
-                    nubes[i].setOrigin(0.5, 8);
-                    nubes[i].rotation = Phaser.Math.Between(-3.13,3.13);
-                break;
-            }*/
             
         }
 
@@ -487,34 +374,39 @@ class SceneTutorial extends Phaser.Scene {
         //          UPDATE TUTORIAL
         //*********************************** */
         if (Phaser.Input.Keyboard.JustDown (key_skipTutorial)) {
-            //Pasa una linea en ambas partes del tutorial y actualiza la posicion de las mascaras
-            currentLine ++;
-            if(textMarte[currentLine] == '#' || textTierra[currentLine] == '#')
+            if(!tutorialEnded)
             {
-                tutoPosIndex++;//avanzamos en la siguiente posicion de marte
-                currentLine ++; //avanzamos en lineas de tutorial
-            }
-            
-            tutotextMarte.destroy();
-            tutotextTierra.destroy();
-            tutotextMarte = this.add.text (posTuto.marte[tutoPosIndex].x,posTuto.marte[tutoPosIndex].y,textMarte[currentLine],{ fill: '#0f0',fontFamily:'textFont'}).setDepth(10);
-            tutotextTierra = this.add.text (posTuto.tierra[tutoPosIndex].x,posTuto.tierra[tutoPosIndex].y,textTierra[currentLine],{ fill: '#0f0',fontFamily:'textFont'}).setDepth(10)
-            
-            //Aqui indicamos que tipo de máscara se va a usar y en que punto
-            CrearMascara(this,
-                posTuto.marte[tutoPosIndex].x,
-                posTuto.marte[tutoPosIndex].y,
-                'c',
+                //Pasa una linea en ambas partes del tutorial y actualiza la posicion de las mascaras
+                currentLine ++;
+                if(textMarte[currentLine] == '#' || textTierra[currentLine] == '#')
+                {
+                    tutoPosIndex++;//avanzamos en la siguiente posicion de marte
+                    currentLine ++; //avanzamos en lineas de tutorial
+                }
+                
+                tutotextMarte.destroy();
+                tutotextTierra.destroy();
+                tutotextMarte = this.add.text (posTuto.marte[tutoPosIndex].x,posTuto.marte[tutoPosIndex].y,textMarte[currentLine],{ fill: '#0f0',fontFamily:'textFont'}).setDepth(10);
+                tutotextTierra = this.add.text (posTuto.tierra[tutoPosIndex].x,posTuto.tierra[tutoPosIndex].y,textTierra[currentLine],{ fill: '#0f0',fontFamily:'textFont'}).setDepth(10)
+                
+                //Aqui indicamos que tipo de máscara se va a usar y en que punto
+                CrearMascara(this,
+                    posTuto.marte[tutoPosIndex].x,
+                    posTuto.marte[tutoPosIndex].y,
+                    'c',
 
-                posTuto.tierra[tutoPosIndex].x,
-                posTuto.tierra[tutoPosIndex].y,
-                's');
-            // TWEENING de la máscara
-            moverMascara(tutofondo.mask,this);
-            if(textMarte[currentLine] == '$' || textTierra[currentLine] == '$')
-            {
-                endTutorial(this,tutotextMarte,tutotextTierra,2000); //escena, texto 1, texto 2, t fade
+                    posTuto.tierra[tutoPosIndex].x,
+                    posTuto.tierra[tutoPosIndex].y,
+                    's');
+                // TWEENING de la máscara
+                moverMascara(tutofondo.mask,this);
+                if(textMarte[currentLine] == '$' || textTierra[currentLine] == '$')
+                {
+                    endTutorial(this,tutotextMarte,tutotextTierra,2000); //escena, texto 1, texto 2, t fade
+                    tutorialEnded = true;
+                }
             }
+            
             
         }
 
@@ -609,6 +501,12 @@ function initTutorial(scene){
 }
 function endTutorial(scene,textM, textT,fadeOut)
 {
+    sfx.sounds.forEach(element => {
+        element.stop();
+    });
+    musica[0].stop();
+    musica[1].stop();
+
     textM.destroy();
     textT.destroy();
     tutofondo.clearMask();
