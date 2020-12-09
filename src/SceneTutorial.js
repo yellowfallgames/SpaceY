@@ -192,6 +192,8 @@ var textTierra = [
 var currentLine = 0;
 var tutoPosIndex;
 var tutofondo;
+var tutotextMarte;
+var tutotextTierra;
 var maskMarte;
 //Recursos Tierra
 
@@ -695,9 +697,8 @@ function endTutorial(scene,textM, textT,fadeOut)
         alpha:1,
         duration: fadeOut,
         ease: 'Expo.easeInOut',
-        onComplete: scene.time.addEvent({ delay: fadeOut, callback: function(){scene.scene.start('SceneGame')}, callbackScope: this})
+        onComplete: scene.time.addEvent({ delay: fadeOut, callback: function(){scene.scene.start('SceneMenu')}, callbackScope: this})
     });
-
 }
 function CrearMascara(scene,posXM,posYM,tipoM, posXT,posYT,tipoT){
 
@@ -754,43 +755,5 @@ function moverMascara(mask,scene) //x fposX, y = fposYcmask o smask
     });
 }
 
-function Rocketeing (object,scene, xPos, yPos, shake)
-{   
-    var dir = 1;
-    var loopTime = 10;
-    var motion;    //landing - launching
-    
-    if(yPos<0){    //si está lanzandose
-        motion = 'Expo.easeOut';
-       }
-   else{   //si aterriza
-           motion = 'Expo.easeIn'
-       }
-    scene.tweens.add({
-        targets: object,
-        props: {
-            x: { value: 
-                    function () { 
-                    return xPos + (dir*=-1 )*shake;
-                    },
-                ease:'Linear',
-                duration : loopTime, //cuanto mas bajo más potente
-                yoyo: true,    //ida y vuelta
-                repeat:-1,  // que se repita en bucle este ease en x
-                },
 
-            y: { 
-                value: function () { 
-                    return object.y -= yPos; 
-                },
-                ease: motion,
-                duration: yPos  //que el ease en y dure 3s
-                },
-        },
-        duration:100,  //que todo el tween dure 
-        
-        
-    });
-    
-}
 
