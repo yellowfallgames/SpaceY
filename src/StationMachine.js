@@ -140,7 +140,7 @@ class StationMachine extends Machine {
             }
             //Reparación rota
             //Si no tienes materiales, reparación lenta
-            if (this.indMat.size < this.repairCost*0.5) {
+            if (indMat.size < this.repairCost*0.5) {
 
                 this.repairBar.SetColor(repairBar_color2);
                 spd /= 6;
