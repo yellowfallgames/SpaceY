@@ -1,7 +1,7 @@
 var logo1, logo2;
 var timer; 
 var value;
-var musica = undefined;
+//var musica = undefined;
 var sfx = undefined;
 
 class SceneLogos extends Phaser.Scene {
@@ -17,24 +17,26 @@ class SceneLogos extends Phaser.Scene {
         this.load.image("logo2", directory+"logo.png");
 
         //MUSICA
-        this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
+        //this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
     }
 
     create() {
 
         //
-        musica = this.sound.add('MusicMenu');
+        /*musica = this.sound.add('MusicMenu');
         musica.volume = 0.5;
         musica.loop = true;
         musica.play();
-
+    */
         logo1 = this.add.image(game.config.width/2, game.config.height/2, "logo1");
         logo2 = this.add.image(game.config.width/2, 2*game.config.height/6, "logo2");
+        
 
         timer = this.time.delayedCall(5000, startScene, [this]);
 
         //
         this.scene.launch('SceneBoot');
+        
     }
 
     
