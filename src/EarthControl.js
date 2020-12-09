@@ -47,7 +47,9 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         //Botón para descargar rocas
         this.countLanz = 0;
+      
         this.unloadRocketBtn = scene.add.image(860, 665, "lanzaderaPuerta").setDepth(4)
+
         .setInteractive()
         .on('pointerdown', () =>  this.tweenLanzPuertaIn())//this.Unload(this.unloadRocketBtn)
         .on('pointerup', () => this.Highlight(this.unloadRocketBtn, true) )
@@ -601,7 +603,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.scene.tweens.add({
             targets: this.lanzPuertaOut,
             x: this.lanzPuertaOut.x+220,
-            duration: 500,
+            duration: 700,
             ease: 'Cubic.easeOut',
             repeat: 0,
             yoyo: false,
