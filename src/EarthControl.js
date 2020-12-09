@@ -59,7 +59,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         this.nObj = 0;
         this.ddrBtnComida = scene.add.image(1078, 836, "ddrBotonComida")
         .setInteractive()
-        .on('pointerdown', () => this.StartTransform(0) )
+        .on('pointerdown', () => this.StartTransform(1) )
         .on('pointerup', () => this.Highlight(this.ddrBtnComida, true) )
         .on('pointerover', () => this.Highlight(this.ddrBtnComida, true) )
         .on('pointerout', () => this.Highlight(this.ddrBtnComida, false) );
@@ -67,7 +67,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         this.ddrBtnMat = scene.add.image(1117, 836, "ddrBotonMat").setDepth(2)
         .setInteractive()
-        .on('pointerdown', () => this.StartTransform(1) )
+        .on('pointerdown', () => this.StartTransform(0) )
         .on('pointerup', () => this.Highlight(this.ddrBtnMat, true) )
         .on('pointerover', () => this.Highlight(this.ddrBtnMat, true) )
         .on('pointerout', () => this.Highlight(this.ddrBtnMat, false) );
@@ -84,7 +84,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         this.paqBtnMat = scene.add.image(1220, 581, "paqueteriaBotonMat").setDepth(2)
         .setInteractive()
-        .on('pointerdown', () => this.PutOn(2, this.paqBtnMat))
+        .on('pointerdown', () => this.PutOn(0, this.paqBtnMat))
         .on('pointerup', () => this.Highlight(this.paqBtnMat, true) )
         .on('pointerover', () => this.Highlight(this.paqBtnMat, true) )
         .on('pointerout', () => this.Highlight(this.paqBtnMat, false) );
@@ -295,7 +295,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         for (var i=0; i < this.maxSize; i++) {
 
-            this.cargaPayloads[i] = new Payload(this.scene, this.payloadsPosX, this.payloadsPosY - (i*35), 0);
+            this.cargaPayloads[i] = new Payload(this.scene, this.payloadsPosX, this.payloadsPosY - (i*35), 2);
         }
         this.typeOfLoad = 0;
         this.size = this.maxSize;
@@ -305,7 +305,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         if (this.counterRoc > 0) {
 
-            if(n === 0) {
+            if(n === 1) {
 
                 this.nObj = 0;
             }
