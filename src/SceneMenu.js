@@ -24,7 +24,7 @@ create() {
 
 
     //ASIGNACION DE METODO
-    this.playButton = this.add.text((game.config.width/8)*3, -100, 'Jugar', { fill: '#0f0'})
+    this.playButton = this.add.text((game.config.width/8)*3, -100, 'Jugar', { fill: '#0f0',fontFamily:'menuFont'})
     .setInteractive()
     .on('pointerdown', () => this.startGame() )
     .on('pointerover', () => this.enterButtonHoverState(this.playButton) )
@@ -32,7 +32,7 @@ create() {
     this.playButton.setOrigin(0.5);
     this.easeMe(this.playButton, this, 1);
 
-    this.tutorialButton = this.add.text((game.config.width/2)*4, -100, 'Tutorial', { fill: '#0f0'})
+    this.tutorialButton = this.add.text((game.config.width/2)*4, -100, 'Tutorial', { fill: '#0f0',fontFamily:'menuFont'})
     .setInteractive()
     .on('pointerdown', () => this.enterTutorial() )
     .on('pointerover', () => this.enterButtonHoverState(this.tutorialButton) )
@@ -40,7 +40,7 @@ create() {
     this.tutorialButton.setOrigin(0.5);
     this.easeMe(this.tutorialButton, this, 2);
 
-    this.optionsButton = this.add.text(-100, (game.config.height/8)*5, 'Opciones', { fill: '#0f0' })
+    this.optionsButton = this.add.text(-100, (game.config.height/8)*5, 'Opciones', { fill: '#0f0',fontFamily:'menuFont' })
     .setInteractive()
     .on('pointerdown', () => this.enterOptions() )
     .on('pointerover', () => this.enterButtonHoverState(this.optionsButton) )
@@ -48,7 +48,7 @@ create() {
     this.optionsButton.setOrigin(0.5);
     this.easeMe(this.optionsButton, this, 3);
     
-    this.contactButton = this.add.text(game.config.width + 100, (game.config.height/8)*6, 'Contacto', { fill: '#0f0' })
+    this.contactButton = this.add.text(game.config.width + 100, (game.config.height/8)*6, 'Contacto', { fill: '#0f0',fontFamily:'menuFont' })
     .setInteractive()
     .on('pointerdown', () => this.enterContact() )
     .on('pointerover', () => this.enterButtonHoverState(this.contactButton) )
