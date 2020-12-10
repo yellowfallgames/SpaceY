@@ -17,6 +17,8 @@ class SceneContact extends Phaser.Scene {
         .on('pointerout', () => this.enterButtonRestState(this.JacquesButton) );
         this.JacquesButton.setOrigin(0.5);
         this.easeMe(this.JacquesButton, this, 2);
+        this.jacks =  this.add.image(game.config.width/2, game.config.height+300,"jacks").setScale(0.1);  //carita jaks
+        this.easeMe(this.jacks, this, 2);
 
         this.SofiButton = this.add.text(game.config.width/2, game.config.height+300, 'Sofia de Vega Gimenez',  { fill: '#000000',fontFamily:'textFont',fontSize:'20px',align:'left'})
         .setInteractive()
@@ -25,6 +27,8 @@ class SceneContact extends Phaser.Scene {
         .on('pointerout', () => this.enterButtonRestState(this.SofiButton) );
         this.SofiButton.setOrigin(0.5);
         this.easeMe(this.SofiButton, this, 3);
+        this.sofi =  this.add.image(game.config.width/2, game.config.height+300,"sofi").setScale(0.1);  //carita sofi
+        this.easeMe(this.sofi, this, 2);
 
         this.PepeButton = this.add.text(game.config.width/2, game.config.height+300, 'Jose Ignacio Pintado Murillo',  { fill: '#000000',fontFamily:'textFont',fontSize:'20px',align:'left'})
         .setInteractive()
@@ -33,6 +37,8 @@ class SceneContact extends Phaser.Scene {
         .on('pointerout', () => this.enterButtonRestState(this.PepeButton) );
         this.PepeButton.setOrigin(0.5);
         this.easeMe(this.PepeButton, this, 4);
+        this.pepe =  this.add.image(game.config.width/2, game.config.height+300,"pepe").setScale(0.1);  //carita pepe
+        this.easeMe(this.pepe, this, 2);
 
         this.ManuButton = this.add.text(game.config.width/2 , game.config.height+300, 'Manuel Mantecon Polo',  { fill: '#000000',fontFamily:'textFont',fontSize:'20px',align:'left'})
         .setInteractive()
@@ -41,6 +47,8 @@ class SceneContact extends Phaser.Scene {
         .on('pointerout', () => this.enterButtonRestState(this.ManuButton) );
         this.ManuButton.setOrigin(0.5);
         this.easeMe(this.ManuButton, this, 5);
+        this.manu =  this.add.image(game.config.width/2, game.config.height+300,"manu").setScale(0.1);  //carita manu
+        this.easeMe(this.manu, this, 2);
 
         this.backButton = this.add.text(game.config.width/2, game.config.height+300, 'Atras',  { fill: '#000000',fontFamily:'textFont',fontSize:'20px',align:'left'})
         .setInteractive()
