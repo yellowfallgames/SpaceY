@@ -15,6 +15,8 @@ class SceneMenu extends Phaser.Scene {
     }
 
 create() {
+    soundtrack.pistas[1].stop();
+    soundtrack.pistas[3].stop();
     
     //FONDOS
     this.bckMenu = this.add.image(game.config.width/2,game.config.height/2,'bckMenu').setScale(0.3);

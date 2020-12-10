@@ -26,18 +26,18 @@ var textMarte = [
     '#',
     'Cohete',
     'Aqui aterriza y despega tu cohete, OBVIO',
-    'Solo podrá despegar si está lleno de ROCAS',
+    'Solo podra despegar si esta lleno de ROCAS',
     'Para lanzarlo pulsa H',
     '#',
     'Mina',
-    'Desplázate usando A y D a tu izquierda',
+    ' ',//'Desplazate usando A y D a tu izquierda',
     'Pulsa H para obtener ROCAS de la mina',
     'Se incrementan aqui',
     '#',
     'Terraformador',
-    'Esta máquina permite la habitabilidad en Marte',
+    'Esta maquina permite la habitabilidad en Marte',
     'Convierte tus ROCAS en energía transformadora',
-    'Conseguid el 100% para completar la misión',
+    'Conseguid el 100% para completar la mision',
     '#',
     'Comunicación',
     'Permite la comunicación con la Tierra',
@@ -45,7 +45,7 @@ var textMarte = [
     'Para reparar cualquier máquina pulsa TECLA',
     '#',
     'Pantalla de misión',
-    'Aquí podrás ver el estado de la terraformación',
+    'Aqui podras ver el estado de la terraformacion',
     'Sólo tu podrás ver si se acercan meteoritos o tormentas',
     'Avisa al Stelonauta para que pueda ponerse a cubierto',
     '#',
@@ -58,7 +58,7 @@ var textTierra = [
     '#',
     'Lanzadera',
     'Aqui aterriza y despega tu cohete, OBVIO',
-    'Solo podrá despegar si no está lleno de recursos o vacio de rocas',
+    'Solo podra despegar si esta lleno de recursos de la tierra',
     'Para vaciarlo pulsa en la compuerta verde inferior',
     '#',
     'Conversor DDR',
@@ -72,13 +72,13 @@ var textTierra = [
     'Cuando el cohete esté lleno podrás enviarlo pulsando aquí',
     '#',
     'Panel de Control',
-    'Al pulsar sobre un botón aparecerá una combinación',
+    'Al pulsar sobre un boton aparecerá una combinacion',
     'Introducirla correctamente permite ver el estado de las máquinas',
     'Comunica esto al Stelonauta para mantener el estado de la misión',
     '#',
     'Pantalla de misión',
-    'Aquí podrás ver el estado de la terraformación',
-    'Sólo tu podrás ver si se acercan meteoritos o tormentas',
+    'Aquí podras ver el estado de la terraformacion',
+    'Sólo tu podras ver si se acercan meteoritos o tormentas',
     'Avisa al Stelonauta para que pueda ponerse a cubierto',
     '#',
     'En caso de duda, CLICK en Post-IT',
@@ -138,14 +138,28 @@ class SceneTutorial extends Phaser.Scene {
             ],
             rotOrden:
             [
-                Phaser.Math.PI*2,  //welcome
-                Phaser.Math.PI*2,  //cohete
-                Phaser.Math.PI,   //mina
-                Phaser.Math.PI/2,  //terraformador
-                Phaser.Math.PI/4,     //comunicacion
+                0,  //welcome
+                0,  //cohete
+                0,
+                0,
+                Math.PI,   //mina
+                0,
+                0,
+                0,
+                -Math.PI/2,  //terraformador
+                0,
+                0,
+                0,
+                Math.PI,     //comunicacion
+                0,
+                0,
+                0,
                 0,  //pantalla de mision
                 0,  //post it
                 0,  //fin tutorial
+                0,
+                0,
+                0,
             ]
         };
     }
@@ -480,7 +494,7 @@ class SceneTutorial extends Phaser.Scene {
         //Inputs
         //Movimiento de Marte
 
-        if (key_left.isDown) {
+        /*if (key_left.isDown) {
 
             //Rotación de los elementos de Marte
             updateRotations(1, delta);
@@ -522,7 +536,7 @@ class SceneTutorial extends Phaser.Scene {
 
             player.anims.play('stelonauta_idle', true);
             
-        }
+        }*/
         //if(maquina[i].isRota == true)
         /*  emitterMachines[0].emitParticleAt(emitterMachines[0].posX, emitterMachines[0].posY);
           emitterMachines[1].emitParticleAt(emitterMachines[1].posX, emitterMachines[1].posY);
@@ -532,14 +546,14 @@ class SceneTutorial extends Phaser.Scene {
         //console.log("Pos X: " + emitterMachines[0].posX + "\nPos Y: " + emitterMachines[0].posY);
         
 
-        if ((key_left.isDown || key_right.isDown) && !startSfxRun) {
+        /*if ((key_left.isDown || key_right.isDown) && !startSfxRun) {
             startSfxRun = true;
             sfx.sounds[3].play();
         }
         if (key_left.isUp && key_right.isUp) {
             startSfxRun = false;
             sfx.sounds[3].stop();
-        }
+        }*/
 
         //Meteoritos
         for(var i=0; i < meteoritos.length; i++) {
@@ -679,7 +693,7 @@ function CrearMascara(scene,posXM,posYM,tipoM, posXT,posYT,tipoT){
             //mascara cuadrada tierra
             maskMarte.fillStyle(000000,1);  //color y alpha
             maskMarte.fillRect(posXT,posYT,100,100);  //x, y,width height
-            console.log('letsgo');
+            //console.log('letsgo');
             break;
         case 'c':
             //mascara circular  tierra
@@ -712,19 +726,40 @@ function moverMascara(mask,scene) //x fposX, y = fposYcmask o smask
 function setRotations(rot,index)
 {
     for(var i=0; i<N_NUBES; i++) {
-        nubes[i].obj.rotation = rot[index];
+        nubes[i].obj.rotation += rot[index];
     }
     for(var i=0; i < meteoritos.length; i++) {
-        meteoritos[i].obj.rotation = rot[index];
+        meteoritos[i].obj.rotation += rot[index];
     }
     
-    marte.rotation=rot[index];
-    objCohete.obj.rotation = rot [index];
+    marte.rotation+=rot[index];
+    objCohete.obj.rotation +=rot[index];
 
     for (i=0; i<4; i++) {
 
-        maquinas[i].obj.setRotation(rot[index]);
+        maquinas[i].obj.rotation+=rot[index];
+        //Update sonidos
+        var beta = maquinas[i].obj.rotation < 0 ? maquinas[i].obj.rotation * -1: maquinas[i].obj.rotation ;
+        if(beta < 0.8)
+        {
+            var volumen = (0.8 - beta)/0.8;
+            if(volumen<0.02)
+                volumen = 0;
+            switch(i)
+            {
+                case 0: //Cohete
 
+                    break;
+                case 1: //Terraformador
+                case 3: //Mina
+                    sfx.sounds[2].volume = volumen;
+                    break;
+                case 2: //Comunicaciones
+                    sfx.sounds[8].volume = volumen;
+                    break;
+            }
+            
+        }
     }
 
 

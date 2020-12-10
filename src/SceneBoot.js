@@ -142,8 +142,8 @@ class SceneBoot extends Phaser.Scene {
         
 
         //Placeholder partícula
-        this.load.image('smoke', './Resources/smoke_particle.png');
-        this.load.image('polvo', './Resources/dust_particle.png');
+        this.load.image('smoke', './Resources/Game/smoke_particle.png');
+        this.load.image('polvo', './Resources/Game/dust_particle.png');
     }
 
     create() {
