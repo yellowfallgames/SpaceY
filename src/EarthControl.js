@@ -28,7 +28,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         // ui_T_countdown
 		this.lanzCtdn = scene.add.image(956, 210, "lanzaderaCountdown").setDepth(2);////
 		// ui_T_Lanzadera_door
-        this.lanzPuertaOut = scene.add.image(958, 83, "lanzaderaPuerta").setDepth(2);
+        this.lanzPuertaOut = scene.add.image(958, 83, "lanzaderaPuerta").setDepth(4);
         // ui_T_pantalla_plano
         this.pantallaPlano = scene.add.image(1337, 227, "pantallaMapa").setDepth(2);
         // ui_T_Paqueteria_pasarela
@@ -100,8 +100,8 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         .on('pointerout', () => this.Highlight(this.paqBtnEnv, false) );
 
         //Contadores de recursos
-        this.counterRoc = 10;
-        this.counterCom = 8;
+        this.counterRoc = 4;
+        this.counterCom = 0;
         this.counterMat = 0;
         //DDR
         this.txtCounterRoc = scene.add.text(this.ddrBtnComida.x+85, this.ddrBtnComida.y, this.counterRoc,{
@@ -260,6 +260,8 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         for (var i=0; i < maquinas.length; i++) {
             this.wearTxt[i].setText(Math.round((maquinas[i].wear/maquinas[i].maxWear)*100)+"%");
         }
+
+        
         
     }
 

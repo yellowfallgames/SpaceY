@@ -110,7 +110,7 @@ class SceneOptions extends Phaser.Scene {
             .layout();
 
 
-        this.volumeButton = this.add.text(-300, (game.config.height/8)*3, 'Music volume', { fill: '000000',fontFamily:'menuFont',fontSize:'60px' })
+        this.volumeButton = this.add.text(-300, (game.config.height/8)*3, 'Music volume', { fill: '#ffffff',fontFamily:'menuFont',fontSize:'60px' })
         .setInteractive()
         .on('pointerdown', () => this.switchMusic() )
         .on('pointerover', () => this.enterButtonHoverState(this.volumeButton) )
@@ -118,7 +118,7 @@ class SceneOptions extends Phaser.Scene {
         this.volumeButton.setOrigin(0.5);
         this.easeMe(this.volumeButton,this,2);
 
-        this.sfxButton = this.add.text(game.config.width + 300, (game.config.height/8)*4, 'SFX volume', { fill: '000000',fontFamily:'menuFont',fontSize:'60px' })
+        this.sfxButton = this.add.text(game.config.width + 300, (game.config.height/8)*4, 'SFX volume', { fill: '#ffffff',fontFamily:'menuFont',fontSize:'60px' })
         .setInteractive()
         .on('pointerdown', () => this.switchSfx() )
         .on('pointerover', () => this.enterButtonHoverState(this.sfxButton) )
@@ -127,7 +127,7 @@ class SceneOptions extends Phaser.Scene {
         this.easeMe(this.sfxButton,this,3);
         
 
-        this.backButton = this.add.text(game.config.width/2, game.config.height + 300, 'Atrás', { fill: '000000',fontFamily:'menuFont',fontSize:'60px' })
+        this.backButton = this.add.text(game.config.width/2, game.config.height + 300, 'Atrás', { fill: '#ffffff',fontFamily:'menuFont',fontSize:'60px' })
         .setInteractive()
         .on('pointerdown', () => this.enterBack() )
         .on('pointerover', () => this.enterButtonHoverState(this.backButton) )
@@ -183,7 +183,7 @@ class SceneOptions extends Phaser.Scene {
     }
     
     enterButtonRestState(boton) {
-        boton.setStyle({ fill: '#000000' });
+        boton.setStyle({ fill: '#ffffff' });
         boton.x = boton.x-movTxt;
         boton.y = boton.y-movTxt;
     }

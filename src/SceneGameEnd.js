@@ -15,32 +15,53 @@ class SceneGameEnd extends Phaser.Scene {
         this.fondo = this.add.rectangle(game.config.width/2, game.config.height/2, game.config.width, game.config.height, Phaser.Display.Color.GetColor(0, 0, 0)).setAlpha(0.5);
 
         //Fondo
-        this.menuBase = this.add.image(game.config.width/2, game.config.height/2, "pantallaFinal").setScale(0, 1);
-        this.menuBaseTween = this.tweens.add({
-            targets: this.menuBase,
-            scaleX:6,
-            scaleY:4,
-            duration: 1500,
-            ease: 'Quint.easeIn',
-            repeat: 0,
-            yoyo: false,
-            delay: 0,
+        if (isVictory) {
 
-            onComplete: this.ShowMenu.bind(this)
-        });
+            this.menuBase = this.add.image(game.config.width/2, -game.config.height/2, "victoria");
+            this.menuBaseTween = this.tweens.add({
+                targets: this.menuBase,
+                x:game.config.width/2,
+                y:game.config.height/2,
+                duration: 1500,
+                ease: 'Cubic.easeOut',
+                repeat: 0,
+                yoyo: false,
+                delay: 0,
+
+                onComplete: this.ShowMenu.bind(this)
+            });
+        }
+        else {
+
+            this.menuBase = this.add.image(game.config.width/2, 3*game.config.height/2, "derrota");
+            this.menuBaseTween = this.tweens.add({
+                targets: this.menuBase,
+                x:game.config.width/2,
+                y:game.config.height/2,
+                duration: 1500,
+                ease: 'Cubic.easeOut',
+                repeat: 0,
+                yoyo: false,
+                delay: 0,
+
+                onComplete: this.ShowMenu.bind(this)
+            });
+        }
+
 
         //Botón para volver al menú
-        this.BtnBackToMenu = this.add.text(game.config.width/2, 2*game.config.height/3, "VOLVER",{fontSize:'60px',fill:'#ffffff',}).setDepth(6).setOrigin(0.5).setVisible(false)
+        this.BtnBackToMenu = this.add.text(game.config.width/2, (5*game.config.height/7)+40, "VOLVER AL MENU",{ fill: '#ffffff',fontFamily:'menuFont',fontSize:'60px' })
+        .setDepth(6).setOrigin(0.5).setVisible(false)
         .setInteractive()
         .on('pointerdown', () => this.GoBack() )
         .on('pointerup', () => this.Highlight(this.BtnBackToMenu, true) )
-        .on('pointerover', () => this.Highlight(this.BtnBackToMenu, true) )
+        .on('pointerover', () => this.Over(this.BtnBackToMenu, true) )
         .on('pointerout', () => this.Highlight(this.BtnBackToMenu, false) );
     }
 
     update(delta) {
 
-        this.BtnBackToMenu.setVisible(true);
+        
     }
 
     Highlight(obj, b) {
@@ -48,9 +69,15 @@ class SceneGameEnd extends Phaser.Scene {
         b ? obj.tint = Phaser.Display.Color.GetColor(139, 139, 139) : obj.tint = Phaser.Display.Color.GetColor(255, 255, 255);  
     }
 
-    ShowMenu(){
+    Over(obj, b) {
 
+        b ? obj.tint = Phaser.Display.Color.GetColor(139, 139, 139) : obj.tint = Phaser.Display.Color.GetColor(255, 255, 255);  
+        sfx.sounds[0].play();
+    }
+
+    ShowMenu(){
         
+        this.BtnBackToMenu.setVisible(true);
     }
 
     GoBack() {

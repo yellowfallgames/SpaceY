@@ -24,6 +24,10 @@ var key_up;
 var key_down;
 var key_interact;
 var key_repair;
+var key_pause;
+
+var keyDev_victory;
+var keyDev_defeat;
 
 //Objetos
 //Marte
@@ -95,12 +99,12 @@ var pantallaPlano;
 //Barra terraformación
 var nTerraformacion = 0;
 var indTerra;
-var MAX_TERRAFORMACION = 1000;
+var MAX_TERRAFORMACION = 800;
 var txtTerraformacion;
 
 //Barra cargamento cohete
 var objCohete;
-var nCoheteMat = 330;
+var nCoheteMat = 0;
 var objCoheteMat;
 var MAX_COHETEMAT = 350;
 var txtCoheteMat;
@@ -108,17 +112,17 @@ var spdCargarCohete = 0.25;
 var coheteMat_color = Phaser.Display.Color.GetColor(150, 103, 34);
 
 //Recursos Marte
-var nComida_M = 100;
+var nComida_M = 120;
 var objComida_M;
 var MAX_COMIDA = 150;
 var txtComida_M;
 
-var nRocas_M = 100;
+var nRocas_M = 30;
 var objRocas_M;
 var MAX_ROCAS = 200;
 var txtRocas_M;
 
-var nMaterial_M = 0;
+var nMaterial_M = 20;
 var objMaterial_M;
 var MAX_MATERIAL = 100;
 var txtMaterial_M;
@@ -133,7 +137,8 @@ var repairBar_color2 = Phaser.Display.Color.GetColor(225, 164, 13);
 var startSfxRun = false;
 /////////////////////
 
-var music;
+var isVictory = false;
+var paused = false;
 
 
 //Particulas
@@ -300,7 +305,10 @@ class SceneGame extends Phaser.Scene {
         key_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
         key_repair = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        key_pause = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
+        keyDev_victory = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+        keyDev_defeat = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
 
         
         //Genera meteoritos cada x ms (TESTING)
@@ -564,14 +572,26 @@ class SceneGame extends Phaser.Scene {
         //TIERRA
         controlTierra.Update(delta);
 
-        if (key_left.isDown) {
+        if (key_pause.isDown && !paused) {
+
+            PauseMenu(this);
+            paused = true;
+        }
+        if (key_pause.isUp){
+
+            paused = false;
+        }
+
+        //////////////////////////DEBUG
+        if (keyDev_victory.isDown) {
 
             DefeatCondition(this);
         }
-        if (key_right.isDown) {
+        if (keyDev_defeat.isDown) {
 
             VictoryCondition(this);
         }
+        //*/
     }
 
     
@@ -638,7 +658,7 @@ function DestroyOnScene(obj) {
 }
 
 //Acciones condiciones victoria/derrota
-function VictoryCondition(that){
+function VictoryCondition(that)  {
     sfx.sounds.forEach(element => {
         element.stop();
     });
@@ -647,6 +667,8 @@ function VictoryCondition(that){
 
     soundtrack.pistas[1].stop();
     soundtrack.pistas[3].stop();
+
+    isVictory = true;
     
     that.scene.launch('SceneGameEnd');
     that.scene.pause('SceneGame');
@@ -660,10 +682,24 @@ function DefeatCondition(that){
 
     sfx.sounds[5].play();
 
+    isVictory = false;
+
     soundtrack.pistas[1].stop();
     soundtrack.pistas[3].stop();
 
     that.scene.launch('SceneGameEnd');
+    that.scene.pause('SceneGame');
+}
+
+function PauseMenu(that) {
+    sfx.sounds.forEach(element => {
+        element.pause();
+    });
+
+    soundtrack.pistas[1].pause();
+    soundtrack.pistas[3].pause();
+
+    that.scene.launch('ScenePause');
     that.scene.pause('SceneGame');
 }
 
@@ -742,3 +778,4 @@ function OpenPostIt(obj,scene) {
     }
     
 }
+
