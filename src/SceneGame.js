@@ -24,6 +24,7 @@ var key_up;
 var key_down;
 var key_interact;
 var key_repair;
+var key_pause;
 
 //Objetos
 //Marte
@@ -133,7 +134,8 @@ var repairBar_color2 = Phaser.Display.Color.GetColor(225, 164, 13);
 var startSfxRun = false;
 /////////////////////
 
-var music;
+var isVictory = false;
+var paused = false;
 
 
 //Particulas
@@ -299,6 +301,7 @@ class SceneGame extends Phaser.Scene {
         key_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
         key_repair = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        key_pause = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
 
         
@@ -561,14 +564,25 @@ class SceneGame extends Phaser.Scene {
         //TIERRA
         controlTierra.Update(delta);
 
-        if (key_left.isDown) {
+        if (key_pause.isDown && !paused) {
+
+            PauseMenu(this);
+            paused = true;
+        }
+        if (key_pause.isUp){
+
+            paused = false;
+        }
+
+        //////////////////////////DEBUG
+        /*if (key_left.isDown) {
 
             DefeatCondition(this);
         }
         if (key_right.isDown) {
 
             VictoryCondition(this);
-        }
+        }*/
     }
 
     
@@ -644,6 +658,8 @@ function VictoryCondition(that){
 
     soundtrack.pistas[1].stop();
     soundtrack.pistas[3].stop();
+
+    this.isVictory = true;
     
     that.scene.launch('SceneGameEnd');
     that.scene.pause('SceneGame');
@@ -662,4 +678,18 @@ function DefeatCondition(that){
 
     that.scene.launch('SceneGameEnd');
     that.scene.pause('SceneGame');
+}
+
+function PauseMenu(that) {
+    sfx.sounds.forEach(element => {
+        element.pause();
+    });
+
+    soundtrack.pistas[1].pause();
+    soundtrack.pistas[3].pause();
+
+    that.scene.launch('ScenePause');
+    that.scene.pause('SceneGame');
+
+    console.log("PAUSE");
 }
