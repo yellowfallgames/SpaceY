@@ -99,9 +99,12 @@ class SceneBoot extends Phaser.Scene {
         //TUTORIAL
         this.load.image('tutoBck', directory +'tutorial__bck.jpg');
 
+        //CONDICIION VICTORIA DERROTA
+        this.load.image('victoria', directory +'victoria.png');   //post it expandido
+        this.load.image('derrota', directory +'derrota.png');   //post it expandido
         //POST IT
-        this.load.image('postItExp', directory +'tutorial__bck.jpg');   //post it expandido
-        this.load.image('postIt', directory +'tutorial__bck.jpg'); //post it 
+        this.load.image('postItExp', directory +'postitexpandido.png');   //post it expandido
+        this.load.image('postIt', directory +'post_it.png'); //post it 
         //MUSICA
         this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
         this.load.audio('MusicIngame', ['./Resources/Audio/Music/Pioneers meets Space.ogg']);

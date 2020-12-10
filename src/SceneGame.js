@@ -398,21 +398,14 @@ class SceneGame extends Phaser.Scene {
         });
 
         //POST IT
-        /*postIt = this.add.image(game.config.width/2, game.config.height/2, "postIt")
+        postIt = this.add.image(game.config.width/2, game.config.height/2, "postIt")
         .setInteractive()
         .on('pointerdown', () => this.OpenPostIt())
         .on('pointerup', () => this.HighlightPostIt(this.postIt, true) )
         .on('pointerover', () => this.HighlightPostIt(this.postIt, true) )
         .on('pointerout', () => this.HighlightPostIt(this.postIt, false) );	
         
-        HighlightPostIt(obj, b) {
-
-            b ? obj.tint = Phaser.Display.Color.GetColor(139, 139, 139) : obj.tint = Phaser.Display.Color.GetColor(255, 255, 255);  
-        }
-        OpenPostIt(obj, b) {
-
-           this.obj  
-        }*/
+        
         
     //*/
         /*
@@ -662,4 +655,25 @@ function DefeatCondition(that){
 
     that.scene.launch('SceneGameEnd');
     that.scene.pause('SceneGame');
+}
+
+function HighlightPostIt(obj, b) {
+
+    b ? obj.tint = Phaser.Display.Color.GetColor(139, 139, 139) : obj.tint = Phaser.Display.Color.GetColor(255, 255, 255);  
+    if (!b) obj.add.image (game.config.width/2, game.config.height/2, "postIt");
+}
+function OpenPostIt(obj) {
+
+    this.tweens.add({
+        targets: obj,
+        scaleX: 30,
+        scaleY: 30,
+        duration: 1000,
+        duration: 50,
+        ease: 'Expo.easeOut',
+        onComplete: function ()
+        {
+            obj.add.image (game.config.width/2, game.config.height/2, "postItExp");
+        }
+    });
 }
