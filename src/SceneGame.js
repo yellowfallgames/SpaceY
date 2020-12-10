@@ -157,7 +157,7 @@ class SceneGame extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('spark', './Resources/snowflake.png');
+        this.load.image('smoke', './Resources/smoke_particle.png');
     }
 
     create() {
