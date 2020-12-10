@@ -412,3 +412,31 @@ Efectos de sonido de polvo, aparatos electrónicos, carga de energía eléctrica
 cohetes    
 
 Todos los efectos de sonido y canciones han sido obtenidos a través de https://opengameart.org/ .
+
+# Capturas de pantalla
+● Menú logos
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/visual2.png?raw=true)
+
+● Menú inicial
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/visual2.png?raw=true)
+
+● Menú opciones
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/visual2.png?raw=true)
+
+● Menú contacto
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/visual2.png?raw=true)
+
+● Escena del juego
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/visual2.png?raw=true)
+
+● Escena del tutorial
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/visual2.png?raw=true)
+
+● Menú de pausa
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/visual2.png?raw=true)
+
+● Escena de victoria/derrota
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/visual2.png?raw=true)
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/visual2.png?raw=true)
+
+
