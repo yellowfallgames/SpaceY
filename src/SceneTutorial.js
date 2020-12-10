@@ -136,6 +136,7 @@ var startSfxRun = false;
 /* =========================== */
 /*      TUTORIAL               */
 var posicionesTutorial;
+var rotOrden;
 var textMarte = [
     'Bienvenido a Space Y\n\nPulsa Y para continuar',
     '#',
@@ -207,7 +208,7 @@ var tutotextMarte;
 var tutotextTierra;
 var maskMarte;
 var tutorialEnded;
-
+var rotIndex;
 /////////////////////
 
 var music;
@@ -242,7 +243,7 @@ class SceneTutorial extends Phaser.Scene {
                 new Phaser.Math.Vector2 (game.config.width/2,game.config.height/2) //fin tutorial
             ],
             marte: [
-                new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //welcome
+                new Phaser.Math.Vector2 (game.config.width/4*3,game.config.height/2), //welcome
                 new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //cohete
                 new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //mina
                 new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //terraformador
@@ -253,24 +254,23 @@ class SceneTutorial extends Phaser.Scene {
             ],
             rotOrden:
             [
-                0,  //welcome
-                0,  //cohete
-                Phaser.Math.PI*2,   //mina
-                Phaser.Math.PI*-1,  //terraformador
-                Phaser.Math.PI,     //comunicacion
+                Phaser.Math.PI*2,  //welcome
+                Phaser.Math.PI*2,  //cohete
+                Phaser.Math.PI,   //mina
+                Phaser.Math.PI/2,  //terraformador
+                Phaser.Math.PI/4,     //comunicacion
                 0,  //pantalla de mision
                 0,  //post it
                 0,  //fin tutorial
-
-
             ]
         };
     }
 
     create() {
-
+        //TUTORIAL INICIALIZANDO
 	    tutorialEnded = false;  //utorial acabado
         currentLine = 0;
+        rotIndex = 0;
 
         sfx.sounds[2].loop = sfx.loop;
         sfx.sounds[3].loop = sfx.loop;
@@ -571,11 +571,15 @@ class SceneTutorial extends Phaser.Scene {
                     currentLine ++; //avanzamos en lineas de tutorial
                 }
                 
+
                 tutotextMarte.destroy();
                 tutotextTierra.destroy();
                 tutotextMarte = this.add.text (50,game.config.height-200,textMarte[currentLine],{ fill: '#ffffff',fontFamily:'textFont',fontSize: '16px'}).setDepth(10);
                 tutotextTierra = this.add.text (game.config.width/2,game.config.height-200,textTierra[currentLine],{ fill: '#ffffff',fontFamily:'textFont',fontSize: '16px'}).setDepth(10)
                 
+                //Actualizamos rotaciones del personaje con la Y
+                setRotations(posicionesTutorial.rotOrden, rotIndex)
+                rotIndex++;
                 //Aqui indicamos que tipo de máscara se va a usar y en que punto
                 CrearMascara(this,
                     posicionesTutorial.marte[tutoPosIndex].x,
@@ -986,7 +990,27 @@ function moverMascara(mask,scene) //x fposX, y = fposYcmask o smask
         //onComplete: this.EnterOnMachine.bind(this)
     });
 }
+function setRotations(rot,index)
+{
+    for(var i=0; i<N_NUBES; i++) {
+        nubes[i].obj.rotation = rot[index];
+    }
+    for(var i=0; i < meteoritos.length; i++) {
+        meteoritos[i].obj.rotation = rot[index];
+    }
+    
+    marte.rotation=rot[index];
+    objCohete.obj.rotation = rot [index];
 
+    for (i=0; i<4; i++) {
+
+        maquinas[i].obj.setRotation(rot[index]);
+
+    }
+
+
+
+}
 
 
  

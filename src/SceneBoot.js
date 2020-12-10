@@ -11,6 +11,10 @@ class SceneBoot extends Phaser.Scene {
     preload(){
         //Scene Contact
         this.load.image("tablon", directory+"tablon.png");
+        this.load.image("jacks", directory+"jacks.png");
+        this.load.image("sofi", directory+"sofi.png");
+        this.load.image("pepe", directory+"pepe.png");
+        this.load.image("manu", directory+"manu.png");
         //Scene Menu
         this.load.image("bckMenu", directory+"spaceYmenu_bck.png");
         this.load.image("spaceYlogo", directory+"spaceYmenu.png");
