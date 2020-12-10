@@ -135,7 +135,7 @@ var startSfxRun = false;
 /////////////////////
 /* =========================== */
 /*      TUTORIAL               */
-var posTuto;
+var posicionesTutorial;
 var textMarte = [
     'Bienvenido a Space Y\n\nPulsa Y para continuar',
     '#',
@@ -230,7 +230,7 @@ class SceneTutorial extends Phaser.Scene {
 
     preload() {
         
-        posTuto = {
+        posicionesTutorial = {
             tierra : [
                 new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //welcome
                 new Phaser.Math.Vector2 (963,365), //lanzadera
@@ -250,6 +250,19 @@ class SceneTutorial extends Phaser.Scene {
                 new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //pantalla de mision
                 new Phaser.Math.Vector2 (game.config.width-90,100), //POST-IT
                 new Phaser.Math.Vector2 (game.config.width/2,game.config.height/2) //fin tutorial
+            ],
+            rotOrden:
+            [
+                0,  //welcome
+                0,  //cohete
+                Phaser.Math.PI*2,   //mina
+                Phaser.Math.PI*-1,  //terraformador
+                Phaser.Math.PI,     //comunicacion
+                0,  //pantalla de mision
+                0,  //post it
+                0,  //fin tutorial
+
+
             ]
         };
     }
@@ -565,12 +578,12 @@ class SceneTutorial extends Phaser.Scene {
                 
                 //Aqui indicamos que tipo de máscara se va a usar y en que punto
                 CrearMascara(this,
-                    posTuto.marte[tutoPosIndex].x,
-                    posTuto.marte[tutoPosIndex].y,
+                    posicionesTutorial.marte[tutoPosIndex].x,
+                    posicionesTutorial.marte[tutoPosIndex].y,
                     'c',
 
-                    posTuto.tierra[tutoPosIndex].x,
-                    posTuto.tierra[tutoPosIndex].y,
+                    posicionesTutorial.tierra[tutoPosIndex].x,
+                    posicionesTutorial.tierra[tutoPosIndex].y,
                     'c');
                 // TWEENING de la máscara
                 moverMascara(tutofondo.mask,this);
@@ -895,8 +908,8 @@ function initTutorial(scene){
     tutofondo.setAlpha(0.8).setScale(2,2).setDepth(8);  //configuramos su visibilidad
     
     //Mostramos textos iniciales del tutorial
-    tutotextMarte = scene.add.text (posTuto.marte[currentLine].x,posTuto.marte[currentLine].y,textMarte[currentLine]).setDepth(10);
-    tutotextTierra = scene.add.text (posTuto.tierra[currentLine].x,posTuto.tierra[currentLine].y,textTierra[currentLine]).setDepth(10);
+    tutotextMarte = scene.add.text (posicionesTutorial.marte[currentLine].x,posicionesTutorial.marte[currentLine].y,textMarte[currentLine],{ fill: '#ffffff',fontFamily:'textFont',fontSize: '16px'}).setDepth(10);
+    tutotextTierra = scene.add.text (posicionesTutorial.tierra[currentLine].x,posicionesTutorial.tierra[currentLine].y,textTierra[currentLine],{ fill: '#ffffff',fontFamily:'textFont',fontSize: '16px'}).setDepth(10);
 
 }
 function endTutorial(scene,textM, textT,fadeOut)
