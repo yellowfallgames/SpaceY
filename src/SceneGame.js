@@ -142,7 +142,8 @@ var emitterMachines = []; // 0 - Cohete || 1 - Radio || 2 - Mina || 3 - Terrafor
 
 //POST ITS
 var postIt;
-
+var postItExp;
+var isbig = false;
 class SceneGame extends Phaser.Scene {
     
     constructor() {
@@ -398,13 +399,22 @@ class SceneGame extends Phaser.Scene {
         });
 
         //POST IT
-        postIt = this.add.image(game.config.width/2, game.config.height/2, "postIt")
+        postIt = this.add.image(game.config.width-90,100, "postIt").setDepth(7)
         .setInteractive()
-        .on('pointerdown', () => this.OpenPostIt())
-        .on('pointerup', () => this.HighlightPostIt(this.postIt, true) )
-        .on('pointerover', () => this.HighlightPostIt(this.postIt, true) )
-        .on('pointerout', () => this.HighlightPostIt(this.postIt, false) );	
+        .on('pointerdown', () => OpenPostIt(postIt,this))
+        .on('pointerup', () => HighlightPostIt(postIt, true))
+        .on('pointerover', () => HighlightPostIt(postIt, true))
+        .on('pointerout', () => HighlightPostIt(postIt, false));	
         
+        postItExp = this.add.image(game.config.width-100,100, "postItExp")
+        .setDepth(7)
+        .setScale(0.2)
+        .setInteractive()
+        .setVisible(false)
+        .on('pointerdown', () => OpenPostIt(postItExp,this))
+        .on('pointerup', () => HighlightPostIt(postItExp, true))
+        .on('pointerover', () => HighlightPostIt(postItExp, true))
+        .on('pointerout', () => HighlightPostIt(postItExp, false));
         
         
     //*/
@@ -660,20 +670,75 @@ function DefeatCondition(that){
 function HighlightPostIt(obj, b) {
 
     b ? obj.tint = Phaser.Display.Color.GetColor(139, 139, 139) : obj.tint = Phaser.Display.Color.GetColor(255, 255, 255);  
-    if (!b) obj.add.image (game.config.width/2, game.config.height/2, "postIt");
+    //if (!b) obj.add.image(game.config.width/2, game.config.height/2, "postIt");
 }
-function OpenPostIt(obj) {
+function OpenPostIt(obj,scene) {
 
-    this.tweens.add({
-        targets: obj,
-        scaleX: 30,
-        scaleY: 30,
-        duration: 1000,
-        duration: 50,
-        ease: 'Expo.easeOut',
-        onComplete: function ()
-        {
-            obj.add.image (game.config.width/2, game.config.height/2, "postItExp");
-        }
-    });
+    switch(obj)
+    {
+        case postIt : 
+        scene.tweens.add({
+            targets: obj,
+            scaleX: 10,
+            scaleY: 10,
+            duration: 50,
+            ease: 'Expo.easeIn',
+            onComplete: function ()
+            {
+                postIt.setVisible(false);
+                postItExp.setVisible(true);
+                postItExp.setScale(0.2);
+                postItExp.setPosition(game.config.width/2, game.config.height/2);
+            }
+        });
+        break;
+        case postItExp : 
+        scene.tweens.add({
+            targets: obj,
+            x:postIt.x,
+            y:postIt.y,
+            scaleX: 0,
+            scaleY: 0,
+            duration: 50,
+            ease: 'Expo.easeIn',
+            onComplete: function ()
+            {
+                postItExp.setVisible(false);
+                postIt.setVisible(true);
+            }
+        });
+        break;
+    }
+    if(isbig)
+    {
+        console.log('no soy grande');
+        isbig = false;
+        scene.tweens.add({
+            targets: obj,
+            scaleX: 0,
+            scaleY: 0,
+            duration: 50,
+            ease: 'Expo.easeIn',
+            onComplete: function ()
+            {
+                
+            }
+        });
+    }
+    else if (!isbig)
+    {
+        isbig = true;
+        scene.tweens.add({
+            targets: obj,
+            scaleX: 1,
+            scaleY: 1,
+            duration: 50,
+            ease: 'Expo.easeOut',
+            onComplete: function ()
+            {
+                
+            }
+        });
+    }
+    
 }
