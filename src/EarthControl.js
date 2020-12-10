@@ -100,8 +100,8 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         .on('pointerout', () => this.Highlight(this.paqBtnEnv, false) );
 
         //Contadores de recursos
-        this.counterRoc = 10;
-        this.counterCom = 8;
+        this.counterRoc = 4;
+        this.counterCom = 0;
         this.counterMat = 0;
         //DDR
         this.txtCounterRoc = scene.add.text(this.ddrBtnComida.x+85, this.ddrBtnComida.y, this.counterRoc,{
@@ -260,6 +260,8 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         for (var i=0; i < maquinas.length; i++) {
             this.wearTxt[i].setText(Math.round((maquinas[i].wear/maquinas[i].maxWear)*100)+"%");
         }
+
+        
         
     }
 
