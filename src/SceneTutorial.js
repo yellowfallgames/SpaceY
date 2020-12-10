@@ -145,8 +145,8 @@ var textMarte = [
     'Para lanzarlo pulsa H',
     '#',
     'Mina',
-    'Desplázate usando A y D a tu derecha',
-    'Pulsa X para obtener ROCAS de la mina',
+    'Desplázate usando A y D a tu izquierda',
+    'Pulsa H para obtener ROCAS de la mina',
     'Se incrementan aqui',
     '#',
     'Terraformador',
@@ -234,20 +234,20 @@ class SceneTutorial extends Phaser.Scene {
             tierra : [
                 new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //welcome
                 new Phaser.Math.Vector2 (963,365), //lanzadera
-                new Phaser.Math.Vector2 (1058,793), // ddr
-                new Phaser.Math.Vector2 (1219,674), //paqueteria
+                new Phaser.Math.Vector2 (1108,793), // ddr
+                new Phaser.Math.Vector2 (1219,574), //paqueteria
                 new Phaser.Math.Vector2 (1447,676), //panel control
                 new Phaser.Math.Vector2 (1337,250), //pantalla mision
                 new Phaser.Math.Vector2 (game.config.width-90,100), //POST-IT
                 new Phaser.Math.Vector2 (game.config.width/2,game.config.height/2) //fin tutorial
             ],
             marte: [
-                new Phaser.Math.Vector2 (game.config.width/4*3,game.config.height/2), //welcome
-                new Phaser.Math.Vector2 (), //cohete
-                new Phaser.Math.Vector2 (), //mina
-                new Phaser.Math.Vector2 (), //terraformador
-                new Phaser.Math.Vector2 (), //comunicacion
-                new Phaser.Math.Vector2 (), //pantalla de mision
+                new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //welcome
+                new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //cohete
+                new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //mina
+                new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //terraformador
+                new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //comunicacion
+                new Phaser.Math.Vector2 (game.config.width/4,game.config.height/2), //pantalla de mision
                 new Phaser.Math.Vector2 (game.config.width-90,100), //POST-IT
                 new Phaser.Math.Vector2 (game.config.width/2,game.config.height/2) //fin tutorial
             ]
@@ -571,7 +571,7 @@ class SceneTutorial extends Phaser.Scene {
 
                     posTuto.tierra[tutoPosIndex].x,
                     posTuto.tierra[tutoPosIndex].y,
-                    's');
+                    'c');
                 // TWEENING de la máscara
                 moverMascara(tutofondo.mask,this);
                 if(textMarte[currentLine] == '$' || textTierra[currentLine] == '$')
