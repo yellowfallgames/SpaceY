@@ -412,3 +412,43 @@ Efectos de sonido de polvo, aparatos electrónicos, carga de energía eléctrica
 cohetes    
 
 Todos los efectos de sonido y canciones han sido obtenidos a través de https://opengameart.org/ .
+
+# Capturas de pantalla
+● Menú logos:
+Pantalla de logos y título. Sirve para precargar todo el contenido antes de ejecutar el juego en si. Nos permite agilizar procesos mientras introducimos al jugador.
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/img_sceneLogos.png?raw=true)
+
+● Menú inicial:
+JUGAR: nos lleva al bucle principal del juego.
+TUTORIAL: Nos lleva a la escena tutorial. El jugador será guiado pulsando el botón 'Y'.
+OPCIONES: Podremos controlar el Volumen de la MÚSICA y SFX.
+CONTACTO: Muestra los nombres de los creadores del proyecto y dirige a su página de Itch.io.
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/img_sceneMenu.png?raw=true)
+
+● Menú opciones:
+Mediante dos sliders podremos controlar el volumen de los SFX y la MÚSICA.
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/img_sceneOptions.png.png?raw=true)
+
+● Menú contacto:
+Se ha implementado una escena de contactos con una pequeña caricatura de los desarrolladores y su enlace correspondiente a su página en Itch.io, donde se podrán ver sus otros trabajos.
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/img_sceneContacts.png?raw=true)
+
+● Escena del juego:
+Interfaz de juego inicial, con sus diferentes zonas y máquinas.
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/img_sceneGame.png?raw=true)
+
+● Escena del tutorial:
+Vista de Tutorial, para avanzar será necesario pulsar la Y, no se puede salir de él si no se completa. Nos enseñará las mecánicas básicas y cómo jugar.
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/img_sceneTutorial.png?raw=true)
+
+● Menú de pausa:
+Se ha implementado un menu de PAUSA pulsando la tecla ESC, que nos permite detener el juego. Podremos regresar al menu de inicio o cambiar nuestros ajustes en pantalla.
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/img_scenePause.png?raw=true)
+
+● Escena de victoria/derrota:
+Hemos implementado las condiciones de VICTORIA y DERROTA: Para ganar hace falta rellenar la barra de terraformacion al 100% y no morir de hambre o por golpe de un meteorito.
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/img_sceneWin.png?raw=true)
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/img_sceneDefeat.png?raw=true)
+
+
+

@@ -289,11 +289,11 @@ class SceneGame extends Phaser.Scene {
             x: {min: 0, max: 1500},
             y: 0,
             blendMode: 'COLOR',
-            scale: { start: 0.2, end: 0 },
+            scale: { start: 0.1, end: 0 },
             tint: 0x50ff6a00,
             speedX: { min: -500, max: -900 },
             speedY: { min: 500, max: 1500 },
-            quantity: 100,
+            quantity: 70,
             on: false
         });
 
@@ -719,7 +719,7 @@ function OpenPostIt(obj,scene) {
     }
     if(isbig)
     {
-        console.log('no soy grande');
+        //console.log('no soy grande');
         isbig = false;
         scene.tweens.add({
             targets: obj,
