@@ -340,7 +340,7 @@ Controles stelonaula:
 - FLECHAS Y TECLADO NUMÉRICO: minijuegos    
 - RATÓN: minijuegos    
 
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tecladoF3B.png?raw=true)
+
 
 Controles supervisor:    
 - FLECHAS: minijuego de comunicación.    
