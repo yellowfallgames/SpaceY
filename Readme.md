@@ -315,7 +315,6 @@ puntos de victoria.
 
 ### FASE 2: MODO LOCAL
 
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tecladoF2.png?raw=true)
 
 Controles stelonaula :
 - AD: movimiento
@@ -332,7 +331,6 @@ Controles supervisor:
 
 Ambos (supervisor y stelonauta) disponen de teclado y ratón propios.
 
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tecladoF3.png?raw=true)
 
 
 Controles stelonaula:    
