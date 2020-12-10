@@ -15,6 +15,8 @@ var counter;
 //Inputs
 var key_skipTutorial;
 
+var startSfxRun = false;
+/////////////////////
 /* =========================== */
 /*      TUTORIAL               */
 var posTuto;
@@ -89,15 +91,20 @@ var tutotextMarte;
 var tutotextTierra;
 var maskMarte;
 var tutorialEnded;
-//Recursos Tierra
 
-
-
-var startSfxRun = false;
 /////////////////////
 
 var music;
 
+
+//Particulas
+var emitterStorm;
+var emitterMachines = []; // 0 - Cohete || 1 - Radio || 2 - Mina || 3 - Terraformador
+
+//POST ITS
+var postIt;
+var postItExp;
+var isbig = false;
 class SceneTutorial extends Phaser.Scene {
     
     constructor() {
@@ -132,20 +139,37 @@ class SceneTutorial extends Phaser.Scene {
     }
 
     create() {
-        tutorialEnded = false;  //utorial acabado
+
+        nCoheteMat = MAX_COHETEMAT;
+        nComida_M = MAX_COMIDA;
+        nRocas_M = MAX_ROCAS;
+        nMaterial_M = MAX_MATERIAL;
+
+	    tutorialEnded = false;  //tutorial acabado
         currentLine = 0;
 
+        sfx.sounds[2].loop = sfx.loop;
+        sfx.sounds[3].loop = sfx.loop;
+        sfx.sounds[8].loop = true;
+        sfx.sounds[14].loop = true;
+        sfx.sounds[12].volume = 0.3;
+        sfx.sounds[2].volume = 0;
+        sfx.sounds[8].volume = 0;
+        
+        soundtrack.pistas[0].stop();
+        soundtrack.pistas[1].play();
+        soundtrack.pistas[3].play();
 
-        soundtrack.pistas[2].play();
-
-
+        //PLAY a los sonidos de las máquinas
+        sfx.sounds[2].play();
+        sfx.sounds[8].play();
 
         //MARTE
 		// ui_M_bck
-        fondoMarte = this.add.image(407, 450, "fondoMarte");
+        fondoMarte = this.add.image(407, 450, "fondoMarte").setDepth(-2);
 
         //Inicialización planeta
-        marte = this.add.image(game.config.width/4, 1250, "marte").setScale(3);
+        marte = this.add.image(game.config.width/4, 1250, "marte").setScale(3).setDepth(-2);
 
         //Cohete en Marte
         objCohete = new Rocket(this, marte.x, marte.y);
@@ -172,24 +196,16 @@ class SceneTutorial extends Phaser.Scene {
 
         //
         meteoritos = new Array();
-        meteoritos[0] = new Meteor(this);
 
         //TIERRA
         controlTierra = new EarthControl(this, 0, 0, 8);
         //controlTierra.PushFromMars();
 		
 		
-		// ui_M_horas
-		//timerHoras = this.add.image(553, 97, "timeHoras");
 		
-		// ui_M_minutos
-        timerMinutos = this.add.image(635, 97, "timerMinutos");
-        
-		// ui_M_segundos
-		timerSegundos = this.add.image(716, 97, "timerSegundos");
 		
 		// ui_M_actionbox: Tecla de acción
-        teclaAccion = this.add.image(marte.x, 500, "teclaAccion").setVisible(false);
+        //
 		
 		// ui_M_dangerArrow
 		alertaPeligroIz = this.add.image(665, 365, "alertaPeligro").setVisible(false);
@@ -216,7 +232,7 @@ class SceneTutorial extends Phaser.Scene {
         
 
         //Cargamento cohete
-        objCoheteMat = new Bar(this, game.config.width/4 - 70, player.y + 10, nCoheteMat, MAX_COHETEMAT, 0.5, 0.5, coheteMat_color, true);
+        objCoheteMat = new Bar(this, game.config.width/4 - 120, player.y - 100, nCoheteMat, MAX_COHETEMAT, 0.5, 0.5, coheteMat_color, true);
         objCoheteMat.obj.setRotation(-1.57);
 
         //Barra de carga
@@ -236,6 +252,7 @@ class SceneTutorial extends Phaser.Scene {
             frameRate: 18,
         });
 
+
         //Input events
         this.cursors = this.input.keyboard.createCursorKeys();
         key_left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -245,8 +262,148 @@ class SceneTutorial extends Phaser.Scene {
         key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
         key_repair = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         key_skipTutorial = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Y);
+        key_pause = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
+        keyDev_victory = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+        keyDev_defeat = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
+
+
+        
+        //Genera meteoritos cada x ms (TESTING)
+        //var timedEvent = this.time.addEvent({ delay: 3000, callback: genMeteors, callbackScope: this, loop: true });
+
+
+        //PARTÍCULAS TORMENTA
+        emitterStorm = this.add.particles('spark').createEmitter({
+            x: {min: 0, max: 1500},
+            y: 0,
+            blendMode: 'COLOR',
+            scale: { start: 0.2, end: 0 },
+            tint: 0x50ff6a00,
+            speedX: { min: -500, max: -900 },
+            speedY: { min: 500, max: 1500 },
+            quantity: 100,
+            on: false
+        });
+
+        
+
+        //Cohete        [0]
+        emitterMachines[0] = this.add.particles('smoke');
+        emitterMachines[0].createEmitter({
+            x: 300,
+            y: 300,
+            blendMode: 'SCREEN',
+            scale: { start: 0.2, end: 0 },
+            speedX: { min: -200, max: 200 },
+            speedY: { min: -100, max: -300 },
+            quantity: 5,
+            lifespan: 2000,
+            on: false
+        });
+        
+        emitterMachines[0].posX = emitterMachines[0].x;
+        emitterMachines[0].posY = emitterMachines[0].y;
+
+        //emitterMachines[0].startFollow(player);
+///*
+        //Radio         [1]
+        emitterMachines[1] = this.add.particles('smoke');
+        emitterMachines[1].createEmitter({
+            x: 300,
+            y: 300,
+            blendMode: 'SCREEN',
+            scale: { start: 0.2, end: 0 },
+            speedX: { min: -200, max: 200 },
+            speedY: { min: -100, max: -300 },
+            quantity: 5,
+            lifespan: 2000,
+            on: false
+        });
+        
+        emitterMachines[1].posX = emitterMachines[1].x;
+        emitterMachines[1].posY = emitterMachines[1].y;
+    
+
+        //Mina          [2]
+        emitterMachines[2] = this.add.particles('smoke');
+        emitterMachines[2].createEmitter({
+            x: 300,
+            y: 300,
+            blendMode: 'SCREEN',
+            scale: { start: 0.2, end: 0 },
+            speedX: { min: -200, max: 200 },
+            speedY: { min: -100, max: -300 },
+            quantity: 5,
+            lifespan: 2000,
+            on: false
+        });
+        
+        emitterMachines[2].posX = emitterMachines[2].x;
+        emitterMachines[2].posY = emitterMachines[2].y;
+    
+
+        //Terraformador [3]
+        emitterMachines[3] = this.add.particles('smoke');
+        emitterMachines[3].createEmitter({
+            x: 300,
+            y: 300,
+            blendMode: 'SCREEN',
+            scale: { start: 0.2, end: 0 },
+            speedX: { min: -200, max: 200 },
+            speedY: { min: -100, max: -300 },
+            quantity: 5,
+            lifespan: 2000,
+            on: false
+        });
+        
+        emitterMachines[3].posX = emitterMachines[3].x;
+        emitterMachines[3].posY = emitterMachines[3].y;
+
+        emitterMachines.forEach(element => {
+            element.setDepth(-1);
+        });
+
+        //POST IT
+        postIt = this.add.image(game.config.width-90,100, "postIt").setDepth(7)
+        .setInteractive()
+        .on('pointerdown', () => OpenPostIt(postIt,this))
+        .on('pointerup', () => HighlightPostIt(postIt, true))
+        .on('pointerover', () => HighlightPostIt(postIt, true))
+        .on('pointerout', () => HighlightPostIt(postIt, false));	
+        
+        postItExp = this.add.image(game.config.width-100,100, "postItExp")
+        .setDepth(7)
+        .setScale(0.2)
+        .setInteractive()
+        .setVisible(false)
+        .on('pointerdown', () => OpenPostIt(postItExp,this))
+        .on('pointerup', () => HighlightPostIt(postItExp, true))
+        .on('pointerover', () => HighlightPostIt(postItExp, true))
+        .on('pointerout', () => HighlightPostIt(postItExp, false));
+        
+        
+    //*/
+        /*
+        this.input.on('pointerDown', function (pointer) {
+            //emitter.setPosition(Phaser.Math.Between(0, game.config.width), 0)
+            emitterStorm.emitZoneIndex = 1;
+            emitterStorm.active = false;
+            console.log("APAGA");
+        });
+        //*/
+    
+        /*
+        this.input.on('pointerdown', function (pointer) {
+            emitZoneIndex = (emitZoneIndex + 1) % emitZones.length;
+            emitter.setEmitZone(emitZones[emitZoneIndex]);
+            emitter.explode();
+        });
+        //*/
+    
+        //emitter.setEmitZone(emitZones[emitZoneIndex]); 
         initTutorial(this);
+    
     }
     update(time, delta) {
 
@@ -266,8 +423,8 @@ class SceneTutorial extends Phaser.Scene {
                 
                 tutotextMarte.destroy();
                 tutotextTierra.destroy();
-                tutotextMarte = this.add.text (posTuto.marte[tutoPosIndex].x,posTuto.marte[tutoPosIndex].y,textMarte[currentLine],{ fill: '#0f0',fontFamily:'textFont'}).setDepth(10);
-                tutotextTierra = this.add.text (posTuto.tierra[tutoPosIndex].x,posTuto.tierra[tutoPosIndex].y,textTierra[currentLine],{ fill: '#0f0',fontFamily:'textFont'}).setDepth(10)
+                tutotextMarte = this.add.text (50,game.config.height-200,textMarte[currentLine],{ fill: '#ffffff',fontFamily:'textFont',fontSize: '16px'}).setDepth(10);
+                tutotextTierra = this.add.text (game.config.width/2,game.config.height-200,textTierra[currentLine],{ fill: '#ffffff',fontFamily:'textFont',fontSize: '16px'}).setDepth(10)
                 
                 //Aqui indicamos que tipo de máscara se va a usar y en que punto
                 CrearMascara(this,
@@ -289,25 +446,73 @@ class SceneTutorial extends Phaser.Scene {
             
             
         }
+        controlTierra.pantallaPlano.rotation+=delta/16000;
+        //DEBUG PARTICULAS
+        /*if (key_left.isDown) {
+            //Apaga
+            emitterStorm.on = false;
+        }
+        else if (key_right.isDown) {
+            //Enciende
+            emitterStorm.on = true;
+        }*/
 
-
-
-
+        //emitter.setPosition(Phaser.Math.Between(0, game.config.width), 0)
         //MARTE
         //Inputs
         //Movimiento de Marte
+
         if (key_left.isDown) {
+
             //Rotación de los elementos de Marte
             updateRotations(1, delta);
+            //marte.rotation += 1*delta/1500*playerSpeed;
+            //Cohete
+            emitterMachines[0].posX = marte.x + 700 * Math.cos(-1.57 + marte.rotation);
+            emitterMachines[0].posY = marte.y + 700 * Math.sin(-1.57 + marte.rotation);
+            //Terraformador
+            emitterMachines[1].posX = marte.x + 700 * Math.cos(3.14 + marte.rotation);
+            emitterMachines[1].posY = marte.y + 700 * Math.sin(3.14 + marte.rotation);
+            //Comunicaciones
+            emitterMachines[2].posX = marte.x + 570 * Math.cos(marte.rotation);
+            emitterMachines[2].posY = marte.y + 570 * Math.sin(marte.rotation);
+            //Mina
+            emitterMachines[3].posX = marte.x + 870 * Math.cos(1.57 + marte.rotation);
+            emitterMachines[3].posY = marte.y + 870 * Math.sin(1.57 + marte.rotation);
+            //emitterMachines[0].emitParticleAt(emitterMachines[0].posX, emitterMachines[0].posY);
         }
         else if (key_right.isDown) {
+            
             //Rotación de los elementos de Marte
             updateRotations(-1, delta);
+            //marte.rotation += -1*delta/1500*playerSpeed;
+            //Cohete
+            emitterMachines[0].posX = marte.x + 700 * Math.cos(-1.57 + marte.rotation);
+            emitterMachines[0].posY = marte.y + 700 * Math.sin(-1.57 + marte.rotation);
+            //Terraformador
+            emitterMachines[1].posX = marte.x + 700 * Math.cos(3.14 + marte.rotation);
+            emitterMachines[1].posY = marte.y + 700 * Math.sin(3.14 + marte.rotation);
+            //Comunicaciones
+            emitterMachines[2].posX = marte.x + 570 * Math.cos(marte.rotation);
+            emitterMachines[2].posY = marte.y + 570 * Math.sin(marte.rotation);
+            //Mina
+            emitterMachines[3].posX = marte.x + 870 * Math.cos(1.57 + marte.rotation);
+            emitterMachines[3].posY = marte.y + 870 * Math.sin(1.57 + marte.rotation);
+            //emitterMachines[0].emitParticleAt(emitterMachines[0].posX, emitterMachines[0].posY);
         }
         else {
 
             player.anims.play('stelonauta_idle', true);
+            
         }
+        //if(maquina[i].isRota == true)
+        /*  emitterMachines[0].emitParticleAt(emitterMachines[0].posX, emitterMachines[0].posY);
+          emitterMachines[1].emitParticleAt(emitterMachines[1].posX, emitterMachines[1].posY);
+          emitterMachines[2].emitParticleAt(emitterMachines[2].posX, emitterMachines[2].posY);
+          emitterMachines[3].emitParticleAt(emitterMachines[3].posX, emitterMachines[3].posY);
+        */
+        //console.log("Pos X: " + emitterMachines[0].posX + "\nPos Y: " + emitterMachines[0].posY);
+        
 
         if ((key_left.isDown || key_right.isDown) && !startSfxRun) {
             startSfxRun = true;
@@ -317,23 +522,29 @@ class SceneTutorial extends Phaser.Scene {
             startSfxRun = false;
             sfx.sounds[3].stop();
         }
+
+        //Meteoritos
+        for(var i=0; i < meteoritos.length; i++) {
+ 
+            meteoritos[i].Update();
+        }
         
         //////////////////////////////
         //Interaccionar con máquinas//
         //////////////////////////////
         //Mostrar tecla interacción
-        if (!(maquinas[0].canInteract() || maquinas[1].canInteract() || maquinas[2].canInteract() || maquinas[3].canInteract()) && maquinas[0].isSending) {
+        /*if (!(maquinas[0].canInteract() || maquinas[1].canInteract() || maquinas[2].canInteract() || maquinas[3].canInteract()) && maquinas[0].isSending) {
 
             teclaAccion.setVisible(false);
-        }
+        }*/
 
         //Acciones de cada máquina
         for(i = 0; i < 4; i++) {
 
             maquinas[i].update(delta);
+            if(maquinas[i].isBroken == true)
+                emitterMachines[i].emitParticleAt(emitterMachines[i].posX, emitterMachines[i].posY);
         }
-
-
 
         ///////////
         //Pasivas//
@@ -348,22 +559,35 @@ class SceneTutorial extends Phaser.Scene {
         
 
         //Desgaste hambre//
-        indHam.size = Phaser.Math.Clamp(indHam.size - delta/2500, 0, indHam.maxSize); 
         indHam.Update();
 
-        if (indHam.size <= 0)
-            DefeatCondition();
 
+        //Pausa
+        if (key_pause.isDown && !paused) {
+
+            PauseMenuTuto(this);
+            paused = true;
+        }
+        if (key_pause.isUp){
+
+            paused = false;
+        }
 
         //TIERRA
         controlTierra.Update(delta);
 
-        meteoritos[0].Update();
+        if (keyDev_victory.isDown) {
+
+            DefeatCondition(this);
+        }
+        if (keyDev_defeat.isDown) {
+
+            VictoryCondition(this);
+        }
     }
 
     
 }
-
 
 /*=============================== */
 /*          TUTORIAL         */
@@ -399,6 +623,20 @@ function endTutorial(scene,textM, textT,fadeOut)
         onComplete: scene.time.addEvent({ delay: fadeOut, callback: function(){scene.scene.start('SceneMenu'); soundtrack.pistas[2].stop();soundtrack.pistas[0].play();}, callbackScope: this})
     });
 }
+
+function PauseMenuTuto(that){
+
+    sfx.sounds.forEach(element => {
+        element.pause();
+    });
+
+    soundtrack.pistas[1].pause();
+    soundtrack.pistas[3].pause();
+
+    that.scene.launch('ScenePause');
+    that.scene.pause('SceneTutorial');
+}
+
 function CrearMascara(scene,posXM,posYM,tipoM, posXT,posYT,tipoT){
 
     maskMarte = scene.make.graphics();  //dibujamos un grafico compuesto de dos formas
@@ -456,3 +694,5 @@ function moverMascara(mask,scene) //x fposX, y = fposYcmask o smask
 
 
 
+ 
+        
