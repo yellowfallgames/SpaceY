@@ -81,10 +81,19 @@ class SceneGameEnd extends Phaser.Scene {
     }
 
     GoBack() {
-   
-        this.scene.stop("SceneGame");
+        
+        if (!isTutorial) {
+
+            this.scene.stop("SceneGame");
+        }
+        else{
+
+            this.scene.stop("SceneTutorial");
+            isTutorial = false;
+        }
         this.scene.start("SceneMenu");
         soundtrack.pistas[0].play();
+        
     }
 }
 function GlowMe(scene,target,fadeOut){

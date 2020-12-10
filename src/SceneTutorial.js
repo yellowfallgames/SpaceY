@@ -142,8 +142,8 @@ class SceneTutorial extends Phaser.Scene {
 
         nCoheteMat = MAX_COHETEMAT;
         nComida_M = MAX_COMIDA;
-        nRocas_M = MAX_ROCAS;
-        nMaterial_M = MAX_MATERIAL;
+        nRocas_M = MAX_ROCAS*100;
+        nMaterial_M = MAX_MATERIAL*100;
 
 	    tutorialEnded = false;  //tutorial acabado
         currentLine = 0;

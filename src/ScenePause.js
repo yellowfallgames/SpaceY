@@ -191,7 +191,13 @@ class ScenePause extends Phaser.Scene {
                 soundtrack.pistas[1].resume();
                 soundtrack.pistas[3].resume();
 
-                that.scene.resume("SceneGame");
+                if (!isTutorial) {
+                    that.scene.resume("SceneGame");
+                }
+                else{
+                    that.scene.resume("SceneTutorial");
+                }
+                
                 that.scene.stop("ScenePause");
             },
         });
@@ -226,8 +232,14 @@ class ScenePause extends Phaser.Scene {
     }
 
     GoBackMenu() {
-   
-        this.scene.stop("SceneGame");
+        if (!isTutorial) {
+            this.scene.stop("SceneGame");
+        }
+        else {
+            this.scene.stop("SceneTutorial");
+            isTutorial = false;
+        }
+        
         this.scene.stop("ScenePause");
         this.scene.start("SceneMenu");
         soundtrack.pistas[0].play();
