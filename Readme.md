@@ -196,61 +196,49 @@ realizar una serie de acciones.
 
 **Aplicaciones:**    
 **Envío de paquetes:**
-(RECURSOS: oxígeno, comida, materiales para construir/reparar)    
+(RECURSOS: comida y materiales para construir/reparar)    
+Puedes añadir hasta 8 paquetes de recursos, iguales o diferentes.    
+Para enviar el cohete pulsaremos el botón naranja.    
+Si el cohete está roto, no podrá extraer ni recibir materiales.
 PANEL IZQUIERDA    
 
 **Cámara de control:**
-Panel con minimapa del cráter de Marte.    
-(se ve el cráter, con mini-iconos para las zonas y el pj)    
+Panel con minimapa de Marte.    
+(se ve el planeta, con mini-iconos para las zonas)    
 PANEL ABAJO IZQUIERDA    
 
 **Estado de máquinas:**
-Son Pilotos que se activan y desactivan en función de las necesidades del stelonauta.    
+Son pilotos que se pueden activar y muestran el estado de las máquinas.    
 (INVERNADERO, COMUNICACIONES, PLACAS SOLARES, BASE/ESCUDOS, ESTACIÓN DE TRANSPORTE)    
 Extras (PILOTO OXÍGENO, PILOTO HAMBRE, MATERIALES, ENERGÍA EN MARTE)     
 ABAJO DERECHA     
 
 **Mapa meteorológico:**
-Mensajes de alerta con iconos.    
+En la Tierra no te avisan de los fenómenos si la estación de comunicaciones está rota.    
 (TORMENTAS DE ARENA, LLUVIA ASTEROIDES)     
 ARRIBA DERECHA     
 
+**Conversora de recursos:**
+PANEL IZQUIERDO    
+- **Mecánica DDR:** aparece una combinación de tres flechas que hay que ejecutar para cambiar 1-1 los
+    recursos de Marte por los de tierra.    
+- Pinchar en el **botón del recurso** que quieres generar y ejecutar la **combinación de flechas.** Se creará
+un recurso que se transmite por una tubería hacia tu almacén de recursos.
+- Si fallas, el código se resetea y te da un **feedback visual** de que has generado mal un recurso.    
+- Para poder enviar el cohete de vuelta debe ser vaciado de materiales.    
+PANEL ABAJO CENTRO     
+
 
 **Recursos:**
-Son finitos, se rellenan automáticamente con el tiempo y puedes ir enviando en función de si
+Son finitos, la comida se consume automáticamente con el tiempo y puedes recibir enviando en función de si
 tienes suficientes para ello. Si desde marte te envían recursos, éstos se rellenan más rápido.    
 
-**Actividades/minijuegos**:
-Distintos minijuegos que se tienen que realizar para poder llevar a cabo determinadas acciones.
-Son los siguientes:
-
-- **Switches:**
-    activar/desactivar escudos(CONSUME ENERGÍA, paneles limpios y arreglados)
-    P.e: tormenta de asteroides- vete para base - activar escudo cuando llegue. Consume
-    mucha energía.
-- **Sliders:**
-    Nivel de potencia, cantidad de datos, cantidad de suministros, ajustar la frecuencia de
-    radio/meteorología.
-- **Cámara desorientada:** La cámara a veces se desenfoca/ruido blanco (a una frecuencia
-    distinta) Ajustar la frecuencia. (Con la cámara desorientada el Supervisor no puede ver
-    qué está pasando)
-- **Botón:**
-    Confirmar acción importante (como un lanzamiento de cohete, o enviar recursos).    
-       ● Enviar Oxígeno(recurso).    
-       ● Enviar Comida(recurso).    
-       ● Enviar Materiales(recurso).    
-       
-- **Pilotos:**
-    Son unos marcadores que el stelonauta activa desde Marte en función de sus
-    necesidades para que el Supervisor provea de recursos:    
-       ● TERRAFORMADOR (gota agua): solución reparar en Marte    
-       ● COMUNICACIONES (señal) : solución teclear en Marte    
-       ● PLACAS ENERGÍA : solución limpiar en Marte    
-       ● BASE/ESCUDOS : solución reparar en Marte    
-       ● ESTACIÓN DE TRANSPORTE : solución clickar en Marte    
-       ● OXÍGENO : solución enviar O    
-       ● HAMBRE: solución enviar comida (Pan de molde y mayonesa)    
-       ● MATERIALES: solución enviar materiales    
+**Juego activo**    
+Consola de comandos donde tienes acceso a los códigos de control de cada zona de la base marciana. 
+Si introduces el código de una zona, en el mapa meteorológico verás el estado de la maquinaria de esa 
+zona [VERDE = OK, ROJO = ROTO]. Si te equivocas simplemente te pide que metas el código de nuevo. 
+Interfaz de consola de comandos CMD.    
+Los códigos serán de 8 dígitos alfanuméricos.
 
 
 **Mapa meteorológico:**    
@@ -259,23 +247,14 @@ Solo te informa de algo inminente que va a ocurrir en Marte con un periodo de an
 son eventos que ocurren sí o sí y el stelonauta no tiene manera de predecirlo hasta que lo tiene
 encima. Son los siguientes:    
 
-● Tormenta de arena:  
-- Baja el oxígeno más rápido si estás fuera, pero te puedes mover.    
+● Tormenta de arena:     
 - Disminuye la barra del hambre.    
 - Llena de polvo algunas zonas.    
 - Vas más lento.    
-- La antena se puede desorientar 45%    
 
 ● Lluvia de meteoritos:    
-- Los paquetes no llegan.    
-- Si estás fuera y no tienes escudo, te mueres    
-- Puede destrozar algunas zonas. Será necesario repararlas.    
-- La antena se puede desorientar 80%    
-
-**Eventos aleatorios:**    
-Se notifica al jugador de alguna manera, por mensaje o con feedback visual (polvo, sonidos, etc)    
-● Teclear rápido: rellenar formularios, programar.    
-● Clickar rápido: poner sellos, botón atascado.    
+- Puede destrozar algunas zonas. Será necesario repararlas.   
+- El stelonauta puede morir de un impacto directo.    
 
 
 **MARTE**    
@@ -283,37 +262,21 @@ Se notifica al jugador de alguna manera, por mensaje o con feedback visual (polv
 
 - Moverse.    
 - Recolectar recursos.    
-- Interactuar (reparar, limpiar, teclear, clicar).    
-- Comunicar : estado propio estado de las zonas.    
-- Activar/desactivar. (apagar o encender una máquina)    
-- Reparar/Limpiar (interactuar con botón).    
+- Interactuar (reparar, limpiar).    
 
 **Zonas:**    
 Tienen 2 estados básicos (rota/funcionando).    
 ● Si está rota hay que repararla usando materiales.    
 ● Si está funcionando, hace su tarea correctamente.    
 
-1. TERRAFORMADOR: Minijuego activo (teclear y/o clickar, drag(palanca). Da puntos
-automáticamente para ganar la partida.    
-2. COMUNICACIONES: permite que los pilotos de necesidad se enciendan y el estado de marte. Si
-coge polvo o se jode por los meteoritos hay que reparar. Cuesta materiales.    
-3. PLACAS ENERGÍA SOLAR: Suministran energía a la base.    
-- Estados: funcionando-sucio-roto    
-- Si cogen polvo, hay que limpiarlas antes de que la energía se agote (barra que
-baja)(Estado: sucio).    
-- Si se rompen, no funciona nada, hay que repararlas. Esto tiene un coste en materiales.    
-4. BASE/ESCUDOS: Protegen de amenazas exteriores (tormenta de arena, meteoritos, etc) y
-cuestan energía.    
-5. ESTACIÓN DE TRANSPORTE: : Enviar y recoger recursos de la Tierra. Recoges O2, comida,
+1. TERRAFORMADOR: Da puntos cuando lo llenas de materiales para ganar la partida.    
+2. COMUNICACIONES: permite que tierra vea el estado de marte. Si
+coge polvo o se rompe por los meteoritos hay que reparar. Cuesta materiales.    
+3. ESTACIÓN DE TRANSPORTE: : Enviar y recoger recursos de la Tierra. Recoges comida y 
 materiales de construcción y puedes enviar materiales de Marte.    
-6. MINA: Proporciona recursos a Marte. Estos recursos se pueden mandar a la Tierra, donde se
-transforman en nuevos recursos que enviar al stelonauta.    
-
-**Eventos aleatorios:**
-- Teclear rápido: re-orientar antena (después de lluvia de meteoritos está
-desconfigurada)    
-- Clickar rápido: limpiar maquinaria de polvo (tras tormenta).    
-
+4. MINA: Proporciona recursos a Marte. Estos recursos se pueden mandar a la Tierra, donde se
+transforman en nuevos recursos que enviar al stelonauta o emplear en el terraformador que otorga 
+puntos de victoria.    
 
 **Atributos de los personajes**    
 
@@ -355,13 +318,14 @@ desconfigurada)
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tecladoF2.png?raw=true)
 
 Controles stelonaula :
-
-- WASD: movimiento
-- ESPACIO: interactuar
+- AD: movimiento
+- W: cargar materiales
+- H: descargar recursos
+- R: reparar máquina    
 Controles supervisor:
-- FLECHAS: minijuego de comunicación.
+- FLECHAS: minijuego de recursos.
 - TECLADO NUMÉRICO: minijuego de comunicación.
-- RATÓN : Interaccionar con todas las opciones del panel de control.
+- RATÓN : Interaccionar con todas las opciones del panel de control.    
 
 
 ### FASE 3 EN ADELANTE (ONLINE)
