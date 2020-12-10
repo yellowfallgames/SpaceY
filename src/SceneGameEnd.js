@@ -50,11 +50,12 @@ class SceneGameEnd extends Phaser.Scene {
 
 
         //Botón para volver al menú
-        this.BtnBackToMenu = this.add.text(game.config.width/2, 2*game.config.height/3, "VOLVER AL MENU",{fontSize:'60px',fill:'#ffffff',}).setDepth(6).setOrigin(0.5).setVisible(false)
+        this.BtnBackToMenu = this.add.text(game.config.width/2, (5*game.config.height/7)+40, "VOLVER AL MENU",{ fill: '#ffffff',fontFamily:'menuFont',fontSize:'60px' })
+        .setDepth(6).setOrigin(0.5).setVisible(false)
         .setInteractive()
         .on('pointerdown', () => this.GoBack() )
         .on('pointerup', () => this.Highlight(this.BtnBackToMenu, true) )
-        .on('pointerover', () => this.Highlight(this.BtnBackToMenu, true) )
+        .on('pointerover', () => this.Over(this.BtnBackToMenu, true) )
         .on('pointerout', () => this.Highlight(this.BtnBackToMenu, false) );
     }
 
@@ -68,9 +69,14 @@ class SceneGameEnd extends Phaser.Scene {
         b ? obj.tint = Phaser.Display.Color.GetColor(139, 139, 139) : obj.tint = Phaser.Display.Color.GetColor(255, 255, 255);  
     }
 
+    Over(obj, b) {
+
+        b ? obj.tint = Phaser.Display.Color.GetColor(139, 139, 139) : obj.tint = Phaser.Display.Color.GetColor(255, 255, 255);  
+        sfx.sounds[0].play();
+    }
+
     ShowMenu(){
         
-        if (isVictory)
         this.BtnBackToMenu.setVisible(true);
     }
 

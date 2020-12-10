@@ -26,6 +26,9 @@ var key_interact;
 var key_repair;
 var key_pause;
 
+var keyDev_victory;
+var keyDev_defeat;
+
 //Objetos
 //Marte
 var player;
@@ -304,6 +307,8 @@ class SceneGame extends Phaser.Scene {
         key_repair = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         key_pause = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
+        keyDev_victory = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+        keyDev_defeat = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
 
         
         //Genera meteoritos cada x ms (TESTING)
@@ -578,14 +583,15 @@ class SceneGame extends Phaser.Scene {
         }
 
         //////////////////////////DEBUG
-        /*if (key_left.isDown) {
+        if (keyDev_victory.isDown) {
 
             DefeatCondition(this);
         }
-        if (key_right.isDown) {
+        if (keyDev_defeat.isDown) {
 
             VictoryCondition(this);
-        }*/
+        }
+        //*/
     }
 
     
@@ -652,7 +658,7 @@ function DestroyOnScene(obj) {
 }
 
 //Acciones condiciones victoria/derrota
-function VictoryCondition(that){
+function VictoryCondition(that)  {
     sfx.sounds.forEach(element => {
         element.stop();
     });
@@ -662,7 +668,7 @@ function VictoryCondition(that){
     soundtrack.pistas[1].stop();
     soundtrack.pistas[3].stop();
 
-    this.isVictory = true;
+    isVictory = true;
     
     that.scene.launch('SceneGameEnd');
     that.scene.pause('SceneGame');
@@ -675,6 +681,8 @@ function DefeatCondition(that){
     });
 
     sfx.sounds[5].play();
+
+    isVictory = false;
 
     soundtrack.pistas[1].stop();
     soundtrack.pistas[3].stop();
