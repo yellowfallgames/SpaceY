@@ -8,8 +8,7 @@ class CommsMachine extends Machine {
     
         this.keyIndicator = new KeyIndicator(scene, marte.x, 400, "R");
 
-        var rand = Phaser.Math.Between((1000*60),(1000*60)*2);
-        this.event = scene.time.addEvent({ delay: rand, callback: this.StartEvent, callbackScope: this});
+        this.event;
     }
 
     update(delta){
@@ -48,9 +47,15 @@ class CommsMachine extends Machine {
         }
     }
 
+    Start() {
+
+        var rand = Phaser.Math.Between((1000*60),(1000*60)*2);
+        this.event = this.scene.time.addEvent({ delay: rand, callback: this.StartEvent, callbackScope: this});
+    }
+
     StartEvent() {
 
-        var rand = Phaser.Math.Between(1, 1);
+        var rand = Phaser.Math.Between(0, 1);
         rand === 0 ? this.AlertSandStorm() : this.AlertMeteorRain();  
     }
 

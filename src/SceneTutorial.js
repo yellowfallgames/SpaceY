@@ -6,11 +6,6 @@
 //Directorio imágenes
 var directory = "./Resources/Game/";
 
-//Misceláneo
-var nCarga = 0;
-var barraCarga;
-var MAX_CARGA = 100;
-
 var toDestroy;
 
 //Interfaz
@@ -18,118 +13,7 @@ var movTxt = 2;    //Píxeles que se mueve el texto al hacer hovering
 var counter;
 
 //Inputs
-var key_left;
-var key_right;
-var key_up;
-var key_down;
-var key_interact;
-var key_repair;
 var key_skipTutorial;
-
-//Objetos
-//Marte
-var player;
-var playerSpeed = 1;
-var marte;
-var fondoMarte;
-var nubes;
-var N_NUBES = 5;
-var teclaAccion;
-var maquinas;
-var terraformador;
-var mina;
-var comunicaciones;
-var estacionTransporte;
-var desgaste_terraformador;
-var desgaste_mina
-var desgaste_comunicaciones;
-var desgaste_estacionTransporte;
-var flechasAmarillas;
-var alertaMeteorito;
-var alertaPeligroIz;
-var alertaPeligroDc;
-var terraformLevel;
-var timerSegundos;
-var timerMinutos;
-var timerHoras;
-var indRocas;
-var indO2;
-var indMat;
-var indHam;
-var meteoritos;
-
-//Tierra
-var controlTierra;
-
-var fondoTierra;
-var lanzadera;
-var rocket;
-var lanzPuerta;
-var lanzCtdn;
-var cargaMat;
-var cargaO2;
-var cargaRocas;
-var cargaComida;
-var paqBase;
-var paqBtnComida;
-var paqBtnO2;
-var paqBtnMat;
-var paqBtnEnv;
-var paqPasarela;
-var ddrBase;
-var ddrFlecha_0;
-var ddrFlecha_1;
-var ddrFlecha_2;
-var ddrBtnMat;
-var ddrBtnO2;
-var ddrBtnComida;
-var controlBase;
-var controlKey;	
-var controlPass;
-var controlTerr;
-var controlMina;
-var controlRocket;
-var controlCom;
-var pantalla;
-var pantallaPlano;
-
-//Barra terraformación
-var nTerraformacion = 0;
-var indTerra;
-var MAX_TERRAFORMACION = 1000;
-var txtTerraformacion;
-
-//Barra cargamento cohete
-var objCohete;
-var nCoheteMat = 330;
-var objCoheteMat;
-var MAX_COHETEMAT = 350;
-var txtCoheteMat;
-var spdCargarCohete = 0.25;
-var coheteMat_color = Phaser.Display.Color.GetColor(150, 103, 34);
-
-//Recursos Marte
-var nComida_M = 100;
-var objComida_M;
-var MAX_COMIDA = 150;
-var txtComida_M;
-
-var nRocas_M = 100;
-var objRocas_M;
-var MAX_ROCAS = 200;
-var txtRocas_M;
-
-var nMaterial_M = 0;
-var objMaterial_M;
-var MAX_MATERIAL = 100;
-var txtMaterial_M;
-
-//Barra carga
-var repairBar_color = Phaser.Display.Color.GetColor(160, 190, 55);
-var repairBar_color2 = Phaser.Display.Color.GetColor(225, 164, 13);
-
-//Recursos Tierra
-
 
 var startSfxRun = false;
 /////////////////////
@@ -267,8 +151,14 @@ class SceneTutorial extends Phaser.Scene {
     }
 
     create() {
-        //TUTORIAL INICIALIZANDO
-	    tutorialEnded = false;  //utorial acabado
+
+        nCoheteMat = MAX_COHETEMAT;
+        nComida_M = MAX_COMIDA;
+        nRocas_M = MAX_ROCAS*100;
+        nMaterial_M = MAX_MATERIAL*100;
+
+	    tutorialEnded = false;  //tutorial acabado
+
         currentLine = 0;
         rotIndex = 0;
 
@@ -287,52 +177,6 @@ class SceneTutorial extends Phaser.Scene {
         //PLAY a los sonidos de las máquinas
         sfx.sounds[2].play();
         sfx.sounds[8].play();
-
-        //Animaciones
-        this.anims.create({
-            key: 'stelonauta_idle',
-            frames: this.anims.generateFrameNumbers('stelonauta_idle', { start: 0, end: 59 }),
-            frameRate: 18,
-            //repeat: 1,
-        });
-
-        this.anims.create({
-            key: 'stelonauta_run',
-            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 20 }),
-            frameRate: 30,
-        });
-
-        this.anims.create({
-            key: 'movimientoTerraformador',
-            frames: this.anims.generateFrameNumbers('movimientoTerraformador', { start: 0, end: 10 }),
-            frameRate: 10,
-            repeat: -1,
-        });
-        this.anims.create({
-            key: 'movimientoAntena',
-            frames: this.anims.generateFrameNumbers('movimientoAntena', { start: 0, end: 10 }),
-            frameRate: 4,
-            repeat: -1,
-        });
-        this.anims.create({
-            key: 'movimientoMina',
-            frames: this.anims.generateFrameNumbers('movimientoMina', { start: 0, end: 10 }),
-            frameRate: 10,
-            repeat: -1,
-        });
-        this.anims.create({
-            key: 'movimientoCohete',
-            frames: this.anims.generateFrameNumbers('movimientoCohete', { start: 0, end: 8 }),
-            frameRate: 15,
-            repeat: 0,
-        });
-        this.anims.create({
-            key: 'movimientoCoheteReverse',
-            frames: this.anims.generateFrameNumbers('movimientoCohete', { start: 8, end: 0 }),
-            frameRate: 15,
-            repeat: 0,
-        });
-        
 
         //MARTE
 		// ui_M_bck
@@ -406,7 +250,22 @@ class SceneTutorial extends Phaser.Scene {
         objCoheteMat.obj.setRotation(-1.57);
 
         //Barra de carga
-        barraCarga = new Bar(this, player.x-40, player.y-50, nCarga, MAX_CARGA, 0.3, 0.1, -1, false);        
+        barraCarga = new Bar(this, player.x-40, player.y-50, nCarga, MAX_CARGA, 0.3, 0.5, -1, false);
+
+        //Animaciones
+        this.anims.create({
+            key: 'stelonauta_idle',
+            frames: this.anims.generateFrameNumbers('stelonauta_idle', { start: 0, end: 59 }),
+            frameRate: 18,
+            //repeat: 1,
+        });
+
+        this.anims.create({
+            key: 'stelonauta_run',
+            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 21 }),
+            frameRate: 18,
+        });
+
 
         //Input events
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -417,6 +276,11 @@ class SceneTutorial extends Phaser.Scene {
         key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
         key_repair = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         key_skipTutorial = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Y);
+        key_pause = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
+        keyDev_victory = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+        keyDev_defeat = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
+
 
         
         //Genera meteoritos cada x ms (TESTING)
@@ -713,192 +577,33 @@ class SceneTutorial extends Phaser.Scene {
         
 
         //Desgaste hambre//
-        indHam.size = Phaser.Math.Clamp(indHam.size - delta/2500, 0, indHam.maxSize); 
         indHam.Update();
 
-        if (indHam.size <= 0)
-            DefeatCondition(this);
 
+        //Pausa
+        if (key_pause.isDown && !paused) {
+
+            PauseMenuTuto(this);
+            paused = true;
+        }
+        if (key_pause.isUp){
+
+            paused = false;
+        }
 
         //TIERRA
         controlTierra.Update(delta);
 
-        if (key_left.isDown) {
+        if (keyDev_victory.isDown) {
 
             DefeatCondition(this);
         }
-        if (key_right.isDown) {
+        if (keyDev_defeat.isDown) {
 
             VictoryCondition(this);
         }
     }
 
-    
-}
-
-function genMeteors() {
-
-    //var delay = 0;
-    for(var i=0; i < 3; i++) {
- 
-        meteoritos[i] = new Meteor(this);
-    }
-}
-function updateRotations(sign, delta) {
-
-    for(var i=0; i<N_NUBES; i++) {
-        nubes[i].obj.rotation += sign*delta/1000*playerSpeed;
-    }
-    for(var i=0; i < meteoritos.length; i++) {
-        meteoritos[i].obj.rotation += sign*delta/1500*playerSpeed;
-    }
-    
-    marte.rotation+=sign*delta/1500*playerSpeed;
-    objCohete.obj.rotation+=sign*delta/1500*playerSpeed;
-
-    for (i=0; i<4; i++) {
-
-        maquinas[i].obj.setRotation(maquinas[i].obj.rotation + sign*delta/1500*playerSpeed);
-        //Update sonidos
-        var beta = maquinas[i].obj.rotation < 0 ? maquinas[i].obj.rotation * -1: maquinas[i].obj.rotation ;
-        if(beta < 0.8)
-        {
-            var volumen = (0.8 - beta)/0.8;
-            if(volumen<0.02)
-                volumen = 0;
-            switch(i)
-            {
-                case 0: //Cohete
-
-                    break;
-                case 1: //Terraformador
-                case 3: //Mina
-                    sfx.sounds[2].volume = volumen;
-                    break;
-                case 2: //Comunicaciones
-                    sfx.sounds[8].volume = volumen;
-                    break;
-            }
-            
-        }
-    }
-
-    sign===1 ? player.flipX = false : player.flipX = true;
-    player.anims.play('stelonauta_run', true);
-
-    //Desgaste extra hambre
-    indHam.size = Phaser.Math.Clamp(indHam.size - delta/2500, 0, indHam.maxSize); 
-    indHam.Update();
-}
-
-function DestroyOnScene(obj) {
-
-    obj.destroy();
-}
-
-//Acciones condiciones victoria/derrota
-function VictoryCondition(that){
-    sfx.sounds.forEach(element => {
-        element.stop();
-    });
-
-    sfx.sounds[4].play();
-
-    soundtrack.pistas[1].stop();
-    soundtrack.pistas[3].stop();
-    
-    that.scene.launch('SceneGameEnd');
-    that.scene.pause('SceneGame');
-    
-}
-
-function DefeatCondition(that){
-    sfx.sounds.forEach(element => {
-        element.stop();
-    });
-
-    sfx.sounds[5].play();
-
-    soundtrack.pistas[1].stop();
-    soundtrack.pistas[3].stop();
-
-    that.scene.launch('SceneGameEnd');
-    that.scene.pause('SceneGame');
-}
-
-function HighlightPostIt(obj, b) {
-
-    b ? obj.tint = Phaser.Display.Color.GetColor(139, 139, 139) : obj.tint = Phaser.Display.Color.GetColor(255, 255, 255);  
-    //if (!b) obj.add.image(game.config.width/2, game.config.height/2, "postIt");
-}
-function OpenPostIt(obj,scene) {
-
-    switch(obj)
-    {
-        case postIt : 
-        scene.tweens.add({
-            targets: obj,
-            scaleX: 10,
-            scaleY: 10,
-            duration: 50,
-            ease: 'Expo.easeIn',
-            onComplete: function ()
-            {
-                postIt.setVisible(false);
-                postItExp.setVisible(true);
-                postItExp.setScale(0.2);
-                postItExp.setPosition(game.config.width/2, game.config.height/2);
-            }
-        });
-        break;
-        case postItExp : 
-        scene.tweens.add({
-            targets: obj,
-            x:postIt.x,
-            y:postIt.y,
-            scaleX: 0,
-            scaleY: 0,
-            duration: 50,
-            ease: 'Expo.easeIn',
-            onComplete: function ()
-            {
-                postItExp.setVisible(false);
-                postIt.setVisible(true);
-            }
-        });
-        break;
-    }
-    if(isbig)
-    {
-        console.log('no soy grande');
-        isbig = false;
-        scene.tweens.add({
-            targets: obj,
-            scaleX: 0,
-            scaleY: 0,
-            duration: 50,
-            ease: 'Expo.easeIn',
-            onComplete: function ()
-            {
-                
-            }
-        });
-    }
-    else if (!isbig)
-    {
-        isbig = true;
-        scene.tweens.add({
-            targets: obj,
-            scaleX: 1,
-            scaleY: 1,
-            duration: 50,
-            ease: 'Expo.easeOut',
-            onComplete: function ()
-            {
-                
-            }
-        });
-    }
     
 }
 
@@ -936,6 +641,20 @@ function endTutorial(scene,textM, textT,fadeOut)
         onComplete: scene.time.addEvent({ delay: fadeOut, callback: function(){scene.scene.start('SceneMenu'); soundtrack.pistas[2].stop();soundtrack.pistas[0].play();}, callbackScope: this})
     });
 }
+
+function PauseMenuTuto(that){
+
+    sfx.sounds.forEach(element => {
+        element.pause();
+    });
+
+    soundtrack.pistas[1].pause();
+    soundtrack.pistas[3].pause();
+
+    that.scene.launch('ScenePause');
+    that.scene.pause('SceneTutorial');
+}
+
 function CrearMascara(scene,posXM,posYM,tipoM, posXT,posYT,tipoT){
 
     maskMarte = scene.make.graphics();  //dibujamos un grafico compuesto de dos formas

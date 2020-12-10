@@ -99,12 +99,12 @@ var pantallaPlano;
 //Barra terraformación
 var nTerraformacion = 0;
 var indTerra;
-var MAX_TERRAFORMACION = 800;
+var MAX_TERRAFORMACION = 1600;
 var txtTerraformacion;
 
 //Barra cargamento cohete
 var objCohete;
-var nCoheteMat = 0;
+var nCoheteMat = 150;
 var objCoheteMat;
 var MAX_COHETEMAT = 350;
 var txtCoheteMat;
@@ -112,7 +112,7 @@ var spdCargarCohete = 0.25;
 var coheteMat_color = Phaser.Display.Color.GetColor(150, 103, 34);
 
 //Recursos Marte
-var nComida_M = 120;
+var nComida_M = 75;
 var objComida_M;
 var MAX_COMIDA = 150;
 var txtComida_M;
@@ -161,6 +161,16 @@ class SceneGame extends Phaser.Scene {
     }
 
     create() {
+
+        //Valores iniciales recursos
+        nCoheteMat = 150;
+        nComida_M = 75;
+        nRocas_M = 30;
+        nMaterial_M = 20;
+
+
+
+
         sfx.sounds[2].loop = sfx.loop;
         sfx.sounds[3].loop = sfx.loop;
         sfx.sounds[8].loop = true;
@@ -177,50 +187,7 @@ class SceneGame extends Phaser.Scene {
         sfx.sounds[2].play();
         sfx.sounds[8].play();
 
-        //Animaciones
-        this.anims.create({
-            key: 'stelonauta_idle',
-            frames: this.anims.generateFrameNumbers('stelonauta_idle', { start: 0, end: 59 }),
-            frameRate: 18,
-            //repeat: 1,
-        });
-
-        this.anims.create({
-            key: 'stelonauta_run',
-            frames: this.anims.generateFrameNumbers('stelonauta_run', { start: 0, end: 20 }),
-            frameRate: 30,
-        });
-
-        this.anims.create({
-            key: 'movimientoTerraformador',
-            frames: this.anims.generateFrameNumbers('movimientoTerraformador', { start: 0, end: 10 }),
-            frameRate: 10,
-            repeat: -1,
-        });
-        this.anims.create({
-            key: 'movimientoAntena',
-            frames: this.anims.generateFrameNumbers('movimientoAntena', { start: 0, end: 10 }),
-            frameRate: 4,
-            repeat: -1,
-        });
-        this.anims.create({
-            key: 'movimientoMina',
-            frames: this.anims.generateFrameNumbers('movimientoMina', { start: 0, end: 10 }),
-            frameRate: 10,
-            repeat: -1,
-        });
-        this.anims.create({
-            key: 'movimientoCohete',
-            frames: this.anims.generateFrameNumbers('movimientoCohete', { start: 0, end: 8 }),
-            frameRate: 15,
-            repeat: 0,
-        });
-        this.anims.create({
-            key: 'movimientoCoheteReverse',
-            frames: this.anims.generateFrameNumbers('movimientoCohete', { start: 8, end: 0 }),
-            frameRate: 15,
-            repeat: 0,
-        });
+        
         
 
         //MARTE
@@ -243,6 +210,8 @@ class SceneGame extends Phaser.Scene {
         maquinas[1] = terraformador;
         maquinas[2] = comunicaciones;
         maquinas[3] = mina;
+
+        maquinas[2].Start();
 
         //Nubes
         nubes = new Array(N_NUBES);
@@ -295,7 +264,7 @@ class SceneGame extends Phaser.Scene {
         objCoheteMat.obj.setRotation(-1.57);
 
         //Barra de carga
-        barraCarga = new Bar(this, player.x-40, player.y-50, nCarga, MAX_CARGA, 0.3, 0.1, -1, false);        
+        barraCarga = new Bar(this, player.x-40, player.y-50, nCarga, MAX_CARGA, 0.4, 0.4, -1, false);        
 
         //Input events
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -316,7 +285,7 @@ class SceneGame extends Phaser.Scene {
 
 
         //PARTÍCULAS TORMENTA
-        emitterStorm = this.add.particles('spark').createEmitter({
+        emitterStorm = this.add.particles('polvo').createEmitter({
             x: {min: 0, max: 1500},
             y: 0,
             blendMode: 'COLOR',
@@ -331,7 +300,7 @@ class SceneGame extends Phaser.Scene {
         
 
         //Cohete        [0]
-        emitterMachines[0] = this.add.particles('spark');
+        emitterMachines[0] = this.add.particles('smoke');
         emitterMachines[0].createEmitter({
             x: 300,
             y: 300,
@@ -350,7 +319,7 @@ class SceneGame extends Phaser.Scene {
         //emitterMachines[0].startFollow(player);
 ///*
         //Radio         [1]
-        emitterMachines[1] = this.add.particles('spark');
+        emitterMachines[1] = this.add.particles('smoke');
         emitterMachines[1].createEmitter({
             x: 300,
             y: 300,
@@ -368,7 +337,7 @@ class SceneGame extends Phaser.Scene {
     
 
         //Mina          [2]
-        emitterMachines[2] = this.add.particles('spark');
+        emitterMachines[2] = this.add.particles('smoke');
         emitterMachines[2].createEmitter({
             x: 300,
             y: 300,
@@ -386,7 +355,7 @@ class SceneGame extends Phaser.Scene {
     
 
         //Terraformador [3]
-        emitterMachines[3] = this.add.particles('spark');
+        emitterMachines[3] = this.add.particles('smoke');
         emitterMachines[3].createEmitter({
             x: 300,
             y: 300,
@@ -659,6 +628,7 @@ function DestroyOnScene(obj) {
 
 //Acciones condiciones victoria/derrota
 function VictoryCondition(that)  {
+
     sfx.sounds.forEach(element => {
         element.stop();
     });
@@ -672,23 +642,25 @@ function VictoryCondition(that)  {
     
     that.scene.launch('SceneGameEnd');
     that.scene.pause('SceneGame');
-    
 }
 
 function DefeatCondition(that){
-    sfx.sounds.forEach(element => {
-        element.stop();
-    });
+    if (!isTutorial) {
 
-    sfx.sounds[5].play();
-
-    isVictory = false;
-
-    soundtrack.pistas[1].stop();
-    soundtrack.pistas[3].stop();
-
-    that.scene.launch('SceneGameEnd');
-    that.scene.pause('SceneGame');
+        sfx.sounds.forEach(element => {
+            element.stop();
+        });
+    
+        sfx.sounds[5].play();
+    
+        isVictory = false;
+    
+        soundtrack.pistas[1].stop();
+        soundtrack.pistas[3].stop();
+    
+        that.scene.launch('SceneGameEnd');
+        that.scene.pause('SceneGame');
+    }
 }
 
 function PauseMenu(that) {

@@ -1,3 +1,5 @@
+var isTutorial = false;
+
 class SceneMenu extends Phaser.Scene {
 
     constructor() {
@@ -102,7 +104,8 @@ enterTutorial() {
             ease: 'Expo.easeOut',
             onComplete: this.scene.start('SceneTutorial')
         });
-      //fin transicion
+    //fin transicion
+    isTutorial = true;
 }
 
 enterOptions() {
@@ -170,7 +173,8 @@ enterButtonRestState(boton) {
      this.contactButton.setVisible(false);
      this.optionsButton.setVisible(false);
      this.tutorialButton.setVisible(false);
-     var timedEvent = this.time.addEvent({ delay: yPos+500, callback: function(){this.scene.start('SceneGame')}, callbackScope: this});
+     isTutorial = false;
+     var timedEvent = this.time.addEvent({ delay: yPos+500, callback: function(){this.scene.start('SceneGame'); isTutorial = false;}, callbackScope: this});
  }
 
 //EASINGS
