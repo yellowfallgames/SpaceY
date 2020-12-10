@@ -6,11 +6,6 @@
 //Directorio imágenes
 var directory = "./Resources/Game/";
 
-//Misceláneo
-var nCarga = 0;
-var barraCarga;
-var MAX_CARGA = 100;
-
 var toDestroy;
 
 //Interfaz
@@ -18,109 +13,7 @@ var movTxt = 2;    //Píxeles que se mueve el texto al hacer hovering
 var counter;
 
 //Inputs
-var key_left;
-var key_right;
-var key_up;
-var key_down;
-var key_interact;
 var key_skipTutorial;
-//Objetos
-//Marte
-var player;
-var marte;
-var fondoMarte;
-var nubes;
-var N_NUBES = 5;
-var teclaAccion;
-var maquinas;
-var terraformador;
-var mina;
-var comunicaciones;
-var estacionTransporte;
-var desgaste_terraformador;
-var desgaste_mina
-var desgaste_comunicaciones;
-var desgaste_estacionTransporte;
-var flechasAmarillas;
-var alertaMeteorito;
-var alertaPeligroIz;
-var alertaPeligroDc;
-var terraformLevel;
-var timerSegundos;
-var timerMinutos;
-var timerHoras;
-var indRocas;
-var indO2;
-var indMat;
-var indHam;
-var meteoritos;
-
-//Tierra
-var controlTierra;
-
-var fondoTierra;
-var lanzadera;
-var rocket;
-var lanzPuerta;
-var lanzCtdn;
-var cargaMat;
-var cargaO2;
-var cargaRocas;
-var cargaComida;
-var paqBase;
-var paqBtnComida;
-var paqBtnO2;
-var paqBtnMat;
-var paqBtnEnv;
-var paqPasarela;
-var ddrBase;
-var ddrFlecha_0;
-var ddrFlecha_1;
-var ddrFlecha_2;
-var ddrBtnMat;
-var ddrBtnO2;
-var ddrBtnComida;
-var controlBase;
-var controlKey;	
-var controlPass;
-var controlTerr;
-var controlMina;
-var controlRocket;
-var controlCom;
-var pantalla;
-var pantallaPlano;
-
-//Barra terraformación
-var nTerraformacion = 0;
-var indTerra;
-var MAX_TERRAFORMACION = 1000;
-var txtTerraformacion;
-
-//Barra cargamento cohete
-var objCohete;
-var nCoheteMat = 330;
-var objCoheteMat;
-var MAX_COHETEMAT = 350;
-var txtCoheteMat;
-var spdCargarCohete = 0.25;
-var coheteMat_color = Phaser.Display.Color.GetColor(150, 103, 34);
-
-//Recursos Marte
-var nComida_M = 75;
-var objComida_M;
-var MAX_COMIDA = 150;
-var txtComida_M;
-
-var nRocas_M = 100;
-var objRocas_M;
-var MAX_ROCAS = 200;
-var txtRocas_M;
-
-var nMaterial_M = 20;
-var objMaterial_M;
-var MAX_MATERIAL = 100;
-var txtMaterial_M;
-
 
 /* =========================== */
 /*      TUTORIAL               */
@@ -327,7 +220,7 @@ class SceneTutorial extends Phaser.Scene {
         objCoheteMat.obj.setRotation(-1.57);
 
         //Barra de carga
-        barraCarga = new Bar(this, player.x-40, player.y-50, nCarga, MAX_CARGA, 0.3, 0.1, -1, false);
+        barraCarga = new Bar(this, player.x-40, player.y-50, nCarga, MAX_CARGA, 0.3, 0.5, -1, false);
 
         //Animaciones
         this.anims.create({

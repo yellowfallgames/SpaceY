@@ -99,12 +99,12 @@ var pantallaPlano;
 //Barra terraformación
 var nTerraformacion = 0;
 var indTerra;
-var MAX_TERRAFORMACION = 800;
+var MAX_TERRAFORMACION = 1600;
 var txtTerraformacion;
 
 //Barra cargamento cohete
 var objCohete;
-var nCoheteMat = 0;
+var nCoheteMat = 150;
 var objCoheteMat;
 var MAX_COHETEMAT = 350;
 var txtCoheteMat;
@@ -112,7 +112,7 @@ var spdCargarCohete = 0.25;
 var coheteMat_color = Phaser.Display.Color.GetColor(150, 103, 34);
 
 //Recursos Marte
-var nComida_M = 120;
+var nComida_M = 75;
 var objComida_M;
 var MAX_COMIDA = 150;
 var txtComida_M;
@@ -295,7 +295,7 @@ class SceneGame extends Phaser.Scene {
         objCoheteMat.obj.setRotation(-1.57);
 
         //Barra de carga
-        barraCarga = new Bar(this, player.x-40, player.y-50, nCarga, MAX_CARGA, 0.3, 0.1, -1, false);        
+        barraCarga = new Bar(this, player.x-40, player.y-50, nCarga, MAX_CARGA, 0.4, 0.4, -1, false);        
 
         //Input events
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -316,7 +316,7 @@ class SceneGame extends Phaser.Scene {
 
 
         //PARTÍCULAS TORMENTA
-        emitterStorm = this.add.particles('spark').createEmitter({
+        emitterStorm = this.add.particles('polvo').createEmitter({
             x: {min: 0, max: 1500},
             y: 0,
             blendMode: 'COLOR',
@@ -331,7 +331,7 @@ class SceneGame extends Phaser.Scene {
         
 
         //Cohete        [0]
-        emitterMachines[0] = this.add.particles('spark');
+        emitterMachines[0] = this.add.particles('smoke');
         emitterMachines[0].createEmitter({
             x: 300,
             y: 300,
@@ -350,7 +350,7 @@ class SceneGame extends Phaser.Scene {
         //emitterMachines[0].startFollow(player);
 ///*
         //Radio         [1]
-        emitterMachines[1] = this.add.particles('spark');
+        emitterMachines[1] = this.add.particles('smoke');
         emitterMachines[1].createEmitter({
             x: 300,
             y: 300,
@@ -368,7 +368,7 @@ class SceneGame extends Phaser.Scene {
     
 
         //Mina          [2]
-        emitterMachines[2] = this.add.particles('spark');
+        emitterMachines[2] = this.add.particles('smoke');
         emitterMachines[2].createEmitter({
             x: 300,
             y: 300,
@@ -386,7 +386,7 @@ class SceneGame extends Phaser.Scene {
     
 
         //Terraformador [3]
-        emitterMachines[3] = this.add.particles('spark');
+        emitterMachines[3] = this.add.particles('smoke');
         emitterMachines[3].createEmitter({
             x: 300,
             y: 300,
