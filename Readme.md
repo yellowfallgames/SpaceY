@@ -411,5 +411,4 @@ Sonidos de oficina/panel de control/beep de radares para el supervisor, cuenta a
 Efectos de sonido de polvo, aparatos electrónicos, carga de energía eléctrica, lanzamiento de
 cohetes    
 
-https://audiojungle.net/item/psychology-thriller-stellar-action/25229428    
-https://audiojungle.net/item/endless-time/25285774    
+Todos los efectos de sonido y canciones han sido obtenidos a través de https://opengameart.org/ .
