@@ -31,7 +31,7 @@ create() {
     });
 
     //ASIGNACION DE METODO
-    this.playButton = this.add.text((game.config.width/8)*3, -1000, 'Jugar', { fill: '#FE6E00',fontFamily:'menuFont',fontSize:'60px'})
+    this.playButton = this.add.text((game.config.width/8)*3, -1000, 'Jugar', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px'})
 
     .setInteractive()
     .on('pointerdown', () => this.startGame() )
@@ -40,7 +40,7 @@ create() {
     this.playButton.setOrigin(0.5);
     this.easeMe(this.playButton, this, 1);
 
-    this.tutorialButton = this.add.text((game.config.width/2)*4, -1000, 'Tutorial', { fill: '#FE6E00',fontFamily:'menuFont',fontSize:'60px'})
+    this.tutorialButton = this.add.text((game.config.width/2)*4, -1000, 'Tutorial', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px'})
 
     .setInteractive()
     .on('pointerdown', () => this.enterTutorial() )
@@ -50,7 +50,7 @@ create() {
     this.easeMe(this.tutorialButton, this, 2);
 
 
-    this.optionsButton = this.add.text(-1000, (game.config.height/8)*5, 'Opciones', { fill: '#FE6E00',fontFamily:'menuFont',fontSize:'60px' })
+    this.optionsButton = this.add.text(-1000, (game.config.height/8)*5, 'Opciones', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px' })
 
     .setInteractive()
     .on('pointerdown', () => this.enterOptions() )
@@ -60,7 +60,7 @@ create() {
     this.easeMe(this.optionsButton, this, 3);
     
 
-    this.contactButton = this.add.text(game.config.width + 1000, (game.config.height/8)*6, 'Contacto', { fill: '#FE6E00',fontFamily:'menuFont',fontSize:'60px' })
+    this.contactButton = this.add.text(game.config.width + 1000, (game.config.height/8)*6, 'Contacto', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px' })
 
     .setInteractive()
     .on('pointerdown', () => this.enterContact() )
@@ -77,13 +77,13 @@ create() {
 //INTERACTIVIDAD
 
 enterButtonHoverState(boton) {
-    boton.setStyle({ fill: '#FEDEBE'});
+    boton.setStyle({ fill: '#FE6E00'});
     boton.x = boton.x+movTxt;
     boton.y = boton.y+movTxt;
 }
 
 enterButtonRestState(boton) {
-    boton.setStyle({ fill: '#FE6E00' });
+    boton.setStyle({ fill: '#FEDEBE' });
     boton.x = boton.x-movTxt;
     boton.y = boton.y-movTxt;
 }
@@ -122,13 +122,13 @@ enterContact() {
 
 enterButtonHoverState(boton) {
     sfx.sounds[1].play();
-    boton.setStyle({ fill: '#FEDEBE'});
+    boton.setStyle({ fill: '#FE6E00'});
     boton.x = boton.x+movTxt;
     boton.y = boton.y+movTxt;
 }
 
 enterButtonRestState(boton) {
-    boton.setStyle({ fill: '#FE6E00' });
+    boton.setStyle({ fill: '#FEDEBE' });
     boton.x = boton.x-movTxt;
     boton.y = boton.y-movTxt;
 }
