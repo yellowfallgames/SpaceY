@@ -91,17 +91,17 @@ create() {
         game.config.width + 20, game.config.height-40  //send
     ];
     var chatTween = [
-        game.config.width - 100, game.config.height-100,    //icono
-        game.config.width , game.config.height-100, //base
-        game.config.width , game.config.height-100, //frame
-        game.config.width + 20, game.config.height-40, //write msg
-        game.config.width + 20, game.config.height-40  //send
+        game.config.width - 800, game.config.height-100,    //icono
+        game.config.width -800, game.config.height-100, //base
+        game.config.width -800, game.config.height-100, //frame
+        game.config.width - 780, game.config.height-40, //write msg
+        game.config.width - 780, game.config.height-40  //send
     ];
     //Chatbox icon
     this.chatbutton = this.add.image(chatPos[0], chatPos[1],'ChatBox_chatIcon')
     .setScale(0.4);
     this.chatbutton.setInteractive()
-    .on('pointerdown', () => this.MovinBoxes(chat, game.config.height, chatBoxOut) )
+    .on('pointerdown', () => this.MovinBoxes(chat, game.config.height, chatBoxOut, this) )
     .on('pointerover', () => this.enterButtonHoverState(this.chatbutton) )
     .on('pointerout', () => this.enterButtonRestState(this.chatbutton))
     this.chatbutton.setOrigin(0.5);
@@ -150,6 +150,21 @@ create() {
     this.loginIcon.setOrigin(0.5);
 
     //REGISTER
+    var regisPos = [
+        game.config.width - 100, game.config.height-100,    //icono
+        game.config.width , game.config.height-100, //base
+        game.config.width , game.config.height-100, //frame
+        game.config.width + 20, game.config.height-40, //write msg
+        game.config.width + 20, game.config.height-40  //send
+    ];
+    var regisTween = [
+        game.config.width - 800, game.config.height-100,    //icono
+        game.config.width -800, game.config.height-100, //base
+        game.config.width -800, game.config.height-100, //frame
+        game.config.width - 780, game.config.height-40, //write msg
+        game.config.width - 780, game.config.height-40  //send
+    ];
+    //register box
     this.registerBox = this.add.image(game.config.width + 1000, game.config.height+1000,'Register_Form')
     .setScale(0.4);
     this.registerBox.setOrigin(0.5);
@@ -288,7 +303,7 @@ enterButtonRestState(boton) {
  }
 //CHATBOX
 //sacar el chat 
-MovinBoxes(boton,pX, pY,isOut,scene) 
+MovinBoxes(boton,pX,pY,isOut,scene) 
 {
         sfx.sounds[1].play();
 
