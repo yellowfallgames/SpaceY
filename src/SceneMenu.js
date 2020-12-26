@@ -130,11 +130,12 @@ create() {
 
     //LOGIN
     var loginPos = [
-        game.config.width - 100, game.config.height-100,    //icono
-        game.config.width , game.config.height-100, //base
-        game.config.width , game.config.height-100, //frame
-        game.config.width + 20, game.config.height-40, //write msg
-        game.config.width + 20, game.config.height-40  //send
+        -game.config.width, game.config.height*0.05,    //icono
+        -game.config.width , game.config.height*0.1,    //box
+    ];
+    var loginTween = [
+        game.config.width*0.05, game.config.height*0.05, //icono
+        game.config.width*0.05 , game.config.height*0.1, //box
     ];
     //Login box
     this.loginBox = this.add.image(game.config.width + 1000, game.config.height+1000,'LoginBox')
@@ -145,7 +146,7 @@ create() {
     .setScale(0.4);
     this.loginIcon.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this.loginIcon, game.config.width , game.config.height, loginOut) )
-    .on('pointerover', () => this.enterButtonHoverState(this.loginIcon) )
+    .on('pointerover', () => this.enterButtonHoverState(this.loginIcon))
     .on('pointerout', () => this.enterButtonRestState(this.loginIcon))
     this.loginIcon.setOrigin(0.5);
 
