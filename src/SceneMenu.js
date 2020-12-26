@@ -1,5 +1,7 @@
 var isTutorial = false;
-
+var chatBoxOut = false;
+var loginOut = false;
+var registerOut = false;
 class SceneMenu extends Phaser.Scene {
 
     constructor() {
@@ -79,6 +81,80 @@ create() {
     .on('pointerover', () => this.enterButtonHoverState(this.apiButton) )
     .on('pointerout', () => this.enterButtonRestState(this.apiButton) );
     this.apiButton.setOrigin(0.5);
+
+    //CHATBOX
+    //Chatbox icon
+    this.chatbutton = this.add.image(game.config.width + 1000, game.config.height+1000,'ChatBox_chatIcon')
+    .setScale(0.4);
+    this.chatbutton.setInteractive()
+    .on('pointerdown', () => this.MovinBoxes(this.chatbutton, game.config.width , game.config.height, chatBoxOut) )
+    .on('pointerover', () => this.enterButtonHoverState(this.chatbutton) )
+    .on('pointerout', () => this.enterButtonRestState(this.chatbutton))
+    this.chatbutton.setOrigin(0.5);
+    //chatbox base
+    this.chatBase = this.add.image(game.config.width + 1000, game.config.height+1000,'ChatBox_base')
+    .setScale(0.4);
+    this.chatBase.setOrigin(0.5);
+    //chatbox frame
+    this.chatFrame= this.add.image(game.config.width + 1000, game.config.height+1000,'ChatBox_Frame')
+    .setScale(0.4);
+    this.chatFrame.setOrigin(0.5);
+    //chatbox write msg
+    this.chatWritter = this.add.image(game.config.width + 1000, game.config.height+1000,'ChatBox_msgBox')
+    .setScale(0.4);
+    this.chatWritter.setInteractive()
+    .on('pointerdown', () => this.MovinBoxes(this.chatWritter, game.config.width , game.config.height, chatBoxOut) )
+    .on('pointerover', () => this.enterButtonHoverState(this.chatWritter) )
+    this.chatWritter.setOrigin(0.5);
+    //chatbox send
+    this.sendButton = this.add.image(game.config.width + 1000, game.config.height+1000,'ChatBox_SendBtn')
+    .setScale(0.4);
+    this.sendButton.setInteractive()
+    .on('pointerdown', () => this.MovinBoxes(this.sendButton, game.config.width , game.config.height, chatBoxOut) )
+    .on('pointerover', () => this.enterButtonHoverState(this.sendButton) )
+    this.sendButton.setOrigin(0.5);
+
+    //LOGIN
+    this.loginBox = this.add.image(game.config.width + 1000, game.config.height+1000,'LoginBox')
+    .setScale(0.4);
+    this.loginBox.setOrigin(0.5);
+    //login icon
+    this.loginIcon = this.add.image(game.config.width + 1000, game.config.height+1000,'Login_Icon')
+    .setScale(0.4);
+    this.loginIcon.setInteractive()
+    .on('pointerdown', () => this.MovinBoxes(this.loginIcon, game.config.width , game.config.height, loginOut) )
+    .on('pointerover', () => this.enterButtonHoverState(this.loginIcon) )
+    .on('pointerout', () => this.enterButtonRestState(this.loginIcon))
+    this.loginIcon.setOrigin(0.5);
+
+    //REGISTER
+    this.registerBox = this.add.image(game.config.width + 1000, game.config.height+1000,'Register_Form')
+    .setScale(0.4);
+    this.registerBox.setOrigin(0.5);
+    //Register button
+    this.registerBtn = this.add.image(game.config.width + 1000, game.config.height+1000,'Register_Btn')
+    .setScale(0.4);
+    this.registerBtn.setInteractive()
+    .on('pointerdown', () => this.MovinBoxes(this.registerBtn, game.config.width , game.config.height, registerOut) )
+    .on('pointerover', () => this.enterButtonHoverState(this.registerBtn) )
+    .on('pointerout', () => this.enterButtonRestState(this.registerBtn))
+    this.registerBtn.setOrigin(0.5);
+    //Register next img
+    this.nextImg = this.add.image(game.config.width + 1000, game.config.height+1000,'Register_Arrow')
+    .setScale(0.4);
+    this.nextImg.setInteractive()
+    .on('pointerdown', () => this.MovinBoxes(this.nextImg, game.config.width , game.config.height, registerOut) )
+    .on('pointerover', () => this.enterButtonHoverState(this.nextImg) )
+    .on('pointerout', () => this.enterButtonRestState(this.nextImg))
+    this.nextImg.setOrigin(0.5);
+    //Register prev img
+    this.prevImg = this.add.image(game.config.width + 1000, game.config.height+1000,'Register_Arrow')
+    .setScale(0.4);
+    this.prevImg.setInteractive()
+    .on('pointerdown', () => this.MovinBoxes(this.nextImg, game.config.width , game.config.height, registerOut) )
+    .on('pointerover', () => this.enterButtonHoverState(this.prevImg) )
+    .on('pointerout', () => this.enterButtonRestState(this.prevImg))
+    this.prevImg.setOrigin(0.5);
 
 }
 //INTERACTIVIDAD
@@ -188,6 +264,46 @@ enterButtonRestState(boton) {
      isTutorial = false;
      var timedEvent = this.time.addEvent({ delay: yPos+500, callback: function(){this.scene.start('SceneGame'); isTutorial = false;}, callbackScope: this});
  }
+//CHATBOX
+//sacar el chat 
+MovinBoxes(boton,pX, pY,isOut) 
+{
+
+    if(!isOut)
+    {
+        sfx.sounds[1].play();
+        scene.tweens.add({
+        targets: boton,
+        x: pX,
+        y: pY,
+        //delay: 100,
+        //aplha: {start: game.config.width / 2, to: game.config.width / 8},
+        duration: 10,
+        ease: 'Expo.easeOut',
+        repeat: 0,
+        yoyo: false,
+        onComplete: isOut = true
+        });
+
+    }else if (isOut)
+
+        sfx.sounds[1].play();
+        scene.tweens.add({
+        targets: boton,
+        x: pX,
+        y: pY,
+        //delay: 100,
+        //aplha: {start: game.config.width / 2, to: game.config.width / 8},
+        duration: 10,
+        ease: 'Expo.easeOut',
+        repeat: 0,
+        yoyo: false,
+        onComplete: isOut = true
+        });
+    }
+    
+}
+//LOGIN
 
 //EASINGS
 easeMe(boton,scene,nOp) {

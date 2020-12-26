@@ -114,6 +114,32 @@ class SceneBoot extends Phaser.Scene {
         //POST IT
         this.load.image('postItExp', directory +'postitexpandido.png');   //post it expandido
         this.load.image('postIt', directory +'post_it.png'); //post it 
+
+
+        //CHATBOX
+        this.load.image('ChatBox_SendBtn',  directory +'Chatbox_SendButton.png');
+        this.load.image('ChatBox_newMsgIcon',  directory +'Chatbox_newmsg-04.png');
+        this.load.image('ChatBox_chatIcon',  directory +'Chatbox_writemsg-04.png');
+        this.load.image('Chatbox_base',  directory +'Chatbox_base.png');
+        this.load.image('ChatBox_msgBox',  directory +'Chatbox_msg-05.png');
+        this.load.image('ChatBox_Frame',  directory +'Chatbox_Frame.png');
+
+        //REGISTER
+        this.load.image('Register_Btn',  directory +'Register_Confirm.png');
+        this.load.image('Register_Form',  directory +'Register_InputBox.png');
+        this.load.image('Register_Arrow',  directory +'Register_NextImg.png');
+        
+        //LOGIN
+        this.load.image('Login_Btn',  directory +'Register_Confirm.png');
+        this.load.image('Login_icon',  directory +'Login_Button.png');
+        this.load.image('Login_Box',  directory +'Login_input.png');
+
+        //Placeholder partícula
+        this.load.image('smoke', './Resources/Game/smoke_particle.png');
+        this.load.image('polvo', './Resources/Game/dust_particle.png');
+
+
+
         //MUSICA
         this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
         this.load.audio('MusicIngame', ['./Resources/Audio/Music/Pioneers meets Space.ogg']);
@@ -142,10 +168,6 @@ class SceneBoot extends Phaser.Scene {
         this.load.audio('SfxLose', ['./Resources/Audio/SFX/Fanfare/lose.ogg']);
 
         
-
-        //Placeholder partícula
-        this.load.image('smoke', './Resources/Game/smoke_particle.png');
-        this.load.image('polvo', './Resources/Game/dust_particle.png');
     }
 
     create() {
