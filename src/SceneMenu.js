@@ -333,50 +333,109 @@ MovinBoxes(scene, id)
         case 1: //chatbox : v chatBase, sendButton, chatbutton, chatFrame, chatWritter;
 
             chatboxStuff = [chatBase,sendButton,chatbutton,chatFrame,chatWritter];
-            for (let i = 0; chatboxStuff.length; i++)
+            if (chatBoxOut)
             {
-                scene.tweens.add({
-                    targets: chatboxStuff[i],
-                    x: chatTween[nX],
-                    y: chatTween[nY],
-                    //delay: 100,
-                    //aplha: {start: game.config.width / 2, to: game.config.width / 8},
-                    duration: 10,
-                    ease: 'Expo.easeOut',
-                    onComplete: isOut = true
-                });
-                nX+2;nY+2;
+                for (let i = 0; chatboxStuff.length; i++)
+                {
+                    scene.tweens.add({
+                        targets: chatboxStuff[i],
+                        x: chatPos[nX],
+                        y: chatPos[nY],
+                        //delay: 100,
+                        //aplha: {start: game.config.width / 2, to: game.config.width / 8},
+                        duration: 10,
+                        ease: 'Expo.easeOut',
+                        onComplete: chatBoxOut = false
+                    });
+                    nX+2;nY+2;
+                }
             }
+            else if (!chatBoxOut)
+            {
+                for (let i = 0; chatboxStuff.length; i++)
+                {
+                    scene.tweens.add({
+                        targets: chatboxStuff[i],
+                        x: chatTween[nX],
+                        y: chatTween[nY],
+                        //delay: 100,
+                        //aplha: {start: game.config.width / 2, to: game.config.width / 8},
+                        duration: 10,
+                        ease: 'Expo.easeOut',
+                        onComplete: chatBoxOut = true
+                    });
+                    nX+2;nY+2;
+                }
+            }
+            
             break;
         case 2: //login loginBox,loginIcon;
             loginStuff = [loginBox,loginIcon];
-            for (let i = 0; loginStuff.length; i++)
+            if(loginOut)
             {
-                scene.tweens.add({
-                    targets: loginStuff[i],
-                    x: loginTween[nX],
-                    y: loginTween[nY],
-                    duration: 10,
-                    ease: 'Expo.easeOut',
-                    onComplete: isOut = true
-                });
-                nX+2;nY+2;
+                for (let i = 0; loginStuff.length; i++)
+                {
+                    scene.tweens.add({
+                        targets: loginStuff[i],
+                        x: loginPos[nX],
+                        y: loginPos[nY],
+                        duration: 10,
+                        ease: 'Expo.easeOut',
+                        onComplete: loginOut = false
+                    });
+                    nX+2;nY+2;
+                }
             }
+            else if (!loginOut)
+            {
+                for (let i = 0; loginStuff.length; i++)
+                {
+                    scene.tweens.add({
+                        targets: loginStuff[i],
+                        x: loginTween[nX],
+                        y: loginTween[nY],
+                        duration: 10,
+                        ease: 'Expo.easeOut',
+                        onComplete: loginOut = true
+                    });
+                    nX+2;nY+2;
+                }
+            }
+            
             break;
         case 3: //register registerBox, registerBtn, nextImg, prevImg;
             registerStuff = [registerBox,registerBtn,nextImg,prevImg];
-            for (let i = 0; registerStuff.length; i++)
+            if(registerOut)
             {
-                scene.tweens.add({
-                    targets: registerStuff[i],
-                    x: regisTween[nX],
-                    y: regisTween[nY],
-                    duration: 10,
-                    ease: 'Expo.easeOut',
-                    onComplete: isOut = true
-                });
-                nX+2;nY+2;
+                for (let i = 0; registerStuff.length; i++)
+                {
+                    scene.tweens.add({
+                        targets: registerStuff[i],
+                        x: regisPos[nX],
+                        y: regisPos[nY],
+                        duration: 10,
+                        ease: 'Expo.easeOut',
+                        onComplete: registerOut = false
+                    });
+                    nX+2;nY+2;
+                }
             }
+            else if(!registerOut)
+            {
+                for (let i = 0; registerStuff.length; i++)
+                {
+                    scene.tweens.add({
+                        targets: registerStuff[i],
+                        x: regisTween[nX],
+                        y: regisTween[nY],
+                        duration: 10,
+                        ease: 'Expo.easeOut',
+                        onComplete: registerOut = true
+                    });
+                    nX+2;nY+2;
+                }
+            }
+            
             break;
     }
         
