@@ -84,7 +84,7 @@ create() {
 
     //CHATBOX
     //Chatbox icon
-    this.chatbutton = this.add.image(game.config.width + 1000, game.config.height+1000,'ChatBox_chatIcon')
+    this.chatbutton = this.add.image(game.config.width - 100, game.config.height-100,'ChatBox_chatIcon')
     .setScale(0.4);
     this.chatbutton.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this.chatbutton, game.config.width , game.config.height, chatBoxOut) )
@@ -285,7 +285,7 @@ MovinBoxes(boton,pX, pY,isOut)
         onComplete: isOut = true
         });
 
-    }else if (isOut)
+    }else if (isOut){
 
         sfx.sounds[1].play();
         scene.tweens.add({
@@ -306,7 +306,7 @@ MovinBoxes(boton,pX, pY,isOut)
 //LOGIN
 
 //EASINGS
-easeMe(boton,scene,nOp) {
+easeMe(boton,scene,nOp){
     var endX;
     var endY;
     switch (nOp)
@@ -334,4 +334,5 @@ easeMe(boton,scene,nOp) {
 }
 
 }
+
 
