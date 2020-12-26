@@ -71,10 +71,15 @@ create() {
     this.contactButton.setOrigin(0.5);
     this.easeMe(this.contactButton, this, 4);
 
-    
 
+    //API REST
+    this.apiButton = this.add.text((game.config.width/2), (game.config.height/8)*7, 'API REST', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px'})
+    .setInteractive()
+    .on('pointerdown', () => this.enterAPIREST() )
+    .on('pointerover', () => this.enterButtonHoverState(this.apiButton) )
+    .on('pointerout', () => this.enterButtonRestState(this.apiButton) );
+    this.apiButton.setOrigin(0.5);
 
-    
 }
 //INTERACTIVIDAD
 
@@ -118,6 +123,11 @@ enterOptions() {
 enterContact() {
     sfx.sounds[0].play();
     this.scene.start('SceneContact');
+}
+
+enterAPIREST() {
+    sfx.sounds[0].play();
+    this.scene.start('SceneREST');
 }
 
 
@@ -208,3 +218,4 @@ easeMe(boton,scene,nOp) {
 }
 
 }
+
