@@ -83,31 +83,45 @@ create() {
     this.apiButton.setOrigin(0.5);
 
     //CHATBOX
+    var chatPos = [
+        game.config.width - 100, game.config.height-100,    //icono
+        game.config.width , game.config.height-100, //base
+        game.config.width , game.config.height-100, //frame
+        game.config.width + 20, game.config.height-40, //write msg
+        game.config.width + 20, game.config.height-40  //send
+    ];
+    var chatTween = [
+        game.config.width - 100, game.config.height-100,    //icono
+        game.config.width , game.config.height-100, //base
+        game.config.width , game.config.height-100, //frame
+        game.config.width + 20, game.config.height-40, //write msg
+        game.config.width + 20, game.config.height-40  //send
+    ];
     //Chatbox icon
-    this.chatbutton = this.add.image(game.config.width - 100, game.config.height-100,'ChatBox_chatIcon')
+    this.chatbutton = this.add.image(chatPos[0], chatPos[1],'ChatBox_chatIcon')
     .setScale(0.4);
     this.chatbutton.setInteractive()
-    .on('pointerdown', () => this.MovinBoxes(this.chatbutton, game.config.width , game.config.height, chatBoxOut) )
+    .on('pointerdown', () => this.MovinBoxes(chat, game.config.height, chatBoxOut) )
     .on('pointerover', () => this.enterButtonHoverState(this.chatbutton) )
     .on('pointerout', () => this.enterButtonRestState(this.chatbutton))
     this.chatbutton.setOrigin(0.5);
     //chatbox base
-    this.chatBase = this.add.image(game.config.width + 1000, game.config.height+1000,'ChatBox_base')
+    this.chatBase = this.add.image(chatPos[2], chatPos[3],'ChatBox_base')
     .setScale(0.4);
     this.chatBase.setOrigin(0.5);
     //chatbox frame
-    this.chatFrame= this.add.image(game.config.width + 1000, game.config.height+1000,'ChatBox_Frame')
+    this.chatFrame= this.add.image(chatPos[4], chatPos[5],'ChatBox_Frame')
     .setScale(0.4);
     this.chatFrame.setOrigin(0.5);
     //chatbox write msg
-    this.chatWritter = this.add.image(game.config.width + 1000, game.config.height+1000,'ChatBox_msgBox')
+    this.chatWritter = this.add.image(chatPos[6], chatPos[7],'ChatBox_msgBox')
     .setScale(0.4);
     this.chatWritter.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this.chatWritter, game.config.width , game.config.height, chatBoxOut) )
     .on('pointerover', () => this.enterButtonHoverState(this.chatWritter) )
     this.chatWritter.setOrigin(0.5);
     //chatbox send
-    this.sendButton = this.add.image(game.config.width + 1000, game.config.height+1000,'ChatBox_SendBtn')
+    this.sendButton = this.add.image(chatPos[8], chatPos[9],'ChatBox_SendBtn')
     .setScale(0.4);
     this.sendButton.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this.sendButton, game.config.width , game.config.height, chatBoxOut) )
@@ -115,6 +129,14 @@ create() {
     this.sendButton.setOrigin(0.5);
 
     //LOGIN
+    var loginPos = [
+        game.config.width - 100, game.config.height-100,    //icono
+        game.config.width , game.config.height-100, //base
+        game.config.width , game.config.height-100, //frame
+        game.config.width + 20, game.config.height-40, //write msg
+        game.config.width + 20, game.config.height-40  //send
+    ];
+    //Login box
     this.loginBox = this.add.image(game.config.width + 1000, game.config.height+1000,'LoginBox')
     .setScale(0.4);
     this.loginBox.setOrigin(0.5);
@@ -266,41 +288,20 @@ enterButtonRestState(boton) {
  }
 //CHATBOX
 //sacar el chat 
-MovinBoxes(boton,pX, pY,isOut) 
+MovinBoxes(boton,pX, pY,isOut,scene) 
 {
-
-    if(!isOut)
-    {
         sfx.sounds[1].play();
-        scene.tweens.add({
-        targets: boton,
-        x: pX,
-        y: pY,
-        //delay: 100,
-        //aplha: {start: game.config.width / 2, to: game.config.width / 8},
-        duration: 10,
-        ease: 'Expo.easeOut',
-        repeat: 0,
-        yoyo: false,
-        onComplete: isOut = true
-        });
 
-    }else if (isOut){
-
-        sfx.sounds[1].play();
         scene.tweens.add({
-        targets: boton,
-        x: pX,
-        y: pY,
-        //delay: 100,
-        //aplha: {start: game.config.width / 2, to: game.config.width / 8},
-        duration: 10,
-        ease: 'Expo.easeOut',
-        repeat: 0,
-        yoyo: false,
-        onComplete: isOut = true
+            targets: boton,
+            x: pX,
+            y: pY,
+            //delay: 100,
+            //aplha: {start: game.config.width / 2, to: game.config.width / 8},
+            duration: 10,
+            ease: 'Expo.easeOut',
+            onComplete: isOut = true
         });
-    }
     
 }
 //LOGIN
