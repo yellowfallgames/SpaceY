@@ -101,8 +101,8 @@ function showMsg(msg) {
 
 function RestCreateUser (scene) {
 
-    var name = "PEPO";
-    var pass = sha256("1234");
+    var name = "PEPON3";
+    var pass = sha256("aaaa");
 
     var user = {
         name: name,
@@ -136,8 +136,8 @@ function loadUsers() {
     })
 }
 //
-function CheckUser(name_, pass_) {
-    console.log(name_ + "/"+ pass_);
+function CheckUser(scene, name_, pass_) {
+
     var name = name_;
     var pass = sha256(pass_);
 
@@ -162,17 +162,31 @@ function CheckUser(name_, pass_) {
             console.log("Error rest checkuser");
         },
     }).done(function (b) {
-        if (b) {
-            console.log("EXISTES");
-        }
-        else {
-            console.log("NO EXISTES");
-        }
-        //console.log("contraseña server: "+b);
+
+        LoginVisibility(scene, name, b);
     })
 }
 
+function LoginVisibility(scene, username, userExists){
 
+    if (userExists) {
+
+        //  Turn off the click events
+        scene.accountLogin.removeListener('click');
+
+        //  Hide the login element
+        scene.accountLogin.setVisible(false);
+
+        //  Populate the text with whatever they typed in
+        scene.accountText.setColor("white");
+        scene.accountText.setText('Welcome, ' + username + " !");//*/
+    }
+    else {
+
+        scene.accountText.setColor("red");
+        scene.accountText.setText("User or password incorrect, try again");//*/
+    }
+}
 
 
 //JqueryItems

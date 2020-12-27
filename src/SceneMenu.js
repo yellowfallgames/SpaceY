@@ -246,22 +246,18 @@ create() {
     this.loginProfilepic = this.add.image(loginPos[0], loginPos[1],'Login_Icon')
     .setScale(0.4);
 
-    this.loginRegister.setInteractive()
-    .on('pointerdown', () => this.MovinBoxes(this,2) )
-    .on('pointerover', () => this.enterIconHoverState(this.loginOption))
-    .on('pointerout', () => this.enterIconRestState(this.loginOption))
 
+    this.loginBox = this.add.image(game.config.width/5, game.config.height/10,'Login_Box').setScale(0.3);
+    //Escribir mensaje en chat
+    this.accountText = this.add.text(20, 52, 'Please enter in your account', {fill: 'white',fontFamily:'menuFont',fontSize:'35px'});
+    this.accountText.setOrigin(0, 0.5);
 
+    this.accountLogin = this.add.dom(330, 110).createFromCache('nameform');
+    this.accountLogin.addListener('click');
 
-    this.chatboxStuff = [this.chatBase,this.sendButton,this.chatbutton,this.chatFrame,this.chatWritter];
-    this.loginStuff = [this.loginBox,this.loginOption,this.loginDfPic,this.loginBtn,this.loginProfilepic,this.loginRegister];
-    this.registerStuff = [this.registerBox,this.registerBtn,this.nextImg,this.prevImg];
+    var that = this;
 
-    var element = this.add.dom(330, 110).createFromCache('nameform');
-
-    element.addListener('click');
-
-    element.on('click', function (event) {
+    this.accountLogin.on('click', function (event) {
 
         if (event.target.name === 'playButton')
         {
@@ -272,23 +268,12 @@ create() {
             if (inputName.value !== '' && inputPassword.value !== '')
             {
 
-                CheckUser(inputName.value, inputPassword.value);
-
-                
-                //  Turn off the click events
-                this.removeListener('click');
-
-                //  Hide the login element
-                this.setVisible(false);
-
-                //  Populate the text with whatever they typed in
-                text.setColor("white");
-                text.setText('Welcome, ' + inputName.value);//*/
+                CheckUser(that, inputName.value, inputPassword.value);
             }
             else {
 
-                text.setColor("red");
-                text.setText('User or password incorrect');
+                accountText.setColor("red");
+                accountText.setText('User or password incomplete');
             }
 
         }
