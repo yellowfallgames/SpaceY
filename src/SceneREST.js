@@ -41,13 +41,9 @@ class SceneREST extends Phaser.Scene {
         this.serverOnlineTxt.setOrigin(0.5);
 
         isServerOnline(this);
-
     }
     
 }
-
-
-
 
 function RestCreateMsg (scene) {
 
