@@ -3,48 +3,13 @@ var chatBoxOut = false;
 var loginOut = false;
 var registerOut = false;
 
-//CHAT POSTITIONS BEFORE - AFTER
-var chatPos = [
-    game.config.width - 100, game.config.height-100,    //icono
-    game.config.width , game.config.height-100, //base
-    game.config.width , game.config.height-100, //frame
-    game.config.width + 20, game.config.height-40, //write msg
-    game.config.width + 20, game.config.height-40  //send
-];
-var chatTween = [
-    game.config.width - 800, game.config.height-100,    //icono
-    game.config.width -800, game.config.height-100, //base
-    game.config.width -800, game.config.height-100, //frame
-    game.config.width - 780, game.config.height-40, //write msg
-    game.config.width - 780, game.config.height-40  //send
-];
-var chatBase, sendButton, chatbutton, chatFrame, chatWritter;
-//LOGIN POSTITIONS BEFORE - AFTER
-var loginPos = [
-    -game.config.width, game.config.height*0.05,    //icono
-    -game.config.width , game.config.height*0.1,    //box
-];
-var loginTween = [
-    game.config.width*0.05, game.config.height*0.05, //icono
-    game.config.width*0.05 , game.config.height*0.1, //box
-];
-var loginBox,loginIcon;
-
-//REGISTER POSTITIONS BEFORE - AFTER
-var regisTween = [
-    game.config.width/2, game.config.height/2,   //regisbox
-    game.config.width/2+150, game.config.height/2+100, //boton confirm
-    game.config.width/2+150, game.config.height/2+50, //dch
-    game.config.width/2+150, game.config.height/2+50, //izq
-];
-var regisPos = [
-    game.config.width/2, -500,    //regisbox
-    game.config.width/2, -500, //ctn nfirm
-    game.config.width/2, -500, //dech
-    game.config.width/2, -500, //izq
-
-];
-var registerBox, registerBtn, nextImg, prevImg;
+//posiciones
+var chatPos;
+var chatTween;
+var regisPos;
+var regisTween;
+var loginPos;
+var loginTween;
 
 class SceneMenu extends Phaser.Scene {
 
@@ -58,6 +23,49 @@ class SceneMenu extends Phaser.Scene {
         //this.load.image("player", directory+"vulp_i1.png");
         //this.load.spritesheet("button", "./Resources/Img/button.png", 185, 80);
         //this.load.image('background',"./Resources/Img/starfield.jpg");
+
+    //CHAT POSTITIONS BEFORE - AFTER
+    chatPos = [
+        game.config.width - 100, game.config.height-100,    //icono
+        game.config.width , game.config.height-100, //base
+        game.config.width , game.config.height-100, //frame
+        game.config.width + 20, game.config.height-40, //write msg
+        game.config.width + 20, game.config.height-40  //send
+    ];
+    chatTween = [
+        game.config.width - 800, game.config.height-100,    //icono
+        game.config.width -800, game.config.height-100, //base
+        game.config.width -800, game.config.height-100, //frame
+        game.config.width - 780, game.config.height-40, //write msg
+        game.config.width - 780, game.config.height-40  //send
+    ];
+
+     //LOGIN POSTITIONS BEFORE - AFTER
+    loginPos = [
+        -game.config.width, game.config.height*0.05,    //icono
+        -game.config.width , game.config.height*0.1,    //box
+    ];
+    loginTween = [
+        game.config.width*0.05, game.config.height*0.05, //icono
+        game.config.width*0.05 , game.config.height*0.1, //box
+    ];
+
+    //REGISTER POSTITIONS BEFORE - AFTER
+    regisTween = [
+        (game.config.width/2), game.config.height/2,   //regisbox
+        (game.config.width/2)+150, (game.config.height/2)+100, //boton confirm
+        (game.config.width/2)+150, (game.config.height/2)+50, //dch
+        (game.config.width/2)+150, (game.config.height/2)+50, //izq
+    ];
+   regisPos = [
+        game.config.width/2, -500,    //regisbox
+        game.config.width/2, -500, //ctn nfirm
+        game.config.width/2, -500, //dech
+        game.config.width/2, -500, //izq
+
+    ];
+
+    
     }
 
 create() {
@@ -83,8 +91,8 @@ create() {
 
     .setInteractive()
     .on('pointerdown', () => this.startGame() )
-    .on('pointerover', () => this.enterButtonHoverState(this.playButton) )
-    .on('pointerout', () => this.enterButtonRestState(this.playButton) );
+    .on('pointerover', () => this.enterIconHoverState(this.playButton) )
+    .on('pointerout', () => this.enterIconRestState(this.playButton) );
     this.playButton.setOrigin(0.5);
     this.easeMe(this.playButton, this, 1);
 
@@ -92,8 +100,8 @@ create() {
 
     .setInteractive()
     .on('pointerdown', () => this.enterTutorial() )
-    .on('pointerover', () => this.enterButtonHoverState(this.tutorialButton) )
-    .on('pointerout', () => this.enterButtonRestState(this.tutorialButton) );
+    .on('pointerover', () => this.enterIconHoverState(this.tutorialButton) )
+    .on('pointerout', () => this.enterIconRestState(this.tutorialButton) );
     this.tutorialButton.setOrigin(0.5);
     this.easeMe(this.tutorialButton, this, 2);
 
@@ -102,8 +110,8 @@ create() {
 
     .setInteractive()
     .on('pointerdown', () => this.enterOptions() )
-    .on('pointerover', () => this.enterButtonHoverState(this.optionsButton) )
-    .on('pointerout', () => this.enterButtonRestState(this.optionsButton) );
+    .on('pointerover', () => this.enterIconHoverState(this.optionsButton) )
+    .on('pointerout', () => this.enterIconRestState(this.optionsButton) );
     this.optionsButton.setOrigin(0.5);
     this.easeMe(this.optionsButton, this, 3);
     
@@ -112,8 +120,8 @@ create() {
 
     .setInteractive()
     .on('pointerdown', () => this.enterContact() )
-    .on('pointerover', () => this.enterButtonHoverState(this.contactButton) )
-    .on('pointerout', () => this.enterButtonRestState(this.contactButton) );
+    .on('pointerover', () => this.enterIconHoverState(this.contactButton) )
+    .on('pointerout', () => this.enterIconRestState(this.contactButton) );
     this.contactButton.setOrigin(0.5);
     this.easeMe(this.contactButton, this, 4);
 
@@ -122,8 +130,8 @@ create() {
     this.apiButton = this.add.text((game.config.width/2), (game.config.height/8)*7, 'API REST', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px'})
     .setInteractive()
     .on('pointerdown', () => this.enterAPIREST() )
-    .on('pointerover', () => this.enterButtonHoverState(this.apiButton) )
-    .on('pointerout', () => this.enterButtonRestState(this.apiButton) );
+    .on('pointerover', () => this.enterIconHoverState(this.apiButton) )
+    .on('pointerout', () => this.enterIconRestState(this.apiButton) );
     this.apiButton.setOrigin(0.5);
 
     //CHATBOX
@@ -133,8 +141,7 @@ create() {
     .setScale(0.4);
     this.chatbutton.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this ,1 ))
-    .on('pointerover', () => this.enterButtonHoverState(this.chatbutton))
-    .on('pointerout', () => this.enterButtonRestState(this.chatbutton))
+    .on('pointerover', () => this.enterIconHoverState(this.chatbutton))
     this.chatbutton.setOrigin(0.5);
 
     //chatbox base
@@ -152,7 +159,7 @@ create() {
     .setScale(0.4);
     this.chatWritter.setInteractive()
     //.on('pointerdown', () => this.MovinBoxes(this.chatWritter, game.config.width , game.config.height, chatBoxOut,this) )
-    .on('pointerover', () => this.enterButtonHoverState(this.chatWritter) )
+    .on('pointerover', () => this.enterIconHoverState(this.chatWritter) )
     this.chatWritter.setOrigin(0.5);
 
     //chatbox send
@@ -160,11 +167,11 @@ create() {
     .setScale(0.4);
     this.sendButton.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this.sendButton, game.config.width , game.config.height, chatBoxOut,this) )
-    .on('pointerover', () => this.enterButtonHoverState(this.sendButton) )
+    .on('pointerover', () => this.enterIconHoverState(this.sendButton) )
     this.sendButton.setOrigin(0.5);
 
     //LOGIN
-    
+   
     //Login box
     this.loginBox = this.add.image(loginPos[2], loginPos[3],'LoginBox')
     .setScale(0.4);
@@ -175,8 +182,8 @@ create() {
     .setScale(0.4);
     this.loginIcon.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this,2) )
-    .on('pointerover', () => this.enterButtonHoverState(this.loginIcon))
-    .on('pointerout', () => this.enterButtonRestState(this.loginIcon))
+    .on('pointerover', () => this.enterIconHoverState(this.loginIcon))
+    .on('pointerout', () => this.enterIconRestState(this.loginIcon))
     this.loginIcon.setOrigin(0.5);
 
     //REGISTER
@@ -191,8 +198,8 @@ create() {
     .setScale(0.4);
     this.registerBtn.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this,3) )
-    .on('pointerover', () => this.enterButtonHoverState(this.registerBtn) )
-    .on('pointerout', () => this.enterButtonRestState(this.registerBtn))
+    .on('pointerover', () => this.enterIconHoverState(this.registerBtn) )
+    .on('pointerout', () => this.enterIconRestState(this.registerBtn))
     this.registerBtn.setOrigin(0.5);
 
     //Register next img
@@ -200,18 +207,25 @@ create() {
     .setScale(0.4);
     this.nextImg.setInteractive()
     //.on('pointerdown', () => this.MovinBoxes(this.nextImg, game.config.width , game.config.height, registerOut) )
-    .on('pointerover', () => this.enterButtonHoverState(this.nextImg) )
-    .on('pointerout', () => this.enterButtonRestState(this.nextImg))
+    .on('pointerover', () => this.enterIconHoverState(this.nextImg) )
+    .on('pointerout', () => this.enterIconRestState(this.nextImg))
     this.nextImg.setOrigin(0.5);
 
     //Register prev img
-    this.prevImg = this.add.image(gregisPos[6], regisPos[7],'Register_Arrow')
+    this.prevImg = this.add.image(regisPos[6], regisPos[7],'Register_Arrow')
     .setScale(0.4);
     this.prevImg.setInteractive()
     //.on('pointerdown', () => this.MovinBoxes(this.nextImg, game.config.width , game.config.height, registerOut) )
-    .on('pointerover', () => this.enterButtonHoverState(this.prevImg) )
-    .on('pointerout', () => this.enterButtonRestState(this.prevImg))
+    .on('pointerover', () => this.enterIconHoverState(this.prevImg) )
+    .on('pointerout', () => this.enterIconRestState(this.prevImg))
     this.prevImg.setOrigin(0.5);
+
+    //arrays de cosos
+    
+    this.chatboxStuff = [this.chatBase,this.sendButton,this.chatbutton,this.chatFrame,this.chatWritter];
+    this.loginStuff = [this.loginBox,this.loginIcon];
+    this.registerStuff = [this.registerBox,this.registerBtn,this.nextImg,this.prevImg];
+
 
 }
 //INTERACTIVIDAD
@@ -224,6 +238,16 @@ enterButtonHoverState(boton) {
 
 enterButtonRestState(boton) {
     boton.setStyle({ fill: '#FEDEBE' });
+    boton.x = boton.x-movTxt;
+    boton.y = boton.y-movTxt;
+}
+
+enterIconHoverState(boton) {
+    boton.x = boton.x+movTxt;
+    boton.y = boton.y+movTxt;
+}
+
+enterIconRestState(boton) {
     boton.x = boton.x-movTxt;
     boton.y = boton.y-movTxt;
 }
@@ -332,13 +356,12 @@ MovinBoxes(scene, id)
     {
         case 1: //chatbox : v chatBase, sendButton, chatbutton, chatFrame, chatWritter;
 
-            chatboxStuff = [chatBase,sendButton,chatbutton,chatFrame,chatWritter];
             if (chatBoxOut)
             {
-                for (let i = 0; chatboxStuff.length; i++)
+                for (let i = 0; scene.chatboxStuff.length; i++)
                 {
                     scene.tweens.add({
-                        targets: chatboxStuff[i],
+                        targets: scene.chatboxStuff[i],
                         x: chatPos[nX],
                         y: chatPos[nY],
                         //delay: 100,
@@ -352,10 +375,10 @@ MovinBoxes(scene, id)
             }
             else if (!chatBoxOut)
             {
-                for (let i = 0; chatboxStuff.length; i++)
+                for (let i = 0; scene.chatboxStuff.length; i++)
                 {
                     scene.tweens.add({
-                        targets: chatboxStuff[i],
+                        targets: scene.chatboxStuff[i],
                         x: chatTween[nX],
                         y: chatTween[nY],
                         //delay: 100,
@@ -370,13 +393,13 @@ MovinBoxes(scene, id)
             
             break;
         case 2: //login loginBox,loginIcon;
-            loginStuff = [loginBox,loginIcon];
+            
             if(loginOut)
             {
-                for (let i = 0; loginStuff.length; i++)
+                for (let i = 0; scene.loginStuff.length; i++)
                 {
                     scene.tweens.add({
-                        targets: loginStuff[i],
+                        targets: scene.loginStuff[i],
                         x: loginPos[nX],
                         y: loginPos[nY],
                         duration: 10,
@@ -388,10 +411,10 @@ MovinBoxes(scene, id)
             }
             else if (!loginOut)
             {
-                for (let i = 0; loginStuff.length; i++)
+                for (let i = 0; scene.loginStuff.length; i++)
                 {
                     scene.tweens.add({
-                        targets: loginStuff[i],
+                        targets: scene.loginStuff[i],
                         x: loginTween[nX],
                         y: loginTween[nY],
                         duration: 10,
@@ -404,13 +427,13 @@ MovinBoxes(scene, id)
             
             break;
         case 3: //register registerBox, registerBtn, nextImg, prevImg;
-            registerStuff = [registerBox,registerBtn,nextImg,prevImg];
+            
             if(registerOut)
             {
-                for (let i = 0; registerStuff.length; i++)
+                for (let i = 0; scene.registerStuff.length; i++)
                 {
                     scene.tweens.add({
-                        targets: registerStuff[i],
+                        targets: scene.registerStuff[i],
                         x: regisPos[nX],
                         y: regisPos[nY],
                         duration: 10,
@@ -422,10 +445,10 @@ MovinBoxes(scene, id)
             }
             else if(!registerOut)
             {
-                for (let i = 0; registerStuff.length; i++)
+                for (let i = 0; scene.registerStuff.length; i++)
                 {
                     scene.tweens.add({
-                        targets: registerStuff[i],
+                        targets: scene.registerStuff[i],
                         x: regisTween[nX],
                         y: regisTween[nY],
                         duration: 10,
