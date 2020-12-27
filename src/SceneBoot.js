@@ -135,6 +135,7 @@ class SceneBoot extends Phaser.Scene {
         this.load.image('Login_Default',  directory +'login_picture.png');
         this.load.image('Login_Box',  directory +'Login_input.png');
         this.load.image('Login_Profile',  directory +'profile_holder-07.png');
+        this.load.image('Login_Field',  directory +'field_input.png');
 
         //Placeholder partícula
         this.load.image('smoke', './Resources/Game/smoke_particle.png');

@@ -25,54 +25,67 @@ class SceneMenu extends Phaser.Scene {
         //this.load.image('background',"./Resources/Img/starfield.jpg");
 
     //CHAT POSTITIONS BEFORE - AFTER
-    chatPos = [
-        game.config.width - 100, game.config.height-100,    //icono
-        game.config.width , game.config.height-100, //base
-        game.config.width , game.config.height-100, //frame
-        game.config.width + 20, game.config.height-40, //write msg
-        game.config.width + 20, game.config.height-40  //send
-    ];
+    var chtOffset = 1000;
+   
     chatTween = [
-        game.config.width - 800, game.config.height-100,    //icono
-        game.config.width -800, game.config.height-100, //base
-        game.config.width -800, game.config.height-100, //frame
-        game.config.width - 780, game.config.height-40, //write msg
-        game.config.width - 780, game.config.height-40  //send
+        game.config.width - 620, game.config.height-200,    //icono
+        game.config.width -300, game.config.height-380, //base
+        game.config.width -300, game.config.height-380, //frame
+        game.config.width -315, game.config.height-110, //write msg
+        game.config.width -55, game.config.height-110  //send
+       
     ];
+    chatPos = [
+        game.config.width-100,  chatTween[1],    //icono
+        chatTween[2]+chtOffset,  chatTween[3], //base
+        chatTween[4]+chtOffset,  chatTween[5], //frame
+        chatTween[6]+chtOffset,  chatTween[7], //write msg
+        chatTween[8]+chtOffset,  chatTween[9]  //send
+    ];
+    
 
      //LOGIN POSTITIONS BEFORE - AFTER
-    loginPos = [
-        -game.config.width, game.config.height*0.05,    //login option
-        -game.config.width , game.config.height*0.1,    //box
-        -game.config.width, game.config.height*0.1,     //login dfault profile picture
-        -game.config.width, game.config.height*0.1,     //login btn
-        -game.config.width, game.config.height*0.1,     //login profilepic
-        -game.config.width, game.config.height*0.1,     //registro iniciar
-    ];
+     var loginOffset = 2000
+    
     loginTween = [
-        game.config.width*0.05, game.config.height*0.05, //login option
-        game.config.width*0.05 , game.config.height*0.1, //box
-        game.config.width*0.05, game.config.height*0.05, //login dfault profile picture
-        game.config.width*0.05 , game.config.height*0.1, //login btn
-        game.config.width*0.05, game.config.height*0.05, //login profilepic
-        game.config.width*0.05, game.config.height*0.05, //registro iniciar
+        860,70,    //login option
+        320,80,    //box
+        540,80,     //login dfault profile picture
+        110,110,     //login bttn
+        540,80,     //login profilepic
+        340,110,     //regiter button
+        110,115,     //field name
+        365,115,     //field password TE OIGOOOO
+        
     ];
+    loginPos = [
+        70,70,    //login option, 
+        loginTween[2]-loginOffset, loginTween[3], //box
+        loginTween[4]-loginOffset, loginTween[5], //login dfault profile picture
+        loginTween[6]-loginOffset, loginTween[7], //login btn
+        loginTween[8]-loginOffset, loginTween[9], //login profilepic
+        loginTween[10]-loginOffset, loginTween[11], //regitro boton
+        loginTween[12]-loginOffset, loginTween[13], //field name
+        loginTween[14]-loginOffset, loginTween[15], //field pass
+        
+    ];
+
 
     //REGISTER POSTITIONS BEFORE - AFTER
-    regisTween = [
-        (game.config.width/2), game.config.height/2,   //regisbox
-        (game.config.width/2)+150, (game.config.height/2)+100, //boton regustrarse
-        (game.config.width/2)+150, (game.config.height/2)+50, //dch
-        (game.config.width/2)+150, (game.config.height/2)+50, //izq
+    var registerOffset = chtOffset;
+   
+     regisTween = [
+        game.config.width/4,310,    //regisbox
+        game.config.width/4+170,400, //btn nfirm
+        game.config.width/4+240,340, //dech
+        game.config.width/4+100,340, //izq
     ];
-   regisPos = [
-        game.config.width/2, -500,    //regisbox
-        game.config.width/2, -500, //ctn nfirm
-        game.config.width/2, -500, //dech
-        game.config.width/2, -500, //izq
-
+    regisPos = [
+        regisTween[0]-registerOffset, regisTween[1],   //regisbox
+       regisTween[2]-registerOffset, regisTween[3], //boton regustrarse
+       regisTween[4]-registerOffset, regisTween[5], //dch
+       regisTween[6]-registerOffset, regisTween[7], //izq
     ];
-
     
     }
 
@@ -145,38 +158,44 @@ create() {
 
     //CHATBOX
     //Chatbox icon
-    this.chatbutton = this.add.image(chatPos[0], chatPos[1],'ChatBox_ChatIcon') //CABIAR POR ChatBox_NewMsgIcon
-    .setScale(0.4);
+    this.chatbutton = this.add.image(chatPos[0], chatPos[1],'ChatBox_ChatIcon') //CABIAR POR ChatBox_NewMsgIcon cuando haya nuevo mensaje
+    .setScale(0.6);
     this.chatbutton.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this ,1 ))
     .on('pointerover', () => this.enterIconHoverState(this.chatbutton))
+    .on('pointerout', () => this.enterIconRestState(this.chatbutton))
     this.chatbutton.setOrigin(0.5);
 
     //chatbox base
     this.chatBase = this.add.image(chatPos[2], chatPos[3],'ChatBox_Base')
-    .setScale(0.4);
+    .setScale(0.8);
     this.chatBase.setOrigin(0.5);
 
     //chatbox frame
     this.chatFrame= this.add.image(chatPos[4], chatPos[5],'ChatBox_Frame')
-    .setScale(0.4);
+    .setScale(0.8);
     this.chatFrame.setOrigin(0.5);
 
     //chatbox write msg
     this.chatWritter = this.add.image(chatPos[6], chatPos[7],'ChatBox_MsgBox')
-    .setScale(0.4);
+    .setScale(0.37);
     this.chatWritter.setInteractive()
     //.on('pointerdown', () => this.MovinBoxes(this.chatWritter, game.config.width , game.config.height, chatBoxOut,this) )
     .on('pointerover', () => this.enterIconHoverState(this.chatWritter) )
+    .on('pointerout', () => this.enterIconRestState(this.chatWritter))
+    .on('pointerout', () => this.enterIconRestState(this.chatWritter))
     this.chatWritter.setOrigin(0.5);
 
     //chatbox send
     this.sendButton = this.add.image(chatPos[8], chatPos[9],'ChatBox_SendBtn')
     .setScale(0.4);
     this.sendButton.setInteractive()
-    .on('pointerdown', () => this.MovinBoxes(this.sendButton, game.config.width , game.config.height, chatBoxOut,this) )
+    //.on('pointerdown', () => this.MovinBoxes(this.sendButton, game.config.width , game.config.height, chatBoxOut,this) )
     .on('pointerover', () => this.enterIconHoverState(this.sendButton) )
+    .on('pointerout', () => this.enterIconRestState(this.sendButton))
+    .on('pointerout', () => this.enterIconRestState(this.sendButton))
     this.sendButton.setOrigin(0.5);
+    this.chatboxStuff = [this.chatbutton, this.chatBase, this.chatFrame, this.chatWritter,this.sendButton];
 
 
 
@@ -189,7 +208,7 @@ create() {
 
     //Register button
     this.registerBtn = this.add.image(regisPos[2], regisPos[3],'Register_Btn')
-    .setScale(0.4);
+    .setScale(0.18);
     this.registerBtn.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this,3) )
     .on('pointerover', () => this.enterIconHoverState(this.registerBtn) )
@@ -213,11 +232,8 @@ create() {
     .on('pointerover', () => this.enterIconHoverState(this.prevImg) )
     .on('pointerout', () => this.enterIconRestState(this.prevImg))
     this.prevImg.setOrigin(0.5);
-
-    //arrays de cosos
-    
    
-
+    this.registerStuff = [this.registerBox, this.registerBtn, this.nextImg, this.prevImg];
     
     //LOGIN
     //login option
@@ -229,31 +245,47 @@ create() {
 
     //Login box
     this.loginBox = this.add.image(loginPos[2], loginPos[3],'Login_Box')
-    .setScale(0.4);
+    .setScale(0.14);
     this.loginBox.setOrigin(0.5);
 
-    //login icon
+    //login opcion
     this.loginOption = this.add.image(loginPos[0], loginPos[1],'Login_Option')
-    .setScale(0.4);
+    .setScale(0.7);
     this.loginOption.setOrigin(0.5);
-
-    this.loginDfPic = this.add.image(loginPos[4], loginPos[5],'Login_Default')
-    .setScale(0.4);
-
-    this.loginBtn = this.add.image(loginPos[6], loginPos[7],'Login_Btn')
-    .setScale(0.4);
-
-    this.loginProfilepic = this.add.image(loginPos[8], loginPos[9],'Login_Profile')
-    .setScale(0.4);
-
-    this.loginRegister = this.add.image(loginPos[8], loginPos[9],'Register_Btn')
-    .setScale(0.4);
-    this.loginRegister.setInteractive()
+    this.loginOption.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this,2) )
     .on('pointerover', () => this.enterIconHoverState(this.loginOption))
     .on('pointerout', () => this.enterIconRestState(this.loginOption))
+    //login default picture
+    this.loginDfPic = this.add.image(loginPos[4], loginPos[5],'Login_Default')
+    .setScale(0.15);
+     //login button to log in
+    this.loginBtn = this.add.image(loginPos[6], loginPos[7],'Login_Btn')
+    .setScale(0.18);
+    this.loginBtn.setInteractive()
+    //.on('pointerdown', () => this.MovinBoxes(this,2) )
+    .on('pointerover', () => this.enterIconHoverState(this.loginBtn))
+    .on('pointerout', () => this.enterIconRestState(this.loginBtn))
+    
+    //login picture
+    this.loginProfilepic = this.add.image(loginPos[8], loginPos[9],'Login_Profile')
+    .setScale(0.15);
+    //login botn regitrarse
+    this.loginRegister = this.add.image(loginPos[10], loginPos[11],'Register_Btn')
+    .setScale(0.18);
+    this.loginRegister.setInteractive()
+    .on('pointerdown', () => this.MovinBoxes(this,3) )
+    .on('pointerover', () => this.enterIconHoverState(this.loginRegister))
+    .on('pointerout', () => this.enterIconRestState(this.loginRegister))
+    //login field name base
+    this.loginNameField = this.add.image(loginPos[12], loginPos[13],'Login_Field')
+    .setScale(0.12);
+    //login field pass base
+    this.loginPassField = this.add.image(loginPos[14], loginPos[15],'Login_Field')
+    .setScale(0.12);
 
-    this.loginBox = this.add.image(game.config.width/5, game.config.height/10,'Login_Box').setScale(0.3);
+    this.loginStuff = [this.loginBox, this.loginOption, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField];
+
     //Escribir mensaje en chat
     this.accountText = this.add.text(20, 52, 'Please enter in your account', {fill: 'white',fontFamily:'menuFont',fontSize:'35px'});
     this.accountText.setOrigin(0, 0.5);
@@ -429,12 +461,12 @@ MovinBoxes(scene, id)
                         y: chatPos[nY],
                         //delay: 100,
                         //aplha: {start: game.config.width / 2, to: game.config.width / 8},
-                        duration: 10,
-                        ease: 'Expo.easeOut',
-                        onComplete: chatBoxOut = false
+                        duration: 100,
+                        ease: 'Elastic.easeOut',
                     });
-                    nX+2;nY+2;
+                    nX+=2;nY+=2;
                 }
+                chatBoxOut = false
             }
             else if (!chatBoxOut)
             {
@@ -447,12 +479,12 @@ MovinBoxes(scene, id)
                         y: chatTween[nY],
                         //delay: 100,
                         //aplha: {start: game.config.width / 2, to: game.config.width / 8},
-                        duration: 10,
-                        ease: 'Expo.easeOut',
-                        onComplete: chatBoxOut = true
+                        duration: 100,
+                        ease: 'Elastic.easeOut',
                     });
-                    nX+2;nY+2;
+                    nX+=2;nY+=2;
                 }
+                chatBoxOut = true
             }
             
             break;
@@ -467,12 +499,12 @@ MovinBoxes(scene, id)
                         targets: scene.loginStuff[i],
                         x: loginPos[nX],
                         y: loginPos[nY],
-                        duration: 10,
-                        ease: 'Expo.easeOut',
-                        onComplete: loginOut = false
+                        duration: 100,
+                        ease: 'Bounce.easeOut',
                     });
-                    nX+2;nY+2;
+                    nX+=2;nY+=2;
                 }
+                loginOut = false
             }
             else if (!loginOut)
             {
@@ -483,12 +515,12 @@ MovinBoxes(scene, id)
                         targets: scene.loginStuff[i],
                         x: loginTween[nX],
                         y: loginTween[nY],
-                        duration: 10,
+                        duration: 100,
                         ease: 'Expo.easeOut',
-                        onComplete: loginOut = true
                     });
-                    nX+2;nY+2;
+                    nX+=2;nY+=2;
                 }
+                loginOut = true
             }
             
             break;
@@ -503,12 +535,12 @@ MovinBoxes(scene, id)
                         targets: scene.registerStuff[i],
                         x: regisPos[nX],
                         y: regisPos[nY],
-                        duration: 10,
+                        duration: 100,
                         ease: 'Expo.easeOut',
-                        onComplete: registerOut = false
                     });
-                    nX+2;nY+2;
+                    nX+=2;nY+=2;
                 }
+                registerOut = false
             }
             else if(!registerOut)
             {
@@ -519,12 +551,12 @@ MovinBoxes(scene, id)
                         targets: scene.registerStuff[i],
                         x: regisTween[nX],
                         y: regisTween[nY],
-                        duration: 10,
+                        duration: 100,
                         ease: 'Expo.easeOut',
-                        onComplete: registerOut = true
                     });
-                    nX+2;nY+2;
+                    nX+=2;nY+=2;
                 }
+                registerOut = true
             }
             
             break;
