@@ -1,7 +1,7 @@
 var sfx = undefined;
 var soundtrack = undefined;
 
-var urlServer = "http://740f727c7036.ngrok.io";
+var urlServer = "http://a9d509b5fa53.ngrok.io";
 
 class SceneBoot extends Phaser.Scene {
 
