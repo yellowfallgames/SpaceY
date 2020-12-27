@@ -171,20 +171,6 @@ create() {
     this.sendButton.setOrigin(0.5);
 
     //LOGIN
-   
-    //Login box
-    this.loginBox = this.add.image(loginPos[2], loginPos[3],'LoginBox')
-    .setScale(0.4);
-    this.loginBox.setOrigin(0.5);
-
-    //login icon
-    this.loginIcon = this.add.image(loginPos[0], loginPos[1],'Login_Icon')
-    .setScale(0.4);
-    this.loginIcon.setInteractive()
-    .on('pointerdown', () => this.MovinBoxes(this,2) )
-    .on('pointerover', () => this.enterIconHoverState(this.loginIcon))
-    .on('pointerout', () => this.enterIconRestState(this.loginIcon))
-    this.loginIcon.setOrigin(0.5);
 
     //REGISTER
    
@@ -228,7 +214,21 @@ create() {
 
     
     //Login box
-    this.chatBox = this.add.image(game.config.width/5, game.config.height/10,'Login_Box').setScale(0.3);
+    //Login box
+    this.loginBox = this.add.image(loginPos[2], loginPos[3],'LoginBox')
+    .setScale(0.4);
+    this.loginBox.setOrigin(0.5);
+
+    //login icon
+    this.loginIcon = this.add.image(loginPos[0], loginPos[1],'Login_Icon')
+    .setScale(0.4);
+    this.loginIcon.setInteractive()
+    .on('pointerdown', () => this.MovinBoxes(this,2) )
+    .on('pointerover', () => this.enterIconHoverState(this.loginIcon))
+    .on('pointerout', () => this.enterIconRestState(this.loginIcon))
+    this.loginIcon.setOrigin(0.5);
+
+    this.loginBox = this.add.image(game.config.width/5, game.config.height/10,'Login_Box').setScale(0.3);
     //Escribir mensaje en chat
     var text = this.add.text(20, 52, 'Please enter in your account', {fill: 'white',fontFamily:'menuFont',fontSize:'35px'});
     text.setOrigin(0, 0.5);
@@ -249,7 +249,7 @@ create() {
 
                 CheckUser(inputName.value, inputPassword.value);
 
-                /*
+                
                 //  Turn off the click events
                 this.removeListener('click');
 
@@ -258,7 +258,7 @@ create() {
 
                 //  Populate the text with whatever they typed in
                 text.setColor("white");
-                text.setText('Welcome, ' + inputName.value);*/
+                text.setText('Welcome, ' + inputName.value);//*/
             }
             else {
 
@@ -404,7 +404,7 @@ MovinBoxes(scene, id)
 
             if (chatBoxOut)
             {
-                for (let i = 0; scene.chatboxStuff.length; i++)
+                for (let i = 0; i < scene.chatboxStuff.length; i++)
                 {
                     scene.tweens.add({
                         targets: scene.chatboxStuff[i],
@@ -421,7 +421,7 @@ MovinBoxes(scene, id)
             }
             else if (!chatBoxOut)
             {
-                for (let i = 0; scene.chatboxStuff.length; i++)
+                for (let i = 0; i < scene.chatboxStuff.length; i++)
                 {
                     scene.tweens.add({
                         targets: scene.chatboxStuff[i],
@@ -442,7 +442,7 @@ MovinBoxes(scene, id)
             
             if(loginOut)
             {
-                for (let i = 0; scene.loginStuff.length; i++)
+                for (let i = 0; i < scene.loginStuff.length; i++)
                 {
                     scene.tweens.add({
                         targets: scene.loginStuff[i],
@@ -457,7 +457,7 @@ MovinBoxes(scene, id)
             }
             else if (!loginOut)
             {
-                for (let i = 0; scene.loginStuff.length; i++)
+                for (let i = 0; i < scene.loginStuff.length; i++)
                 {
                     scene.tweens.add({
                         targets: scene.loginStuff[i],
@@ -476,7 +476,7 @@ MovinBoxes(scene, id)
             
             if(registerOut)
             {
-                for (let i = 0; scene.registerStuff.length; i++)
+                for (let i = 0; i < scene.registerStuff.length; i++)
                 {
                     scene.tweens.add({
                         targets: scene.registerStuff[i],
@@ -491,7 +491,7 @@ MovinBoxes(scene, id)
             }
             else if(!registerOut)
             {
-                for (let i = 0; scene.registerStuff.length; i++)
+                for (let i = 0; i < scene.registerStuff.length; i++)
                 {
                     scene.tweens.add({
                         targets: scene.registerStuff[i],
