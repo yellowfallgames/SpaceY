@@ -233,19 +233,25 @@ create() {
     this.loginBox.setOrigin(0.5);
 
     //login icon
-    this.loginOption = this.add.image(loginPos[0], loginPos[1],'Login_Icon')
+    this.loginOption = this.add.image(loginPos[0], loginPos[1],'Login_Option')
     .setScale(0.4);
     this.loginOption.setOrigin(0.5);
 
-    this.loginDfPic = this.add.image(loginPos[0], loginPos[1],'Login_Icon')
+    this.loginDfPic = this.add.image(loginPos[4], loginPos[5],'Login_Default')
     .setScale(0.4);
 
-    this.loginBtn = this.add.image(loginPos[0], loginPos[1],'Login_Icon')
+    this.loginBtn = this.add.image(loginPos[6], loginPos[7],'Login_Btn')
     .setScale(0.4);
 
-    this.loginProfilepic = this.add.image(loginPos[0], loginPos[1],'Login_Icon')
+    this.loginProfilepic = this.add.image(loginPos[8], loginPos[9],'Login_Profile')
     .setScale(0.4);
 
+    this.loginRegister = this.add.image(loginPos[8], loginPos[9],'Register_Btn')
+    .setScale(0.4);
+    this.loginRegister.setInteractive()
+    .on('pointerdown', () => this.MovinBoxes(this,2) )
+    .on('pointerover', () => this.enterIconHoverState(this.loginOption))
+    .on('pointerout', () => this.enterIconRestState(this.loginOption))
 
     this.loginBox = this.add.image(game.config.width/5, game.config.height/10,'Login_Box').setScale(0.3);
     //Escribir mensaje en chat
