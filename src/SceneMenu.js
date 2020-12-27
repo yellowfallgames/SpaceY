@@ -42,18 +42,26 @@ class SceneMenu extends Phaser.Scene {
 
      //LOGIN POSTITIONS BEFORE - AFTER
     loginPos = [
-        -game.config.width, game.config.height*0.05,    //icono
+        -game.config.width, game.config.height*0.05,    //login option
         -game.config.width , game.config.height*0.1,    //box
+        -game.config.width, game.config.height*0.1,     //login dfault profile picture
+        -game.config.width, game.config.height*0.1,     //login btn
+        -game.config.width, game.config.height*0.1,     //login profilepic
+        -game.config.width, game.config.height*0.1,     //registro iniciar
     ];
     loginTween = [
-        game.config.width*0.05, game.config.height*0.05, //icono
+        game.config.width*0.05, game.config.height*0.05, //login option
         game.config.width*0.05 , game.config.height*0.1, //box
+        game.config.width*0.05, game.config.height*0.05, //login dfault profile picture
+        game.config.width*0.05 , game.config.height*0.1, //login btn
+        game.config.width*0.05, game.config.height*0.05, //login profilepic
+        game.config.width*0.05, game.config.height*0.05, //registro iniciar
     ];
 
     //REGISTER POSTITIONS BEFORE - AFTER
     regisTween = [
         (game.config.width/2), game.config.height/2,   //regisbox
-        (game.config.width/2)+150, (game.config.height/2)+100, //boton confirm
+        (game.config.width/2)+150, (game.config.height/2)+100, //boton regustrarse
         (game.config.width/2)+150, (game.config.height/2)+50, //dch
         (game.config.width/2)+150, (game.config.height/2)+50, //izq
     ];
@@ -137,7 +145,7 @@ create() {
 
     //CHATBOX
     //Chatbox icon
-    this.chatbutton = this.add.image(chatPos[0], chatPos[1],'ChatBox_chatIcon')
+    this.chatbutton = this.add.image(chatPos[0], chatPos[1],'ChatBox_ChatIcon') //CABIAR POR ChatBox_NewMsgIcon
     .setScale(0.4);
     this.chatbutton.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this ,1 ))
@@ -145,7 +153,7 @@ create() {
     this.chatbutton.setOrigin(0.5);
 
     //chatbox base
-    this.chatBase = this.add.image(chatPos[2], chatPos[3],'ChatBox_base')
+    this.chatBase = this.add.image(chatPos[2], chatPos[3],'ChatBox_Base')
     .setScale(0.4);
     this.chatBase.setOrigin(0.5);
 
@@ -155,7 +163,7 @@ create() {
     this.chatFrame.setOrigin(0.5);
 
     //chatbox write msg
-    this.chatWritter = this.add.image(chatPos[6], chatPos[7],'ChatBox_msgBox')
+    this.chatWritter = this.add.image(chatPos[6], chatPos[7],'ChatBox_MsgBox')
     .setScale(0.4);
     this.chatWritter.setInteractive()
     //.on('pointerdown', () => this.MovinBoxes(this.chatWritter, game.config.width , game.config.height, chatBoxOut,this) )
@@ -170,7 +178,7 @@ create() {
     .on('pointerover', () => this.enterIconHoverState(this.sendButton) )
     this.sendButton.setOrigin(0.5);
 
-    //LOGIN
+
 
     //REGISTER
    
@@ -208,28 +216,46 @@ create() {
 
     //arrays de cosos
     
-    this.chatboxStuff = [this.chatBase,this.sendButton,this.chatbutton,this.chatFrame,this.chatWritter];
-    this.loginStuff = [this.loginBox,this.loginIcon];
-    this.registerStuff = [this.registerBox,this.registerBtn,this.nextImg,this.prevImg];
+   
 
     
-    //Login box
+    //LOGIN
+    //login option
+    //box
+    //login dfault profile picture
+    //login btn
+    //login profilepic
+    //registro iniciar
 
     //Login box
-    this.loginBox = this.add.image(loginPos[2], loginPos[3],'LoginBox')
+    this.loginBox = this.add.image(loginPos[2], loginPos[3],'Login_Box')
     .setScale(0.4);
     this.loginBox.setOrigin(0.5);
 
     //login icon
-    this.loginIcon = this.add.image(loginPos[0], loginPos[1],'Login_Icon')
+    this.loginOption = this.add.image(loginPos[0], loginPos[1],'Login_Icon')
     .setScale(0.4);
-    this.loginIcon.setInteractive()
+    this.loginOption.setOrigin(0.5);
+
+    this.loginDfPic = this.add.image(loginPos[0], loginPos[1],'Login_Icon')
+    .setScale(0.4);
+
+    this.loginBtn = this.add.image(loginPos[0], loginPos[1],'Login_Icon')
+    .setScale(0.4);
+
+    this.loginProfilepic = this.add.image(loginPos[0], loginPos[1],'Login_Icon')
+    .setScale(0.4);
+
+    this.loginRegister.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this,2) )
-    .on('pointerover', () => this.enterIconHoverState(this.loginIcon))
-    .on('pointerout', () => this.enterIconRestState(this.loginIcon))
-    this.loginIcon.setOrigin(0.5);
+    .on('pointerover', () => this.enterIconHoverState(this.loginOption))
+    .on('pointerout', () => this.enterIconRestState(this.loginOption))
 
 
+
+    this.chatboxStuff = [this.chatBase,this.sendButton,this.chatbutton,this.chatFrame,this.chatWritter];
+    this.loginStuff = [this.loginBox,this.loginOption,this.loginDfPic,this.loginBtn,this.loginProfilepic,this.loginRegister];
+    this.registerStuff = [this.registerBox,this.registerBtn,this.nextImg,this.prevImg];
 
     var element = this.add.dom(330, 110).createFromCache('nameform');
 
@@ -403,11 +429,8 @@ MovinBoxes(scene, id)
 
             if (chatBoxOut)
             {
-<<<<<<< HEAD
-                for (let i = 0; i<scene.chatboxStuff.length; i++)
-=======
+
                 for (let i = 0; i < scene.chatboxStuff.length; i++)
->>>>>>> f65fc9fc80e329c4089af5f01b9c01a25c726a98
                 {
                     scene.tweens.add({
                         targets: scene.chatboxStuff[i],
@@ -424,11 +447,8 @@ MovinBoxes(scene, id)
             }
             else if (!chatBoxOut)
             {
-<<<<<<< HEAD
-                for (let i = 0; i<scene.chatboxStuff.length; i++)
-=======
+
                 for (let i = 0; i < scene.chatboxStuff.length; i++)
->>>>>>> f65fc9fc80e329c4089af5f01b9c01a25c726a98
                 {
                     scene.tweens.add({
                         targets: scene.chatboxStuff[i],
@@ -445,15 +465,12 @@ MovinBoxes(scene, id)
             }
             
             break;
-        case 2: //login loginBox,loginIcon;
+        case 2: //login loginBox,loginOption;
             
             if(loginOut)
             {
-<<<<<<< HEAD
-                for (let i = 0; i<scene.loginStuff.length; i++)
-=======
+
                 for (let i = 0; i < scene.loginStuff.length; i++)
->>>>>>> f65fc9fc80e329c4089af5f01b9c01a25c726a98
                 {
                     scene.tweens.add({
                         targets: scene.loginStuff[i],
@@ -468,11 +485,8 @@ MovinBoxes(scene, id)
             }
             else if (!loginOut)
             {
-<<<<<<< HEAD
-                for (let i = 0; i<scene.loginStuff.length; i++)
-=======
                 for (let i = 0; i < scene.loginStuff.length; i++)
->>>>>>> f65fc9fc80e329c4089af5f01b9c01a25c726a98
+
                 {
                     scene.tweens.add({
                         targets: scene.loginStuff[i],
@@ -491,11 +505,8 @@ MovinBoxes(scene, id)
             
             if(registerOut)
             {
-<<<<<<< HEAD
                 for (let i = 0; i<scene.registerStuff.length; i++)
-=======
-                for (let i = 0; i < scene.registerStuff.length; i++)
->>>>>>> f65fc9fc80e329c4089af5f01b9c01a25c726a98
+
                 {
                     scene.tweens.add({
                         targets: scene.registerStuff[i],
@@ -510,11 +521,8 @@ MovinBoxes(scene, id)
             }
             else if(!registerOut)
             {
-<<<<<<< HEAD
-                for (let i = 0; i<scene.registerStuff.length; i++)
-=======
+
                 for (let i = 0; i < scene.registerStuff.length; i++)
->>>>>>> f65fc9fc80e329c4089af5f01b9c01a25c726a98
                 {
                     scene.tweens.add({
                         targets: scene.registerStuff[i],

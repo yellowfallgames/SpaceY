@@ -118,21 +118,23 @@ class SceneBoot extends Phaser.Scene {
 
         //CHATBOX
         this.load.image('ChatBox_SendBtn',  directory +'Chatbox_SendButton.png');
-        this.load.image('ChatBox_newMsgIcon',  directory +'Chatbox_newmsg-04.png');
-        this.load.image('ChatBox_chatIcon',  directory +'Chatbox_writemsg-04.png');
-        this.load.image('Chatbox_base',  directory +'Chatbox_base.png');
-        this.load.image('ChatBox_msgBox',  directory +'Chatbox_msg-05.png');
+        this.load.image('ChatBox_NewMsgIcon',  directory +'Chatbox_newmsg-04.png');
+        this.load.image('ChatBox_ChatIcon',  directory +'Chatbox_writemsg-04.png');
+        this.load.image('ChatBox_Base',  directory +'Chatbox_base.png');
+        this.load.image('ChatBox_MsgBox',  directory +'Chatbox_msg-05.png');
         this.load.image('ChatBox_Frame',  directory +'Chatbox_Frame.png');
 
         //REGISTER
-        this.load.image('Register_Btn',  directory +'Register_Confirm.png');
+        this.load.image('Register_Btn',  directory +'register_button_box.png');
         this.load.image('Register_Form',  directory +'Register_InputBox.png');
         this.load.image('Register_Arrow',  directory +'Register_NextImg.png');
         
         //LOGIN
-        this.load.image('Login_Btn',  directory +'Register_Confirm.png');
-        this.load.image('Login_icon',  directory +'Login_Button.png');
+        this.load.image('Login_Btn',  directory +'login_button_box.png');
+        this.load.image('Login_Option',  directory +'Login_Button.png');
+        this.load.image('Login_Default',  directory +'login_picture.png');
         this.load.image('Login_Box',  directory +'Login_input.png');
+        this.load.image('Login_Profile',  directory +'profile_holder-07.png');
 
         //Placeholder partícula
         this.load.image('smoke', './Resources/Game/smoke_particle.png');
