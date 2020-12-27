@@ -141,8 +141,6 @@ function CheckUser(name_, pass_) {
     var name = name_;
     var pass = sha256(pass_);
 
-    console.log("contraseña:"+ pass);
-
     var user = {
         name: name,
         password: pass,
