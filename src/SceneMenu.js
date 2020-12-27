@@ -45,18 +45,17 @@ class SceneMenu extends Phaser.Scene {
     
 
      //LOGIN POSTITIONS BEFORE - AFTER
-     var loginOffset = 2000
+     var loginOffset = 4000
     
     loginTween = [
-        860,70,    //login option
+        660,70,    //login option
         320,80,    //box
         540,80,     //login dfault profile picture
         110,110,     //login bttn
         540,80,     //login profilepic
         340,110,     //regiter button
         110,115,     //field name
-        365,115,     //field password TE OIGOOOO
-        
+        365,115     //field password TE OIGOOOO
     ];
     loginPos = [
         70,70,    //login option, 
@@ -284,7 +283,7 @@ create() {
     this.loginPassField = this.add.image(loginPos[14], loginPos[15],'Login_Field')
     .setScale(0.12);
 
-    this.loginStuff = [this.loginBox, this.loginOption, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField];
+    this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField];
 
     //Escribir mensaje en chat
     this.accountText = this.add.text(20, 52, 'Please enter in your account', {fill: 'white',fontFamily:'menuFont',fontSize:'35px'});
@@ -462,7 +461,7 @@ MovinBoxes(scene, id)
                         //delay: 100,
                         //aplha: {start: game.config.width / 2, to: game.config.width / 8},
                         duration: 100,
-                        ease: 'Elastic.easeOut',
+                        ease: 'Bounce.easeIn',
                     });
                     nX+=2;nY+=2;
                 }
@@ -480,7 +479,7 @@ MovinBoxes(scene, id)
                         //delay: 100,
                         //aplha: {start: game.config.width / 2, to: game.config.width / 8},
                         duration: 100,
-                        ease: 'Elastic.easeOut',
+                        ease: 'Bounce.easeOut',
                     });
                     nX+=2;nY+=2;
                 }
@@ -516,7 +515,7 @@ MovinBoxes(scene, id)
                         x: loginTween[nX],
                         y: loginTween[nY],
                         duration: 100,
-                        ease: 'Expo.easeOut',
+                        ease: 'Bounce.easeOut',
                     });
                     nX+=2;nY+=2;
                 }
