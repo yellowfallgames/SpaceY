@@ -134,6 +134,7 @@ create() {
     .on('pointerout', () => this.enterIconRestState(this.apiButton) );
     this.apiButton.setOrigin(0.5);
 
+    
     //CHATBOX
 
     //Chatbox icon
@@ -225,6 +226,8 @@ create() {
     this.chatboxStuff = [this.chatBase,this.sendButton,this.chatbutton,this.chatFrame,this.chatWritter];
     this.loginStuff = [this.loginBox,this.loginIcon];
     this.registerStuff = [this.registerBox,this.registerBtn,this.nextImg,this.prevImg];
+
+    this.element = this.add.dom(400, 0).createFromCache('nameform');
 
 
 }

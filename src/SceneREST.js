@@ -41,6 +41,7 @@ class SceneREST extends Phaser.Scene {
         this.serverOnlineTxt.setOrigin(0.5);
 
         isServerOnline(this);
+
     }
     
 }
@@ -101,7 +102,7 @@ function showMsg(msg) {
 function RestCreateUser (scene) {
 
     var name = "PEPO";
-    var pass = "1234";
+    var pass = sha256("1234");
 
     var user = {
         name: name,

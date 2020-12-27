@@ -167,7 +167,13 @@ class SceneBoot extends Phaser.Scene {
         this.load.audio('SfxWin', ['./Resources/Audio/SFX/Fanfare/win.ogg']);
         this.load.audio('SfxLose', ['./Resources/Audio/SFX/Fanfare/lose.ogg']);
 
-        
+        //Placeholder partícula
+        this.load.image('smoke', './Resources/Game/smoke_particle.png');
+        this.load.image('polvo', './Resources/Game/dust_particle.png');
+
+        //APIs
+        this.load.html('nameform', './src/Assets/nameform.html');
+
     }
 
     create() {
