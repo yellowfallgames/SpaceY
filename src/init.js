@@ -22,6 +22,9 @@ var config = {
             }
         }
     },
+    dom: {
+        createContainer: true
+    },
 }
 
 var game = new Phaser.Game(config);

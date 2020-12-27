@@ -87,7 +87,7 @@ create() {
     });
 
     //ASIGNACION DE METODO
-    this.playButton = this.add.text((game.config.width/8)*3, -1000, 'Jugar', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px'})
+    this.playButton = this.add.text((game.config.width/8)*3, -1000, 'Play', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px'})
 
     .setInteractive()
     .on('pointerdown', () => this.startGame() )
@@ -106,7 +106,7 @@ create() {
     this.easeMe(this.tutorialButton, this, 2);
 
 
-    this.optionsButton = this.add.text(-1000, (game.config.height/8)*5, 'Opciones', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px' })
+    this.optionsButton = this.add.text(-1000, (game.config.height/8)*5, 'Options', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px' })
 
     .setInteractive()
     .on('pointerdown', () => this.enterOptions() )
@@ -116,7 +116,7 @@ create() {
     this.easeMe(this.optionsButton, this, 3);
     
 
-    this.contactButton = this.add.text(game.config.width + 1000, (game.config.height/8)*6, 'Contacto', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px' })
+    this.contactButton = this.add.text(game.config.width + 1000, (game.config.height/8)*6, 'Contact', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px' })
 
     .setInteractive()
     .on('pointerdown', () => this.enterContact() )
@@ -134,9 +134,8 @@ create() {
     .on('pointerout', () => this.enterIconRestState(this.apiButton) );
     this.apiButton.setOrigin(0.5);
 
-    
-    //CHATBOX
 
+    //CHATBOX
     //Chatbox icon
     this.chatbutton = this.add.image(chatPos[0], chatPos[1],'ChatBox_chatIcon')
     .setScale(0.4);
@@ -227,7 +226,51 @@ create() {
     this.loginStuff = [this.loginBox,this.loginIcon];
     this.registerStuff = [this.registerBox,this.registerBtn,this.nextImg,this.prevImg];
 
-    this.element = this.add.dom(400, 0).createFromCache('nameform');
+    
+    //Login box
+    this.chatBox = this.add.image(game.config.width/5, game.config.height/10,'Login_Box').setScale(0.3);
+    //Escribir mensaje en chat
+    var text = this.add.text(20, 52, 'Please enter in your account', {fill: 'white',fontFamily:'menuFont',fontSize:'35px'});
+    text.setOrigin(0, 0.5);
+    var element = this.add.dom(330, 110).createFromCache('nameform');
+
+    element.addListener('click');
+
+    element.on('click', function (event) {
+
+        if (event.target.name === 'playButton')
+        {
+            var inputName = this.getChildByName('user');
+            var inputPassword = this.getChildByName('password');
+
+            //  Have they entered anything?
+            if (inputName.value !== '' && inputPassword.value !== '')
+            {
+
+                CheckUser(inputName.value, inputPassword.value);
+
+                /*
+                //  Turn off the click events
+                this.removeListener('click');
+
+                //  Hide the login element
+                this.setVisible(false);
+
+                //  Populate the text with whatever they typed in
+                text.setColor("white");
+                text.setText('Welcome, ' + inputName.value);*/
+            }
+            else {
+
+                text.setColor("red");
+                text.setText('User or password incorrect');
+            }
+
+        }
+
+    });
+
+    
 
 
 }

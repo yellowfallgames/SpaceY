@@ -135,6 +135,44 @@ function loadUsers() {
         console.log('Users loaded: ' + JSON.stringify(users));
     })
 }
+//
+function CheckUser(name_, pass_) {
+    console.log(name_ + "/"+ pass_);
+    var name = name_;
+    var pass = sha256(pass_);
+
+    console.log("contraseña:"+ pass);
+
+    var user = {
+        name: name,
+        password: pass,
+        online: false
+    }
+
+    $.ajax({
+        method: "POST",
+        url: urlServer+'/users/check',
+        data: JSON.stringify(user),
+        processData: false,
+        headers: {
+            "Content-Type": "application/json"
+        },
+        success: function(){
+            console.log("Correcto rest checkuser");
+        },
+        error: function(){
+            console.log("Error rest checkuser");
+        },
+    }).done(function (b) {
+        if (b) {
+            console.log("EXISTES");
+        }
+        else {
+            console.log("NO EXISTES");
+        }
+        //console.log("contraseña server: "+b);
+    })
+}
 
 
 
