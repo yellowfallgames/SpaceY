@@ -286,7 +286,7 @@ create() {
     this.loginBtn = this.add.image(loginPos[6], loginPos[7],'Login_Btn')
     .setScale(0.18);
     this.loginBtn.setInteractive()
-    //.on('pointerdown', () => this.MovinBoxes(this,2) )
+    .on('pointerdown', () =>this.this.ShowLoginFields(this,false))
     .on('pointerover', () => this.enterIconHoverState(this.loginBtn))
     .on('pointerout', () => this.enterIconRestState(this.loginBtn))
     this.logLoginText = this.add.text(loginPos[16], loginPos[17], 'LOGIN', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
@@ -488,24 +488,44 @@ enterButtonRestState(boton) {
 //Show login fields
 ShowLoginFields(scene,show)
 {
-    loginOn = !show;
-    scene.loginBtn.setActive(!loginOn);
-    scene.loginBtn.setVisible(!loginOn);
+    if(show){
+        scene.loginBtn.setActive(false);
+    scene.loginBtn.setVisible(false);
 
-    scene.loginRegister.setActive(!loginOn);
-    scene.loginRegister.setVisible(!loginOn);
+    scene.loginRegister.setActive(false);
+    scene.loginRegister.setVisible(false);
 
-    scene.loginNameField.setActive(loginOn);
-    scene.loginNameField.setVisible(loginOn);
+    scene.loginNameField.setActive(true);
+    scene.loginNameField.setVisible(true);
 
-    scene.loginPassField.setVisible(loginOn);
-    scene.loginPassField.setActive(loginOn);
+    scene.loginPassField.setVisible(true);
+    scene.loginPassField.setActive(true);
 
-    this.logLoginText.setActive(!loginOn);
-    this.logLoginText.setVisible(!loginOn);
+    this.logLoginText.setActive(false);
+    this.logLoginText.setVisible(false);
 
-    this.logRegText.setActive(!loginOn);
-    this.logRegText.setVisible(!loginOn);
+    this.logRegText.setActive(false);
+    this.logRegText.setVisible(false);
+    }
+    else if(!show){
+        scene.loginBtn.setActive(true);
+    scene.loginBtn.setVisible(true);
+
+    scene.loginRegister.setActive(true);
+    scene.loginRegister.setVisible(true);
+
+    scene.loginNameField.setActive(false);
+    scene.loginNameField.setVisible(false);
+
+    scene.loginPassField.setVisible(false);
+    scene.loginPassField.setActive(false);
+
+    this.logLoginText.setActive(true);
+    this.logLoginText.setVisible(true);
+
+    this.logRegText.setActive(true);
+    this.logRegText.setVisible(true);
+    }
     
 }
 ShowRegisternFields(scene,show)
@@ -586,7 +606,7 @@ MovinBoxes(scene, id)
                     nX+=2;nY+=2;
                 }
                 loginOut = false
-                this.ShowLoginFields(scene,loginOn);
+                this.ShowLoginFields(scene,true);
             }
             else if (!loginOut)
             {
@@ -606,7 +626,7 @@ MovinBoxes(scene, id)
                     nX+=2;nY+=2;
                 }
                 loginOut = true
-                this.ShowLoginFields(scene,loginOn);
+                this.ShowLoginFields(scene,true);
             }
             
             break;
