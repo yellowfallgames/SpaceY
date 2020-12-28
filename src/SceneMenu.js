@@ -209,7 +209,7 @@ create() {
     .on('pointerover', () => this.enterIconHoverState(this.sendButton) )
     .on('pointerout', () => this.enterIconRestState(this.sendButton))
     this.sendButton.setOrigin(0.5);
-    this.chatboxStuff = [this.chatbutton, this.chatBase, this.chatFrame, this.chatWritter,this.sendButtonthis, this.globalbutton];
+    this.chatboxStuff = [this.chatbutton, this.chatBase, this.chatFrame, this.chatWritter,this.sendButton, this.globalbutton];
 
     //Chatbox code
     this.chatContent = [
@@ -260,7 +260,7 @@ create() {
 
     });
 
-
+    this.writeTextChat = this.add.dom(1280, 785).createFromCache('formChat').setVisible(false);
 
     //REGISTER
     //register box
@@ -590,6 +590,7 @@ MovinBoxes(scene, id)
             if (chatBoxOut)
             {
                 this.chatText.setVisible(false);
+                this.writeTextChat.setVisible(false);
                 for (let i = 0; i < scene.chatboxStuff.length; i++)
                 {
                     scene.tweens.add({
@@ -608,6 +609,7 @@ MovinBoxes(scene, id)
             else if (!chatBoxOut)
             {
                 this.chatText.setVisible(true);
+                this.writeTextChat.setVisible(true);
                 for (let i = 0; i < scene.chatboxStuff.length; i++)
                 {
                     scene.tweens.add({
