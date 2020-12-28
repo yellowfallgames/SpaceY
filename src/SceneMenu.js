@@ -306,27 +306,29 @@ create() {
     //login default picture
     this.loginDfPic = this.add.image(loginPos[4], loginPos[5],'Login_Default')
     .setScale(0.15);
-     //login button to log in
+    //login button to log in
+    this.logLoginText = this.add.text(loginPos[16], loginPos[17], 'LOGIN', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
+    this.logLoginText.setOrigin(0.5);
     this.loginBtn = this.add.image(loginPos[6], loginPos[7],'Login_Btn')
     .setScale(0.18);
     this.loginBtn.setInteractive()
-    //.on('pointerdown', () => this.MovinBoxes(this,2) )
+    .on('pointerdown', () =>this.ShowLoginFields(this,true))
     .on('pointerover', () => this.enterIconHoverState(this.loginBtn))
-    .on('pointerout', () => this.enterIconRestState(this.loginBtn))
-    this.logLoginText = this.add.text(loginPos[16], loginPos[17], 'LOGIN', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
-    this.logLoginText.setOrigin(0.5);
+    .on('pointerout', () => this.enterIconRestState(this.loginBtn));
+    
     //login picture
     this.loginProfilepic = this.add.image(loginPos[8], loginPos[9],'Login_Profile')
     .setScale(0.15);
     //login botn regitrarse
+    this.logRegText = this.add.text(loginPos[18], loginPos[19], 'REGISTER', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
+    this.logRegText.setOrigin(0.5);
     this.loginRegister = this.add.image(loginPos[10], loginPos[11],'Register_Btn')
     .setScale(0.18);
     this.loginRegister.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this,3) )
     .on('pointerover', () => this.enterIconHoverState(this.loginRegister))
-    .on('pointerout', () => this.enterIconRestState(this.loginRegister))
-    this.logRegText = this.add.text(loginPos[18], loginPos[19], 'REGISTER', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
-    this.logRegText.setOrigin(0.5);
+    .on('pointerout', () => this.enterIconRestState(this.loginRegister));
+    
     //login field name base
     this.loginNameField = this.add.image(loginPos[12], loginPos[13],'Login_Field')
     .setScale(0.12).setVisible(false);
@@ -415,11 +417,13 @@ enterButtonRestState(boton) {
 }
 
 enterIconHoverState(boton) {
+    sfx.sounds[1].play();
     boton.x = boton.x+movTxt;
     boton.y = boton.y+movTxt;
 }
 
 enterIconRestState(boton) {
+
     boton.x = boton.x-movTxt;
     boton.y = boton.y-movTxt;
 }
@@ -520,25 +524,25 @@ enterButtonRestState(boton) {
 //Show login fields
 ShowLoginFields(scene,show)
 {
-    loginOn = !show;
-    scene.loginBtn.setActive(!loginOn);
-    scene.loginBtn.setVisible(!loginOn);
+    sfx.sounds[0].play();
+    scene.loginBtn.setActive(!show);
+    scene.loginBtn.setVisible(!show);
 
-    scene.loginRegister.setActive(!loginOn);
-    scene.loginRegister.setVisible(!loginOn);
+    scene.loginRegister.setActive(!show);
+    scene.loginRegister.setVisible(!show);
 
-    scene.loginNameField.setActive(loginOn);
-    scene.loginNameField.setVisible(loginOn);
+    scene.logLoginText.setActive(!show);
+    scene.logLoginText.setVisible(!show);
 
-    scene.loginPassField.setVisible(loginOn);
-    scene.loginPassField.setActive(loginOn);
+    scene.logRegText.setActive(!show);
+    scene.logRegText.setVisible(!show);
 
-    this.logLoginText.setActive(!loginOn);
-    this.logLoginText.setVisible(!loginOn);
+    scene.loginNameField.setActive(show);
+    scene.loginNameField.setVisible(show);
 
-    this.logRegText.setActive(!loginOn);
-    this.logRegText.setVisible(!loginOn);
-    
+    scene.loginPassField.setVisible(show);
+    scene.loginPassField.setActive(show);
+
 }
 ShowRegisternFields(scene,show)
 {
@@ -620,7 +624,8 @@ MovinBoxes(scene, id)
                     });
                     nX+=2;nY+=2;
                 }
-                loginOut = false
+                loginOut = false;
+                loginOn = false;
                 this.ShowLoginFields(scene,loginOn);
             }
             else if (!loginOut)
@@ -640,7 +645,8 @@ MovinBoxes(scene, id)
                     });
                     nX+=2;nY+=2;
                 }
-                loginOut = true
+                loginOut = true;
+                loginOn = false
                 this.ShowLoginFields(scene,loginOn);
             }
             
