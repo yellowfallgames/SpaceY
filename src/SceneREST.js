@@ -45,21 +45,20 @@ class SceneREST extends Phaser.Scene {
     
 }
 
-function RestCreateMsg (scene) {
+function RestCreateMsg (scene, username) {
 
-    var username = "VRS Blinks24";
-    var content = "Soy la mejor sage de este juego";
+    var content = scene.writeTextChat.getChildByName('Chat').value;
+    scene.writeTextChat.getChildByName('Chat').value = "";
 
     var msg = {
         userName: username,
         content: content,
     }
 
-    createMsg(msg);
-    isServerOnline(scene);
+    createMsg(scene, msg);
 }
 //Create user in server
-function createMsg(msg) {
+function createMsg(scene, msg) {
     $.ajax({
         method: "POST",
         url: urlServer+'/messages',
@@ -70,22 +69,25 @@ function createMsg(msg) {
         }
     }).done(function (msg) {
         console.log("Message created: " + JSON.stringify(msg));
+        loadMsgs(scene);
     })
 }
 //Load users from server
-function loadMsgs() {
+function loadMsgs(scene) {
     $.ajax({
         url: urlServer+'/messages',
 
     }).done(function (msgs) {
-        console.log('Messages loaded: ' + JSON.stringify(msgs));
+        //console.log('Messages loaded: ' + JSON.stringify(msgs));
 
-        console.log('Historial mensajes: ');
+        //console.log('Historial mensajes: ');
         for (var i=0; i < msgs.length; i++) {
 
-            console.log(msgs[i].userName + ": " + msgs[i].content);
+            scene.chatContent[i] = msgs[i].userName + ": " + msgs[i].content;
+            //console.log(msgs[i].userName + ": " + msgs[i].content);
         }
-        
+
+        scene.chatText.setText(scene.chatContent);
     })
 }
 //Show item in page
@@ -204,8 +206,9 @@ function LoginVisibility(scene, username, userExists){
         scene.accountLogin.setVisible(false);
 
         //  Populate the text with whatever they typed in
+        userName = username;
         scene.accountText.setColor("white");
-        scene.accountText.setText('Welcome, ' + username + " !");//*/
+        scene.accountText.setText('Welcome, ' + userName + " !");//*/
     }
     else {
 
@@ -359,12 +362,12 @@ $(document).ready(function () {
         }
     });
 
-    loadMsgs(function (msgs) {
+    /*loadMsgs(function (msgs) {
         //When items are loaded from server
         for (var i = 0; i < msgs.length; i++) {
             showMsgs(msgs[i]);
         }
-    });
+    });*/
 
     /*
     var input = $('#value-input')

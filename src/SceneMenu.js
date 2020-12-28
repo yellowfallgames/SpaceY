@@ -6,6 +6,7 @@ var registerOut = false;
 
 //check active
 var registerOn = false, loginOn = false;
+var userName = "PepePm";
 
 //posiciones
 var chatPos;
@@ -168,7 +169,7 @@ create() {
     this.chatbutton = this.add.image(chatPos[0], chatPos[1],'ChatBox_ChatIcon') //CABIAR POR ChatBox_NewMsgIcon cuando haya nuevo mensaje
     .setScale(0.6);
     this.chatbutton.setInteractive()
-    .on('pointerdown', () => this.MovinBoxes(this ,1 ))
+    .on('pointerdown', () => this.MovinBoxes(this ,1))
     .on('pointerover', () => this.enterIconHoverState(this.chatbutton))
     .on('pointerout', () => this.enterIconRestState(this.chatbutton))
     this.chatbutton.setOrigin(0.5);
@@ -195,47 +196,21 @@ create() {
     //chatbox write msg
     this.chatWritter = this.add.image(chatPos[6], chatPos[7],'ChatBox_MsgBox')
     .setScale(0.37);
-    this.chatWritter.setInteractive()
-    //.on('pointerdown', () => this.MovinBoxes(this.chatWritter, game.config.width , game.config.height, chatBoxOut,this) )
-    .on('pointerover', () => this.enterIconHoverState(this.chatWritter) )
-    .on('pointerout', () => this.enterIconRestState(this.chatWritter))
     this.chatWritter.setOrigin(0.5);
 
     //chatbox send
     this.sendButton = this.add.image(chatPos[8], chatPos[9],'ChatBox_SendBtn')
     .setScale(0.4);
     this.sendButton.setInteractive()
-    //.on('pointerdown', () => this.MovinBoxes(this.sendButton, game.config.width , game.config.height, chatBoxOut,this) )
+    .on('pointerdown', () => RestCreateMsg(this, userName))
     .on('pointerover', () => this.enterIconHoverState(this.sendButton) )
     .on('pointerout', () => this.enterIconRestState(this.sendButton))
     this.sendButton.setOrigin(0.5);
     this.chatboxStuff = [this.chatbutton, this.chatBase, this.chatFrame, this.chatWritter,this.sendButton, this.globalbutton];
 
     //Chatbox code
-    this.chatContent = [
-        "The sky above the port was the color of television, tuned to a dead channel.",
-        "`It's not like I'm using,' Case heard someone say, as he shouldered his way ",
-        "through the crowd around the door of the Chat. `It's like my body's developed",
-        "this massive drug deficiency.' It was a Sprawl voice and a Sprawl joke.",
-        "The Chatsubo was a bar for professional expatriates; you could drink there for",
-        "a week and never hear two words in Japanese.",
-        "",
-        "Ratz was tending bar, his prosthetic arm jerking monotonously as he filled a tray",
-        "of glasses with draft Kirin. He saw Case and smiled, his teeth a webwork of",
-        "East European steel and brown decay. Case found a place at the bar, between the",
-        "unlikely tan on one of Lonny Zone's whores and the crisp naval uniform of a tall",
-        "African whose cheekbones were ridged with precise rows of tribal scars. `Wage was",
-        "in here early, with two joeboys,' Ratz said, shoving a draft across the bar with",
-        "his good hand. `Maybe some business with you, Case?'",
-        "",
-        "Case shrugged. The girl to his right giggled and nudged him.",
-        "The bartender's smile widened. His ugliness was the stuff of legend. In an age of",
-        "affordable beauty, there was something heraldic about his lack of it. The antique",
-        "arm whined as he reached for another mug.",
-        "",
-        "",
-        "From Neuromancer by William Gibson"
-    ];
+    this.chatContent = [];
+    loadMsgs(this);
 
     var graphics = this.make.graphics();
 
@@ -243,7 +218,7 @@ create() {
 
     var chatMask = new Phaser.Display.Masks.GeometryMask(this, graphics);
 
-    this.chatText = this.add.text(game.config.width/6*4+10, game.config.height/5+10, this.chatContent, { fontSize:"25px", fontFamily: 'Arial', color: 'white', wordWrap: { width: 450 } }).setOrigin(0);
+    this.chatText = this.add.text(game.config.width/6*4+10, game.config.height/5+10, this.chatContent, { fontSize:"25px", fontFamily: 'menuFont', color: 'white', wordWrap: { width: 450 } }).setOrigin(0);
 
     this.chatText.setMask(chatMask).setVisible(false);
 
