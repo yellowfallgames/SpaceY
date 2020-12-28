@@ -123,11 +123,14 @@ class SceneBoot extends Phaser.Scene {
         this.load.image('ChatBox_Base',  directory +'Chatbox_base.png');
         this.load.image('ChatBox_MsgBox',  directory +'Chatbox_msg-05.png');
         this.load.image('ChatBox_Frame',  directory +'Chatbox_Frame.png');
+        this.load.image('ChatBox_GlobalIcon',  directory +'online.png');
+        
 
         //REGISTER
         this.load.image('Register_Btn',  directory +'register_button_box.png');
         this.load.image('Register_Form',  directory +'Register_InputBox.png');
         this.load.image('Register_Arrow',  directory +'Register_NextImg.png');
+        this.load.image('Register_Close',  directory +'close_button.png');
         
         //LOGIN
         this.load.image('Login_Btn',  directory +'login_button_box.png');

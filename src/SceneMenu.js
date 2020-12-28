@@ -1,7 +1,11 @@
 var isTutorial = false;
+//is out
 var chatBoxOut = false;
 var loginOut = false;
 var registerOut = false;
+
+//check active
+var registerOn = false, loginOn = false;
 
 //posiciones
 var chatPos;
@@ -32,7 +36,8 @@ class SceneMenu extends Phaser.Scene {
         game.config.width -300, game.config.height-380, //base
         game.config.width -300, game.config.height-380, //frame
         game.config.width -315, game.config.height-110, //write msg
-        game.config.width -55, game.config.height-110  //send
+        game.config.width -55, game.config.height-110,  //send
+        game.config.width - 625, game.config.height-400,    //global
        
     ];
     chatPos = [
@@ -40,7 +45,8 @@ class SceneMenu extends Phaser.Scene {
         chatTween[2]+chtOffset,  chatTween[3], //base
         chatTween[4]+chtOffset,  chatTween[5], //frame
         chatTween[6]+chtOffset,  chatTween[7], //write msg
-        chatTween[8]+chtOffset,  chatTween[9]  //send
+        chatTween[8]+chtOffset,  chatTween[9],  //send
+        game.config.width-100,  chatTween[11]  //global
     ];
     
 
@@ -82,12 +88,14 @@ class SceneMenu extends Phaser.Scene {
         game.config.width/4+170,400, //btn nfirm
         game.config.width/4+240,340, //dech
         game.config.width/4+100,340, //izq
+        110,200, //cerrar 
     ];
     regisPos = [
         regisTween[0]-registerOffset, regisTween[1],   //regisbox
        regisTween[2]-registerOffset, regisTween[3], //boton regustrarse
        regisTween[4]-registerOffset, regisTween[5], //dch
        regisTween[6]-registerOffset, regisTween[7], //izq
+       regisTween[8]-registerOffset, regisTween[9], //cerrar
     ];
     
     }
@@ -165,6 +173,15 @@ create() {
     .on('pointerout', () => this.enterIconRestState(this.chatbutton))
     this.chatbutton.setOrigin(0.5);
 
+    //globl icon
+    this.globalbutton = this.add.image(chatPos[10], chatPos[11],'ChatBox_GlobalIcon') //CABIAR POR ChatBox_NewMsgIcon cuando haya nuevo mensaje
+    .setScale(0.6);
+    this.globalbutton.setInteractive()
+    .on('pointerdown', () => this.MovinBoxes(this ,1 ))
+    .on('pointerover', () => this.enterIconHoverState(this.globalbutton))
+    .on('pointerout', () => this.enterIconRestState(this.globalbutton))
+    this.globalbutton.setOrigin(0.5);
+
     //chatbox base
     this.chatBase = this.add.image(chatPos[2], chatPos[3],'ChatBox_Base')
     .setScale(0.8);
@@ -182,7 +199,6 @@ create() {
     //.on('pointerdown', () => this.MovinBoxes(this.chatWritter, game.config.width , game.config.height, chatBoxOut,this) )
     .on('pointerover', () => this.enterIconHoverState(this.chatWritter) )
     .on('pointerout', () => this.enterIconRestState(this.chatWritter))
-    .on('pointerout', () => this.enterIconRestState(this.chatWritter))
     this.chatWritter.setOrigin(0.5);
 
     //chatbox send
@@ -192,9 +208,8 @@ create() {
     //.on('pointerdown', () => this.MovinBoxes(this.sendButton, game.config.width , game.config.height, chatBoxOut,this) )
     .on('pointerover', () => this.enterIconHoverState(this.sendButton) )
     .on('pointerout', () => this.enterIconRestState(this.sendButton))
-    .on('pointerout', () => this.enterIconRestState(this.sendButton))
     this.sendButton.setOrigin(0.5);
-    this.chatboxStuff = [this.chatbutton, this.chatBase, this.chatFrame, this.chatWritter,this.sendButton];
+    this.chatboxStuff = [this.chatbutton, this.chatBase, this.chatFrame, this.chatWritter,this.sendButtonthis, this.globalbutton];
 
 
 
@@ -203,7 +218,8 @@ create() {
     this.registerBox = this.add.image(regisPos[0], regisPos[1],'Register_Form')
     .setScale(0.4);
     this.registerBox.setOrigin(0.5);
-
+    
+    this.registerBox.setOrigin(0.5);
     //Register button
     this.registerBtn = this.add.image(regisPos[2], regisPos[3],'Register_Btn')
     .setScale(0.18);
@@ -230,8 +246,17 @@ create() {
     .on('pointerover', () => this.enterIconHoverState(this.prevImg) )
     .on('pointerout', () => this.enterIconRestState(this.prevImg))
     this.prevImg.setOrigin(0.5);
+
+    //register close
+    this.registerClose = this.add.image(regisPos[8], regisPos[9],'Register_Close')
+    .setScale(0.17);
+    this.registerClose.setInteractive()
+    .on('pointerdown', () => this.MovinBoxes(this ,3 ))
+    .on('pointerover', () => this.enterIconHoverState(this.registerClose) )
+    .on('pointerout', () => this.enterIconRestState(this.registerClose))
+    
    
-    this.registerStuff = [this.registerBox, this.registerBtn, this.nextImg, this.prevImg];
+    this.registerStuff = [this.registerBox, this.registerBtn, this.nextImg, this.prevImg,this.registerClose];
     
     //LOGIN
     //login option
@@ -463,13 +488,37 @@ enterButtonRestState(boton) {
 //Show login fields
 ShowLoginFields(scene,show)
 {
-    //, , this.loginPassField,this.logLoginText,this.logRegText
-    scene.loginBtn.setActive(show);
-    scene.loginBtn.setVisible(show);
-    this.loginNameField.setActive(!show);
-    scene.loginNameField.setVisible(!show);
-    scene.loginRegister.setActive(show);
-    scene.loginRegister.setVisible(show);
+    loginOn = !show;
+    scene.loginBtn.setActive(!loginOn);
+    scene.loginBtn.setVisible(!loginOn);
+
+    scene.loginRegister.setActive(!loginOn);
+    scene.loginRegister.setVisible(!loginOn);
+
+    scene.loginNameField.setActive(loginOn);
+    scene.loginNameField.setVisible(loginOn);
+
+    scene.loginPassField.setVisible(loginOn);
+    scene.loginPassField.setActive(loginOn);
+
+    this.logLoginText.setActive(!loginOn);
+    this.logLoginText.setVisible(!loginOn);
+
+    this.logRegText.setActive(!loginOn);
+    this.logRegText.setVisible(!loginOn);
+    
+}
+ShowRegisternFields(scene,show)
+{
+    registerOn = !show;
+
+    //scene.loginBtn.setActive(registerOn);
+    //scene.loginBtn.setVisible(registerOn);
+
+    //scene.loginRegister.setActive(registerOn);
+    //scene.loginRegister.setVisible(registerOn);
+    
+    
 }
 //sacar el chat 
 MovinBoxes(scene, id) 
@@ -537,6 +586,7 @@ MovinBoxes(scene, id)
                     nX+=2;nY+=2;
                 }
                 loginOut = false
+                this.ShowLoginFields(scene,loginOn);
             }
             else if (!loginOut)
             {
@@ -556,6 +606,7 @@ MovinBoxes(scene, id)
                     nX+=2;nY+=2;
                 }
                 loginOut = true
+                this.ShowLoginFields(scene,loginOn);
             }
             
             break;
@@ -577,6 +628,7 @@ MovinBoxes(scene, id)
                     nX+=2;nY+=2;
                 }
                 registerOut = false
+                this.ShowRegisternFields(scene,registerOn);
             }
             else if(!registerOut)
             {
@@ -593,6 +645,7 @@ MovinBoxes(scene, id)
                     nX+=2;nY+=2;
                 }
                 registerOut = true
+                this.ShowRegisternFields(scene,registerOn);
             }
             
             break;
