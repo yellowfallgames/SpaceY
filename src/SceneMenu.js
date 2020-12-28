@@ -28,7 +28,7 @@ class SceneMenu extends Phaser.Scene {
     var chtOffset = 1000;
    
     chatTween = [
-        game.config.width - 620, game.config.height-200,    //icono
+        game.config.width - 625, game.config.height-200,    //icono
         game.config.width -300, game.config.height-380, //base
         game.config.width -300, game.config.height-380, //frame
         game.config.width -315, game.config.height-110, //write msg
@@ -55,7 +55,9 @@ class SceneMenu extends Phaser.Scene {
         540,80,     //login profilepic
         340,110,     //regiter button
         110,115,     //field name
-        365,115     //field password TE OIGOOOO
+        365,115,     //field password TE OIGOOOO
+        110,100,     //Texto Login
+        340,100     //Texto Registro
     ];
     loginPos = [
         70,70,    //login option, 
@@ -66,6 +68,8 @@ class SceneMenu extends Phaser.Scene {
         loginTween[10]-loginOffset, loginTween[11], //regitro boton
         loginTween[12]-loginOffset, loginTween[13], //field name
         loginTween[14]-loginOffset, loginTween[15], //field pass
+        loginTween[16]-loginOffset, loginTween[17], //Texto Login
+        loginTween[18]-loginOffset, loginTween[19], //Texto Registro
         
     ];
 
@@ -265,7 +269,8 @@ create() {
     //.on('pointerdown', () => this.MovinBoxes(this,2) )
     .on('pointerover', () => this.enterIconHoverState(this.loginBtn))
     .on('pointerout', () => this.enterIconRestState(this.loginBtn))
-    
+    this.logLoginText = this.add.text(loginPos[16], loginPos[17], 'LOGIN', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
+    this.logLoginText.setOrigin(0.5);
     //login picture
     this.loginProfilepic = this.add.image(loginPos[8], loginPos[9],'Login_Profile')
     .setScale(0.15);
@@ -276,14 +281,16 @@ create() {
     .on('pointerdown', () => this.MovinBoxes(this,3) )
     .on('pointerover', () => this.enterIconHoverState(this.loginRegister))
     .on('pointerout', () => this.enterIconRestState(this.loginRegister))
+    this.logRegText = this.add.text(loginPos[18], loginPos[19], 'REGISTER', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
+    this.logRegText.setOrigin(0.5);
     //login field name base
     this.loginNameField = this.add.image(loginPos[12], loginPos[13],'Login_Field')
-    .setScale(0.12);
+    .setScale(0.12).setVisible(false);
     //login field pass base
     this.loginPassField = this.add.image(loginPos[14], loginPos[15],'Login_Field')
-    .setScale(0.12);
+    .setScale(0.12).setVisible(false);
 
-    this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField];
+    this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField,this.logLoginText,this.logRegText];
 
     //Escribir mensaje en chat
     this.accountText = this.add.text(20, 52, 'Please enter in your account', {fill: 'white',fontFamily:'menuFont',fontSize:'35px'});
@@ -438,7 +445,17 @@ enterButtonRestState(boton) {
      isTutorial = false;
      var timedEvent = this.time.addEvent({ delay: yPos+500, callback: function(){this.scene.start('SceneGame'); isTutorial = false;}, callbackScope: this});
  }
-//CHATBOX
+//Show login fields
+ShowLoginFields(scene,show)
+{
+    //, , this.loginPassField,this.logLoginText,this.logRegText
+    scene.loginBtn.setActive(show);
+    scene.loginBtn.setVisible(show);
+    this.loginNameField.setActive(!show);
+    scene.loginNameField.setVisible(!show);
+    scene.loginRegister.setActive(show);
+    scene.loginRegister.setVisible(show);
+}
 //sacar el chat 
 MovinBoxes(scene, id) 
 {
