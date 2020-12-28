@@ -325,9 +325,7 @@ goCreateUser() {
     var pass = this.regLogin.getChildByName("pass").value;
     var passConfirm = this.regLogin.getChildByName("passConfirm").value;
 
-    console.log(user+"/"+pass+"/"+passConfirm);
     if (pass === passConfirm) {
-        console.log("yepa");
         RestCreateUser(this, user, pass);
     }
     else {

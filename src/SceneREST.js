@@ -112,7 +112,8 @@ function RestCreateUser (scene, name_, pass_) {
     //isServerOnline(scene);
 }
 //Create user in server
-function createUser(user) {
+function createUser(scene, user) {
+
     $.ajax({
         method: "POST",
         url: urlServer+'/users',
@@ -121,7 +122,7 @@ function createUser(user) {
         headers: {
             "Content-Type": "application/json"
         }
-    }).done(function (user) {
+    }).done(function () {
         //console.log("User created: " + JSON.stringify(user));
         scene.accountText.setColor("green");
         scene.accountText.setText('User created!');
@@ -151,7 +152,7 @@ function CheckUsernameDB (scene, user) {
         if (b) {
 
             scene.accountText.setColor("red");
-            scene.accountText.setText('Password doesnt match');
+            scene.accountText.setText('Username already exists');
         }
         else {
             createUser(scene, user);
