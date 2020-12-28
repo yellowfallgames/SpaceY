@@ -196,6 +196,55 @@ create() {
     this.sendButton.setOrigin(0.5);
     this.chatboxStuff = [this.chatbutton, this.chatBase, this.chatFrame, this.chatWritter,this.sendButton];
 
+    //Chatbox code
+    this.chatContent = [
+        "The sky above the port was the color of television, tuned to a dead channel.",
+        "`It's not like I'm using,' Case heard someone say, as he shouldered his way ",
+        "through the crowd around the door of the Chat. `It's like my body's developed",
+        "this massive drug deficiency.' It was a Sprawl voice and a Sprawl joke.",
+        "The Chatsubo was a bar for professional expatriates; you could drink there for",
+        "a week and never hear two words in Japanese.",
+        "",
+        "Ratz was tending bar, his prosthetic arm jerking monotonously as he filled a tray",
+        "of glasses with draft Kirin. He saw Case and smiled, his teeth a webwork of",
+        "East European steel and brown decay. Case found a place at the bar, between the",
+        "unlikely tan on one of Lonny Zone's whores and the crisp naval uniform of a tall",
+        "African whose cheekbones were ridged with precise rows of tribal scars. `Wage was",
+        "in here early, with two joeboys,' Ratz said, shoving a draft across the bar with",
+        "his good hand. `Maybe some business with you, Case?'",
+        "",
+        "Case shrugged. The girl to his right giggled and nudged him.",
+        "The bartender's smile widened. His ugliness was the stuff of legend. In an age of",
+        "affordable beauty, there was something heraldic about his lack of it. The antique",
+        "arm whined as he reached for another mug.",
+        "",
+        "",
+        "From Neuromancer by William Gibson"
+    ];
+
+    var graphics = this.make.graphics();
+
+    graphics.fillRect(game.config.width/6*4+10, game.config.height/5+1, game.config.width/6*4+300, game.config.height/5*3+5);
+
+    var chatMask = new Phaser.Display.Masks.GeometryMask(this, graphics);
+
+    this.chatText = this.add.text(game.config.width/6*4+10, game.config.height/5+10, this.chatContent, { fontSize:"25px", fontFamily: 'Arial', color: 'white', wordWrap: { width: 450 } }).setOrigin(0);
+
+    this.chatText.setMask(chatMask).setVisible(false);
+
+    var zone = this.add.zone(game.config.width/6*4+10, game.config.height/5+1, 320, game.config.height/5*3+5).setOrigin(0).setInteractive();
+    var that = this;
+    zone.on('pointermove', function (pointer) {
+
+        if (pointer.isDown)
+        {
+            that.chatText.y += (pointer.velocity.y / 10);
+
+            that.chatText.y = Phaser.Math.Clamp(that.chatText.y, -400, 300);
+        }
+
+    });
+
 
 
     //REGISTER
@@ -288,7 +337,7 @@ create() {
     this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField,this.logLoginText,this.logRegText];
 
 
-    //Escribir mensaje en chat
+    //Login
     this.accountText = this.add.text(20, 52, 'Please enter in your account', {fill: 'white',fontFamily:'menuFont',fontSize:'35px'});
     this.accountText.setOrigin(0, 0.5).setVisible(false);
 
@@ -329,18 +378,26 @@ create() {
 goCreateUser() {
 
     var user = this.regLogin.getChildByName("user").value;
+    var email = this.regLogin.getChildByName("email").value;
     var pass = this.regLogin.getChildByName("pass").value;
     var passConfirm = this.regLogin.getChildByName("passConfirm").value;
 
-    if (pass === passConfirm) {
-        RestCreateUser(this, user, pass);
+    if (user !== "" && email !== "" && pass !== "" && passConfirm !== "") {
+
+        if (pass === passConfirm) {
+            RestCreateUser(this, user, pass);
+        }
+        else {
+    
+            this.accountText.setColor("red");
+            this.accountText.setText('Password doesnt match');
+        }
     }
     else {
 
         this.accountText.setColor("red");
-        this.accountText.setText('Password doesnt match');
+        this.accountText.setText('Please fill all fields');
     }
-    
 }
 
 //INTERACTIVIDAD
@@ -483,6 +540,7 @@ MovinBoxes(scene, id)
 
             if (chatBoxOut)
             {
+                this.chatText.setVisible(false);
                 for (let i = 0; i < scene.chatboxStuff.length; i++)
                 {
                     scene.tweens.add({
@@ -500,7 +558,7 @@ MovinBoxes(scene, id)
             }
             else if (!chatBoxOut)
             {
-
+                this.chatText.setVisible(true);
                 for (let i = 0; i < scene.chatboxStuff.length; i++)
                 {
                     scene.tweens.add({
@@ -564,6 +622,9 @@ MovinBoxes(scene, id)
             if(registerOut)
             {
                 this.regLogin.setVisible(false);
+                this.accountText.setColor("white");
+                this.accountText.setText('Please enter in your account');
+
                 for (let i = 0; i<scene.registerStuff.length; i++)
 
                 {
