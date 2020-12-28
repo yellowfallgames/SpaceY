@@ -6,7 +6,7 @@ var registerOut = false;
 
 //check active
 var registerOn = false, loginOn = false;
-var userName = "PepePm";
+var userName = "";
 
 //posiciones
 var chatPos;
@@ -62,7 +62,7 @@ class SceneMenu extends Phaser.Scene {
         540,80,     //login profilepic
         340,110,     //regiter button
         110,115,     //field name
-        365,115,     //field password TE OIGOOOO
+        365,115,     //field password
         110,100,     //Texto Login
         340,100     //Texto Registro
     ];
@@ -164,24 +164,37 @@ create() {
     this.apiButton.setOrigin(0.5);
 
 
+
+    var graphics = this.make.graphics();
+    graphics.fillRect(game.config.width/6*4+10, game.config.height/5+1, game.config.width/6*4+300, game.config.height/5*3+5);
+    var mask = new Phaser.Display.Masks.GeometryMask(this, graphics);
+
+    //LOBBY
+    this.lobbyContent = ["Connected User: "];
+    //loadLobby(this);
+
+    this.lobbyText = this.add.text(game.config.width/6*4+10, game.config.height/5+10, this.lobbyContent, { fontSize:"25px", fontFamily: 'menuFont', color: 'white', wordWrap: { width: 450 } }).setOrigin(0);
+    this.lobbyText.setMask(mask).setVisible(false).setDepth(1000);
+
+    //global icon
+    this.globalbutton = this.add.image(chatPos[10], chatPos[11],'ChatBox_GlobalIcon') //CAMBIAR POR ChatBox_NewMsgIcon cuando haya nuevo mensaje
+    .setScale(0.6);
+    this.globalbutton.setInteractive()
+    .on('pointerdown', () => this.MovinBoxes(this,0))
+    .on('pointerover', () => this.enterIconHoverState(this.globalbutton))
+    .on('pointerout', () => this.enterIconRestState(this.globalbutton))
+    this.globalbutton.setOrigin(0.5);
+
+
     //CHATBOX
     //Chatbox icon
-    this.chatbutton = this.add.image(chatPos[0], chatPos[1],'ChatBox_ChatIcon') //CABIAR POR ChatBox_NewMsgIcon cuando haya nuevo mensaje
+    this.chatbutton = this.add.image(chatPos[0], chatPos[1],'ChatBox_ChatIcon') //CAMBIAR POR ChatBox_NewMsgIcon cuando haya nuevo mensaje
     .setScale(0.6);
     this.chatbutton.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this ,1))
     .on('pointerover', () => this.enterIconHoverState(this.chatbutton))
     .on('pointerout', () => this.enterIconRestState(this.chatbutton))
     this.chatbutton.setOrigin(0.5);
-
-    //globl icon
-    this.globalbutton = this.add.image(chatPos[10], chatPos[11],'ChatBox_GlobalIcon') //CABIAR POR ChatBox_NewMsgIcon cuando haya nuevo mensaje
-    .setScale(0.6);
-    this.globalbutton.setInteractive()
-    .on('pointerdown', () => this.MovinBoxes(this ,1 ))
-    .on('pointerover', () => this.enterIconHoverState(this.globalbutton))
-    .on('pointerout', () => this.enterIconRestState(this.globalbutton))
-    this.globalbutton.setOrigin(0.5);
 
     //chatbox base
     this.chatBase = this.add.image(chatPos[2], chatPos[3],'ChatBox_Base')
@@ -212,15 +225,12 @@ create() {
     this.chatContent = [];
     loadMsgs(this);
 
-    var graphics = this.make.graphics();
+    
 
-    graphics.fillRect(game.config.width/6*4+10, game.config.height/5+1, game.config.width/6*4+300, game.config.height/5*3+5);
-
-    var chatMask = new Phaser.Display.Masks.GeometryMask(this, graphics);
 
     this.chatText = this.add.text(game.config.width/6*4+10, game.config.height/5+10, this.chatContent, { fontSize:"25px", fontFamily: 'menuFont', color: 'white', wordWrap: { width: 450 } }).setOrigin(0);
 
-    this.chatText.setMask(chatMask).setVisible(false);
+    this.chatText.setMask(mask).setVisible(false);
 
     var zone = this.add.zone(game.config.width/6*4+10, game.config.height/5+1, 320, game.config.height/5*3+5).setOrigin(0).setInteractive();
     var that = this;
@@ -307,27 +317,29 @@ create() {
     this.loginDfPic = this.add.image(loginPos[4], loginPos[5],'Login_Default')
     .setScale(0.15);
     //login button to log in
-    this.logLoginText = this.add.text(loginPos[16], loginPos[17], 'LOGIN', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
-    this.logLoginText.setOrigin(0.5);
     this.loginBtn = this.add.image(loginPos[6], loginPos[7],'Login_Btn')
     .setScale(0.18);
     this.loginBtn.setInteractive()
     .on('pointerdown', () =>this.ShowLoginFields(this,true))
     .on('pointerover', () => this.enterIconHoverState(this.loginBtn))
     .on('pointerout', () => this.enterIconRestState(this.loginBtn));
+
+    this.logLoginText = this.add.text(loginPos[16], loginPos[17], 'LOGIN', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
+    this.logLoginText.setOrigin(0.5);
     
     //login picture
     this.loginProfilepic = this.add.image(loginPos[8], loginPos[9],'Login_Profile')
     .setScale(0.15);
     //login botn regitrarse
-    this.logRegText = this.add.text(loginPos[18], loginPos[19], 'REGISTER', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
-    this.logRegText.setOrigin(0.5);
     this.loginRegister = this.add.image(loginPos[10], loginPos[11],'Register_Btn')
     .setScale(0.18);
     this.loginRegister.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this,3) )
     .on('pointerover', () => this.enterIconHoverState(this.loginRegister))
     .on('pointerout', () => this.enterIconRestState(this.loginRegister));
+
+    this.logRegText = this.add.text(loginPos[18], loginPos[19], 'REGISTER', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
+    this.logRegText.setOrigin(0.5);
     
     //login field name base
     this.loginNameField = this.add.image(loginPos[12], loginPos[13],'Login_Field')
@@ -335,6 +347,15 @@ create() {
     //login field pass base
     this.loginPassField = this.add.image(loginPos[14], loginPos[15],'Login_Field')
     .setScale(0.12).setVisible(false);
+
+    //Login send button
+    this.loginSendButton = this.add.image(250, 160,'Login_Btn')
+    .setScale(0.18)
+    .setInteractive()
+    .on('pointerdown', () => this.goLogInText())
+    .on('pointerover', () => this.enterIconHoverState(this.loginSendButton))
+    .on('pointerout', () => this.enterIconRestState(this.loginSendButton))
+    .setVisible(false);
 
     this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField,this.logLoginText,this.logRegText];
 
@@ -346,35 +367,27 @@ create() {
     this.accountLogin = this.add.dom(330, 110).createFromCache('nameform').setVisible(false);
     this.accountLogin.addListener('click');
 
-    var that = this;
-
-    this.accountLogin.on('click', function (event) {
-
-        if (event.target.name === 'playButton')
-        {
-            var inputName = this.getChildByName('user');
-            var inputPassword = this.getChildByName('password');
-
-            //  Have they entered anything?
-            if (inputName.value !== '' && inputPassword.value !== '')
-            {
-
-                CheckUserPasswordCorrect(that, inputName.value, inputPassword.value);
-            }
-            else {
-
-                accountText.setColor("red");
-                accountText.setText('User or password incomplete');
-            }
-
-        }
-
-        
-    });
-
     //Campos Registro
     this.regLogin = this.add.dom(275, 330).createFromCache('formReg').setVisible(false);
     //this.regLogin.addListener('click');
+}
+
+goLogInText() {
+
+    var inputName = this.accountLogin.getChildByName('user');
+    var inputPassword = this.accountLogin.getChildByName('password');
+
+    //  Have they entered anything?
+    if (inputName.value !== '' && inputPassword.value !== '')
+    {
+
+        CheckUserPasswordCorrect(this, inputName.value, inputPassword.value);
+    }
+    else {
+
+        this.accountText.setColor("red");
+        this.accountText.setText('User or password incomplete');
+    }
 }
 
 goCreateUser() {
@@ -543,6 +556,11 @@ ShowLoginFields(scene,show)
     scene.loginPassField.setVisible(show);
     scene.loginPassField.setActive(show);
 
+    scene.loginSendButton.setVisible(show);
+    scene.loginSendButton.setActive(show);
+
+    scene.accountLogin.setVisible(show);
+    scene.accountLogin.setActive(show);
 }
 ShowRegisternFields(scene,show)
 {
@@ -564,12 +582,15 @@ MovinBoxes(scene, id)
     var nX = 0; var nY = 1;
     switch(id)
     {
+        case 0: //lobby
         case 1: //chatbox : v chatBase, sendButton, chatbutton, chatFrame, chatWritter;
 
             if (chatBoxOut)
             {
-                this.chatText.setVisible(false);
-                this.writeTextChat.setVisible(false);
+                scene.lobbyText.setVisible(false);
+                scene.chatText.setVisible(false);
+                scene.writeTextChat.setVisible(false);
+
                 for (let i = 0; i < scene.chatboxStuff.length; i++)
                 {
                     scene.tweens.add({
@@ -587,8 +608,15 @@ MovinBoxes(scene, id)
             }
             else if (!chatBoxOut)
             {
-                this.chatText.setVisible(true);
-                this.writeTextChat.setVisible(true);
+                if (id === 0) {
+                    scene.lobbyText.setVisible(true);
+                }
+                else {
+                    scene.chatText.setVisible(true);
+                    scene.writeTextChat.setVisible(true);
+                }
+                
+            
                 for (let i = 0; i < scene.chatboxStuff.length; i++)
                 {
                     scene.tweens.add({

@@ -126,6 +126,14 @@ function createUser(scene, user) {
         }
     }).done(function () {
         //console.log("User created: " + JSON.stringify(user));
+
+        scene.regLogin.getChildByName("user").value = "";
+        scene.regLogin.getChildByName("email").value = "";
+        scene.regLogin.getChildByName("pass").value = "";
+        scene.regLogin.getChildByName("passConfirm").value = "";
+
+        scene.MovinBoxes(scene,3);
+
         scene.accountText.setColor("green");
         scene.accountText.setText('User created!');
     })
@@ -198,6 +206,9 @@ function CheckUserPasswordCorrect(scene, name_, pass_) {
 function LoginVisibility(scene, username, userExists){
 
     if (userExists) {
+
+        scene.accountLogin.getChildByName('user').value = "";
+        scene.accountLogin.getChildByName('password').value = "";
 
         //  Turn off the click events
         scene.accountLogin.removeListener('click');
