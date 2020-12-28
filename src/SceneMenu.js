@@ -112,7 +112,6 @@ create() {
 
     //ASIGNACION DE METODO
     this.playButton = this.add.text((game.config.width/8)*3, -1000, 'Play', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px'})
-
     .setInteractive()
     .on('pointerdown', () => this.startGame() )
     .on('pointerover', () => this.enterIconHoverState(this.playButton) )
@@ -121,7 +120,6 @@ create() {
     this.easeMe(this.playButton, this, 1);
 
     this.tutorialButton = this.add.text((game.config.width/2)*4, -1000, 'Tutorial', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px'})
-
     .setInteractive()
     .on('pointerdown', () => this.enterTutorial() )
     .on('pointerover', () => this.enterIconHoverState(this.tutorialButton) )
@@ -131,7 +129,6 @@ create() {
 
 
     this.optionsButton = this.add.text(-1000, (game.config.height/8)*5, 'Options', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px' })
-
     .setInteractive()
     .on('pointerdown', () => this.enterOptions() )
     .on('pointerover', () => this.enterIconHoverState(this.optionsButton) )
@@ -141,7 +138,6 @@ create() {
     
 
     this.contactButton = this.add.text(game.config.width + 1000, (game.config.height/8)*6, 'Contact', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px' })
-
     .setInteractive()
     .on('pointerdown', () => this.enterContact() )
     .on('pointerover', () => this.enterIconHoverState(this.contactButton) )
@@ -203,7 +199,6 @@ create() {
 
 
     //REGISTER
-   
     //register box
     this.registerBox = this.add.image(regisPos[0], regisPos[1],'Register_Form')
     .setScale(0.4);
@@ -213,7 +208,7 @@ create() {
     this.registerBtn = this.add.image(regisPos[2], regisPos[3],'Register_Btn')
     .setScale(0.18);
     this.registerBtn.setInteractive()
-    .on('pointerdown', () => this.MovinBoxes(this,3) )
+    .on('pointerdown', () => this.goCreateUser())
     .on('pointerover', () => this.enterIconHoverState(this.registerBtn) )
     .on('pointerout', () => this.enterIconRestState(this.registerBtn))
     this.registerBtn.setOrigin(0.5);
@@ -229,7 +224,7 @@ create() {
 
     //Register prev img
     this.prevImg = this.add.image(regisPos[6], regisPos[7],'Register_Arrow')
-    .setScale(0.4);
+    .setScale(-0.4,0.4);
     this.prevImg.setInteractive()
     //.on('pointerdown', () => this.MovinBoxes(this.nextImg, game.config.width , game.config.height, registerOut) )
     .on('pointerover', () => this.enterIconHoverState(this.prevImg) )
@@ -292,11 +287,12 @@ create() {
 
     this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField,this.logLoginText,this.logRegText];
 
+
     //Escribir mensaje en chat
     this.accountText = this.add.text(20, 52, 'Please enter in your account', {fill: 'white',fontFamily:'menuFont',fontSize:'35px'});
-    this.accountText.setOrigin(0, 0.5);
+    this.accountText.setOrigin(0, 0.5).setVisible(false);
 
-    this.accountLogin = this.add.dom(330, 110).createFromCache('nameform');
+    this.accountLogin = this.add.dom(330, 110).createFromCache('nameform').setVisible(false);
     this.accountLogin.addListener('click');
 
     var that = this;
@@ -312,7 +308,7 @@ create() {
             if (inputName.value !== '' && inputPassword.value !== '')
             {
 
-                CheckUser(that, inputName.value, inputPassword.value);
+                CheckUserPasswordCorrect(that, inputName.value, inputPassword.value);
             }
             else {
 
@@ -322,12 +318,31 @@ create() {
 
         }
 
+        
     });
 
-    
-
-
+    //Campos Registro
+    this.regLogin = this.add.dom(275, 330).createFromCache('formReg').setVisible(false);
+    //this.regLogin.addListener('click');
 }
+
+goCreateUser() {
+
+    var user = this.regLogin.getChildByName("user").value;
+    var pass = this.regLogin.getChildByName("pass").value;
+    var passConfirm = this.regLogin.getChildByName("passConfirm").value;
+
+    if (pass === passConfirm) {
+        RestCreateUser(this, user, pass);
+    }
+    else {
+
+        this.accountText.setColor("red");
+        this.accountText.setText('Password doesnt match');
+    }
+    
+}
+
 //INTERACTIVIDAD
 
 enterButtonHoverState(boton) {
@@ -468,7 +483,6 @@ MovinBoxes(scene, id)
 
             if (chatBoxOut)
             {
-
                 for (let i = 0; i < scene.chatboxStuff.length; i++)
                 {
                     scene.tweens.add({
@@ -508,6 +522,8 @@ MovinBoxes(scene, id)
             
             if(loginOut)
             {
+                this.accountText.setVisible(false);
+                this.accountLogin.setVisible(false);
 
                 for (let i = 0; i < scene.loginStuff.length; i++)
                 {
@@ -524,6 +540,9 @@ MovinBoxes(scene, id)
             }
             else if (!loginOut)
             {
+                this.accountText.setVisible(true);
+                //this.accountLogin.setVisible(true);
+
                 for (let i = 0; i < scene.loginStuff.length; i++)
 
                 {
@@ -544,6 +563,7 @@ MovinBoxes(scene, id)
             
             if(registerOut)
             {
+                this.regLogin.setVisible(false);
                 for (let i = 0; i<scene.registerStuff.length; i++)
 
                 {
@@ -560,7 +580,7 @@ MovinBoxes(scene, id)
             }
             else if(!registerOut)
             {
-
+                this.regLogin.setVisible(true);
                 for (let i = 0; i < scene.registerStuff.length; i++)
                 {
                     scene.tweens.add({

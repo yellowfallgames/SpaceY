@@ -41,13 +41,9 @@ class SceneREST extends Phaser.Scene {
         this.serverOnlineTxt.setOrigin(0.5);
 
         isServerOnline(this);
-
     }
     
 }
-
-
-
 
 function RestCreateMsg (scene) {
 
@@ -99,22 +95,25 @@ function showMsg(msg) {
 }
 
 
-function RestCreateUser (scene) {
+function RestCreateUser (scene, name_, pass_) {
 
-    var name = "PEPON3";
-    var pass = sha256("aaaa");
+    var name = name_;
+    var pass = sha256(pass_);
 
     var user = {
         name: name,
         password: pass,
-        online: true
+        online: false
     }
 
-    createUser(user);
-    isServerOnline(scene);
+    CheckUsernameDB(scene, user);
+
+    
+    //isServerOnline(scene);
 }
 //Create user in server
-function createUser(user) {
+function createUser(scene, user) {
+
     $.ajax({
         method: "POST",
         url: urlServer+'/users',
@@ -123,8 +122,10 @@ function createUser(user) {
         headers: {
             "Content-Type": "application/json"
         }
-    }).done(function (user) {
-        console.log("User created: " + JSON.stringify(user));
+    }).done(function () {
+        //console.log("User created: " + JSON.stringify(user));
+        scene.accountText.setColor("green");
+        scene.accountText.setText('User created!');
     })
 }
 //Load users from server
@@ -135,8 +136,33 @@ function loadUsers() {
         console.log('Users loaded: ' + JSON.stringify(users));
     })
 }
+
+function CheckUsernameDB (scene, user) {
+
+    $.ajax({
+        method: "POST",
+        url: urlServer+'/users/check',
+        data: JSON.stringify(user),
+        processData: false,
+        headers: {
+            "Content-Type": "application/json"
+        },
+    }).done(function (b) {
+
+        if (b) {
+
+            scene.accountText.setColor("red");
+            scene.accountText.setText('Username already exists');
+        }
+        else {
+            createUser(scene, user);
+            //this.MovinBoxes(this,3)
+        }
+            
+    })
+}
 //
-function CheckUser(scene, name_, pass_) {
+function CheckUserPasswordCorrect(scene, name_, pass_) {
 
     var name = name_;
     var pass = sha256(pass_);
@@ -149,7 +175,7 @@ function CheckUser(scene, name_, pass_) {
 
     $.ajax({
         method: "POST",
-        url: urlServer+'/users/check',
+        url: urlServer+'/users/checkPassword',
         data: JSON.stringify(user),
         processData: false,
         headers: {

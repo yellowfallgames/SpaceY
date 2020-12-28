@@ -1,7 +1,7 @@
 var sfx = undefined;
 var soundtrack = undefined;
 
-var urlServer = "http://a9d509b5fa53.ngrok.io";
+var urlServer = "http://64094f39fc84.ngrok.io";
 
 class SceneBoot extends Phaser.Scene {
 
@@ -176,6 +176,7 @@ class SceneBoot extends Phaser.Scene {
 
         //APIs
         this.load.html('nameform', './src/Assets/nameform.html');
+        this.load.html('formReg', './src/Assets/formRegistro.html');
 
     }
 
