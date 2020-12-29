@@ -658,7 +658,7 @@ OpenChat(scene)
         chatBoxOut = true;
     
 }
-ChatManager(scene)
+ChatManager(scene,id)
 {
     if(!chatBoxActive && chatBoxOut && !lobbyActive)
     {
@@ -684,22 +684,25 @@ ChatManager(scene)
     }
     if(chatBoxActive && chatBoxOut && lobbyActive)
     {
-        scene.chatWritter.setVisible(true);
-        scene.sendButton.setVisible(true);
-        scene.chatText.setVisible(true);
-        scene.writeTextChat.setVisible(true);
-        scene.lobbyText.setVisible(false);
+        if(id == 0)
+        {
+            scene.chatWritter.setVisible(false);
+            scene.sendButton.setVisible(false);
+            scene.chatText.setVisible(false);
+            scene.writeTextChat.setVisible(false);
+            scene.lobbyText.setVisible(true);
+            chatBoxActive = false;
+        }
+        else
+        {
+            scene.chatWritter.setVisible(true);
+            scene.sendButton.setVisible(true);
+            scene.chatText.setVisible(true);
+            scene.writeTextChat.setVisible(true);
+            scene.lobbyText.setVisible(false);
+            lobbyActive = false;
+        }
     }
-    if(!chatBoxActive && chatBoxOut && lobbyActive)
-    {
-        scene.chatWritter.setVisible(false);
-        scene.sendButton.setVisible(false);
-        scene.chatText.setVisible(false);
-        scene.writeTextChat.setVisible(false);
-        scene.lobbyText.setVisible(true)
-    }
-
-
 }
 //sacar el chat 
 MovinBoxes(scene, id) 
@@ -711,12 +714,12 @@ MovinBoxes(scene, id)
     {
         case 0: // Abrir cerrar lobby 
             lobbyActive = !lobbyActive;
-            this.ChatManager(scene);
+            this.ChatManager(scene,id);
             break;
         case 1: //abrir cerrar chatbox chatbox
            
             chatBoxActive = !chatBoxActive;
-            this.ChatManager(scene);
+            this.ChatManager(scene,id);
 
             break;
         case 2: //login loginBox,loginOption;
