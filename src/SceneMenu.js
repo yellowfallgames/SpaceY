@@ -19,7 +19,7 @@ var loginPos;
 var loginTween;
 
 class SceneMenu extends Phaser.Scene {
-
+    
     constructor() {
 
         super("SceneMenu");
@@ -30,7 +30,10 @@ class SceneMenu extends Phaser.Scene {
         //this.load.image("player", directory+"vulp_i1.png");
         //this.load.spritesheet("button", "./Resources/Img/button.png", 185, 80);
         //this.load.image('background',"./Resources/Img/starfield.jpg");
-
+    /*var url;
+    url = 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexbbcodetextplugin.min.js';
+    this.load.plugin('rexbbcodetextplugin', url, true);*/
+    
     //CHAT POSTITIONS BEFORE - AFTER
     var chtOffset = 1000;
    
@@ -172,11 +175,13 @@ create() {
     var mask = new Phaser.Display.Masks.GeometryMask(this, graphics);
 
     //LOBBY
-    this.lobbyContent = ["Connected User: "];
-    //loadLobby(this);
+    this.lobbyContent = ["Connected Users: "];
+    loadLobby(this);
 
-    this.lobbyText = this.add.text(game.config.width/6*4+10, game.config.height/5+10, this.lobbyContent, { fontSize:"25px", fontFamily: 'menuFont', color: 'white', wordWrap: { width: 450 } }).setOrigin(0);
+    this.lobbyText = this.add.text(game.config.width/6*4+10, game.config.height/5+10, this.lobbyContent,
+    {fontSize:"25px", fontFamily: 'menuFont', color: 'white', wordWrap: { width: 450 } }).setOrigin(0);
     this.lobbyText.setMask(mask).setVisible(false).setDepth(1000);
+
 
     //global icon
     this.globalbutton = this.add.image(chatPos[10], chatPos[11],'ChatBox_GlobalIcon') //CAMBIAR POR ChatBox_NewMsgIcon cuando haya nuevo mensaje
@@ -369,7 +374,21 @@ create() {
     //Campos Registro
     this.regLogin = this.add.dom(275, 330).createFromCache('formReg').setVisible(false);
     //this.regLogin.addListener('click');
+
+
+    //Timer
+    this.event = this.time.addEvent({ delay: 5000, callback: this.UpdateServer, callbackScope: this, loop: true});
 }
+
+
+
+
+UpdateServer() {
+
+    loadLobby(this);
+    loadMsgs(this);
+}
+
 
 goLogInText() {
 

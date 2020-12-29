@@ -74,6 +74,7 @@ function createMsg(scene, msg) {
 }
 //Load users from server
 function loadMsgs(scene) {
+    console.log("updateee");
     $.ajax({
         url: urlServer+'/messages',
 
@@ -90,6 +91,13 @@ function loadMsgs(scene) {
         console.log("lineasChat: " + lineasChat);
         
         scene.chatText.setText(scene.chatContent);
+        if (lineasChat < 21) {
+            scene.chatText.y = (game.config.height/5+10);
+        }
+        else {
+            scene.chatText.y = (game.config.height/5+10)-(25*(lineasChat-1)-(20*25));
+        }
+
     })
 }
 //Show item in page
@@ -149,17 +157,16 @@ function loadUsers() {
     })
 }
 
-function loadOnlineUsers(scene) {
+function loadLobby(scene) {
     $.ajax({
-        url: urlServer+'/users'
+        url: urlServer+'/users/online'
     }).done(function (users) {
         for (var i=0; i < users.length; i++) {
 
-            //scene.chatContent[i] = msgs[i].userName + ": " + msgs[i].content;
-            //console.log(msgs[i].userName + ": " + msgs[i].content);
+            scene.lobbyContent[i+1] = users[i].name;
         }
 
-        //scene.chatText.setText(scene.chatContent);
+        scene.lobbyText.setText(scene.lobbyContent);
     })
 }
 
