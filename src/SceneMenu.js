@@ -1,9 +1,10 @@
 var isTutorial = false;
 //is out
-var chatBoxOut = false;
+var chatBoxActive = false;
 var loginOut = false;
+var lobbyActive = false;
 var registerOut = false;
-
+var chatBoxOut = false;
 //check active
 var registerOn = false, loginOn = false;
 var userName = "Anon";
@@ -66,7 +67,9 @@ class SceneMenu extends Phaser.Scene {
         110,115,     //field name
         365,115,     //field password
         110,100,     //Texto Login
-        340,100     //Texto Registro
+        340,100,     //Texto Registro
+        540,115,     //login confirm
+        540,115     //login confirm text
     ];
     loginPos = [
         70,70,    //login option, 
@@ -79,6 +82,9 @@ class SceneMenu extends Phaser.Scene {
         loginTween[14]-loginOffset, loginTween[15], //field pass
         loginTween[16]-loginOffset, loginTween[17], //Texto Login
         loginTween[18]-loginOffset, loginTween[19], //Texto Registro
+        loginTween[20]-loginOffset, loginTween[21], //Texto confirm
+        loginTween[21]-loginOffset, loginTween[22], //Texto acerptar login
+        
         
     ];
 
@@ -348,15 +354,17 @@ create() {
     .setScale(0.12).setVisible(false);
 
     //Login send button
-    this.loginSendButton = this.add.image(250, 160,'Login_Btn')
-    .setScale(0.18)
+    this.loginSendButton = this.add.image(loginPos[20], loginPos[21],'Login_Btn')
+    .setScale(0.14)
     .setInteractive()
     .on('pointerdown', () => this.goLogInText())
     .on('pointerover', () => this.enterIconHoverState(this.loginSendButton))
     .on('pointerout', () => this.enterIconRestState(this.loginSendButton))
     .setVisible(false);
+    this.loginBtnText = this.add.text(loginPos[22], loginPos[23], 'Log in', { fill: '#000000',fontFamily:'menuFont',fontSize:'15px'})
+    this.loginBtnText.setOrigin(0.5);
 
-    this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField,this.logLoginText,this.logRegText];
+    this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField,this.logLoginText,this.logRegText,this.loginSendButton,this.loginBtnText];
 
 
     //Login
@@ -561,17 +569,92 @@ ShowLoginFields(scene,show)
     scene.accountLogin.setVisible(show);
     scene.accountLogin.setActive(show);
 }
-ShowRegisternFields(scene,show)
+CloseChat(scene){
+    var nX = 0; var nY = 1; 
+    scene.chatWritter.setVisible(false);
+    scene.sendButton.setVisible(false);
+    scene.chatText.setVisible(false);
+    scene.writeTextChat.setVisible(false);
+    scene.lobbyText.setVisible(false);
+    for (let i = 0; i < scene.chatboxStuff.length; i++)
+    {
+        scene.tweens.add({
+            targets: scene.chatboxStuff[i],
+            x: chatPos[nX],
+            y: chatPos[nY],
+            //delay: 100,
+            //aplha: {start: game.config.width / 2, to: game.config.width / 8},
+            duration: 100,
+            ease: 'Bounce.easeIn',
+        });
+        nX+=2;nY+=2;
+    }
+    chatBoxOut = false;
+    chatBoxActive = false;
+    lobbyActive = false;
+}
+OpenChat(scene)
 {
-    registerOn = !show;
-
-    //scene.loginBtn.setActive(registerOn);
-    //scene.loginBtn.setVisible(registerOn);
-
-    //scene.loginRegister.setActive(registerOn);
-    //scene.loginRegister.setVisible(registerOn);
+  
+   var nX = 0; var nY = 1;
+        for (let i = 0; i < scene.chatboxStuff.length; i++)
+        {
+            scene.tweens.add({
+                targets: scene.chatboxStuff[i],
+                x: chatTween[nX],
+                y: chatTween[nY],
+                //delay: 100,
+                //aplha: {start: game.config.width / 2, to: game.config.width / 8},
+                duration: 100,
+                ease: 'Bounce.easeOut',
+            });
+            nX+=2;nY+=2;
+        }
+        chatBoxOut = true;
     
-    
+}
+ChatManager(scene)
+{
+    if(!chatBoxActive && chatBoxOut && !lobbyActive)
+    {
+        this.CloseChat(scene);
+    }
+    if(chatBoxActive && !chatBoxOut && !lobbyActive)    //abrimos chat
+    {
+        scene.chatWritter.setVisible(true);
+        scene.sendButton.setVisible(true);
+        scene.chatText.setVisible(true);
+        scene.writeTextChat.setVisible(true);
+        scene.lobbyText.setVisible(false);
+        this.OpenChat(scene);
+    }
+    if(!chatBoxActive && !chatBoxOut && lobbyActive)    //abrimos lobby
+    {
+        scene.chatWritter.setVisible(false);
+        scene.sendButton.setVisible(false);
+        scene.chatText.setVisible(false);
+        scene.writeTextChat.setVisible(false);
+        scene.lobbyText.setVisible(true);
+        this.OpenChat(scene);
+    }
+    if(chatBoxActive && chatBoxOut && lobbyActive)
+    {
+        scene.chatWritter.setVisible(true);
+        scene.sendButton.setVisible(true);
+        scene.chatText.setVisible(true);
+        scene.writeTextChat.setVisible(true);
+        scene.lobbyText.setVisible(false);
+    }
+    if(!chatBoxActive && chatBoxOut && lobbyActive)
+    {
+        scene.chatWritter.setVisible(false);
+        scene.sendButton.setVisible(false);
+        scene.chatText.setVisible(false);
+        scene.writeTextChat.setVisible(false);
+        scene.lobbyText.setVisible(true)
+    }
+
+
 }
 //sacar el chat 
 MovinBoxes(scene, id) 
@@ -581,61 +664,19 @@ MovinBoxes(scene, id)
     var nX = 0; var nY = 1;
     switch(id)
     {
-        case 0: //lobby
-        case 1: //chatbox : v chatBase, sendButton, chatbutton, chatFrame, chatWritter;
+        case 0: // Abrir cerrar lobby 
+            lobbyActive = !lobbyActive;
+            this.ChatManager(scene);
+            break;
+        case 1: //abrir cerrar chatbox chatbox
+           
+            chatBoxActive = !chatBoxActive;
+            this.ChatManager(scene);
 
-            if (chatBoxOut)
-            {
-                scene.lobbyText.setVisible(false);
-                scene.chatText.setVisible(false);
-                scene.writeTextChat.setVisible(false);
-
-                for (let i = 0; i < scene.chatboxStuff.length; i++)
-                {
-                    scene.tweens.add({
-                        targets: scene.chatboxStuff[i],
-                        x: chatPos[nX],
-                        y: chatPos[nY],
-                        //delay: 100,
-                        //aplha: {start: game.config.width / 2, to: game.config.width / 8},
-                        duration: 100,
-                        ease: 'Bounce.easeIn',
-                    });
-                    nX+=2;nY+=2;
-                }
-                chatBoxOut = false
-            }
-            else if (!chatBoxOut)
-            {
-                if (id === 0) {
-                    scene.lobbyText.setVisible(true);
-                }
-                else {
-                    scene.chatText.setVisible(true);
-                    scene.writeTextChat.setVisible(true);
-                }
-                
-            
-                for (let i = 0; i < scene.chatboxStuff.length; i++)
-                {
-                    scene.tweens.add({
-                        targets: scene.chatboxStuff[i],
-                        x: chatTween[nX],
-                        y: chatTween[nY],
-                        //delay: 100,
-                        //aplha: {start: game.config.width / 2, to: game.config.width / 8},
-                        duration: 100,
-                        ease: 'Bounce.easeOut',
-                    });
-                    nX+=2;nY+=2;
-                }
-                chatBoxOut = true
-            }
-            
             break;
         case 2: //login loginBox,loginOption;
             
-            if(loginOut)
+            if(loginOut)    //guardar lobby
             {
                 this.accountText.setVisible(false);
                 this.accountLogin.setVisible(false);
@@ -655,7 +696,7 @@ MovinBoxes(scene, id)
                 loginOn = false;
                 this.ShowLoginFields(scene,loginOn);
             }
-            else if (!loginOut)
+            else if (!loginOut) //sacar lobby 
             {
                 this.accountText.setVisible(true);
                 //this.accountLogin.setVisible(true);
@@ -680,7 +721,7 @@ MovinBoxes(scene, id)
             break;
         case 3: //register registerBox, registerBtn, nextImg, prevImg;
             
-            if(registerOut)
+            if(registerOut) //guardar register
             {
                 this.regLogin.setVisible(false);
                 this.accountText.setColor("white");
@@ -701,7 +742,7 @@ MovinBoxes(scene, id)
                 registerOut = false
                 this.ShowRegisternFields(scene,registerOn);
             }
-            else if(!registerOut)
+            else if(!registerOut) //sacar register
             {
                 this.regLogin.setVisible(true);
                 for (let i = 0; i < scene.registerStuff.length; i++)
