@@ -377,7 +377,7 @@ create() {
 
 
     //Timer
-    this.event = this.time.addEvent({ delay: 5000, callback: this.UpdateServer, callbackScope: this, loop: true});
+    this.event = this.time.addEvent({ delay: 300, callback: this.UpdateServer, callbackScope: this, loop: true});
 }
 
 
@@ -385,8 +385,11 @@ create() {
 
 UpdateServer() {
 
-    loadLobby(this);
-    loadMsgs(this);
+    if (chatBoxOut) {
+
+        loadLobby(this);
+        loadMsgs(this);
+    } 
 }
 
 

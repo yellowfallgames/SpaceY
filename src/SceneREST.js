@@ -74,7 +74,7 @@ function createMsg(scene, msg) {
 }
 //Load users from server
 function loadMsgs(scene) {
-    console.log("updateee");
+
     $.ajax({
         url: urlServer+'/messages',
 
@@ -88,7 +88,7 @@ function loadMsgs(scene) {
             
             lineasChat += Math.ceil(scene.chatContent[i].length/35);
         }
-        console.log("lineasChat: " + lineasChat);
+        //console.log("lineasChat: " + lineasChat);
         
         scene.chatText.setText(scene.chatContent);
         if (lineasChat < 21) {
