@@ -6,7 +6,9 @@ var registerOut = false;
 
 //check active
 var registerOn = false, loginOn = false;
-var userName = "";
+var userName = "Anon";
+
+var lineasChat = 0;
 
 //posiciones
 var chatPos;
@@ -225,9 +227,6 @@ create() {
     this.chatContent = [];
     loadMsgs(this);
 
-    
-
-
     this.chatText = this.add.text(game.config.width/6*4+10, game.config.height/5+10, this.chatContent, { fontSize:"25px", fontFamily: 'menuFont', color: 'white', wordWrap: { width: 450 } }).setOrigin(0);
 
     this.chatText.setMask(mask).setVisible(false);
@@ -240,7 +239,7 @@ create() {
         {
             that.chatText.y += (pointer.velocity.y / 10);
 
-            that.chatText.y = Phaser.Math.Clamp(that.chatText.y, -400, 300);
+            that.chatText.y = Phaser.Math.Clamp(that.chatText.y, (game.config.height/5+10)-(25*lineasChat), game.config.height/5+10);
         }
 
     });

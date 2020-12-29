@@ -80,13 +80,15 @@ function loadMsgs(scene) {
     }).done(function (msgs) {
         //console.log('Messages loaded: ' + JSON.stringify(msgs));
 
-        //console.log('Historial mensajes: ');
+        lineasChat = 0;
         for (var i=0; i < msgs.length; i++) {
 
             scene.chatContent[i] = msgs[i].userName + ": " + msgs[i].content;
-            //console.log(msgs[i].userName + ": " + msgs[i].content);
+            
+            lineasChat += Math.ceil(scene.chatContent[i].length/35);
         }
-
+        console.log("lineasChat: " + lineasChat);
+        
         scene.chatText.setText(scene.chatContent);
     })
 }
@@ -144,6 +146,20 @@ function loadUsers() {
         url: urlServer+'/users'
     }).done(function (users) {
         console.log('Users loaded: ' + JSON.stringify(users));
+    })
+}
+
+function loadOnlineUsers(scene) {
+    $.ajax({
+        url: urlServer+'/users'
+    }).done(function (users) {
+        for (var i=0; i < users.length; i++) {
+
+            //scene.chatContent[i] = msgs[i].userName + ": " + msgs[i].content;
+            //console.log(msgs[i].userName + ": " + msgs[i].content);
+        }
+
+        //scene.chatText.setText(scene.chatContent);
     })
 }
 
