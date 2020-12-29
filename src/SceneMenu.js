@@ -160,15 +160,6 @@ create() {
     this.easeMe(this.contactButton, this, 4);
 
 
-    //API REST
-    this.apiButton = this.add.text((game.config.width/2), (game.config.height/8)*7, 'API REST', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px'})
-    .setInteractive()
-    .on('pointerdown', () => this.enterAPIREST() )
-    .on('pointerover', () => this.enterIconHoverState(this.apiButton) )
-    .on('pointerout', () => this.enterIconRestState(this.apiButton) );
-    this.apiButton.setOrigin(0.5);
-
-
 
     var graphics = this.make.graphics();
     graphics.fillRect(game.config.width/6*4+10, game.config.height/5+1, game.config.width/6*4+300, game.config.height/5*3+5);
@@ -181,6 +172,15 @@ create() {
     this.lobbyText = this.add.text(game.config.width/6*4+10, game.config.height/5+10, this.lobbyContent,
     {fontSize:"25px", fontFamily: 'menuFont', color: 'white', wordWrap: { width: 450 } }).setOrigin(0);
     this.lobbyText.setMask(mask).setVisible(false).setDepth(1000);
+
+    this.numPlayers = updateUsers(this);
+    this.numPlayersTxt = this.add.text(game.config.width*1/4, (game.config.height/8)*7.5, "TOTAL USERS: "+this.numPlayers, { fill: '#FFFFFF',fontFamily:'menuFont',fontSize:'40px' });
+    this.numPlayersTxt.setOrigin(0.5);
+
+    this.serverOnlineTxt = this.add.text(game.config.width*3.5/4, (game.config.height/8)*7.5, "SERVER¿?", { fill: '#FFFFFF',fontFamily:'menuFont',fontSize:'40px' });
+    this.serverOnlineTxt.setOrigin(0.5);
+
+    isServerOnline(this);
 
 
     //global icon
@@ -250,6 +250,13 @@ create() {
     });
 
     this.writeTextChat = this.add.dom(1280, 785).createFromCache('formChat').setVisible(false);
+
+    /*this.writeTextChat.addListener("keydown", event => {
+        console.log("ddddd");
+        if (event.isComposing || event.keyCode === 13) {
+            RestCreateMsg(this, userName);
+        }
+    }); */
 
     //REGISTER
     //register box
@@ -378,6 +385,22 @@ create() {
 
     //Timer
     this.event = this.time.addEvent({ delay: 300, callback: this.UpdateServer, callbackScope: this, loop: true});
+
+
+    /*window.addEventListener("beforeunload", function (e) {
+        
+        return setUserOnline(that, userName, false);
+        /*var confirmationMessage = "\o/";
+        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+            return confirmationMessage;
+    });
+
+    /*window.addEventListener("onunload", function (e) {
+        
+        setUserOnline(that, userName, false);
+    });*/
+
+//setUserOnline(that, userName, false);
 }
 
 

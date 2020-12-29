@@ -36,7 +36,14 @@
 
     <link rel="shortcut icon" type="image/png" href="./Resources/Game/favicon.png"/>
 </head>
-<body>
+<body onunload="funcion()">
+
+    <script>
+        function funcion() {
+            alert("Tsasasasa!");
+        }
+    </script>
+    
     <!-- FONT LOADER-->
     <div style="font-family:menuFont; position:absolute; left:-1000px; visibility:hidden;">.</div>
     <div style="font-family:textFont; position:absolute; left:-1000px; visibility:hidden;">.</div>

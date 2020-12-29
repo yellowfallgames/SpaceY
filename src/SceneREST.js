@@ -8,39 +8,7 @@ class SceneREST extends Phaser.Scene {
     }
 
     create() {
-
-        this.ItemButton = this.add.text(game.config.width/2, (game.config.height/8)*6, 'CREAR ITEM', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px' })
-        .setInteractive()
-        .on('pointerdown', () => RestCreateItem(this));
-        //.on('pointerover', () => this.enterButtonHoverState(this.contactButton) )
-        //.on('pointerout', () => this.enterButtonRestState(this.contactButton) );
-        this.ItemButton.setOrigin(0.5);
-
-        this.UserButton = this.add.text(game.config.width/2, (game.config.height/8)*4, 'CREAR USUARIO', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px' })
-        .setInteractive()
-        .on('pointerdown', () => RestCreateUser(this));
-        //.on('pointerover', () => this.enterButtonHoverState(this.contactButton) )
-        //.on('pointerout', () => this.enterButtonRestState(this.contactButton) );
-        this.UserButton.setOrigin(0.5);
-
-        this.MessageButton = this.add.text(game.config.width/2, (game.config.height/8)*2, 'ENVIAR MENSAJE', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px' })
-        .setInteractive()
-        .on('pointerdown', () => RestCreateMsg(this));
-        //.on('pointerover', () => this.enterButtonHoverState(this.contactButton) )
-        //.on('pointerout', () => this.enterButtonRestState(this.contactButton) );
-        this.MessageButton.setOrigin(0.5);
-
-        this.numPlayers = updateUsers(this);
         
-        this.numPlayersTxt = this.add.text(game.config.width*1/4, (game.config.height/8)*7.5, "TOTAL USERS: "+this.numPlayers, { fill: '#FFFFFF',fontFamily:'menuFont',fontSize:'40px' });
-        this.numPlayersTxt.setOrigin(0.5);
-        
-        this.numPlayersOnline;
-
-        this.serverOnlineTxt = this.add.text(game.config.width*3.5/4, (game.config.height/8)*7.5, "SERVER¿?", { fill: '#FFFFFF',fontFamily:'menuFont',fontSize:'40px' });
-        this.serverOnlineTxt.setOrigin(0.5);
-
-        isServerOnline(this);
     }
     
 }
@@ -214,15 +182,30 @@ function CheckUserPasswordCorrect(scene, name_, pass_) {
         headers: {
             "Content-Type": "application/json"
         },
-        success: function(){
-            console.log("Correcto rest checkuser");
-        },
-        error: function(){
-            console.log("Error rest checkuser");
-        },
     }).done(function (b) {
 
         LoginVisibility(scene, name, b);
+    })
+}
+
+function setUserOnline(scene, username, online_) {
+
+    var user = {
+
+        name:username,
+        password:"",
+        online: online_
+    }
+    $.ajax({
+        method: 'PUT',
+        url: urlServer+'/users/'+username,
+        data: JSON.stringify(user),
+        processData: false,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).done(function () {
+        console.log("onlineee");
     })
 }
 
@@ -230,6 +213,10 @@ function LoginVisibility(scene, username, userExists){
 
     if (userExists) {
 
+        //Update online to true
+        setUserOnline(scene, username, true);
+
+        //Valores por defecto
         scene.accountLogin.getChildByName('user').value = "";
         scene.accountLogin.getChildByName('password').value = "";
 
