@@ -36,7 +36,7 @@ function createMsg(scene, msg) {
             "Content-Type": "application/json"
         }
     }).done(function (msg) {
-        console.log("Message created: " + JSON.stringify(msg));
+        //console.log("Message created: " + JSON.stringify(msg));
         loadMsgs(scene);
     })
 }
@@ -49,21 +49,24 @@ function loadMsgs(scene) {
     }).done(function (msgs) {
         //console.log('Messages loaded: ' + JSON.stringify(msgs));
 
-        lineasChat = 0;
-        for (var i=0; i < msgs.length; i++) {
+        if (msgs.length != scene.chatContent.length) {
 
-            scene.chatContent[i] = msgs[i].userName + ": " + msgs[i].content;
+            lineasChat = 0;
+            for (var i=0; i < msgs.length; i++) {
+
+                scene.chatContent[i] = msgs[i].userName + ": " + msgs[i].content;
+                
+                lineasChat += Math.ceil(scene.chatContent[i].length/35);
+            }
+            //console.log("lineasChat: " + lineasChat);
             
-            lineasChat += Math.ceil(scene.chatContent[i].length/35);
-        }
-        //console.log("lineasChat: " + lineasChat);
-        
-        scene.chatText.setText(scene.chatContent);
-        if (lineasChat < 21) {
-            scene.chatText.y = (game.config.height/5+10);
-        }
-        else {
-            scene.chatText.y = (game.config.height/5+10)-(25*(lineasChat-1)-(20*25));
+            scene.chatText.setText(scene.chatContent);
+            if (lineasChat < 21) {
+                scene.chatText.y = (game.config.height/5+10);
+            }
+            else {
+                scene.chatText.y = (game.config.height/5+10)-(25*(lineasChat-1)-(20*25));
+            }
         }
 
     })
