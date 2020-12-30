@@ -415,9 +415,7 @@ create() {
 
 
 UpdateServer() {
-
     if (chatBoxOut) {
-
         loadLobby(this);
         loadMsgs(this);
     } 
@@ -432,11 +430,9 @@ goLogInText() {
     //  Have they entered anything?
     if (inputName.value !== '' && inputPassword.value !== '')
     {
-
         CheckUserPasswordCorrect(this, inputName.value, inputPassword.value);
     }
     else {
-
         this.accountText.setColor("red");
         this.accountText.setText('User or password incomplete');
     }

@@ -30,9 +30,9 @@ var textMarte = [
     'To take off press H',
     '#',
     'QUARRY',
-    ' ',//'Desplazate usando A y D a tu izquierda',
+    'This mining device supplies your mission',//'Desplazate usando A y D a tu izquierda',
     'Press H to obtain ROCKS from the QUARRY',
-    'It increments here',
+    'The orange bar indicates how many ROCKS you are carrying',
     '#',
     'TERRAFORMER',
     'This machine allows habitability in Mars',
@@ -41,13 +41,13 @@ var textMarte = [
     '#',
     'COMMUNICATIONS',
     'Allows communication with Earth',
-    'If it gets damaged it wont warn Earth whenever STORMS or METEORITES draw near',
+    'If its damaged Earth wont know when STORMS or METEORITES draw near',
     'To repair any machine press R',
     '#',
     'MISSION PROGRESS',
     'You can see the state of your terraforming mission here',
-    'The green bar indicates the PARTS that allow you to faster repair machines',
-    'The red bar indicates the FOOD you have, if you run out of food its game over',
+    'The green bar indicates PARTS. They make it easier to repair',
+    'The red bar indicates FOOD. If you run out of it, its game over',
     '#',
     'If you have any doubt, CLICK the Post-it note',
     '$' //fin tutorial
@@ -74,11 +74,11 @@ var textTierra = [
     'CONTROL PANEL',
     'When one of these buttons is pressed, a combination will appear',
     'Type it in correcty to get a status report on that machine',
-    'Communicate with the Stelonaut to support the mission and achieve your goal',
+    'Communicate with the Stelonaut to support the mission',
     '#',
     'MISSION PROGRESS',
-    'You can see the state of your terraforming mission here',
-    'Only you can see when a STORM or METEORITES approaches the planet',
+    'You can see the state of MARS here',
+    'Only you can see when a STORM or METEORITES approach the planet',
     'Keep the Stelonaut informed for it to be warned about the hazards',
     '#',
     'If you have any doubt, CLICK the Post-it note',
@@ -652,7 +652,13 @@ function endTutorial(scene,textM, textT,fadeOut)
         alpha:1,
         duration: fadeOut,
         ease: 'Expo.easeInOut',
-        onComplete: scene.time.addEvent({ delay: fadeOut, callback: function(){scene.scene.start('SceneMenu'); soundtrack.pistas[2].stop();soundtrack.pistas[0].play();}, callbackScope: this})
+        onComplete: scene.time.addEvent({ delay: fadeOut, callback: function(){
+                                                                        key_left.destroy();
+                                                                        scene.scene.stop('SceneTutorial');
+                                                                        scene.scene.start('SceneMenu');
+                                                                        soundtrack.pistas[2].stop();
+                                                                        soundtrack.pistas[0].play();
+                                                                    }, callbackScope: this})
     });
 }
 
