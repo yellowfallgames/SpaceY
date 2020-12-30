@@ -127,7 +127,7 @@ class SceneOptions extends Phaser.Scene {
         this.easeMe(this.sfxButton,this,3);
         
 
-        this.backButton = this.add.text(game.config.width/2, game.config.height + 300, 'Atrás', { fill: '#ffffff',fontFamily:'menuFont',fontSize:'60px' })
+        this.backButton = this.add.text(game.config.width/2, game.config.height + 300, 'Back', { fill: '#ffffff',fontFamily:'menuFont',fontSize:'60px' })
         .setInteractive()
         .on('pointerdown', () => this.enterBack() )
         .on('pointerover', () => this.enterButtonHoverState(this.backButton) )
