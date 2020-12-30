@@ -1,7 +1,7 @@
 var sfx = undefined;
 var soundtrack = undefined;
 
-var urlServer = "http://193.161.193.99:63511";
+var urlServer = "http://193.161.193.99:24953";
 
 class SceneBoot extends Phaser.Scene {
     
