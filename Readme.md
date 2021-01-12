@@ -468,5 +468,5 @@ Se ha implementado una escena de contactos con una pequeña caricatura de los de
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/img_sceneWin.png?raw=true)
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/img_sceneDefeat.png?raw=true)
 
-
+**● Diagrama de clases:**
 
