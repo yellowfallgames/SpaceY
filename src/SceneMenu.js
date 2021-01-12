@@ -72,7 +72,9 @@ class SceneMenu extends Phaser.Scene {
         110,100,     //Texto Login
         340,100,     //Texto Registro
         540,115,     //login confirm
-        540,115     //login confirm text
+        540,115,     //login confirm text
+        340,110,     //logout button
+        340,100     //Texto logout
     ];
     loginPos = [
         70,70,    //login option, 
@@ -86,7 +88,9 @@ class SceneMenu extends Phaser.Scene {
         loginTween[16]-loginOffset, loginTween[17], //Texto Login
         loginTween[18]-loginOffset, loginTween[19], //Texto Registro
         loginTween[20]-loginOffset, loginTween[21], //Texto confirm
-        loginTween[21]-loginOffset, loginTween[22], //Texto acerptar login
+        loginTween[21]-loginOffset, loginTween[22], //Texto confirm login
+        loginTween[23]-loginOffset, loginTween[24], //boton logout
+        loginTween[25]-loginOffset, loginTween[26], //texto logout
         
         
     ];
@@ -342,6 +346,9 @@ create() {
     .on('pointerout', () => this.enterIconRestState(this.loginBtn));
 
     this.logLoginText = this.add.text(loginPos[16], loginPos[17], 'LOGIN', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
+    .setInteractive()
+    .on('pointerover', () => this.enterIconHoverState(this.logLoginText) )
+    .on('pointerout', () => this.enterIconRestState(this.logLoginText) );
     this.logLoginText.setOrigin(0.5);
     
     //login picture
@@ -356,6 +363,9 @@ create() {
     .on('pointerout', () => this.enterIconRestState(this.loginRegister));
 
     this.logRegText = this.add.text(loginPos[18], loginPos[19], 'REGISTER', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
+    .setInteractive()
+    .on('pointerover', () => this.enterIconHoverState(this.logRegText) )
+    .on('pointerout', () => this.enterIconRestState(this.logRegText) );
     this.logRegText.setOrigin(0.5);
     
     //login field name base
@@ -373,13 +383,29 @@ create() {
     .on('pointerover', () => this.enterIconHoverState(this.loginSendButton))
     .on('pointerout', () => this.enterIconRestState(this.loginSendButton))
     .setVisible(false);
-    this.loginBtnText = this.add.text(loginPos[22], loginPos[23], 'Log in', { fill: '#000000',fontFamily:'menuFont',fontSize:'15px'})
-    this.loginBtnText.setOrigin(0.5);
+    this.loginSendBtnText = this.add.text(loginPos[22], loginPos[23], 'CONFIRM', { fill: '#000000',fontFamily:'menuFont',fontSize:'15px'})
+    .setInteractive()
+    .on('pointerover', () => this.enterIconHoverState(this.loginSendBtnText) )
+    .on('pointerout', () => this.enterIconRestState(this.loginSendBtnText) );
+    this.loginSendBtnText.setOrigin(0.5);
 
-    this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField,this.logLoginText,this.logRegText,this.loginSendButton,this.loginBtnText];
 
+    //Log out button
+    this.logOutBtn = this.add.image(regisPos[2], regisPos[3],'Register_Btn')
+    .setScale(0.18);
+    this.logOutBtn.setInteractive()
+    .on('pointerdown', () => this.goCreateUser())
+    .on('pointerover', () => this.enterIconHoverState(this.logOutBtn) )
+    .on('pointerout', () => this.enterIconRestState(this.logOutBtn))
+    this.logOutBtn.setOrigin(0.5);
+    this.logOutBtn.setActive(false);
+    this.logOutBtn.setVisible(false);
 
-    //Login
+    this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField,this.logLoginText,this.logRegText,this.loginSendButton,this.loginSendBtnText,this.logOutBtn];
+
+    
+
+    //Campos Login
     this.accountText = this.add.text(20, 52, 'Please enter in your account', {fill: 'white',fontFamily:'menuFont',fontSize:'35px'});
     this.accountText.setOrigin(0, 0.5).setVisible(false);
 
@@ -465,19 +491,15 @@ goCreateUser() {
 
 //INTERACTIVIDAD
 
-enterButtonHoverState(boton) {
-    boton.setStyle({ fill: '#FE6E00'});
-    boton.x = boton.x+movTxt;
-    boton.y = boton.y+movTxt;
-}
 
-enterButtonRestState(boton) {
-    boton.setStyle({ fill: '#FEDEBE' });
-    boton.x = boton.x-movTxt;
-    boton.y = boton.y-movTxt;
-}
 
-enterIconHoverState(boton) {
+enterIconHoverState(boton, scene) {
+    switch(boton)
+    {
+        case loginRegister: enterButtonHoverStatebreak;
+        case loginSendButton : break;
+        case loginBtn : break;
+    }
     sfx.sounds[1].play();
     boton.x = boton.x+movTxt;
     boton.y = boton.y+movTxt;
@@ -606,9 +628,50 @@ ShowLoginFields(scene,show)
 
     scene.loginSendButton.setVisible(show);
     scene.loginSendButton.setActive(show);
+    scene.loginSendBtnText.setVisible(show);
+    scene.loginSendBtnText.setActive(show);
 
     scene.accountLogin.setVisible(show);
     scene.accountLogin.setActive(show);
+}
+
+CheckLoggedIn(logged,scene)
+{
+    if(logged)
+    {
+        scene.logOutBtn.setActive(logged);
+        scene.logOutBtn.setVisible(logged);
+
+        sfx.sounds[0].play();
+        scene.loginBtn.setActive(!logged);
+        scene.loginBtn.setVisible(!logged);
+
+        scene.loginRegister.setActive(!logged);
+        scene.loginRegister.setVisible(!logged);
+
+        scene.logLoginText.setActive(!logged);
+        scene.logLoginText.setVisible(!logged);
+
+        scene.logRegText.setActive(!logged);
+        scene.logRegText.setVisible(!logged);
+
+        scene.loginNameField.setActive(!logged);
+        scene.loginNameField.setVisible(!logged);
+
+        scene.loginPassField.setVisible(!logged);
+        scene.loginPassField.setActive(!logged);
+
+        scene.loginSendButton.setVisible(!logged);
+        scene.loginSendButton.setActive(!logged);
+        scene.loginSendBtnText.setVisible(!logged);
+        scene.loginSendBtnText.setActive(!logged);
+
+        scene.accountLogin.setVisible(!logged);
+        scene.accountLogin.setActive(!logged);
+    }
+        
+
+        
 }
 CloseChat(scene){
     var nX = 0; var nY = 1; 

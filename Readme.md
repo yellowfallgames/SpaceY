@@ -58,7 +58,7 @@ Método 1:
 Abrir en cualquier navegador el archivo index.html, esto lanzará el juego. Esperaremos a que la pantalla de titulo cargue todo el contenido y lance el menú principal. 
 Una vez en el menú principal, debemos pinchar sobre el icono del mundo. En el nos apareceran los jugadores conectados actualmente a Space_Y. 
 Escoger si ser CLIENT o HOST. 
-    - HOST: Ejecutar el archivo Space_Y_Server.jar para lanzar el servidor. En el navegador pinchar sobre el icono del mundo. Compartir la direción proporcionada por la consola, al jugador que quiera unirse como CLIENT.
+    - HOST: Ejecutar el archivo Space_Y_Server.bat para lanzar el servidor. En el navegador pinchar sobre el icono del mundo. Compartir la direción proporcionada por la consola, al jugador que quiera unirse como CLIENT.
     - CLIENT: Pinchar sobre el icono del mundo. Introducir la dirección que nos proporcione un HOST que haya lanzado Space_Y como servidor. Pinchar en CONNECT y esperar respuesta del servidor. Una vez dado el visto bueno, nuestro CHAT estará conectado al servidor del HOST. 
 
 GDD
