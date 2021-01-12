@@ -23,7 +23,9 @@ function RestCreateMsg (scene, username) {
         content: content,
     }
 
-    createMsg(scene, msg);
+        //No enviar mensajes vacíos
+    if(content != "")
+        createMsg(scene, msg);
 }
 //Create user in server
 function createMsg(scene, msg) {
