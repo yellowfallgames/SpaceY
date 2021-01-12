@@ -47,24 +47,20 @@ https://github.com/Jacquesmeyns/SpaceY
 
 FAQ
 ------
-- ¿Cómojugar Offline?
+- ¿Cómo jugar Offline?
 Abrir en cualquier navegador el archivo index.html, esto lanzará el juego.
 Esperar a que cargue el juego, esto puede llevar unos segundos dependiendo del navegador y la computadora. 
 Ver en el apartado de controles la distribución de los mismos para dos jugadores. Puedes consultar el Tutorial en el menú principal. 
 Elegir que posición tomará el jugador, y en el menú principal pulsar sobre PLAY. 
 
-- ¿Cómojugar Online?
+- ¿Cómo jugar Online?
 Método 1: 
 Abrir en cualquier navegador el archivo index.html, esto lanzará el juego. Esperaremos a que la pantalla de titulo cargue todo el contenido y lance el menú principal. 
 Una vez en el menú principal, debemos pinchar sobre el icono del mundo. En el nos apareceran los jugadores conectados actualmente a Space_Y. 
 Escoger si ser CLIENT o HOST. 
-    - HOST: Ejecutar el archivo Space_Y_Server.jar para lanzar el servidor. En el navegador pinchar sobre el icono del mundo. Compartir la direción proporcionada por la consola al jugador que quiera unirse como CLIENT.
+    - HOST: Ejecutar el archivo Space_Y_Server.jar para lanzar el servidor. En el navegador pinchar sobre el icono del mundo. Compartir la direción proporcionada por la consola, al jugador que quiera unirse como CLIENT.
     - CLIENT: Pinchar sobre el icono del mundo. Introducir la dirección que nos proporcione un HOST que haya lanzado Space_Y como servidor. Pinchar en CONNECT y esperar respuesta del servidor. Una vez dado el visto bueno, nuestro CHAT estará conectado al servidor del HOST. 
 
-Método 2: 
-Ejecutar el archivo Space_Y.exe, dentro seleccionar si somos el HOST del servidor o si somos el CLIENT para unirnos a otro servidor. 
-    - HOST : Si seleccionamos esta opción abrirá una pantalla en tu navegador por defecto con el juego, y ejecutará el servidor. El propio ejecutable de Space_Y.exe nos devolverá la dirección IPV4 del HOST del servidor a la que se deberá conectar el CLIENT. 
-    - CLIENT: Si seleccionamos esta opción abrirá una pantalla en tu navegador por defecto con el juego. En el juego deberemos conectarnos a la dirección IPV4 a través de la interfaz de conexión ONLINE GAMES. 
 GDD
 ------
 ÍNDICE:
@@ -332,7 +328,7 @@ puntos de victoria.
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/controlesStelo.png?raw=true)
 
 **Navegación**
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/navegacion.png?raw=true)
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/DIAGRAMA_DE_FLUJO.png?raw=true)
 
 
 ### FASE 2: MODO LOCAL
