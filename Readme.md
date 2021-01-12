@@ -329,7 +329,7 @@ puntos de victoria.
 
 **Navegación**
 
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/xp_jugador.png?raw=true)
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/DIAGRAMA DE FLUJO?raw=true)
 
 
 ### FASE 2: MODO LOCAL
