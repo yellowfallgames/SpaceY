@@ -328,6 +328,7 @@ puntos de victoria.
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/controlesStelo.png?raw=true)
 
 **Navegación**
+
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/DIAGRAMA_DE_FLUJO.png?raw=true)
 
 
