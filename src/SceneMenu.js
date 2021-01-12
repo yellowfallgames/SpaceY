@@ -332,7 +332,7 @@ create() {
     this.loginOption.setOrigin(0.5);
     this.loginOption.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this,2) )
-    .on('pointerover', () => this.enterIconHoverState(this.loginOption,this))
+    .on('pointerover', () => this.enterIconHoverState(this.loginOption))
     .on('pointerout', () => this.enterIconRestState(this.loginOption))
     //login default picture
     this.loginDfPic = this.add.image(loginPos[4], loginPos[5],'Login_Default')
@@ -359,7 +359,7 @@ create() {
     .setScale(0.18);
     this.loginRegister.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this,3) )
-    .on('pointerover', () => this.enterIconHoverState(this.loginRegister,this))
+    .on('pointerover', () => this.enterIconHoverState(this.loginRegister))
     .on('pointerout', () => this.enterIconRestState(this.loginRegister));
 
     this.logRegText = this.add.text(loginPos[18], loginPos[19], 'REGISTER', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
@@ -406,6 +406,8 @@ create() {
     .on('pointerover', () => this.enterIconHoverState(this.logoutBtnText) )
     .on('pointerout', () => this.enterIconRestState(this.logoutBtnText) );
     this.logoutBtnText.setOrigin(0.5);
+    this.logoutBtnText.setActive(false);
+    this.logoutBtnText.setVisible(false);
 
     this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField,this.logLoginText,this.logRegText,this.loginSendButton,this.loginSendBtnText,this.logOutBtn,this.logoutBtnText];
 
@@ -500,12 +502,7 @@ goCreateUser() {
 
 
 enterIconHoverState(boton, scene) {
-    switch(boton)
-    {
-        case scene.loginRegister: enterButtonHoverState(scene.loginRegister);break;
-        case scene.loginSendButton : break;
-        case scene.loginBtn : break;
-    }
+    
     sfx.sounds[1].play();
     boton.x = boton.x+movTxt;
     boton.y = boton.y+movTxt;

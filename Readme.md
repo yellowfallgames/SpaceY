@@ -54,12 +54,18 @@ Ver en el apartado de controles la distribución de los mismos para dos jugadore
 Elegir que posición tomará el jugador, y en el menú principal pulsar sobre PLAY. 
 
 - ¿Cómo jugar Online?
-Método 1: 
+Método 1 LOCALHOST: 
 Abrir en cualquier navegador el archivo index.html, esto lanzará el juego. Esperaremos a que la pantalla de titulo cargue todo el contenido y lance el menú principal. 
 Una vez en el menú principal, debemos pinchar sobre el icono del mundo. En el nos apareceran los jugadores conectados actualmente a Space_Y. 
 Escoger si ser CLIENT o HOST. 
     - HOST: Ejecutar el archivo Space_Y_Server.bat para lanzar el servidor. En el navegador pinchar sobre el icono del mundo. Compartir la direción proporcionada por la consola, al jugador que quiera unirse como CLIENT.
     - CLIENT: Pinchar sobre el icono del mundo. Introducir la dirección que nos proporcione un HOST que haya lanzado Space_Y como servidor. Pinchar en CONNECT y esperar respuesta del servidor. Una vez dado el visto bueno, nuestro CHAT estará conectado al servidor del HOST. 
+Método 2 VPN: 
+Descargar el servidor de https://openvpn.net/client-connect-vpn-for-windows/
+En el apartado de URL incluir la direccion URL donde alojamos la carpeta con el servidor de SPACE Y 
+Si somos clientes, debemos cambiar linea 4  en la variable url de SceneBoot cambiar el valor por "http://193.161.193.99:24953";
+
+
 
 GDD
 ------
