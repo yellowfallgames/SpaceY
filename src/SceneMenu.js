@@ -332,7 +332,7 @@ create() {
     this.loginOption.setOrigin(0.5);
     this.loginOption.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this,2) )
-    .on('pointerover', () => this.enterIconHoverState(this.loginOption))
+    .on('pointerover', () => this.enterIconHoverState(this.loginOption,this))
     .on('pointerout', () => this.enterIconRestState(this.loginOption))
     //login default picture
     this.loginDfPic = this.add.image(loginPos[4], loginPos[5],'Login_Default')
@@ -359,7 +359,7 @@ create() {
     .setScale(0.18);
     this.loginRegister.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this,3) )
-    .on('pointerover', () => this.enterIconHoverState(this.loginRegister))
+    .on('pointerover', () => this.enterIconHoverState(this.loginRegister,this))
     .on('pointerout', () => this.enterIconRestState(this.loginRegister));
 
     this.logRegText = this.add.text(loginPos[18], loginPos[19], 'REGISTER', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
@@ -391,7 +391,7 @@ create() {
 
 
     //Log out button
-    this.logOutBtn = this.add.image(regisPos[2], regisPos[3],'Register_Btn')
+    this.logOutBtn = this.add.image(loginPos[23], loginPos[24],'Register_Btn')
     .setScale(0.18);
     this.logOutBtn.setInteractive()
     .on('pointerdown', () => this.goCreateUser())
@@ -401,7 +401,13 @@ create() {
     this.logOutBtn.setActive(false);
     this.logOutBtn.setVisible(false);
 
-    this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField,this.logLoginText,this.logRegText,this.loginSendButton,this.loginSendBtnText,this.logOutBtn];
+    this.logoutBtnText = this.add.text(loginPos[25], loginPos[26], 'LOG OUT', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
+    .setInteractive()
+    .on('pointerover', () => this.enterIconHoverState(this.logoutBtnText) )
+    .on('pointerout', () => this.enterIconRestState(this.logoutBtnText) );
+    this.logoutBtnText.setOrigin(0.5);
+
+    this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField,this.logLoginText,this.logRegText,this.loginSendButton,this.loginSendBtnText,this.logOutBtn,this.logoutBtnText];
 
     
 
@@ -496,9 +502,9 @@ goCreateUser() {
 enterIconHoverState(boton, scene) {
     switch(boton)
     {
-        case loginRegister: enterButtonHoverStatebreak;
-        case loginSendButton : break;
-        case loginBtn : break;
+        case scene.loginRegister: enterButtonHoverState(scene.loginRegister);break;
+        case scene.loginSendButton : break;
+        case scene.loginBtn : break;
     }
     sfx.sounds[1].play();
     boton.x = boton.x+movTxt;
