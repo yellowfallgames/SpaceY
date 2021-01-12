@@ -180,11 +180,11 @@ create() {
     this.lobbyText.setMask(mask).setVisible(false).setDepth(1000);
 
     this.numPlayers = updateUsers(this);
-    this.numPlayersTxt = this.add.text(game.config.width*1/4, (game.config.height/8)*7.5, "TOTAL USERS: "+this.numPlayers, { fill: '#FFFFFF',fontFamily:'menuFont',fontSize:'40px' });
-    this.numPlayersTxt.setOrigin(0.5);
+    this.numPlayersTxt = this.add.text(game.config.width*3.25/4, (game.config.height/8)*6.8, "TOTAL USERS: "+this.numPlayers, { fill: '#FFFFFF',fontFamily:'menuFont',fontSize:'40px' });
+    this.numPlayersTxt.setOrigin(0.5).setVisible(false).setDepth(1000);
 
-    this.serverOnlineTxt = this.add.text(game.config.width*3.5/4, (game.config.height/8)*7.5, "SERVER¿?", { fill: '#FFFFFF',fontFamily:'menuFont',fontSize:'40px' });
-    this.serverOnlineTxt.setOrigin(0.5);
+    this.serverOnlineTxt = this.add.text(game.config.width*3.25/4, (game.config.height/8)*7.2, "SERVER ¿?", { fill: '#FFFFFF',fontFamily:'menuFont',fontSize:'40px' });
+    this.serverOnlineTxt.setOrigin(0.5).setVisible(false).setDepth(1000);
 
     isServerOnline(this);
 
@@ -617,6 +617,8 @@ CloseChat(scene){
     scene.chatText.setVisible(false);
     scene.writeTextChat.setVisible(false);
     scene.lobbyText.setVisible(false);
+    scene.numPlayersTxt.setVisible(false);
+    scene.serverOnlineTxt.setVisible(false);
     for (let i = 0; i < scene.chatboxStuff.length; i++)
     {
         scene.tweens.add({
@@ -667,6 +669,8 @@ ChatManager(scene,id)
         scene.chatText.setVisible(true);
         scene.writeTextChat.setVisible(true);
         scene.lobbyText.setVisible(false);
+        scene.numPlayersTxt.setVisible(false);
+        scene.serverOnlineTxt.setVisible(false);
         this.OpenChat(scene);
     }
     if(!chatBoxActive && !chatBoxOut && lobbyActive)    //abrimos lobby
@@ -676,6 +680,8 @@ ChatManager(scene,id)
         scene.chatText.setVisible(false);
         scene.writeTextChat.setVisible(false);
         scene.lobbyText.setVisible(true);
+        scene.numPlayersTxt.setVisible(true);
+        scene.serverOnlineTxt.setVisible(true);
         this.OpenChat(scene);
     }
     if(chatBoxActive && chatBoxOut && lobbyActive)
@@ -687,6 +693,8 @@ ChatManager(scene,id)
             scene.chatText.setVisible(false);
             scene.writeTextChat.setVisible(false);
             scene.lobbyText.setVisible(true);
+            scene.numPlayersTxt.setVisible(true);
+            scene.serverOnlineTxt.setVisible(true);
             chatBoxActive = false;
         }
         else
@@ -696,6 +704,8 @@ ChatManager(scene,id)
             scene.chatText.setVisible(true);
             scene.writeTextChat.setVisible(true);
             scene.lobbyText.setVisible(false);
+            scene.numPlayersTxt.setVisible(false);
+            scene.serverOnlineTxt.setVisible(false);
             lobbyActive = false;
         }
     }
