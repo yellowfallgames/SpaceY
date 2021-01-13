@@ -66,6 +66,7 @@ Método OpenVPN:
 ATENCION: Para que funcione el servidor los archivos SpaceY_0.9.jar, Run_Server.bat, la base de datos BD_SpaceY.accdb deben estar en la misma carpeta. 
 Puede que por tu versión de java el servidor no pueda funcionar. Adjuntamos un archivo que actualiza la versión actual en tu máquina. (jdk-15.0.1_windows-x64_bin.exe)
 
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/tutorial_github-10.png?raw=true)
 
 
 GDD
@@ -357,6 +358,7 @@ Controles supervisor:
 - TECLADO NUMÉRICO: minijuego de comunicación.
 - RATÓN : Interaccionar con todas las opciones del panel de control.    
 
+-Añadido un tutorial y cambio de la estructura del menú
 
 ### FASE 3 EN ADELANTE (ONLINE)
 
@@ -381,6 +383,19 @@ Controles supervisor:
 - LETRAS: minijuego de comunicación.    
 - ESPACIO:    
 - RATÓN : Interaccionar con todas las opciones del panel de control.    
+
+MEJORAS EN CONECTIVIDAD:
+-Hemos añadido una base de datos para registrar los usuarios, sus contraseñas, sus mensajes y su imagen de perfil.  
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/visual1.png?raw=true)
+-Hemos añadido un CHAT implementado en el icono del MENSAJE en el menú principal. 
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/chat.PNG?raw=true)
+-Hemos añadido una consola para el estado del SERVIDOR implementado en el icono del MUNDO en el menú principal. 
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/global.PNG?raw=true)
+-Hemos añadido una caja para iniciar sesión y registrarse en la base de datos del juego que identifica los usuarios conectados. Además permitimos personalización.
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/login.PNG?raw=true)
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/register.PNG?raw=true)
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/usericon.PNG?raw=true)
+
 
 
 # Pantalla compartida en Local
