@@ -189,7 +189,7 @@ create() {
     this.lobbyText.setMask(mask).setVisible(false).setDepth(1000);
 
     this.numPlayers = updateUsers(this);
-    this.numPlayersTxt = this.add.text(game.config.width*3.25/4, (game.config.height/8)*6.8, "TOTAL USERS: "+this.numPlayers, { fill: '#FFFFFF',fontFamily:'menuFont',fontSize:'40px' });
+    this.numPlayersTxt = this.add.text(game.config.width*3.25/4, (game.config.height/8)*6.8, "REGISTERED USERS: "+this.numPlayers, { fill: '#FFFFFF',fontFamily:'menuFont',fontSize:'40px' });
     this.numPlayersTxt.setOrigin(0.5).setVisible(false).setDepth(1000);
 
     this.serverOnlineTxt = this.add.text(game.config.width*3.25/4, (game.config.height/8)*7.2, "SERVER ¿?", { fill: '#FFFFFF',fontFamily:'menuFont',fontSize:'40px' });
@@ -405,7 +405,7 @@ create() {
     this.accountText = this.add.text(20, 52, 'Please enter in your account', {fill: 'white',fontFamily:'menuFont',fontSize:'35px'});
     this.accountText.setOrigin(0, 0.5).setVisible(false);
 
-    this.accountLogin = this.add.dom(330, 110).createFromCache('nameform').setVisible(false);
+    this.accountLogin = this.add.dom(260, 113).createFromCache('nameform').setVisible(false);
     this.accountLogin.addListener('click');
 
     //Campos Registro

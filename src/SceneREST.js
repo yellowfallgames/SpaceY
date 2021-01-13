@@ -359,7 +359,7 @@ function updateUsers(scene) {
 function setUsers(scene, n) {
 
     scene.numPlayers = n;
-    scene.numPlayersTxt.setText("TOTAL USERS: " + n);
+    scene.numPlayersTxt.setText("REGISTERED USERS: " + n);
 }
 
 
