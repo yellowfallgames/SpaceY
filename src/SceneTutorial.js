@@ -22,66 +22,66 @@ var startSfxRun = false;
 var posicionesTutorial;
 var rotOrden;
 var textMarte = [
-    'Bienvenido a Space Y\n\nPulsa Y para continuar',
+    'Welcome to Space Y\n\nPress Y to continue',
     '#',
-    'Cohete',
-    'Aqui aterriza y despega tu cohete, OBVIO',
-    'Solo podra despegar si esta lleno de ROCAS',
-    'Para lanzarlo pulsa H',
+    'ROCKET',
+    'Here, the ROCKET takes off and lands',
+    'It can only take off when its full of ROCKS',
+    'To take off press H',
     '#',
-    'Mina',
-    ' ',//'Desplazate usando A y D a tu izquierda',
-    'Pulsa H para obtener ROCAS de la mina',
-    'Se incrementan aqui',
+    'QUARRY',
+    'This mining device supplies your mission',//'Desplazate usando A y D a tu izquierda',
+    'Press H to obtain ROCKS from the QUARRY',
+    'The orange bar indicates how many ROCKS you are carrying',
     '#',
-    'Terraformador',
-    'Esta maquina permite la habitabilidad en Marte',
-    'Convierte tus ROCAS en energía transformadora',
-    'Conseguid el 100% para completar la mision',
+    'TERRAFORMER',
+    'This machine allows habitability in Mars',
+    'It transforms your ROCKS in TERRAFORMER energy',
+    'Achieve 100% to accomplish your mission',
     '#',
-    'Comunicación',
-    'Permite la comunicación con la Tierra',
-    'Si se estropea, no podrán avisarte de TORMENTAS o METEORITOS',
-    'Para reparar cualquier máquina pulsa TECLA',
+    'COMMUNICATIONS',
+    'Allows communication with Earth',
+    'If its damaged Earth wont know when STORMS or METEORITES draw near',
+    'To repair any machine press R',
     '#',
-    'Pantalla de misión',
-    'Aqui podras ver el estado de la terraformacion',
-    'Sólo tu podrás ver si se acercan meteoritos o tormentas',
-    'Avisa al Stelonauta para que pueda ponerse a cubierto',
+    'MISSION PROGRESS',
+    'You can see the state of your terraforming mission here',
+    'The green bar indicates PARTS. They make it easier to repair',
+    'The red bar indicates FOOD. If you run out of it, its game over',
     '#',
-    'En caso de duda, CLICK en Post-IT',
+    'If you have any doubt, CLICK the Post-it note',
     '$' //fin tutorial
 ];
 //TEXTO EN TIERRA
 var textTierra = [
-    'Bienvenido a Space Y\n\nPulsa Y para continuar',
+    'Welcome to Space Y\n\nPress Y to continue',
     '#',
-    'Lanzadera',
-    'Aqui aterriza y despega tu cohete, OBVIO',
-    'Solo podra despegar si esta lleno de recursos de la tierra',
-    'Para vaciarlo pulsa en la compuerta verde inferior',
+    'SHUTTLE',
+    'Here, the ROCKET takes off and lands',
+    'It can only take off when its full of RESOURCES (FOOD and PARTS)',
+    'To empty it press on the green door below the rocket',
     '#',
-    'Conversor DDR',
-    'Transforma un recurso pulsando las flechas',
-    '1 roca = 1 de Comida o Materiales',
-    'Si te equivocas, perderás el recurso',
+    'DDR CONVERSOR',
+    'Transforms resources by pressing the arrows',
+    '1 ROCK = 1 FOOD or 1 PART',
+    'If you get it wrong, that resource is lost',
     '#',
-    'Sistema de Paquetería',
-    'Este es tu almacen de Comida y Materiales',
-    'Pulsa sobre comida/materiales para llenar el cohete en 1 unidad',
-    'Cuando el cohete esté lleno podrás enviarlo pulsando aquí',
+    'PARCEL SYSTEM',
+    'Here the FOOD and PARTS are stored',
+    'Press on FOOD/PART to insert 1 unit of that resource in the ROCKET',
+    'When the ROCKET is full, you can send it take off by pressing here',
     '#',
-    'Panel de Control',
-    'Al pulsar sobre un boton aparecerá una combinacion',
-    'Introducirla correctamente permite ver el estado de las máquinas',
-    'Comunica esto al Stelonauta para mantener el estado de la misión',
+    'CONTROL PANEL',
+    'When one of these buttons is pressed, a combination will appear',
+    'Type it in correcty to get a status report on that machine',
+    'Communicate with the Stelonaut to support the mission',
     '#',
-    'Pantalla de misión',
-    'Aquí podras ver el estado de la terraformacion',
-    'Sólo tu podras ver si se acercan meteoritos o tormentas',
-    'Avisa al Stelonauta para que pueda ponerse a cubierto',
+    'MISSION PROGRESS',
+    'You can see the state of MARS here',
+    'Only you can see when a STORM or METEORITES approach the planet',
+    'Keep the Stelonaut informed for it to be warned about the hazards',
     '#',
-    'En caso de duda, CLICK en Post-IT',
+    'If you have any doubt, CLICK the Post-it note',
     '$' //fin tutorial
 ];
 
@@ -283,17 +283,17 @@ class SceneTutorial extends Phaser.Scene {
 
         //Input events
         this.cursors = this.input.keyboard.createCursorKeys();
-        key_left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        key_right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        key_up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-        key_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-        key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
-        key_repair = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        key_skipTutorial = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Y);
-        key_pause = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        key_left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A, false);
+        key_right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D, false);
+        key_up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W, false);
+        key_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S, false);
+        key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H, false);
+        key_repair = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R, false);
+        key_skipTutorial = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Y, false);
+        key_pause = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC, false);
 
-        keyDev_victory = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
-        keyDev_defeat = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
+        keyDev_victory = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M, false);
+        keyDev_defeat = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N, false);
 
 
         
@@ -417,7 +417,7 @@ class SceneTutorial extends Phaser.Scene {
             //emitter.setPosition(Phaser.Math.Between(0, game.config.width), 0)
             emitterStorm.emitZoneIndex = 1;
             emitterStorm.active = false;
-            console.log("APAGA");
+            //console.log("APAGA");
         });
         //*/
     
@@ -543,7 +543,7 @@ class SceneTutorial extends Phaser.Scene {
           emitterMachines[2].emitParticleAt(emitterMachines[2].posX, emitterMachines[2].posY);
           emitterMachines[3].emitParticleAt(emitterMachines[3].posX, emitterMachines[3].posY);
         */
-        //console.log("Pos X: " + emitterMachines[0].posX + "\nPos Y: " + emitterMachines[0].posY);
+        ////console.log("Pos X: " + emitterMachines[0].posX + "\nPos Y: " + emitterMachines[0].posY);
         
 
         /*if ((key_left.isDown || key_right.isDown) && !startSfxRun) {
@@ -652,7 +652,13 @@ function endTutorial(scene,textM, textT,fadeOut)
         alpha:1,
         duration: fadeOut,
         ease: 'Expo.easeInOut',
-        onComplete: scene.time.addEvent({ delay: fadeOut, callback: function(){scene.scene.start('SceneMenu'); soundtrack.pistas[2].stop();soundtrack.pistas[0].play();}, callbackScope: this})
+        onComplete: scene.time.addEvent({ delay: fadeOut, callback: function(){
+                                                                        key_left.destroy();
+                                                                        scene.scene.stop('SceneTutorial');
+                                                                        scene.scene.start('SceneMenu');
+                                                                        soundtrack.pistas[2].stop();
+                                                                        soundtrack.pistas[0].play();
+                                                                    }, callbackScope: this})
     });
 }
 
@@ -693,7 +699,7 @@ function CrearMascara(scene,posXM,posYM,tipoM, posXT,posYT,tipoT){
             //mascara cuadrada tierra
             maskMarte.fillStyle(000000,1);  //color y alpha
             maskMarte.fillRect(posXT,posYT,100,100);  //x, y,width height
-            //console.log('letsgo');
+            ////console.log('letsgo');
             break;
         case 'c':
             //mascara circular  tierra

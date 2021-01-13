@@ -1,8 +1,11 @@
 var sfx = undefined;
 var soundtrack = undefined;
+ //"http://193.161.193.99:24953";//"http://localhost:8080"; //"http://193.161.193.99:63511";
+
+var urlServer = "http://193.161.193.99:63511";
 
 class SceneBoot extends Phaser.Scene {
-
+    
     constructor() {
 
         super("SceneBoot");
@@ -15,9 +18,12 @@ class SceneBoot extends Phaser.Scene {
         this.load.image("sofi", directory+"sofi.png");
         this.load.image("pepe", directory+"pepe.png");
         this.load.image("manu", directory+"manu.png");
+
+        this.load.spritesheet('userImages', directory+'User_images.png', { frameWidth: 1134, frameHeight: 964 });
         //Scene Menu
-        this.load.image("bckMenu", directory+"spaceYmenu_bck.png");
+        //this.load.image("bckMenu", directory+"spaceYmenu_bck.png");
         this.load.image("spaceYlogo", directory+"spaceYmenu.png");
+        this.load.image("earthLogo", directory+"spaceYmenuEarth.png");
         //Scene Options
          this.load.image("radio", directory+"radio.png");
          this.load.image("altavoces", directory+"altavoces.png");
@@ -112,6 +118,40 @@ class SceneBoot extends Phaser.Scene {
         //POST IT
         this.load.image('postItExp', directory +'postitexpandido.png');   //post it expandido
         this.load.image('postIt', directory +'post_it.png'); //post it 
+
+
+        //CHATBOX
+        this.load.image('ChatBox_SendBtn',  directory +'Chatbox_SendButton.png');
+        this.load.image('ChatBox_NewMsgIcon',  directory +'Chatbox_newmsg-04.png');
+        this.load.image('ChatBox_ChatIcon',  directory +'Chatbox_writemsg-04.png');
+        this.load.image('ChatBox_Base',  directory +'Chatbox_base.png');
+        this.load.image('ChatBox_MsgBox',  directory +'Chatbox_msg-05.png');
+        this.load.image('ChatBox_Frame',  directory +'Chatbox_Frame.png');
+        this.load.image('ChatBox_GlobalIcon',  directory +'online.png');
+        
+
+        //REGISTER
+        this.load.image('Register_Btn',  directory +'REGISTER_BUTTON-08.png');
+        this.load.image('Register_Form',  directory +'Register_InputBox.png');
+        this.load.image('Register_Arrow',  directory +'Register_NextImg.png');
+        this.load.image('Register_Close',  directory +'close_button.png');
+        
+        //LOGIN
+        this.load.image('Login_Btn',  directory +'LOGIN_BUTTON-08.png');
+        this.load.image('Confirm_Btn',  directory +'CONFIRM_BUTTON-08.png');
+        this.load.image('Logout_Btn',  directory +'logout_button-08.png');
+        this.load.image('Login_Option',  directory +'Login_Button.png');    //icono que abre el login
+        this.load.image('Login_Default',  directory +'login_picture.png');
+        this.load.image('Login_Box',  directory +'Login_input.png');
+        this.load.image('Login_Profile',  directory +'profile_holder-07.png');
+        this.load.image('Login_Field',  directory +'field_input.png');
+
+        //Placeholder partícula
+        this.load.image('smoke', './Resources/Game/smoke_particle.png');
+        this.load.image('polvo', './Resources/Game/dust_particle.png');
+
+
+
         //MUSICA
         this.load.audio('MusicMenu', ['./Resources/Audio/Music/space walk.ogg']);
         this.load.audio('MusicIngame', ['./Resources/Audio/Music/Pioneers meets Space.ogg']);
@@ -139,11 +179,82 @@ class SceneBoot extends Phaser.Scene {
         this.load.audio('SfxWin', ['./Resources/Audio/SFX/Fanfare/win.ogg']);
         this.load.audio('SfxLose', ['./Resources/Audio/SFX/Fanfare/lose.ogg']);
 
-        
-
         //Placeholder partícula
         this.load.image('smoke', './Resources/Game/smoke_particle.png');
         this.load.image('polvo', './Resources/Game/dust_particle.png');
+
+        //APIs
+        this.load.html('nameform', './src/Assets/nameform.html');
+        this.load.html('formReg', './src/Assets/formRegistro.html');
+        this.load.html('formChat', './src/Assets/formChat.html');
+
+        var progressBox = this.add.graphics();
+        var progressBar = this.add.graphics();
+        progressBox.fillStyle(0x222222, 0.8);
+        var xx = game.config.width/2;
+        var yy = game.config.height/2+300;
+        progressBox.fillRect(xx-160, yy-25, 320, 50);
+
+        this.load.on('progress', function (value) {
+            //console.log(value);
+            progressBar.clear();
+            progressBar.fillStyle(0xED7C12, 1);
+            progressBar.fillRect(xx-150, yy-15, 300 * value, 30);
+            percentText.setText(parseInt(value * 100) + '%');
+        });
+                    
+        this.load.on('fileprogress', function (file) {
+            //console.log(file.src);
+            assetText.setText('Loading asset: ' + file.key);
+            //assetText.setText('Loading asset: ' + file.src);
+        });
+        
+        this.load.on('complete', function () {
+            //console.log('complete');
+            progressBar.destroy();
+            progressBox.destroy();
+            loadingText.destroy();
+            percentText.destroy();
+            assetText.destroy();
+        });
+
+        var width = this.cameras.main.width;
+        var height = this.cameras.main.height;
+        var loadingText = this.make.text({
+            x: width / 2,
+            y: height / 2 + 270,
+            text: '',//'Loading...',
+            style: {
+                font: '20px monospace',
+                fill: '#ffffff'
+            }
+        });
+        loadingText.setOrigin(0.5, 0.5);
+
+        var percentText = this.make.text({
+            x: width / 2,
+            y: height / 2 +300,
+            text: '0%',
+            style: {
+                font: '18px monospace',
+                fill: '#ffffff'
+            }
+        });
+        percentText.setOrigin(0.5, 0.5);
+
+        var assetText = this.make.text({
+            x: width / 2,
+            y: height / 2 + 350,
+            text: '',
+            style: {
+                font: '18px monospace',
+                fill: '#ffffff'
+            }
+        });
+        assetText.setOrigin(0.5, 0.5);
+
+
+        //this.load.on('complete',function(){ this.scene.start('SceneMenu');});
     }
 
     create() {
@@ -245,7 +356,8 @@ class SceneBoot extends Phaser.Scene {
             repeat: 0,
         });
 
-        //console.log("Acabé");
-        this.scene.stop('SceneBoot');
+        ////console.log("Acabé");
+        this.scene.start('SceneMenu');
+        this.scene.stop('SceneLogos');
     }
 }

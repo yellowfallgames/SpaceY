@@ -268,16 +268,16 @@ class SceneGame extends Phaser.Scene {
 
         //Input events
         this.cursors = this.input.keyboard.createCursorKeys();
-        key_left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        key_right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        key_up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-        key_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-        key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
-        key_repair = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        key_pause = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        key_left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A, false);
+        key_right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D, false);
+        key_up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W, false);
+        key_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S, false);
+        key_interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H, false);
+        key_repair = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R, false);
+        key_pause = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC, false);
 
-        keyDev_victory = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
-        keyDev_defeat = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
+        keyDev_victory = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M, false);
+        keyDev_defeat = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N, false);
 
         
         //Genera meteoritos cada x ms (TESTING)
@@ -400,7 +400,7 @@ class SceneGame extends Phaser.Scene {
             //emitter.setPosition(Phaser.Math.Between(0, game.config.width), 0)
             emitterStorm.emitZoneIndex = 1;
             emitterStorm.active = false;
-            console.log("APAGA");
+            //console.log("APAGA");
         });
         //*/
     
@@ -483,7 +483,7 @@ class SceneGame extends Phaser.Scene {
           emitterMachines[2].emitParticleAt(emitterMachines[2].posX, emitterMachines[2].posY);
           emitterMachines[3].emitParticleAt(emitterMachines[3].posX, emitterMachines[3].posY);
         */
-        //console.log("Pos X: " + emitterMachines[0].posX + "\nPos Y: " + emitterMachines[0].posY);
+        ////console.log("Pos X: " + emitterMachines[0].posX + "\nPos Y: " + emitterMachines[0].posY);
         
 
         if ((key_left.isDown || key_right.isDown) && !startSfxRun) {
@@ -719,7 +719,7 @@ function OpenPostIt(obj,scene) {
     }
     if(isbig)
     {
-        //console.log('no soy grande');
+        ////console.log('no soy grande');
         isbig = false;
         scene.tweens.add({
             targets: obj,

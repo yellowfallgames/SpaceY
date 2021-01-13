@@ -49,13 +49,13 @@ class CommsMachine extends Machine {
 
     Start() {
 
-        var rand = Phaser.Math.Between((1000*60),(1000*60)*2);
+        var rand = 1000;//Phaser.Math.Between((1000*60),(1000*60)*2);
         this.event = this.scene.time.addEvent({ delay: rand, callback: this.StartEvent, callbackScope: this});
     }
 
     StartEvent() {
 
-        var rand = Phaser.Math.Between(0, 1);
+        var rand = Phaser.Math.Between(0, 0);
         rand === 0 ? this.AlertSandStorm() : this.AlertMeteorRain();  
     }
 

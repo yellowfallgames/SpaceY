@@ -20,11 +20,11 @@ class ScenePause extends Phaser.Scene {
         this.fondo = this.add.rectangle(game.config.width/2, game.config.height/2, game.config.width, game.config.height, Phaser.Display.Color.GetColor(0, 0, 0)).setAlpha(0.5);
 
         //Opciones
-        this.BtnBackToGame = this.add.text(-game.config.width/2, 2*game.config.height/7, "VOLVER AL JUEGO",{fontSize:'60px',fill:'#ffffff',fontFamily:'menuFont',fontSize:'60px'})
+        this.BtnBackToGame = this.add.text(-game.config.width/2, 2*game.config.height/7, "RESUME",{fontSize:'60px',fill:'#ffffff',fontFamily:'menuFont',fontSize:'60px'})
         .setDepth(6).setOrigin(0.5);
-        this.BtnOptions = this.add.text(-game.config.width/2, 3*game.config.height/7, "OPCIONES",{fontSize:'60px',fill:'#ffffff',fontFamily:'menuFont',fontSize:'60px'})
+        this.BtnOptions = this.add.text(-game.config.width/2, 3*game.config.height/7, "OPTIONS",{fontSize:'60px',fill:'#ffffff',fontFamily:'menuFont',fontSize:'60px'})
         .setDepth(6).setOrigin(0.5);
-        this.BtnBackToMenu = this.add.text(-game.config.width/2, 4*game.config.height/7, "VOLVER AL MENU",{fontSize:'60px',fill:'#ffffff',fontFamily:'menuFont',fontSize:'60px'})
+        this.BtnBackToMenu = this.add.text(-game.config.width/2, 4*game.config.height/7, "EXIT",{fontSize:'60px',fill:'#ffffff',fontFamily:'menuFont',fontSize:'60px'})
         .setDepth(6).setOrigin(0.5);
 
         this.menuBase = this.add.image(-game.config.width/2, game.config.height/2, "radio");
@@ -248,11 +248,11 @@ class ScenePause extends Phaser.Scene {
     switchMusic() {
         if(sliderMusic.value==1){
             sliderMusic.value = 0;
-            //console.log("De 100 a 0");
+            ////console.log("De 100 a 0");
         }
         else if(sliderMusic.value == 0){
             sliderMusic.value = 1;
-            //console.log("De 0 a 100");
+            ////console.log("De 0 a 100");
         } else(sliderMusic.value != 0 || sliderMusic.value != 1)
             sliderMusic.value = Math.round(sliderMusic.value);
 
@@ -263,11 +263,11 @@ class ScenePause extends Phaser.Scene {
     switchSfx() {
         if(sliderSfx.value==1){
             sliderSfx.value = 0;
-            //console.log("De 100 a 0");
+            ////console.log("De 100 a 0");
         }
         else if(sliderSfx.value == 0){
             sliderSfx.value = 1;
-            //console.log("De 0 a 100");
+            ////console.log("De 0 a 100");
         } else(sliderSfx.value != 0 || sliderSfx.value != 1)
         sliderSfx.value = Math.round(sliderSfx.value);
             

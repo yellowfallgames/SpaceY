@@ -159,7 +159,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
                 that.actualComboFlechas = null;
 
-                //console.log("combo flechas");
+                ////console.log("combo flechas");
             }
             
         });
@@ -234,7 +234,7 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
                 that.tweenShowWearIN();
 
                 that.actualComboNum = null;
-                //console.log("Combo numeritos");
+                ////console.log("Combo numeritos");
             }
                 
         });
@@ -631,16 +631,16 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
 
         this.TxtEvents.setVisible(true);
         sfx.sounds[14].play();
-        //console.log("warninnnn"+this.TxtEvents.alpha);
+        ////console.log("warninnnn"+this.TxtEvents.alpha);
         //Meteoritos
         if (n === 0) {
 
-            this.TxtEvents.setText("SE ACERCAN METEORITOS")
+            this.TxtEvents.setText("METEORITES APPROACHING")
             this.tweenTxtEventsIN(n);
         }
         else {
 
-            this.TxtEvents.setText("SE ACERCA UNA TORMENTA")
+            this.TxtEvents.setText("A STORM IS CLOSING IN")
             this.tweenTxtEventsIN(n);
         }
 

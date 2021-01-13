@@ -50,7 +50,7 @@ class SceneGameEnd extends Phaser.Scene {
 
 
         //Botón para volver al menú
-        this.BtnBackToMenu = this.add.text(game.config.width/2, (5*game.config.height/7)+40, "VOLVER AL MENU",{ fill: '#ffffff',fontFamily:'menuFont',fontSize:'60px' })
+        this.BtnBackToMenu = this.add.text(game.config.width/2, (5*game.config.height/7)+40, "BACK TO MENU",{ fill: '#ffffff',fontFamily:'menuFont',fontSize:'60px' })
         .setDepth(6).setOrigin(0.5).setVisible(false)
         .setInteractive()
         .on('pointerdown', () => this.GoBack() )

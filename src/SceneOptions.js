@@ -127,7 +127,7 @@ class SceneOptions extends Phaser.Scene {
         this.easeMe(this.sfxButton,this,3);
         
 
-        this.backButton = this.add.text(game.config.width/2, game.config.height + 300, 'Atrás', { fill: '#ffffff',fontFamily:'menuFont',fontSize:'60px' })
+        this.backButton = this.add.text(game.config.width/2, game.config.height + 300, 'Back', { fill: '#ffffff',fontFamily:'menuFont',fontSize:'60px' })
         .setInteractive()
         .on('pointerdown', () => this.enterBack() )
         .on('pointerover', () => this.enterButtonHoverState(this.backButton) )
@@ -139,11 +139,11 @@ class SceneOptions extends Phaser.Scene {
     switchMusic() {
         if(sliderMusic.value==1){
             sliderMusic.value = 0;
-            //console.log("De 100 a 0");
+            ////console.log("De 100 a 0");
         }
         else if(sliderMusic.value == 0){
             sliderMusic.value = 1;
-            //console.log("De 0 a 100");
+            ////console.log("De 0 a 100");
         } else(sliderMusic.value != 0 || sliderMusic.value != 1)
             sliderMusic.value = Math.round(sliderMusic.value);
 
@@ -154,11 +154,11 @@ class SceneOptions extends Phaser.Scene {
     switchSfx() {
         if(sliderSfx.value==1){
             sliderSfx.value = 0;
-            //console.log("De 100 a 0");
+            ////console.log("De 100 a 0");
         }
         else if(sliderSfx.value == 0){
             sliderSfx.value = 1;
-            //console.log("De 0 a 100");
+            ////console.log("De 0 a 100");
         } else(sliderSfx.value != 0 || sliderSfx.value != 1)
         sliderSfx.value = Math.round(sliderSfx.value);
             

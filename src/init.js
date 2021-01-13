@@ -10,7 +10,7 @@ var config = {
         update: update     
     },//*/
 
-    scene:[SceneLogos, SceneBoot,SceneMenu,SceneTutorial, SceneGame, ScenePause,SceneContact, SceneOptions, SceneGameEnd],
+    scene:[SceneLogos, SceneBoot,SceneMenu, SceneREST,SceneTutorial, SceneGame, ScenePause,SceneContact, SceneOptions, SceneGameEnd],
 
     physics: {
         default: "arcade",
@@ -21,7 +21,10 @@ var config = {
                 debug: false
             }
         }
-    }
+    },
+    dom: {
+        createContainer: true
+    },
 }
 
 var game = new Phaser.Game(config);
