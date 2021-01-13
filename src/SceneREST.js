@@ -236,6 +236,7 @@ function setUserOnline(scene, username, online_) {
         }
         else {
 
+            scene.userImage.setFrame(0);
             scene.accountText.setText('You have logged out');
             userName = "Anon";
             scene.MovinBoxes(scene, 2);
@@ -249,18 +250,18 @@ function RestCreateLoginOutMsg (scene, username, logIn) {
     var content_;
     if (logIn) {
 
-        content_ = "HAS LOGGED IN";
+        content_ = "HAS LOGGED IN ---";
     }
     else {
 
-        content_ = "HAS LOGGED OUT";
+        content_ = "HAS LOGGED OUT ---";
     }
 
 
     var msg = {
-        userName: username,
+        userName: "--- "+username,
         content: content_,
-        serverInfo: logIn,
+        serverInfo: true,
     }
 
 

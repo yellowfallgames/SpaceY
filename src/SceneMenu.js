@@ -433,10 +433,6 @@ create() {
 //setUserOnline(that, userName, false);
 }
 
-ShowUserImage(img) {
-
-
-}
 
 RegNextImg(dir){
 
