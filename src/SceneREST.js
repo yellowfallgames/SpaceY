@@ -21,6 +21,7 @@ function RestCreateMsg (scene, username) {
     var msg = {
         userName: username,
         content: content,
+        serverInfo: false,
     }
 
         //No enviar mensajes vacíos
@@ -56,7 +57,15 @@ function loadMsgs(scene) {
             lineasChat = 0;
             for (var i=0; i < msgs.length; i++) {
 
-                scene.chatContent[i] = msgs[i].userName + ": " + msgs[i].content;
+                if (msgs[i].serverInfo) {
+
+                    scene.chatContent[i] = msgs[i].userName + " " + msgs[i].content;
+                }
+                else {
+
+                    scene.chatContent[i] = msgs[i].userName + ": " + msgs[i].content;
+                }
+                
                 
                 lineasChat += Math.ceil(scene.chatContent[i].length/35);
             }
@@ -195,6 +204,8 @@ function CheckUserPasswordCorrect(scene, name_, pass_) {
 
 function setUserOnline(scene, username, online_) {
 
+    RestCreateLoginOutMsg(scene, username, online_);
+
     var user = {
 
         name:username,
@@ -212,6 +223,29 @@ function setUserOnline(scene, username, online_) {
     }).done(function () {
         console.log("onlineee");
     })
+}
+
+function RestCreateLoginOutMsg (scene, username, logIn) {
+
+    var content_;
+    if (logIn) {
+
+        content_ = "HAS LOGGED IN";
+    }
+    else {
+
+        content_ = "HAS LOGGED OUT";
+    }
+
+
+    var msg = {
+        userName: username,
+        content: content_,
+        serverInfo: logIn,
+    }
+
+
+    createMsg(scene, msg);
 }
 
 function LoginVisibility(scene, username, userExists){
