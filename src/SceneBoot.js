@@ -188,17 +188,18 @@ class SceneBoot extends Phaser.Scene {
         this.load.html('formReg', './src/Assets/formRegistro.html');
         this.load.html('formChat', './src/Assets/formChat.html');
 
-
-        var progressBar = this.add.graphics();
         var progressBox = this.add.graphics();
+        var progressBar = this.add.graphics();
         progressBox.fillStyle(0x222222, 0.8);
-        progressBox.fillRect(240, 270, 320, 50);
+        var xx = game.config.width/2;
+        var yy = game.config.height/2+300;
+        progressBox.fillRect(xx-160, yy-25, 320, 50);
 
         this.load.on('progress', function (value) {
             console.log(value);
             progressBar.clear();
-            progressBar.fillStyle(0xffffff, 1);
-            progressBar.fillRect(250, 280, 300 * value, 30);
+            progressBar.fillStyle(0xED7C12, 1);
+            progressBar.fillRect(xx-150, yy-15, 300 * value, 30);
             percentText.setText(parseInt(value * 100) + '%');
         });
                     
@@ -221,8 +222,8 @@ class SceneBoot extends Phaser.Scene {
         var height = this.cameras.main.height;
         var loadingText = this.make.text({
             x: width / 2,
-            y: height / 2 - 50,
-            text: 'Loading...',
+            y: height / 2 + 270,
+            text: '',//'Loading...',
             style: {
                 font: '20px monospace',
                 fill: '#ffffff'
@@ -232,7 +233,7 @@ class SceneBoot extends Phaser.Scene {
 
         var percentText = this.make.text({
             x: width / 2,
-            y: height / 2 - 5,
+            y: height / 2 +300,
             text: '0%',
             style: {
                 font: '18px monospace',
@@ -243,7 +244,7 @@ class SceneBoot extends Phaser.Scene {
 
         var assetText = this.make.text({
             x: width / 2,
-            y: height / 2 + 50,
+            y: height / 2 + 350,
             text: '',
             style: {
                 font: '18px monospace',
