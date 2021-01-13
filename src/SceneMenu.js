@@ -384,8 +384,8 @@ create() {
 
 
     //Log out button
-    this.logOutBtn = this.add.image(loginPos[23], loginPos[24],'Register_Btn')
-    .setScale(0.18);
+    this.logOutBtn = this.add.image(loginPos[23], loginPos[24],'Logout_Btn')
+    .setScale(0.35);
     this.logOutBtn.setInteractive()
     .on('pointerdown', () => this.goCreateUser())
     .on('pointerover', () => this.enterIconHoverState(this.logOutBtn, this) )
@@ -461,10 +461,9 @@ UpdateServer() {
 
 
 goLogInText() {
-
     var inputName = this.accountLogin.getChildByName('user');
     var inputPassword = this.accountLogin.getChildByName('password');
-
+    
     //  Have they entered anything?
     if (inputName.value !== '' && inputPassword.value !== '')
     {
@@ -638,35 +637,30 @@ ShowLoginFields(scene,show)
     loginOut = !loginOut;
 }
 
-CheckLoggedIn(logged,scene)
+CheckLoggedIn(scene)
 {
-    if(logged)
+    console.log("hola holita vecinito" + userName == 'Anon');
+    if (userName !==  'Anon')
     {
-        scene.logOutBtn.setActive(logged);
-        scene.logOutBtn.setVisible(logged);
+    console.log("adiosito holita vecinito");
+    scene.loginRegister.setActive(false);
+    scene.loginRegister.setVisible(false);
 
-        sfx.sounds[0].play();
-        scene.loginBtn.setActive(!logged);
-        scene.loginBtn.setVisible(!logged);
+    scene.loginBtn.setActive(false);
+    scene.loginBtn.setVisible(false);
 
-        scene.loginRegister.setActive(!logged);
-        scene.loginRegister.setVisible(!logged);
+    scene.loginNameField.setActive(false);
+    scene.loginNameField.setVisible(false);
 
-        scene.loginNameField.setActive(!logged);
-        scene.loginNameField.setVisible(!logged);
+    scene.loginPassField.setVisible(false);
+    scene.loginPassField.setActive(false);
 
-        scene.loginPassField.setVisible(!logged);
-        scene.loginPassField.setActive(!logged);
-
-        scene.loginConfirm.setVisible(!logged);
-        scene.loginConfirm.setActive(!logged);
-
-        scene.accountLogin.setVisible(!logged);
-        scene.accountLogin.setActive(!logged);
+    scene.loginConfirm.setVisible(false);
+    scene.loginConfirm.setActive(false);
+   
+    scene.logOutBtn.setVisible(true);
+    scene.logOutBtn.setActive(true);
     }
-        
-
-        
 }
 CloseChat(scene){
     var nX = 0; var nY = 1; 
@@ -804,6 +798,7 @@ MovinBoxes(scene, id)
                 }
                 loginOut = true;
                 this.ShowLoginFields(scene,loginOut);
+
                 this.accountText.setVisible(false);
                 this.accountLogin.setVisible(false);
                 this.accountLogin.setVisible(false);

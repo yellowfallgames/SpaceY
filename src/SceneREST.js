@@ -285,6 +285,8 @@ function LoginVisibility(scene, username, userExists){
         userName = username;
         scene.accountText.setColor("white");
         scene.accountText.setText('Welcome, ' + userName + " !");//*/
+
+        scene.CheckLoggedIn(scene);
     }
     else {
 
