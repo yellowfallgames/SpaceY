@@ -1,3 +1,5 @@
+//const { Input } = require("phaser");
+
 var isTutorial = false;
 //is out
 var chatBoxActive = false;
@@ -243,6 +245,10 @@ create() {
     this.sendButton.setOrigin(0.5);
     this.chatboxStuff = [this.chatbutton, this.chatBase, this.chatFrame, this.chatWritter,this.sendButton, this.globalbutton];
 
+    var key_enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER, false);
+    key_enter.on('down', () => RestCreateMsg(this, userName));
+
+    
     //Chatbox code
     this.chatContent = [];
     loadMsgs(this);
