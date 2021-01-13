@@ -129,7 +129,7 @@ create() {
         repeat: -1,
     });
 
-    this.earthLogo = this.add.image(game.config.width*7/8,game.config.height*1/4,'earthLogo').setScale(0.25);
+    this.earthLogo = this.add.image(game.config.width*7/8,game.config.height*1/4,'earthLogo').setScale(0.2);
     this.tweens.add({
         targets: this.earthLogo,
         duration: 2000,
@@ -620,26 +620,52 @@ enterButtonRestState(boton) {
 //Show login fields
 ShowLoginFields(scene,show)
 {
+        scene.loginRegister.setActive(false);
+        scene.loginRegister.setVisible(false);
+
+        scene.loginBtn.setActive(false);
+        scene.loginBtn.setVisible(false);
+
+        //campos y textos 
+        scene.loginNameField.setActive(false);
+        scene.loginNameField.setVisible(false);
+
+        scene.loginPassField.setVisible(false);
+        scene.loginPassField.setActive(false);
+
+        scene.loginConfirm.setVisible(false);
+        scene.loginConfirm.setActive(false);
+    
+        scene.accountLogin.setVisible(false);
+        scene.accountLogin.setActive(false);
+    if (userName  === "Anon")
+    {
+        //mostramos oscultamos register y log in buttons
+        scene.loginRegister.setActive(!show);
+        scene.loginRegister.setVisible(!show);
+
+        scene.loginBtn.setActive(!show);
+        scene.loginBtn.setVisible(!show);
+        //campos y textos 
+        scene.loginNameField.setActive(show);
+        scene.loginNameField.setVisible(show);
+
+        scene.loginPassField.setVisible(show);
+        scene.loginPassField.setActive(show);
+
+        scene.loginConfirm.setVisible(show);
+        scene.loginConfirm.setActive(show);
+    
+        scene.accountLogin.setVisible(show);
+        scene.accountLogin.setActive(show);
+
+        scene.logOutBtn.setVisible(false);
+        scene.logOutBtn.setActive(false);
+    }
     sfx.sounds[0].play();
-    //mostramos oscultamos register y log in buttons
-    scene.loginRegister.setActive(!show);
-    scene.loginRegister.setVisible(!show);
+    
 
-    scene.loginBtn.setActive(!show);
-    scene.loginBtn.setVisible(!show);
-
-    //campos y textos 
-    scene.loginNameField.setActive(show);
-    scene.loginNameField.setVisible(show);
-
-    scene.loginPassField.setVisible(show);
-    scene.loginPassField.setActive(show);
-
-    scene.loginConfirm.setVisible(show);
-    scene.loginConfirm.setActive(show);
-   
-    scene.accountLogin.setVisible(show);
-    scene.accountLogin.setActive(show);
+    
 
     loginOut = !loginOut;
 }
@@ -788,6 +814,7 @@ MovinBoxes(scene, id)
 
             break;
         case 2: //login loginBox,loginOption;
+        
             
             if(loginOut)    //guardar log in
             {
