@@ -178,6 +178,8 @@ Ventana de título y pequeña introducción con el lanzamiento de un cohete atra
 Primero seleccionarás el avatar y el puesto que ocupas. Tu experiencia será diferente según tu
 posición.  
 
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/navegacion.png?raw=true)
+
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/xp_jugador.png?raw=true)
 
 
