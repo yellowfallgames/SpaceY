@@ -188,6 +188,8 @@ class SceneBoot extends Phaser.Scene {
         this.load.html('formReg', './src/Assets/formRegistro.html');
         this.load.html('formChat', './src/Assets/formChat.html');
 
+
+        //this.load.on('complete',function(){ this.scene.start('SceneMenu');});
     }
 
     create() {
@@ -290,6 +292,6 @@ class SceneBoot extends Phaser.Scene {
         });
 
         //console.log("Acabé");
-        this.scene.stop('SceneBoot');
+        this.scene.start('SceneMenu');
     }
 }
