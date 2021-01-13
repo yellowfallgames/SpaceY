@@ -21,7 +21,7 @@ class SceneBoot extends Phaser.Scene {
 
         this.load.spritesheet('userImages', directory+'User_images.png', { frameWidth: 1134, frameHeight: 964 });
         //Scene Menu
-        this.load.image("bckMenu", directory+"spaceYmenu_bck.png");
+        //this.load.image("bckMenu", directory+"spaceYmenu_bck.png");
         this.load.image("spaceYlogo", directory+"spaceYmenu.png");
         this.load.image("earthLogo", directory+"spaceYmenuEarth.png");
         //Scene Options
@@ -357,5 +357,6 @@ class SceneBoot extends Phaser.Scene {
 
         //console.log("Acabé");
         this.scene.start('SceneMenu');
+        this.scene.stop('SceneLogos');
     }
 }

@@ -635,12 +635,12 @@ class EarthControl {//extends Phaser.GameObjects.Sprite {
         //Meteoritos
         if (n === 0) {
 
-            this.TxtEvents.setText("SE ACERCAN METEORITOS")
+            this.TxtEvents.setText("METEORITES APPROACHING")
             this.tweenTxtEventsIN(n);
         }
         else {
 
-            this.TxtEvents.setText("SE ACERCA UNA TORMENTA")
+            this.TxtEvents.setText("A STORM IS CLOSING IN")
             this.tweenTxtEventsIN(n);
         }
 

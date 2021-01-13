@@ -129,7 +129,7 @@ create() {
         repeat: -1,
     });
 
-    this.earthLogo = this.add.image(game.config.width*7/8,game.config.height*1/4,'earthLogo').setScale(0.2);
+    this.earthLogo = this.add.image(game.config.width*7/8,game.config.height*1/4,'earthLogo').setScale(0.25);
     this.tweens.add({
         targets: this.earthLogo,
         duration: 2000,
@@ -615,9 +615,14 @@ enterButtonRestState(boton) {
 ShowLoginFields(scene,show)
 {
     sfx.sounds[0].play();
+    //mostramos oscultamos register y log in buttons
     scene.loginRegister.setActive(!show);
     scene.loginRegister.setVisible(!show);
 
+    scene.loginBtn.setActive(!show);
+    scene.loginBtn.setVisible(!show);
+
+    //campos y textos 
     scene.loginNameField.setActive(show);
     scene.loginNameField.setVisible(show);
 
@@ -630,18 +635,6 @@ ShowLoginFields(scene,show)
     scene.accountLogin.setVisible(show);
     scene.accountLogin.setActive(show);
 
-    scene.loginBtn.setActive(!show);
-    scene.loginBtn.setVisible(!show);
-
-    if(show == false)
-    {
-        scene.loginNameField.setActive(!show);
-        scene.loginNameField.setVisible(!show);
-
-        scene.loginPassField.setVisible(!show);
-        scene.loginPassField.setActive(!show);
-    }
-    
     loginOut = !loginOut;
 }
 
@@ -795,11 +788,9 @@ MovinBoxes(scene, id)
             break;
         case 2: //login loginBox,loginOption;
             
-            if(loginOut)    //guardar lobby
+            if(loginOut)    //guardar log in
             {
-                this.accountText.setVisible(false);
-                this.accountLogin.setVisible(false);
-
+                
                 for (let i = 0; i < scene.loginStuff.length; i++)
                 {
                     scene.tweens.add({
@@ -813,6 +804,10 @@ MovinBoxes(scene, id)
                 }
                 loginOut = true;
                 this.ShowLoginFields(scene,loginOut);
+                this.accountText.setVisible(false);
+                this.accountLogin.setVisible(false);
+                this.accountLogin.setVisible(false);
+                this.accountLogin.setActive(false);
             }
             else if (!loginOut) //sacar log in
             {
