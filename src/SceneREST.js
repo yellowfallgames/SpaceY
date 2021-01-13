@@ -222,7 +222,8 @@ function setUserOnline(scene, username, online_) {
             "Content-Type": "application/json"
         }
     }).done(function () {
-        GetUserImg(scene, username);
+        if (online_)
+            GetUserImg(scene, username);
     })
 }
 
@@ -285,6 +286,8 @@ function LoginVisibility(scene, username, userExists){
         userName = username;
         scene.accountText.setColor("white");
         scene.accountText.setText('Welcome, ' + userName + " !");//*/
+
+        scene.CheckLoggedIn(scene);
     }
     else {
 

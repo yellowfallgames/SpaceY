@@ -131,7 +131,7 @@ create() {
         repeat: -1,
     });
 
-    this.earthLogo = this.add.image(game.config.width*7/8,game.config.height*1/4,'earthLogo').setScale(0.25);
+    this.earthLogo = this.add.image(game.config.width*7/8,game.config.height*1/4,'earthLogo').setScale(0.2);
     this.tweens.add({
         targets: this.earthLogo,
         duration: 2000,
@@ -390,10 +390,10 @@ create() {
 
 
     //Log out button
-    this.logOutBtn = this.add.image(loginPos[23], loginPos[24],'Register_Btn')
-    .setScale(0.18);
+    this.logOutBtn = this.add.image(loginPos[23], loginPos[24],'Logout_Btn')
+    .setScale(0.35);
     this.logOutBtn.setInteractive()
-    .on('pointerdown', () => this.goCreateUser())
+    .on('pointerdown', () => this.goLogOut())
     .on('pointerover', () => this.enterIconHoverState(this.logOutBtn, this) )
     .on('pointerout', () => this.enterIconRestState(this.logOutBtn))
     this.logOutBtn.setOrigin(0.5);
@@ -467,10 +467,9 @@ UpdateServer() {
 
 
 goLogInText() {
-
     var inputName = this.accountLogin.getChildByName('user');
     var inputPassword = this.accountLogin.getChildByName('password');
-
+    
     //  Have they entered anything?
     if (inputName.value !== '' && inputPassword.value !== '')
     {
@@ -480,6 +479,13 @@ goLogInText() {
         this.accountText.setColor("red");
         this.accountText.setText('User or password incomplete');
     }
+}
+
+goLogOut() {
+
+    userName = "Anon";
+    this.accountText.setText('You have logged out');
+    setUserOnline(this, userName, false);
 }
 
 goCreateUser() {
@@ -620,59 +626,80 @@ enterButtonRestState(boton) {
 //Show login fields
 ShowLoginFields(scene,show)
 {
+        scene.loginRegister.setActive(false);
+        scene.loginRegister.setVisible(false);
+
+        scene.loginBtn.setActive(false);
+        scene.loginBtn.setVisible(false);
+
+        //campos y textos 
+        scene.loginNameField.setActive(false);
+        scene.loginNameField.setVisible(false);
+
+        scene.loginPassField.setVisible(false);
+        scene.loginPassField.setActive(false);
+
+        scene.loginConfirm.setVisible(false);
+        scene.loginConfirm.setActive(false);
+    
+        scene.accountLogin.setVisible(false);
+        scene.accountLogin.setActive(false);
+    if (userName  === "Anon")
+    {
+        //mostramos oscultamos register y log in buttons
+        scene.loginRegister.setActive(!show);
+        scene.loginRegister.setVisible(!show);
+
+        scene.loginBtn.setActive(!show);
+        scene.loginBtn.setVisible(!show);
+        //campos y textos 
+        scene.loginNameField.setActive(show);
+        scene.loginNameField.setVisible(show);
+
+        scene.loginPassField.setVisible(show);
+        scene.loginPassField.setActive(show);
+
+        scene.loginConfirm.setVisible(show);
+        scene.loginConfirm.setActive(show);
+    
+        scene.accountLogin.setVisible(show);
+        scene.accountLogin.setActive(show);
+
+        scene.logOutBtn.setVisible(false);
+        scene.logOutBtn.setActive(false);
+    }
     sfx.sounds[0].play();
-    //mostramos oscultamos register y log in buttons
-    scene.loginRegister.setActive(!show);
-    scene.loginRegister.setVisible(!show);
+    
 
-    scene.loginBtn.setActive(!show);
-    scene.loginBtn.setVisible(!show);
-
-    //campos y textos 
-    scene.loginNameField.setActive(show);
-    scene.loginNameField.setVisible(show);
-
-    scene.loginPassField.setVisible(show);
-    scene.loginPassField.setActive(show);
-
-    scene.loginConfirm.setVisible(show);
-    scene.loginConfirm.setActive(show);
-   
-    scene.accountLogin.setVisible(show);
-    scene.accountLogin.setActive(show);
+    
 
     loginOut = !loginOut;
 }
 
-CheckLoggedIn(logged,scene)
+CheckLoggedIn(scene)
 {
-    if(logged)
+    console.log("hola holita vecinito" + userName == 'Anon');
+    if (userName !==  'Anon')
     {
-        scene.logOutBtn.setActive(logged);
-        scene.logOutBtn.setVisible(logged);
+    console.log("adiosito holita vecinito");
+    scene.loginRegister.setActive(false);
+    scene.loginRegister.setVisible(false);
 
-        sfx.sounds[0].play();
-        scene.loginBtn.setActive(!logged);
-        scene.loginBtn.setVisible(!logged);
+    scene.loginBtn.setActive(false);
+    scene.loginBtn.setVisible(false);
 
-        scene.loginRegister.setActive(!logged);
-        scene.loginRegister.setVisible(!logged);
+    scene.loginNameField.setActive(false);
+    scene.loginNameField.setVisible(false);
 
-        scene.loginNameField.setActive(!logged);
-        scene.loginNameField.setVisible(!logged);
+    scene.loginPassField.setVisible(false);
+    scene.loginPassField.setActive(false);
 
-        scene.loginPassField.setVisible(!logged);
-        scene.loginPassField.setActive(!logged);
-
-        scene.loginConfirm.setVisible(!logged);
-        scene.loginConfirm.setActive(!logged);
-
-        scene.accountLogin.setVisible(!logged);
-        scene.accountLogin.setActive(!logged);
+    scene.loginConfirm.setVisible(false);
+    scene.loginConfirm.setActive(false);
+   
+    scene.logOutBtn.setVisible(true);
+    scene.logOutBtn.setActive(true);
     }
-        
-
-        
 }
 CloseChat(scene){
     var nX = 0; var nY = 1; 
@@ -793,6 +820,7 @@ MovinBoxes(scene, id)
 
             break;
         case 2: //login loginBox,loginOption;
+        
             
             if(loginOut)    //guardar log in
             {
@@ -810,6 +838,7 @@ MovinBoxes(scene, id)
                 }
                 loginOut = true;
                 this.ShowLoginFields(scene,loginOut);
+
                 this.accountText.setVisible(false);
                 this.accountLogin.setVisible(false);
                 this.accountLogin.setVisible(false);
