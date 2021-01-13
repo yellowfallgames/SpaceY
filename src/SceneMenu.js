@@ -138,7 +138,7 @@ create() {
     this.playButton = this.add.text((game.config.width/8)*3, -1000, 'Play', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px'})
     .setInteractive()
     .on('pointerdown', () => this.startGame() )
-    .on('pointerover', () => this.enterIconHoverState(this.playButton) )
+    .on('pointerover', () => this.enterIconHoverState(this.playButton, this) )
     .on('pointerout', () => this.enterIconRestState(this.playButton) );
     this.playButton.setOrigin(0.5);
     this.easeMe(this.playButton, this, 1);
@@ -146,7 +146,7 @@ create() {
     this.tutorialButton = this.add.text((game.config.width/2)*4, -1000, 'Tutorial', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px'})
     .setInteractive()
     .on('pointerdown', () => this.enterTutorial() )
-    .on('pointerover', () => this.enterIconHoverState(this.tutorialButton) )
+    .on('pointerover', () => this.enterIconHoverState(this.tutorialButton, this) )
     .on('pointerout', () => this.enterIconRestState(this.tutorialButton) );
     this.tutorialButton.setOrigin(0.5);
     this.easeMe(this.tutorialButton, this, 2);
@@ -155,7 +155,7 @@ create() {
     this.optionsButton = this.add.text(-1000, (game.config.height/8)*5, 'Options', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px' })
     .setInteractive()
     .on('pointerdown', () => this.enterOptions() )
-    .on('pointerover', () => this.enterIconHoverState(this.optionsButton) )
+    .on('pointerover', () => this.enterIconHoverState(this.optionsButton, this) )
     .on('pointerout', () => this.enterIconRestState(this.optionsButton) );
     this.optionsButton.setOrigin(0.5);
     this.easeMe(this.optionsButton, this, 3);
@@ -164,7 +164,7 @@ create() {
     this.contactButton = this.add.text(game.config.width + 1000, (game.config.height/8)*6, 'Contact', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px' })
     .setInteractive()
     .on('pointerdown', () => this.enterContact() )
-    .on('pointerover', () => this.enterIconHoverState(this.contactButton) )
+    .on('pointerover', () => this.enterIconHoverState(this.contactButton, this) )
     .on('pointerout', () => this.enterIconRestState(this.contactButton) );
     this.contactButton.setOrigin(0.5);
     this.easeMe(this.contactButton, this, 4);
@@ -198,7 +198,7 @@ create() {
     .setScale(0.6);
     this.globalbutton.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this,0))
-    .on('pointerover', () => this.enterIconHoverState(this.globalbutton))
+    .on('pointerover', () => this.enterIconHoverState(this.globalbutton, this))
     .on('pointerout', () => this.enterIconRestState(this.globalbutton))
     this.globalbutton.setOrigin(0.5);
 
@@ -209,7 +209,7 @@ create() {
     .setScale(0.6);
     this.chatbutton.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this ,1))
-    .on('pointerover', () => this.enterIconHoverState(this.chatbutton))
+    .on('pointerover', () => this.enterIconHoverState(this.chatbutton, this))
     .on('pointerout', () => this.enterIconRestState(this.chatbutton))
     this.chatbutton.setOrigin(0.5);
 
@@ -233,7 +233,7 @@ create() {
     .setScale(0.4);
     this.sendButton.setInteractive()
     .on('pointerdown', () => RestCreateMsg(this, userName))
-    .on('pointerover', () => this.enterIconHoverState(this.sendButton) )
+    .on('pointerover', () => this.enterIconHoverState(this.sendButton, this) )
     .on('pointerout', () => this.enterIconRestState(this.sendButton))
     this.sendButton.setOrigin(0.5);
     this.chatboxStuff = [this.chatbutton, this.chatBase, this.chatFrame, this.chatWritter,this.sendButton, this.globalbutton];
@@ -280,7 +280,7 @@ create() {
     .setScale(0.18);
     this.registerBtn.setInteractive()
     .on('pointerdown', () => this.goCreateUser())
-    .on('pointerover', () => this.enterIconHoverState(this.registerBtn) )
+    .on('pointerover', () => this.enterIconHoverState(this.registerBtn, this) )
     .on('pointerout', () => this.enterIconRestState(this.registerBtn))
     this.registerBtn.setOrigin(0.5);
 
@@ -289,7 +289,7 @@ create() {
     .setScale(0.4);
     this.nextImg.setInteractive()
     //.on('pointerdown', () => this.MovinBoxes(this.nextImg, game.config.width , game.config.height, registerOut) )
-    .on('pointerover', () => this.enterIconHoverState(this.nextImg) )
+    .on('pointerover', () => this.enterIconHoverState(this.nextImg, this) )
     .on('pointerout', () => this.enterIconRestState(this.nextImg))
     this.nextImg.setOrigin(0.5);
 
@@ -298,7 +298,7 @@ create() {
     .setScale(-0.4,0.4);
     this.prevImg.setInteractive()
     //.on('pointerdown', () => this.MovinBoxes(this.nextImg, game.config.width , game.config.height, registerOut) )
-    .on('pointerover', () => this.enterIconHoverState(this.prevImg) )
+    .on('pointerover', () => this.enterIconHoverState(this.prevImg, this) )
     .on('pointerout', () => this.enterIconRestState(this.prevImg))
     this.prevImg.setOrigin(0.5);
 
@@ -307,7 +307,7 @@ create() {
     .setScale(0.17);
     this.registerClose.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this ,3 ))
-    .on('pointerover', () => this.enterIconHoverState(this.registerClose) )
+    .on('pointerover', () => this.enterIconHoverState(this.registerClose, this) )
     .on('pointerout', () => this.enterIconRestState(this.registerClose))
     
    
@@ -342,12 +342,12 @@ create() {
     .setScale(0.18);
     this.loginBtn.setInteractive()
     .on('pointerdown', () =>this.ShowLoginFields(this,true))
-    .on('pointerover', () => this.enterIconHoverState(this.loginBtn))
+    .on('pointerover', () => this.enterIconHoverState(this.loginBtn, this))
     .on('pointerout', () => this.enterIconRestState(this.loginBtn));
 
     this.logLoginText = this.add.text(loginPos[16], loginPos[17], 'LOGIN', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
     .setInteractive()
-    .on('pointerover', () => this.enterIconHoverState(this.logLoginText) )
+    .on('pointerover', () => this.enterIconHoverState(this.logLoginText, this) )
     .on('pointerout', () => this.enterIconRestState(this.logLoginText) );
     this.logLoginText.setOrigin(0.5);
     
@@ -364,7 +364,7 @@ create() {
 
     this.logRegText = this.add.text(loginPos[18], loginPos[19], 'REGISTER', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
     .setInteractive()
-    .on('pointerover', () => this.enterIconHoverState(this.logRegText) )
+    .on('pointerover', () => this.enterIconHoverState(this.logRegText, this) )
     .on('pointerout', () => this.enterIconRestState(this.logRegText) );
     this.logRegText.setOrigin(0.5);
     
@@ -380,12 +380,12 @@ create() {
     .setScale(0.14)
     .setInteractive()
     .on('pointerdown', () => this.goLogInText())
-    .on('pointerover', () => this.enterIconHoverState(this.loginSendButton))
+    .on('pointerover', () => this.enterIconHoverState(this.loginSendButton, this))
     .on('pointerout', () => this.enterIconRestState(this.loginSendButton))
     .setVisible(false);
     this.loginSendBtnText = this.add.text(loginPos[22], loginPos[23], 'CONFIRM', { fill: '#000000',fontFamily:'menuFont',fontSize:'15px'})
     .setInteractive()
-    .on('pointerover', () => this.enterIconHoverState(this.loginSendBtnText) )
+    .on('pointerover', () => this.enterIconHoverState(this.loginSendBtnText, this) )
     .on('pointerout', () => this.enterIconRestState(this.loginSendBtnText) );
     this.loginSendBtnText.setOrigin(0.5);
 
@@ -395,7 +395,7 @@ create() {
     .setScale(0.18);
     this.logOutBtn.setInteractive()
     .on('pointerdown', () => this.goCreateUser())
-    .on('pointerover', () => this.enterIconHoverState(this.logOutBtn) )
+    .on('pointerover', () => this.enterIconHoverState(this.logOutBtn, this) )
     .on('pointerout', () => this.enterIconRestState(this.logOutBtn))
     this.logOutBtn.setOrigin(0.5);
     this.logOutBtn.setActive(false);
@@ -403,7 +403,7 @@ create() {
 
     this.logoutBtnText = this.add.text(loginPos[25], loginPos[26], 'LOG OUT', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
     .setInteractive()
-    .on('pointerover', () => this.enterIconHoverState(this.logoutBtnText) )
+    .on('pointerover', () => this.enterIconHoverState(this.logoutBtnText, this) )
     .on('pointerout', () => this.enterIconRestState(this.logoutBtnText) );
     this.logoutBtnText.setOrigin(0.5);
 
