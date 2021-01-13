@@ -274,10 +274,9 @@ create() {
     .setScale(0.4);
     this.registerBox.setOrigin(0.5);
     
-    this.registerBox.setOrigin(0.5);
     //Register button
-    this.registerBtn = this.add.image(regisPos[2], regisPos[3],'Register_Btn')
-    .setScale(0.18);
+    this.registerBtn = this.add.image(regisPos[2], regisPos[3],'Confirm_Btn')
+    .setScale(0.34);
     this.registerBtn.setInteractive()
     .on('pointerdown', () => this.goCreateUser())
     .on('pointerover', () => this.enterIconHoverState(this.registerBtn, this) )
@@ -339,7 +338,7 @@ create() {
     .setScale(0.15);
     //login button to log in
     this.loginBtn = this.add.image(loginPos[6], loginPos[7],'Login_Btn')
-    .setScale(0.3);
+    .setScale(0.35);
     this.loginBtn.setInteractive()
     .on('pointerdown', () =>this.ShowLoginFields(this,true))
     .on('pointerover', () => this.enterIconHoverState(this.loginBtn, this))
@@ -350,7 +349,7 @@ create() {
     .setScale(0.15);
     //login botn regitrarse
     this.loginRegister = this.add.image(loginPos[10], loginPos[11],'Register_Btn')
-    .setScale(0.3);
+    .setScale(0.35);
     this.loginRegister.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this,3) )
     .on('pointerover', () => this.enterIconHoverState(this.loginRegister))
@@ -821,7 +820,7 @@ MovinBoxes(scene, id)
                     nX+=2;nY+=2;
                 }
                 registerOut = false
-                this.ShowRegisternFields(scene,registerOn);
+                //this.ShowRegisternFields(scene,registerOn);
             }
             else if(!registerOut) //sacar register
             {
@@ -838,7 +837,7 @@ MovinBoxes(scene, id)
                     nX+=2;nY+=2;
                 }
                 registerOut = true
-                this.ShowRegisternFields(scene,registerOn);
+                //this.ShowRegisternFields(scene,registerOn);
             }
             
             break;
