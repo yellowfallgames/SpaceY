@@ -55,6 +55,10 @@ Ver en el apartado de controles la distribución de los mismos para dos jugadore
 Elegir que posición tomará el jugador, y en el menú principal pulsar sobre PLAY. 
 
 - ¿Cómo jugar Online?
+Método servidor .jar:
+Descargar el contenido de la carpeta Space_Y_Server
+Ejecutar el .jar y esperar a que el Servidor cargue todos los Assets del juego
+Proporcionar a los jugadore sla URL de la máquina que hace de servidor. 
 
 Método OpenVPN: 
 1. Descargar la carpeta que contiene los archivos de configuración del servidor (CARPETA): SpaceY_0.9.jar, Run_Server.bat, la base de datos BD_SpaceY.accdb y el archivo de configuracion del servidor de OpenVPN PepePm.SpaceY.ovpn 
@@ -386,14 +390,13 @@ Controles supervisor:
 
 MEJORAS EN CONECTIVIDAD:
 -Hemos añadido una base de datos para registrar los usuarios, sus contraseñas, sus mensajes y su imagen de perfil.  
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/visual1.png?raw=true)
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/registro.png?raw=true)
 -Hemos añadido un CHAT implementado en el icono del MENSAJE en el menú principal. 
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/chat.PNG?raw=true)
 -Hemos añadido una consola para el estado del SERVIDOR implementado en el icono del MUNDO en el menú principal. 
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/global.PNG?raw=true)
 -Hemos añadido una caja para iniciar sesión y registrarse en la base de datos del juego que identifica los usuarios conectados. Además permitimos personalización.
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/login.PNG?raw=true)
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/register.PNG?raw=true)
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/usericon.PNG?raw=true)
 
 
