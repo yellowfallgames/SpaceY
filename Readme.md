@@ -335,7 +335,7 @@ puntos de victoria.
 
 **Navegación**
 
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/diagramaFlujo.png?raw=true)
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/DIAGRAMA_DE_FLUJO.png?raw=true)
 
 
 ### FASE 2: MODO LOCAL
@@ -476,4 +476,6 @@ Se ha implementado una escena de contactos con una pequeña caricatura de los de
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/img_sceneDefeat.png?raw=true)
 
 **● Diagrama de clases:**
+**Diagrama api rest de la aplicación.**
 
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/diagrama_clases.png?raw=true)
