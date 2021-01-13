@@ -273,7 +273,7 @@ create() {
     this.writeTextChat = this.add.dom(1280, 785).createFromCache('formChat').setVisible(false);
 
     /*this.writeTextChat.addListener("keydown", event => {
-        console.log("ddddd");
+        //console.log("ddddd");
         if (event.isComposing || event.keyCode === 13) {
             RestCreateMsg(this, userName);
         }
@@ -679,10 +679,10 @@ ShowLoginFields(scene,show)
 
 CheckLoggedIn(scene)
 {
-    console.log("hola holita vecinito" + userName == 'Anon');
+    //console.log("hola holita vecinito" + userName == 'Anon');
     if (userName !==  'Anon')
     {
-    console.log("adiosito holita vecinito");
+    //console.log("adiosito holita vecinito");
     scene.loginRegister.setActive(false);
     scene.loginRegister.setVisible(false);
 

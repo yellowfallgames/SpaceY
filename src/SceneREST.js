@@ -39,7 +39,7 @@ function createMsg(scene, msg) {
             "Content-Type": "application/json"
         }
     }).done(function (msg) {
-        //console.log("Message created: " + JSON.stringify(msg));
+        ////console.log("Message created: " + JSON.stringify(msg));
         loadMsgs(scene);
     })
 }
@@ -50,7 +50,7 @@ function loadMsgs(scene) {
         url: urlServer+'/messages',
 
     }).done(function (msgs) {
-        //console.log('Messages loaded: ' + JSON.stringify(msgs));
+        ////console.log('Messages loaded: ' + JSON.stringify(msgs));
 
         if (msgs.length != scene.chatContent.length) {
 
@@ -69,7 +69,7 @@ function loadMsgs(scene) {
                 
                 lineasChat += Math.ceil(scene.chatContent[i].length/35);
             }
-            //console.log("lineasChat: " + lineasChat);
+            ////console.log("lineasChat: " + lineasChat);
             
             scene.chatText.setText(scene.chatContent);
             if (lineasChat < 21) {
@@ -85,7 +85,7 @@ function loadMsgs(scene) {
 //Show item in page
 function showMsg(msg) {
 
-    console.log("Mensajes: " + msg.content);
+    //console.log("Mensajes: " + msg.content);
 }
 
 
@@ -118,7 +118,7 @@ function createUser(scene, user) {
             "Content-Type": "application/json"
         }
     }).done(function () {
-        //console.log("User created: " + JSON.stringify(user));
+        ////console.log("User created: " + JSON.stringify(user));
 
         scene.regLogin.getChildByName("user").value = "";
         scene.regLogin.getChildByName("email").value = "";
@@ -136,7 +136,7 @@ function loadUsers() {
     $.ajax({
         url: urlServer+'/users'
     }).done(function (users) {
-        console.log('Users loaded: ' + JSON.stringify(users));
+        //console.log('Users loaded: ' + JSON.stringify(users));
     })
 }
 
@@ -274,7 +274,7 @@ function GetUserImg(scene, username){
         url: urlServer+'/users/'+username,
         data: username,
     }).done(function (numImg) {
-        console.log("Imagen: " + numImg);
+        //console.log("Imagen: " + numImg);
         scene.userImage.setFrame(numImg);
     })
 
@@ -325,12 +325,12 @@ function isServerOnline(scene) {
         },
 
     }).done(function (msgs) {
-        console.log('Messages loaded: ' + JSON.stringify(msgs));
+        //console.log('Messages loaded: ' + JSON.stringify(msgs));
 
-        console.log('Historial mensajes: ');
+        //console.log('Historial mensajes: ');
         for (var i=0; i < msgs.length; i++) {
 
-            console.log(msgs[i].userName + ": " + msgs[i].content);
+            //console.log(msgs[i].userName + ": " + msgs[i].content);
         }
         
     })
@@ -457,7 +457,7 @@ function loadItems(callback) {
     $.ajax({
         url: urlServer+'/items'
     }).done(function (items) {
-        console.log('Items loaded: ' + JSON.stringify(items));
+        //console.log('Items loaded: ' + JSON.stringify(items));
         callback(items);
     })
 }
@@ -473,7 +473,7 @@ function createItem(item, callback) {
             "Content-Type": "application/json"
         }
     }).done(function (item) {
-        console.log("Item created: " + JSON.stringify(item));
+        //console.log("Item created: " + JSON.stringify(item));
         callback(item);
     })
 }
@@ -489,7 +489,7 @@ function updateItem(item) {
             "Content-Type": "application/json"
         }
     }).done(function (item) {
-        console.log("Updated item: " + JSON.stringify(item))
+        //console.log("Updated item: " + JSON.stringify(item))
     })
 }
 
@@ -499,7 +499,7 @@ function deleteItem(itemId) {
         method: 'DELETE',
         url: urlServer+'/items/' + itemId
     }).done(function (item) {
-        console.log("Deleted item " + itemId)
+        //console.log("Deleted item " + itemId)
     })
 }
 

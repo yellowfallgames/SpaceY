@@ -2,7 +2,7 @@ var sfx = undefined;
 var soundtrack = undefined;
  //"http://193.161.193.99:24953";//"http://localhost:8080"; //"http://193.161.193.99:63511";
 
-var urlServer = "http://localhost:8080";
+var urlServer = "http://193.161.193.99:63511";
 
 class SceneBoot extends Phaser.Scene {
     
@@ -196,7 +196,7 @@ class SceneBoot extends Phaser.Scene {
         progressBox.fillRect(xx-160, yy-25, 320, 50);
 
         this.load.on('progress', function (value) {
-            console.log(value);
+            //console.log(value);
             progressBar.clear();
             progressBar.fillStyle(0xED7C12, 1);
             progressBar.fillRect(xx-150, yy-15, 300 * value, 30);
@@ -204,13 +204,13 @@ class SceneBoot extends Phaser.Scene {
         });
                     
         this.load.on('fileprogress', function (file) {
-            console.log(file.src);
+            //console.log(file.src);
             assetText.setText('Loading asset: ' + file.key);
             //assetText.setText('Loading asset: ' + file.src);
         });
         
         this.load.on('complete', function () {
-            console.log('complete');
+            //console.log('complete');
             progressBar.destroy();
             progressBox.destroy();
             loadingText.destroy();
@@ -356,7 +356,7 @@ class SceneBoot extends Phaser.Scene {
             repeat: 0,
         });
 
-        //console.log("Acabé");
+        ////console.log("Acabé");
         this.scene.start('SceneMenu');
         this.scene.stop('SceneLogos');
     }

@@ -417,7 +417,7 @@ class SceneTutorial extends Phaser.Scene {
             //emitter.setPosition(Phaser.Math.Between(0, game.config.width), 0)
             emitterStorm.emitZoneIndex = 1;
             emitterStorm.active = false;
-            console.log("APAGA");
+            //console.log("APAGA");
         });
         //*/
     
@@ -543,7 +543,7 @@ class SceneTutorial extends Phaser.Scene {
           emitterMachines[2].emitParticleAt(emitterMachines[2].posX, emitterMachines[2].posY);
           emitterMachines[3].emitParticleAt(emitterMachines[3].posX, emitterMachines[3].posY);
         */
-        //console.log("Pos X: " + emitterMachines[0].posX + "\nPos Y: " + emitterMachines[0].posY);
+        ////console.log("Pos X: " + emitterMachines[0].posX + "\nPos Y: " + emitterMachines[0].posY);
         
 
         /*if ((key_left.isDown || key_right.isDown) && !startSfxRun) {
@@ -699,7 +699,7 @@ function CrearMascara(scene,posXM,posYM,tipoM, posXT,posYT,tipoT){
             //mascara cuadrada tierra
             maskMarte.fillStyle(000000,1);  //color y alpha
             maskMarte.fillRect(posXT,posYT,100,100);  //x, y,width height
-            //console.log('letsgo');
+            ////console.log('letsgo');
             break;
         case 'c':
             //mascara circular  tierra
