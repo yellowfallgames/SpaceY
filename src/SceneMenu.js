@@ -69,12 +69,8 @@ class SceneMenu extends Phaser.Scene {
         340,110,     //regiter button
         110,115,     //field name
         365,115,     //field password
-        110,100,     //Texto Login
-        340,100,     //Texto Registro
         540,115,     //login confirm
-        540,115,     //login confirm text
         340,110,     //logout button
-        340,100     //Texto logout
     ];
     loginPos = [
         70,70,    //login option, 
@@ -82,17 +78,11 @@ class SceneMenu extends Phaser.Scene {
         loginTween[4]-loginOffset, loginTween[5], //login dfault profile picture
         loginTween[6]-loginOffset, loginTween[7], //login btn
         loginTween[8]-loginOffset, loginTween[9], //login profilepic
-        loginTween[10]-loginOffset, loginTween[11], //regitro boton
+        loginTween[10]-loginOffset, loginTween[11], //register boton
         loginTween[12]-loginOffset, loginTween[13], //field name
         loginTween[14]-loginOffset, loginTween[15], //field pass
-        loginTween[16]-loginOffset, loginTween[17], //Texto Login
-        loginTween[18]-loginOffset, loginTween[19], //Texto Registro
-        loginTween[20]-loginOffset, loginTween[21], //Texto confirm
-        loginTween[21]-loginOffset, loginTween[22], //Texto confirm login
-        loginTween[23]-loginOffset, loginTween[24], //boton logout
-        loginTween[25]-loginOffset, loginTween[26], //texto logout
-        
-        
+        loginTween[16]-loginOffset, loginTween[17], //login confirm
+        loginTween[18]-loginOffset, loginTween[19], //logout button 
     ];
 
 
@@ -336,7 +326,7 @@ create() {
     .setScale(0.14);
     this.loginBox.setOrigin(0.5);
 
-    //login opcion
+    //icono para abrir login
     this.loginOption = this.add.image(loginPos[0], loginPos[1],'Login_Option')
     .setScale(0.7);
     this.loginOption.setOrigin(0.5);
@@ -349,34 +339,22 @@ create() {
     .setScale(0.15);
     //login button to log in
     this.loginBtn = this.add.image(loginPos[6], loginPos[7],'Login_Btn')
-    .setScale(0.18);
+    .setScale(0.3);
     this.loginBtn.setInteractive()
     .on('pointerdown', () =>this.ShowLoginFields(this,true))
     .on('pointerover', () => this.enterIconHoverState(this.loginBtn, this))
     .on('pointerout', () => this.enterIconRestState(this.loginBtn));
-
-    this.logLoginText = this.add.text(loginPos[16], loginPos[17], 'LOGIN', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
-    .setInteractive()
-    .on('pointerover', () => this.enterIconHoverState(this.logLoginText, this) )
-    .on('pointerout', () => this.enterIconRestState(this.logLoginText) );
-    this.logLoginText.setOrigin(0.5);
     
     //login picture
     this.loginProfilepic = this.add.image(loginPos[8], loginPos[9],'Login_Profile')
     .setScale(0.15);
     //login botn regitrarse
     this.loginRegister = this.add.image(loginPos[10], loginPos[11],'Register_Btn')
-    .setScale(0.18);
+    .setScale(0.3);
     this.loginRegister.setInteractive()
     .on('pointerdown', () => this.MovinBoxes(this,3) )
     .on('pointerover', () => this.enterIconHoverState(this.loginRegister))
     .on('pointerout', () => this.enterIconRestState(this.loginRegister));
-
-    this.logRegText = this.add.text(loginPos[18], loginPos[19], 'REGISTER', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
-    .setInteractive()
-    .on('pointerover', () => this.enterIconHoverState(this.logRegText, this) )
-    .on('pointerout', () => this.enterIconRestState(this.logRegText) );
-    this.logRegText.setOrigin(0.5);
     
     //login field name base
     this.loginNameField = this.add.image(loginPos[12], loginPos[13],'Login_Field')
@@ -386,18 +364,14 @@ create() {
     .setScale(0.12).setVisible(false);
 
     //Login send button
-    this.loginSendButton = this.add.image(loginPos[20], loginPos[21],'Login_Btn')
-    .setScale(0.14)
+    this.loginConfirm = this.add.image(loginPos[20], loginPos[21],'Confirm_Btn')
+    .setScale(0.3)
     .setInteractive()
     .on('pointerdown', () => this.goLogInText())
-    .on('pointerover', () => this.enterIconHoverState(this.loginSendButton, this))
-    .on('pointerout', () => this.enterIconRestState(this.loginSendButton))
+    .on('pointerover', () => this.enterIconHoverState(this.loginConfirm, this))
+    .on('pointerout', () => this.enterIconRestState(this.loginConfirm))
     .setVisible(false);
-    this.loginSendBtnText = this.add.text(loginPos[22], loginPos[23], 'CONFIRM', { fill: '#000000',fontFamily:'menuFont',fontSize:'15px'})
-    .setInteractive()
-    .on('pointerover', () => this.enterIconHoverState(this.loginSendBtnText, this) )
-    .on('pointerout', () => this.enterIconRestState(this.loginSendBtnText) );
-    this.loginSendBtnText.setOrigin(0.5);
+    
 
 
     //Log out button
@@ -411,15 +385,8 @@ create() {
     this.logOutBtn.setActive(false);
     this.logOutBtn.setVisible(false);
 
-    this.logoutBtnText = this.add.text(loginPos[25], loginPos[26], 'LOG OUT', { fill: '#000000',fontFamily:'menuFont',fontSize:'25px'})
-    .setInteractive()
-    .on('pointerover', () => this.enterIconHoverState(this.logoutBtnText, this) )
-    .on('pointerout', () => this.enterIconRestState(this.logoutBtnText) );
-    this.logoutBtnText.setOrigin(0.5);
-    this.logoutBtnText.setActive(false);
-    this.logoutBtnText.setVisible(false);
 
-    this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField,this.logLoginText,this.logRegText,this.loginSendButton,this.loginSendBtnText,this.logOutBtn,this.logoutBtnText];
+    this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField,this.loginConfirm,this.logOutBtn];
 
     
 
@@ -627,23 +594,15 @@ ShowLoginFields(scene,show)
     scene.loginRegister.setActive(!show);
     scene.loginRegister.setVisible(!show);
 
-    scene.logLoginText.setActive(!show);
-    scene.logLoginText.setVisible(!show);
-
-    scene.logRegText.setActive(!show);
-    scene.logRegText.setVisible(!show);
-
     scene.loginNameField.setActive(show);
     scene.loginNameField.setVisible(show);
 
     scene.loginPassField.setVisible(show);
     scene.loginPassField.setActive(show);
 
-    scene.loginSendButton.setVisible(show);
-    scene.loginSendButton.setActive(show);
-    scene.loginSendBtnText.setVisible(show);
-    scene.loginSendBtnText.setActive(show);
-
+    scene.loginConfirm.setVisible(show);
+    scene.loginConfirm.setActive(show);
+   
     scene.accountLogin.setVisible(show);
     scene.accountLogin.setActive(show);
 }
@@ -662,22 +621,14 @@ CheckLoggedIn(logged,scene)
         scene.loginRegister.setActive(!logged);
         scene.loginRegister.setVisible(!logged);
 
-        scene.logLoginText.setActive(!logged);
-        scene.logLoginText.setVisible(!logged);
-
-        scene.logRegText.setActive(!logged);
-        scene.logRegText.setVisible(!logged);
-
         scene.loginNameField.setActive(!logged);
         scene.loginNameField.setVisible(!logged);
 
         scene.loginPassField.setVisible(!logged);
         scene.loginPassField.setActive(!logged);
 
-        scene.loginSendButton.setVisible(!logged);
-        scene.loginSendButton.setActive(!logged);
-        scene.loginSendBtnText.setVisible(!logged);
-        scene.loginSendBtnText.setActive(!logged);
+        scene.loginConfirm.setVisible(!logged);
+        scene.loginConfirm.setActive(!logged);
 
         scene.accountLogin.setVisible(!logged);
         scene.accountLogin.setActive(!logged);
