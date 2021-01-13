@@ -476,4 +476,5 @@ Se ha implementado una escena de contactos con una pequeña caricatura de los de
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/img_sceneDefeat.png?raw=true)
 
 **● Diagrama de clases:**
+**Diagrama api rest de la aplicación.**
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/diagrama_api_rest_backend.png?raw=true)
