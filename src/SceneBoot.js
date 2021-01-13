@@ -21,6 +21,7 @@ class SceneBoot extends Phaser.Scene {
         //Scene Menu
         this.load.image("bckMenu", directory+"spaceYmenu_bck.png");
         this.load.image("spaceYlogo", directory+"spaceYmenu.png");
+        this.load.image("earthLogo", directory+"spaceYmenuEarth.png");
         //Scene Options
          this.load.image("radio", directory+"radio.png");
          this.load.image("altavoces", directory+"altavoces.png");

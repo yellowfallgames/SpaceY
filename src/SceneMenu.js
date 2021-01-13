@@ -134,6 +134,16 @@ create() {
         repeat: -1,
     });
 
+    this.earthLogo = this.add.image(game.config.width*7/8,game.config.height*1/4,'earthLogo').setScale(0.2);
+    this.tweens.add({
+        targets: this.earthLogo,
+        duration: 2000,
+        y: this.earthLogo.y-25,
+        ease: 'linear',
+        yoyo: true,
+        repeat: -1,
+    });
+
     //ASIGNACION DE METODO
     this.playButton = this.add.text((game.config.width/8)*3, -1000, 'Play', { fill: '#FEDEBE',fontFamily:'menuFont',fontSize:'60px'})
     .setInteractive()
