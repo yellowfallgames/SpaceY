@@ -144,9 +144,17 @@ function loadLobby(scene) {
     $.ajax({
         url: urlServer+'/users/online'
     }).done(function (users) {
+
+        scene.lobbyContent = ['Connected users:'];
+
         for (var i=0; i < users.length; i++) {
 
             scene.lobbyContent[i+1] = users[i].name;
+        }
+
+        if (users.length == 0) {
+
+            scene.lobbyContent[1] = "";
         }
 
         scene.lobbyText.setText(scene.lobbyContent);
@@ -222,8 +230,17 @@ function setUserOnline(scene, username, online_) {
             "Content-Type": "application/json"
         }
     }).done(function () {
-        if (online_)
+        if (online_) {
+
             GetUserImg(scene, username);
+        }
+        else {
+
+            scene.accountText.setText('You have logged out');
+            userName = "Anon";
+            scene.MovinBoxes(scene, 2);
+        }
+            
     })
 }
 

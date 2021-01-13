@@ -461,6 +461,9 @@ UpdateServer() {
 
 
 goLogInText() {
+    this.accountText.setColor("white");
+    this.accountText.setText('Logging in...');
+
     var inputName = this.accountLogin.getChildByName('user');
     var inputPassword = this.accountLogin.getChildByName('password');
     
@@ -477,12 +480,14 @@ goLogInText() {
 
 goLogOut() {
 
-    userName = "Anon";
-    this.accountText.setText('You have logged out');
+    this.accountText.setText('Logging out...');
     setUserOnline(this, userName, false);
 }
 
 goCreateUser() {
+
+    this.accountText.setColor("white");
+    this.accountText.setText('Registering...');
 
     var user = this.regLogin.getChildByName("user").value;
     var email = this.regLogin.getChildByName("email").value;
