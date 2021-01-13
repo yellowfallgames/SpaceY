@@ -1,7 +1,8 @@
 var sfx = undefined;
 var soundtrack = undefined;
+ //"http://193.161.193.99:24953";//"http://localhost:8080"; //"http://193.161.193.99:63511";
 
-var urlServer = "http://localhost:8080"; //"http://193.161.193.99:63511";//
+var urlServer = "http://193.161.193.99:63511";
 
 class SceneBoot extends Phaser.Scene {
     
@@ -22,6 +23,7 @@ class SceneBoot extends Phaser.Scene {
         //Scene Menu
         this.load.image("bckMenu", directory+"spaceYmenu_bck.png");
         this.load.image("spaceYlogo", directory+"spaceYmenu.png");
+        this.load.image("earthLogo", directory+"spaceYmenuEarth.png");
         //Scene Options
          this.load.image("radio", directory+"radio.png");
          this.load.image("altavoces", directory+"altavoces.png");
@@ -129,14 +131,16 @@ class SceneBoot extends Phaser.Scene {
         
 
         //REGISTER
-        this.load.image('Register_Btn',  directory +'register_button_box.png');
+        this.load.image('Register_Btn',  directory +'REGISTER_BUTTON-08.png');
         this.load.image('Register_Form',  directory +'Register_InputBox.png');
         this.load.image('Register_Arrow',  directory +'Register_NextImg.png');
         this.load.image('Register_Close',  directory +'close_button.png');
         
         //LOGIN
-        this.load.image('Login_Btn',  directory +'login_button_box.png');
-        this.load.image('Login_Option',  directory +'Login_Button.png');
+        this.load.image('Login_Btn',  directory +'LOGIN_BUTTON-08.png');
+        this.load.image('Confirm_Btn',  directory +'CONFIRM_BUTTON-08.png');
+        this.load.image('Logout_Btn',  directory +'logout_button-08.png');
+        this.load.image('Login_Option',  directory +'Login_Button.png');    //icono que abre el login
         this.load.image('Login_Default',  directory +'login_picture.png');
         this.load.image('Login_Box',  directory +'Login_input.png');
         this.load.image('Login_Profile',  directory +'profile_holder-07.png');
