@@ -129,7 +129,7 @@ create() {
         repeat: -1,
     });
 
-    this.earthLogo = this.add.image(game.config.width*7/8,game.config.height*1/4,'earthLogo').setScale(0.2);
+    this.earthLogo = this.add.image(game.config.width*7/8,game.config.height*1/4,'earthLogo').setScale(0.25);
     this.tweens.add({
         targets: this.earthLogo,
         duration: 2000,

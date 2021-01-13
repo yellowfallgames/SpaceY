@@ -21,7 +21,7 @@ class SceneBoot extends Phaser.Scene {
 
         this.load.spritesheet('userImages', directory+'User_images.png', { frameWidth: 1134, frameHeight: 964 });
         //Scene Menu
-        this.load.image("bckMenu", directory+"spaceYmenu_bck.png");
+        //this.load.image("bckMenu", directory+"spaceYmenu_bck.png");
         this.load.image("spaceYlogo", directory+"spaceYmenu.png");
         this.load.image("earthLogo", directory+"spaceYmenuEarth.png");
         //Scene Options
@@ -188,6 +188,71 @@ class SceneBoot extends Phaser.Scene {
         this.load.html('formReg', './src/Assets/formRegistro.html');
         this.load.html('formChat', './src/Assets/formChat.html');
 
+        var progressBox = this.add.graphics();
+        var progressBar = this.add.graphics();
+        progressBox.fillStyle(0x222222, 0.8);
+        var xx = game.config.width/2;
+        var yy = game.config.height/2+300;
+        progressBox.fillRect(xx-160, yy-25, 320, 50);
+
+        this.load.on('progress', function (value) {
+            console.log(value);
+            progressBar.clear();
+            progressBar.fillStyle(0xED7C12, 1);
+            progressBar.fillRect(xx-150, yy-15, 300 * value, 30);
+            percentText.setText(parseInt(value * 100) + '%');
+        });
+                    
+        this.load.on('fileprogress', function (file) {
+            console.log(file.src);
+            assetText.setText('Loading asset: ' + file.key);
+            //assetText.setText('Loading asset: ' + file.src);
+        });
+        
+        this.load.on('complete', function () {
+            console.log('complete');
+            progressBar.destroy();
+            progressBox.destroy();
+            loadingText.destroy();
+            percentText.destroy();
+            assetText.destroy();
+        });
+
+        var width = this.cameras.main.width;
+        var height = this.cameras.main.height;
+        var loadingText = this.make.text({
+            x: width / 2,
+            y: height / 2 + 270,
+            text: '',//'Loading...',
+            style: {
+                font: '20px monospace',
+                fill: '#ffffff'
+            }
+        });
+        loadingText.setOrigin(0.5, 0.5);
+
+        var percentText = this.make.text({
+            x: width / 2,
+            y: height / 2 +300,
+            text: '0%',
+            style: {
+                font: '18px monospace',
+                fill: '#ffffff'
+            }
+        });
+        percentText.setOrigin(0.5, 0.5);
+
+        var assetText = this.make.text({
+            x: width / 2,
+            y: height / 2 + 350,
+            text: '',
+            style: {
+                font: '18px monospace',
+                fill: '#ffffff'
+            }
+        });
+        assetText.setOrigin(0.5, 0.5);
+
 
         //this.load.on('complete',function(){ this.scene.start('SceneMenu');});
     }
@@ -293,5 +358,6 @@ class SceneBoot extends Phaser.Scene {
 
         //console.log("Acabé");
         this.scene.start('SceneMenu');
+        this.scene.stop('SceneLogos');
     }
 }
