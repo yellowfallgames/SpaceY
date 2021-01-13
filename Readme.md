@@ -176,8 +176,9 @@ El juego requerirá un mínimo de dos jugadores y se jugará en los siguientes m
 Ventana de título y pequeña introducción con el lanzamiento de un cohete atravesando la
 órbita de Marte.    
 Primero seleccionarás el avatar y el puesto que ocupas. Tu experiencia será diferente según tu
-posición.    
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/xp_jugador.png?raw=true)
+posición.  
+
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/xp_jugador.png?raw=true)
 
 
 **Supervisor:**
@@ -308,6 +309,7 @@ puntos de victoria.
 
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaFasesT.png?raw=true)
 
+
 **Sistema de puntuación**
 
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/tablaPuntuacion.png?raw=true)
@@ -316,6 +318,7 @@ puntos de victoria.
 **Diagrama de fuentes, recursos y conversores**    
 
 ![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/recursos.png?raw=true)
+
 
 **Diseño de nivel**
 
