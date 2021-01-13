@@ -89,7 +89,7 @@ function showMsg(msg) {
 }
 
 
-function RestCreateUser (scene, name_, pass_) {
+function RestCreateUser (scene, name_, pass_, img) {
 
     var name = name_;
     var pass = sha256(pass_);
@@ -97,7 +97,8 @@ function RestCreateUser (scene, name_, pass_) {
     var user = {
         name: name,
         password: pass,
-        online: false
+        online: false,
+        userImg: img
     }
 
     CheckUsernameDB(scene, user);
@@ -221,7 +222,7 @@ function setUserOnline(scene, username, online_) {
             "Content-Type": "application/json"
         }
     }).done(function () {
-        console.log("onlineee");
+        GetUserImg(scene, username);
     })
 }
 
@@ -248,6 +249,18 @@ function RestCreateLoginOutMsg (scene, username, logIn) {
     createMsg(scene, msg);
 }
 
+function GetUserImg(scene, username){
+
+    $.ajax({
+        url: urlServer+'/users/'+username,
+        data: username,
+    }).done(function (numImg) {
+        console.log("Imagen: " + numImg);
+        scene.userImage.setFrame(numImg);
+    })
+
+}
+
 function LoginVisibility(scene, username, userExists){
 
     if (userExists) {
@@ -258,6 +271,9 @@ function LoginVisibility(scene, username, userExists){
         //Valores por defecto
         scene.accountLogin.getChildByName('user').value = "";
         scene.accountLogin.getChildByName('password').value = "";
+
+        //Imagen de perfil visible
+        scene.userImage.setFrame();
 
         //  Turn off the click events
         scene.accountLogin.removeListener('click');

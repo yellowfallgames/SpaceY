@@ -74,7 +74,8 @@ class SceneMenu extends Phaser.Scene {
         540,115,     //login confirm
         540,115,     //login confirm text
         340,110,     //logout button
-        340,100     //Texto logout
+        340,100,     //Texto logout
+        540,90      //UserImg
     ];
     loginPos = [
         70,70,    //login option, 
@@ -91,6 +92,7 @@ class SceneMenu extends Phaser.Scene {
         loginTween[21]-loginOffset, loginTween[22], //Texto confirm login
         loginTween[23]-loginOffset, loginTween[24], //boton logout
         loginTween[25]-loginOffset, loginTween[26], //texto logout
+        loginTween[27]-loginOffset, loginTween[28]//UserImg
         
         
     ];
@@ -105,6 +107,7 @@ class SceneMenu extends Phaser.Scene {
         game.config.width/4+240,340, //dech
         game.config.width/4+100,340, //izq
         110,200, //cerrar 
+        572, 286//userImg
     ];
     regisPos = [
         regisTween[0]-registerOffset, regisTween[1],   //regisbox
@@ -112,6 +115,7 @@ class SceneMenu extends Phaser.Scene {
        regisTween[4]-registerOffset, regisTween[5], //dch
        regisTween[6]-registerOffset, regisTween[7], //izq
        regisTween[8]-registerOffset, regisTween[9], //cerrar
+       regisTween[10]-registerOffset, regisTween[11],//userImg
     ];
     
     }
@@ -284,11 +288,16 @@ create() {
     .on('pointerout', () => this.enterIconRestState(this.registerBtn))
     this.registerBtn.setOrigin(0.5);
 
+    //RegisterImg
+    this.regUserImgNum = 1;
+    this.userImg = this.add.image(regisPos[10], regisPos[11],'userImages', this.regUserImgNum).setScale(0.16).setOrigin(0.5);
+    
+
     //Register next img
     this.nextImg = this.add.image(regisPos[4], regisPos[5],'Register_Arrow')
     .setScale(0.4);
     this.nextImg.setInteractive()
-    //.on('pointerdown', () => this.MovinBoxes(this.nextImg, game.config.width , game.config.height, registerOut) )
+    .on('pointerdown', () => this.RegNextImg(1) )
     .on('pointerover', () => this.enterIconHoverState(this.nextImg, this) )
     .on('pointerout', () => this.enterIconRestState(this.nextImg))
     this.nextImg.setOrigin(0.5);
@@ -297,7 +306,7 @@ create() {
     this.prevImg = this.add.image(regisPos[6], regisPos[7],'Register_Arrow')
     .setScale(-0.4,0.4);
     this.prevImg.setInteractive()
-    //.on('pointerdown', () => this.MovinBoxes(this.nextImg, game.config.width , game.config.height, registerOut) )
+    .on('pointerdown', () => this.RegNextImg(-1) )
     .on('pointerover', () => this.enterIconHoverState(this.prevImg, this) )
     .on('pointerout', () => this.enterIconRestState(this.prevImg))
     this.prevImg.setOrigin(0.5);
@@ -311,7 +320,7 @@ create() {
     .on('pointerout', () => this.enterIconRestState(this.registerClose))
     
    
-    this.registerStuff = [this.registerBox, this.registerBtn, this.nextImg, this.prevImg,this.registerClose];
+    this.registerStuff = [this.registerBox, this.registerBtn, this.nextImg, this.prevImg, this.registerClose, this.userImg];
     
     //LOGIN
     //login option
@@ -407,7 +416,11 @@ create() {
     .on('pointerout', () => this.enterIconRestState(this.logoutBtnText) );
     this.logoutBtnText.setOrigin(0.5);
 
-    this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField, this.loginPassField,this.logLoginText,this.logRegText,this.loginSendButton,this.loginSendBtnText,this.logOutBtn,this.logoutBtnText];
+    //UserImage
+    this.userImage = this.add.image(loginPos[27], loginPos[28],'userImages', 0).setScale(0.1);
+
+    this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField,
+         this.loginPassField,this.logLoginText,this.logRegText,this.loginSendButton,this.loginSendBtnText,this.logOutBtn,this.logoutBtnText, this.userImage];
 
     
 
@@ -443,7 +456,23 @@ create() {
 //setUserOnline(that, userName, false);
 }
 
+ShowUserImage(img) {
 
+
+}
+
+RegNextImg(dir){
+
+    this.regUserImgNum += dir;
+
+    if (this.regUserImgNum === 5)
+        this.regUserImgNum = 1;
+
+    if (this.regUserImgNum === 0)
+        this.regUserImgNum = 4;
+
+    this.userImg.setFrame(this.regUserImgNum);
+}
 
 
 UpdateServer() {
@@ -480,7 +509,7 @@ goCreateUser() {
     if (user !== "" && email !== "" && pass !== "" && passConfirm !== "") {
 
         if (pass === passConfirm) {
-            RestCreateUser(this, user, pass);
+            RestCreateUser(this, user, pass, this.regUserImgNum);
         }
         else {
     

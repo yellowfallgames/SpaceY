@@ -17,6 +17,8 @@ class SceneBoot extends Phaser.Scene {
         this.load.image("sofi", directory+"sofi.png");
         this.load.image("pepe", directory+"pepe.png");
         this.load.image("manu", directory+"manu.png");
+
+        this.load.spritesheet('userImages', directory+'User_images.png', { frameWidth: 1134, frameHeight: 964 });
         //Scene Menu
         this.load.image("bckMenu", directory+"spaceYmenu_bck.png");
         this.load.image("spaceYlogo", directory+"spaceYmenu.png");
