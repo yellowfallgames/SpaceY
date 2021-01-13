@@ -55,17 +55,16 @@ Ver en el apartado de controles la distribución de los mismos para dos jugadore
 Elegir que posición tomará el jugador, y en el menú principal pulsar sobre PLAY. 
 
 - ¿Cómo jugar Online?
-Método servidor .jar:
-Descargar el contenido de la carpeta Space_Y_Server
-Ejecutar el .jar y esperar a que el Servidor cargue todos los Assets del juego
-Proporcionar a los jugadore sla URL de la máquina que hace de servidor. 
 
 Método OpenVPN: 
-1. Descargar la carpeta que contiene los archivos de configuración del servidor (CARPETA): SpaceY_0.9.jar, Run_Server.bat, la base de datos BD_SpaceY.accdb y el archivo de configuracion del servidor de OpenVPN PepePm.SpaceY.ovpn 
-2. Instalar OpenVpn en nuestra máquina, descargándolo de https://openvpn.net/client-connect-vpn-for-windows/
+1. Descargar la carpeta que contiene los archivos de configuración del servidor (Space_Y_Server_Files): SpaceY_Server.jar, Run_Server.bat, la base de datos BD_SpaceY.accdb y el archivo de configuracion del servidor de OpenVPN SpaceY.ovpn 
+2. Instalar OpenVpn en nuestra máquina, descargándolo de https://openvpn.net/client-connect-vpn-for-windows/ o del archivo adjuntado en la carpeta del servidor.
 3. Abrimos OpenVpn, seleccionamos FILE y seleccionamos en nuestra carpeta del servidor el archivo .ovpn contenido en CARPETA. Para finalizar, pulsamos sobre el botón ADD en la esquina superior derecha. Nos aparecerá un apartado nuevo con la ip de nuestro servidor, al pinchar sobre el se activará y ya tendremos abierto el servidor. 
 4. Ejecutar el archivo Run_Server.bat para abrir el servidor. Nos aparecerá una ventana indicando que SPRING se ha lanzado.
-5. Abrir el archivo index.html con el juego. Podremos comprobar el estado del servidor en el icono del mundo dentro del menú principal
+5. Introducir en el navegador la siguiente URL : http://193.161.193.99:63511/ Si somos el servidor, proporcionar a los jugadores la URL de la máquina que hace de servidor.
+6. Esperar a que el Servidor se lance y cargue todos los Assets del juego
+
+Podremos comprobar el estado del servidor en el icono del mundo dentro del menú principal
 
 ATENCION: Para que funcione el servidor los archivos SpaceY_0.9.jar, Run_Server.bat, la base de datos BD_SpaceY.accdb deben estar en la misma carpeta. 
 Puede que por tu versión de java el servidor no pueda funcionar. Adjuntamos un archivo que actualiza la versión actual en tu máquina. (jdk-15.0.1_windows-x64_bin.exe)
