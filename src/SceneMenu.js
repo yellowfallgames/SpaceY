@@ -387,7 +387,7 @@ create() {
     this.logOutBtn = this.add.image(loginPos[23], loginPos[24],'Logout_Btn')
     .setScale(0.35);
     this.logOutBtn.setInteractive()
-    .on('pointerdown', () => this.goCreateUser())
+    .on('pointerdown', () => this.goLogOut())
     .on('pointerover', () => this.enterIconHoverState(this.logOutBtn, this) )
     .on('pointerout', () => this.enterIconRestState(this.logOutBtn))
     this.logOutBtn.setOrigin(0.5);
@@ -473,6 +473,13 @@ goLogInText() {
         this.accountText.setColor("red");
         this.accountText.setText('User or password incomplete');
     }
+}
+
+goLogOut() {
+
+    userName = "Anon";
+    this.accountText.setText('You have logged out');
+    setUserOnline(this, userName, false);
 }
 
 goCreateUser() {

@@ -222,7 +222,8 @@ function setUserOnline(scene, username, online_) {
             "Content-Type": "application/json"
         }
     }).done(function () {
-        GetUserImg(scene, username);
+        if (online_)
+            GetUserImg(scene, username);
     })
 }
 
