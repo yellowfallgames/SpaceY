@@ -315,7 +315,7 @@ puntos de victoria.
 
 **Diagrama de fuentes, recursos y conversores**    
 
-![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/master/Resources/Img/recursos.png?raw=true)
+![alt text](https://github.com/Jacquesmeyns/SpaceY/blob/Pruebas-spring/Resources/Img/recursos.png?raw=true)
 
 **Diseño de nivel**
 
