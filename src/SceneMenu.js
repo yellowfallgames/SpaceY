@@ -71,7 +71,6 @@ class SceneMenu extends Phaser.Scene {
         365,115,     //field password
         540,115,     //login confirm
         340,110,     //logout button
-        340,100,     //Texto logout
         540,90      //UserImg
 
     ];
@@ -86,11 +85,7 @@ class SceneMenu extends Phaser.Scene {
         loginTween[14]-loginOffset, loginTween[15], //field pass
         loginTween[16]-loginOffset, loginTween[17], //login confirm
         loginTween[18]-loginOffset, loginTween[19], //logout button 
-        loginTween[20]-loginOffset, loginTween[21], //Texto confirm
-        loginTween[21]-loginOffset, loginTween[22], //Texto confirm login
-        loginTween[23]-loginOffset, loginTween[24], //boton logout
-        loginTween[25]-loginOffset, loginTween[26], //texto logout
-        loginTween[27]-loginOffset, loginTween[28]//UserImg
+        loginTween[20]-loginOffset, loginTween[21]//UserImg
     ];
 
 
@@ -403,7 +398,7 @@ create() {
     this.userImage = this.add.image(loginPos[27], loginPos[28],'userImages', 0).setScale(0.1);
 
     this.loginStuff = [ this.loginOption,this.loginBox, this.loginDfPic, this.loginBtn, this.loginProfilepic, this.loginRegister, this.loginNameField,
-         this.loginPassField,this.logLoginText,this.logRegText,this.loginSendButton,this.loginSendBtnText,this.logOutBtn,this.logoutBtnText, this.userImage];
+         this.loginPassField,this.loginConfirm,this.logOutBtn,this.userImage];
 
 
     //Campos Login
@@ -620,12 +615,14 @@ enterButtonRestState(boton) {
 ShowLoginFields(scene,show)
 {
     sfx.sounds[0].play();
-    scene.loginBtn.setActive(!show);
-    scene.loginBtn.setVisible(!show);
-
+    //mostramos oscultamos register y log in buttons
     scene.loginRegister.setActive(!show);
     scene.loginRegister.setVisible(!show);
 
+    scene.loginBtn.setActive(!show);
+    scene.loginBtn.setVisible(!show);
+
+    //campos y textos 
     scene.loginNameField.setActive(show);
     scene.loginNameField.setVisible(show);
 
@@ -637,6 +634,8 @@ ShowLoginFields(scene,show)
    
     scene.accountLogin.setVisible(show);
     scene.accountLogin.setActive(show);
+
+    loginOut = !loginOut;
 }
 
 CheckLoggedIn(logged,scene)
@@ -789,11 +788,9 @@ MovinBoxes(scene, id)
             break;
         case 2: //login loginBox,loginOption;
             
-            if(loginOut)    //guardar lobby
+            if(loginOut)    //guardar log in
             {
-                this.accountText.setVisible(false);
-                this.accountLogin.setVisible(false);
-
+                
                 for (let i = 0; i < scene.loginStuff.length; i++)
                 {
                     scene.tweens.add({
@@ -805,11 +802,14 @@ MovinBoxes(scene, id)
                     });
                     nX+=2;nY+=2;
                 }
-                loginOut = false;
-                loginOn = false;
-                this.ShowLoginFields(scene,loginOn);
+                loginOut = true;
+                this.ShowLoginFields(scene,loginOut);
+                this.accountText.setVisible(false);
+                this.accountLogin.setVisible(false);
+                this.accountLogin.setVisible(false);
+                this.accountLogin.setActive(false);
             }
-            else if (!loginOut) //sacar lobby 
+            else if (!loginOut) //sacar log in
             {
                 this.accountText.setVisible(true);
                 //this.accountLogin.setVisible(true);
@@ -826,9 +826,9 @@ MovinBoxes(scene, id)
                     });
                     nX+=2;nY+=2;
                 }
-                loginOut = true;
-                loginOn = false
-                this.ShowLoginFields(scene,loginOn);
+                loginOut = false;
+
+                this.ShowLoginFields(scene,loginOut);
             }
             
             break;
