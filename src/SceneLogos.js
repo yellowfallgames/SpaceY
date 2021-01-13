@@ -43,5 +43,5 @@ class SceneLogos extends Phaser.Scene {
 
 function startScene(that){
     
-    that.scene.start('SceneMenu');
+    //that.scene.start('SceneMenu');
 }
