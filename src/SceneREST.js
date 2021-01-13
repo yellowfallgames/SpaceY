@@ -144,9 +144,17 @@ function loadLobby(scene) {
     $.ajax({
         url: urlServer+'/users/online'
     }).done(function (users) {
+
+        scene.lobbyContent = ['Connected users:'];
+
         for (var i=0; i < users.length; i++) {
 
             scene.lobbyContent[i+1] = users[i].name;
+        }
+
+        if (users.length == 0) {
+
+            scene.lobbyContent[1] = "";
         }
 
         scene.lobbyText.setText(scene.lobbyContent);
@@ -222,8 +230,18 @@ function setUserOnline(scene, username, online_) {
             "Content-Type": "application/json"
         }
     }).done(function () {
-        if (online_)
+        if (online_) {
+
             GetUserImg(scene, username);
+        }
+        else {
+
+            scene.userImage.setFrame(0);
+            scene.accountText.setText('You have logged out');
+            userName = "Anon";
+            scene.MovinBoxes(scene, 2);
+        }
+            
     })
 }
 
@@ -232,18 +250,18 @@ function RestCreateLoginOutMsg (scene, username, logIn) {
     var content_;
     if (logIn) {
 
-        content_ = "HAS LOGGED IN";
+        content_ = "HAS LOGGED IN ---";
     }
     else {
 
-        content_ = "HAS LOGGED OUT";
+        content_ = "HAS LOGGED OUT ---";
     }
 
 
     var msg = {
-        userName: username,
+        userName: "--- "+username,
         content: content_,
-        serverInfo: logIn,
+        serverInfo: true,
     }
 
 
@@ -342,7 +360,7 @@ function updateUsers(scene) {
 function setUsers(scene, n) {
 
     scene.numPlayers = n;
-    scene.numPlayersTxt.setText("TOTAL USERS: " + n);
+    scene.numPlayersTxt.setText("REGISTERED USERS: " + n);
 }
 
 
